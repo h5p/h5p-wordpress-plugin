@@ -1,0 +1,3 @@
+[submodule "h5p-php-library"]
+	path = h5p-php-library
+	url = git@github.com:h5p/h5p-php-library.git
