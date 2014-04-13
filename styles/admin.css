@@ -1,0 +1,5 @@
+#toplevel_page_h5p_content .wp-menu-image:before {
+  font-family: H5P !important;
+  content: "\e667";
+  padding: 7px 0;
+}
