@@ -195,4 +195,47 @@ class H5P_Plugin {
   public function enqueue_scripts() {
     //wp_enqueue_script($this->plugin_slug . '-plugin-script', plugins_url('assets/js/public.js', __FILE__), array('jquery'), self::VERSION);
   }
+ 
+  /**
+   * @since    1.0.0
+   */
+  public function get_h5p_path() {
+    $upload_dir = wp_upload_dir();
+    return $upload_dir['path'] . '/h5p';
+  }
+  
+  /**
+   * 
+   *
+   * @since    1.0.0
+   */ 
+  public function get_h5p_instance($type) {
+    static $interface, $core;
+
+    if (!isset($interface)) {
+      include_once('../h5p-php-library/h5p.classes.php');
+      include_once('../h5p-php-library/h5p-development.class.php');
+      include_once('class-h5p-wordpress.php');
+      
+      $interface = new H5PWordPress();
+
+      // TODO: Adde support for development mode
+      $core = new H5PCore($interface, _h5p_get_h5p_path(), $language->language, H5PDevelopment::MODE_NONE);
+    }
+
+    switch ($type) {
+      case 'validator':
+        return new H5PValidator($interface, $core);
+      case 'storage':
+        return new H5PStorage($interface, $core);
+      case 'contentvalidator':
+        return new H5PContentValidator($interface, $core);
+      case 'export':
+        return new H5PExport($interface, $core);
+      case 'interface':
+        return $interface;
+      case 'core':
+        return $core;
+    }
+  }
 }

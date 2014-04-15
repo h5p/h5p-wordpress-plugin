@@ -115,6 +115,21 @@ class H5P_Plugin_Admin {
    * @since    1.0.0
    */
   public function display_new_content_page() {
+    if (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
+      // TODO: Create H5PWordPress and make sure getUploadedH5pPath returns $_FILES['h5p_file']['tmp_name'].
+
+      $plugin = H5P_Plugin::get_instance();
+      $validator = $plugin->get_h5p_instance('validator');
+      
+      if ($validator->isValidPackage()) {
+        $storage = $plugin->get_h5p_instance('storage');
+        $storage->savePackage(); // TODO: Should we make h5p-php-library use auto increment id? 
+      }
+      else {
+        // The uploaded file was not a valid H5P package
+      }
+    }
+    
     include_once('views/new-content.php');
   }
   
