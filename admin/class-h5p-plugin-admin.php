@@ -36,8 +36,7 @@ class H5P_Plugin_Admin {
     $this->plugin_slug = $plugin->get_plugin_slug();
 
     // Load admin style sheet and JavaScript.
-    add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_styles'));
-    add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
+    add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_styles_and_scripts'));
 
     // Add the options page and menu item.
     add_action('admin_menu', array($this, 'add_plugin_admin_menu'));
@@ -68,18 +67,11 @@ class H5P_Plugin_Admin {
    * @since     1.0.0
    * @return    null    Return early if no settings page is registered.
    */
-  public function enqueue_admin_styles() {
+  public function enqueue_admin_styles_and_scripts() {
+    $plugin = H5P_Plugin::get_instance();
+    $plugin->enqueue_styles_and_scripts();
     wp_enqueue_style($this->plugin_slug . '-admin-styles', plugins_url('styles/admin.css', __FILE__), array(), H5P_Plugin::VERSION);
-  }
-
-  /**
-   * Register and enqueue admin-specific JavaScript.
-   *
-   * @since     1.0.0
-   * @return    null    Return early if no settings page is registered.
-   */
-  public function enqueue_admin_scripts() {
-    // Remember to check get_current_screen()->id if including page specific stuff
+    // Remember to check get_current_screen()->id if including page specific stuff 
   }
 
   /**
@@ -116,17 +108,22 @@ class H5P_Plugin_Admin {
    */
   public function display_new_content_page() {
     if (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
-      // TODO: Create H5PWordPress and make sure getUploadedH5pPath returns $_FILES['h5p_file']['tmp_name'].
-
       $plugin = H5P_Plugin::get_instance();
       $validator = $plugin->get_h5p_instance('validator');
+      $interface = $plugin->get_h5p_instance('interface');
+      
+      // Move so core can validate the file extension.
+      rename($_FILES['h5p_file']['tmp_name'], $interface->getUploadedH5pPath());
       
       if ($validator->isValidPackage()) {
         $storage = $plugin->get_h5p_instance('storage');
-        $storage->savePackage(); // TODO: Should we make h5p-php-library use auto increment id? 
+        $storage->savePackage();
+        
+        // TODO: Redirect
       }
       else {
         // The uploaded file was not a valid H5P package
+        unlink($interface->getUploadedH5pPath());
       }
     }
     

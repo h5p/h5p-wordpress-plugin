@@ -178,21 +178,12 @@ class H5P_Plugin {
   }
 
   /**
-   * Register and enqueue public-facing style sheet.
+   * Register and enqueue public-facing style sheets and JavaScript files.
    *
    * @since    1.0.0
    */
-  public function enqueue_styles() {
-    //wp_enqueue_style($this->plugin_slug . '-plugin-styles', plugins_url('assets/css/public.css', __FILE__ ), array(), self::VERSION);
-    //wp_enqueue_style('h5p', plugins_url('library/styles/h5p.css', __FILE__));
-  }
-
-  /**
-   * Register and enqueues public-facing JavaScript files.
-   *
-   * @since    1.0.0
-   */
-  public function enqueue_scripts() {
+  public function enqueue_styles_and_scripts() {
+    wp_enqueue_style($this->plugin_slug . '-plugin-styles', plugins_url('h5p/h5p-php-library/styles/h5p.css'), array(), self::VERSION);
     //wp_enqueue_script($this->plugin_slug . '-plugin-script', plugins_url('assets/js/public.js', __FILE__), array('jquery'), self::VERSION);
   }
  
@@ -213,14 +204,16 @@ class H5P_Plugin {
     static $interface, $core;
 
     if (!isset($interface)) {
-      include_once('../h5p-php-library/h5p.classes.php');
-      include_once('../h5p-php-library/h5p-development.class.php');
-      include_once('class-h5p-wordpress.php');
+      $path = plugin_dir_path(__FILE__);
+      include_once($path . '../h5p-php-library/h5p.classes.php');
+      include_once($path . '../h5p-php-library/h5p-development.class.php');
+      include_once($path . 'class-h5p-wordpress.php');
       
       $interface = new H5PWordPress();
 
-      // TODO: Adde support for development mode
-      $core = new H5PCore($interface, _h5p_get_h5p_path(), $language->language, H5PDevelopment::MODE_NONE);
+      // TODO: Add support for development mode
+      // TODO: Add support for language
+      $core = new H5PCore($interface, $this->get_h5p_path(), 'und', H5PDevelopment::MODE_NONE);
     }
 
     switch ($type) {
