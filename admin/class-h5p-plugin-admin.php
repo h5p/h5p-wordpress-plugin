@@ -13,15 +13,15 @@
  * Plugin class.
  *
  * @package H5P_Plugin_Admin
- * @author  Joubel <contact@joubel.com>
+ * @author Joubel <contact@joubel.com>
  */
 class H5P_Plugin_Admin {
 
   /**
    * Instance of this class.
    *
-   * @since    1.0.0
-   * @var      object
+   * @since 1.0.0
+   * @var \H5P_Plugin_Admin
    */
   protected static $instance = null;
 
@@ -29,7 +29,7 @@ class H5P_Plugin_Admin {
    * Initialize the plugin by loading admin scripts & styles and adding a
    * settings page and menu.
    *
-   * @since     1.0.0
+   * @since 1.0.0
    */
   private function __construct() {
     $plugin = H5P_Plugin::get_instance();
@@ -49,8 +49,8 @@ class H5P_Plugin_Admin {
   /**
    * Return an instance of this class.
    *
-   * @since     1.0.0
-   * @return    object    A single instance of this class.
+   * @since 1.0.0
+   * @return \H5P_Plugin_Admin A single instance of this class.
    */
   public static function get_instance() {
     // If the single instance hasn't been set, set it now.
@@ -64,8 +64,7 @@ class H5P_Plugin_Admin {
   /**
    * Register and enqueue admin-specific style sheet.
    *
-   * @since     1.0.0
-   * @return    null    Return early if no settings page is registered.
+   * @since 1.0.0
    */
   public function enqueue_admin_styles_and_scripts() {
     $plugin = H5P_Plugin::get_instance();
@@ -77,7 +76,7 @@ class H5P_Plugin_Admin {
   /**
    * Register the administration menu for this plugin into the WordPress Dashboard menu.
    *
-   * @since    1.0.0
+   * @since 1.0.0
    */
   public function add_plugin_admin_menu() {
     $h5p_content = __('H5P Content', $this->plugin_slug);
@@ -88,23 +87,46 @@ class H5P_Plugin_Admin {
     
     $add_new = __('Add New', $this->plugin_slug);
     add_submenu_page($this->plugin_slug, $add_new, $add_new, 'manage_options', $this->plugin_slug . '_new', array($this, 'display_new_content_page'));
-    
-    // add_menu_page returns the slug. Keep it if we should add page specific styles or scripts.
+
+    // add_menu_page returns the id? Keep it if we should add page specific styles or scripts.
   }
 
   /**
    * Display a list of all h5p content.
    *
-   * @since    1.0.0
+   * @since 1.0.0
    */
   public function display_all_content_page() {
-    include_once('views/all-content.php');
+    
+    switch (filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING)) {
+      case NULL:
+        include_once('views/all-content.php');
+        return;
+      
+      case 'show':
+        // Admin preview of H5P content.
+        $plugin = H5P_Plugin::get_instance();
+        $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $content = $plugin->get_content($id);
+        if (is_string($content)) {
+          print '<div class="error">' . $content . '</div>';
+        }
+        else {
+          $title = ($content['title'] === '' ? 'H5P ' . $id : $content['title']);
+          $embed_code = $plugin->add_assets($content, TRUE);
+          include_once('views/show-content.php');
+          H5P_Plugin::get_instance()->add_settings();
+        }
+        return;
+    }
+    
+    print '<div class="wrap"><h2>Unknown task.</h2></div>';
   }
   
   /**
    * Display a form for adding h5p content.
    *
-   * @since    1.0.0
+   * @since 1.0.0
    */
   public function display_new_content_page() {
     if (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
@@ -119,7 +141,19 @@ class H5P_Plugin_Admin {
         $storage = $plugin->get_h5p_instance('storage');
         $storage->savePackage();
         
-        // TODO: Redirect
+        wp_safe_redirect(
+          add_query_arg(
+            array(
+              'page' => 'h5p',
+              'task' => 'show',
+              'id' => $storage->contentId
+            ),
+            wp_get_referer()
+          )
+        );
+        
+        http://wp.lvh.me/wp-admin/admin.php?page=h5p&task=show&id=13
+        
       }
       else {
         // The uploaded file was not a valid H5P package
@@ -133,7 +167,8 @@ class H5P_Plugin_Admin {
   /**
    * Add custom media button for selecting H5P content.
    *
-   * @since    1.0.0
+   * @since 1.0.0
+   * @return string
    */
   public function add_insert_button() {
     $ajax_url = add_query_arg( 
@@ -148,10 +183,31 @@ class H5P_Plugin_Admin {
   /**
    * List to select H5P content from.
    *
-   * @since    1.0.0
+   * @since 1.0.0
    */ 
   public function ajax_select_content() {
     print '<p>Select the H5P Content you wish to insert.</p>';
     exit;
+  }
+  
+  /**
+   * Print messages.
+   * 
+   * @since 1.0.0
+   */
+  public function print_messages() {
+    $plugin = H5P_Plugin::get_instance();
+    $interface = $plugin->get_h5p_instance('interface');
+    
+    foreach (array('updated', 'error') as $type) {
+      $messages = $interface->getMessages($type);
+      if (!empty($messages)) {
+        print '<div class="' . $type . '"><ul>';
+        foreach ($messages as $message) {
+          print '<li>' . $message . '</li>';
+        }
+        print '</ul></div>';
+      } 
+    }
   }
 }

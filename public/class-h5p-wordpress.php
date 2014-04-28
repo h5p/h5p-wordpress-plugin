@@ -1,12 +1,21 @@
 <?php
 
 class H5PWordPress implements H5PFrameworkInterface {
+  
+  /**
+   * Kesps track of messages for the user.
+   * 
+   * @since 1.0.0
+   * @var array
+   */
+  protected $messages = array('error' => array(), 'updated' => array());
+
   /**
    * Implements setErrorMessage
    */
   public function setErrorMessage($message) {
     if (current_user_can('manage_options')) {
-      print 'Error: ' . $message;
+      $this->messages['error'][] = $message;
     }
   }
 
@@ -15,8 +24,19 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function setInfoMessage($message) {
     if (current_user_can('manage_options')) {
-      print 'Info: ' . $message;
+      $this->messages['updated'][] = $message;
     }
+  }
+  
+  /**
+   * Return the selected messages.
+   * 
+   * @since 1.0.0
+   * @param string $type
+   * @return array
+   */
+  public function getMessages($type) {
+    return isset($this->messages[$type]) ? $this->messages[$type] : NULL;
   }
 
   /**
@@ -82,7 +102,7 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function getLibraryId($name, $majorVersion, $minorVersion) {
     global $wpdb;
     
-    return $wpdb->get_col($wpdb->prepare(
+    return $wpdb->get_var($wpdb->prepare(
         "SELECT id 
         FROM {$wpdb->prefix}h5p_libraries
         WHERE name = %s
@@ -99,7 +119,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     global $wpdb;
     
     $operator = $this->isInDevMode() ? '<=' : '<';
-    return $wpdb->get_col($wpdb->prepare(
+    return $wpdb->get_var($wpdb->prepare(
         "SELECT 1
         FROM {$wpdb->prefix}h5p_libraries
         WHERE name = %s
@@ -134,7 +154,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     global $wpdb;
     
     return array(
-      'content' => intval($wpdb->get_col($wpdb->prepare(
+      'content' => intval($wpdb->get_var($wpdb->prepare(
           "SELECT COUNT(distinct c.id)
           FROM {$wpdb->prefix}h5p_libraries l 
           JOIN {$wpdb->prefix}h5p_contents_libraries cl ON l.library_id = cl.library_id 
@@ -142,7 +162,7 @@ class H5PWordPress implements H5PFrameworkInterface {
           WHERE l.library_id = %d",
           $id)
         )),
-      'libraries' => intval($wpdb->get_col($wpdb->prepare(
+      'libraries' => intval($wpdb->get_var($wpdb->prepare(
           "SELECT COUNT(*)
           FROM {$wpdb->prefix}h5p_libraries_libraries
           WHERE required_library_id = %d",
@@ -511,10 +531,10 @@ class H5PWordPress implements H5PFrameworkInterface {
       $semantics = $this->getSemanticsFromFile($name, $majorVersion, $minorVersion);
     }
     else {
-      $semantics = $wpdb->get_col($wpdb->prepare(
+      $semantics = $wpdb->get_var($wpdb->prepare(
           "SELECT semantics
           FROM {$wpdb->prefix}h5p_libraries
-          WHERE machine_name = %s
+          WHERE name = %s
           AND major_version = %d
           AND minor_version = %d", 
           $name, $majorVersion, $minorVersion)
@@ -554,7 +574,9 @@ class H5PWordPress implements H5PFrameworkInterface {
     global $wpdb;
     
     $content = $wpdb->get_row($wpdb->prepare(
-        "SELECT hc.parameters AS params
+        "SELECT hc.id
+              , hc.title
+              , hc.parameters AS params
               , hc.embed_type AS embedType 
               , hl.id AS libraryId 
               , hl.name AS libraryName

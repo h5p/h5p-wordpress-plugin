@@ -12,6 +12,7 @@
 
 <div class="wrap">
   <h2><?php echo esc_html(get_admin_page_title()); ?></h2>
+  <?php $this->print_messages(); ?>
   <form method="post" enctype="multipart/form-data">
     <dl>
       <dt><label for="h5p-file">H5P File</label></dt>
