@@ -151,9 +151,6 @@ class H5P_Plugin_Admin {
             wp_get_referer()
           )
         );
-        
-        http://wp.lvh.me/wp-admin/admin.php?page=h5p&task=show&id=13
-        
       }
       else {
         // The uploaded file was not a valid H5P package
