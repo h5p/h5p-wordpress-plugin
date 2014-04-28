@@ -18,6 +18,7 @@
       <dt><label for="h5p-file">H5P File</label></dt>
       <dd><input type="file" name="h5p_file" id="h5p-file"></dd>
     </dl>
+    <?php wp_nonce_field('h5p_upload_content', 'yes_sir_will_do'); ?>
     <input type="submit" name="submit" value="Upload">
   </form>
 </div>

@@ -90,16 +90,16 @@ class H5P_Plugin_Admin {
 
     // add_menu_page returns the id? Keep it if we should add page specific styles or scripts.
   }
-
+  
   /**
    * Display a list of all h5p content.
    *
    * @since 1.0.0
    */
   public function display_all_content_page() {
-    
     switch (filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING)) {
       case NULL:
+        $contents = $this->get_contents();
         include_once('views/all-content.php');
         return;
       
@@ -124,12 +124,29 @@ class H5P_Plugin_Admin {
   }
   
   /**
+   * Get list of H5P contents.
+   * 
+   * @global \wpdb $wpdb
+   * @return array
+   */
+  public function get_contents() {
+    global $wpdb;
+    return $wpdb->get_results(
+        "SELECT id, title
+          FROM {$wpdb->prefix}h5p_contents
+          ORDER BY title, id"
+      );
+  }
+  
+  /**
    * Display a form for adding h5p content.
    *
    * @since 1.0.0
    */
   public function display_new_content_page() {
     if (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
+      check_admin_referer('h5p_upload_content', 'yes_sir_will_do');
+
       $plugin = H5P_Plugin::get_instance();
       $validator = $plugin->get_h5p_instance('validator');
       $interface = $plugin->get_h5p_instance('interface');
@@ -183,7 +200,8 @@ class H5P_Plugin_Admin {
    * @since 1.0.0
    */ 
   public function ajax_select_content() {
-    print '<p>Select the H5P Content you wish to insert.</p>';
+    $contents = $this->get_contents();
+    include_once('views/select-content.php');
     exit;
   }
   

@@ -313,7 +313,7 @@ class H5P_Plugin {
       return current_user_can('manage_options') ? $content : NULL;
     }
     
-    return add_assets($content);
+    return $this->add_assets($content);
   }
   
   /**
