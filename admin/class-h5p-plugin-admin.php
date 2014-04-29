@@ -145,6 +145,7 @@ class H5P_Plugin_Admin {
    */
   public function display_new_content_page() {
     if (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
+      // Handle file upload
       check_admin_referer('h5p_upload_content', 'yes_sir_will_do');
 
       $plugin = H5P_Plugin::get_instance();
