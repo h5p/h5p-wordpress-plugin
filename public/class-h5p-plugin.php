@@ -233,6 +233,21 @@ class H5P_Plugin {
     return $upload_dir['baseurl'] . '/h5p';
   }
   
+  /**
+   * Get H5P language code from WordPress.
+   * 
+   * @since 1.0.0
+   * @return string
+   */
+  public function get_language() {
+    if (WPLANG !== '') {
+      $languageParts = explode('_', WPLANG);
+      return $languageParts[0];
+    }
+    
+    return 'en';
+  }
+  
   /** 
    * Get the different instances of the core.
    *
@@ -249,11 +264,7 @@ class H5P_Plugin {
       
       self::$interface = new H5PWordPress();
       
-      $language = 'en';
-      if (WPLANG !== '') {
-        $languageParts = explode('_', WPLANG);
-        $language = $languageParts[0];
-      }
+      $language = $this->get_language();
       
       // TODO: Add support for development mode?
       self::$core = new H5PCore(self::$interface, $this->get_h5p_url(), $language); 
@@ -391,7 +402,7 @@ class H5P_Plugin {
    * @param string $path
    * @return string
    */
-  private function asset_handle($path) {
+  public function asset_handle($path) {
     return $this->plugin_slug . '-' . preg_replace(array('/\.[^.]*$/', '/[^a-z0-9]/i'), array('', '-'), $path);
   }
   
@@ -465,11 +476,31 @@ class H5P_Plugin {
    */ 
   public function add_settings() {
     if (self::$settings !== null) {
-      $json_settings = json_encode(self::$settings);
-      if ($json_settings !== false) {
-        print '<script>H5P={settings:' . $json_settings . '}</script>';
-      }
+      print_settings(self::$settings);
     }
+  }
+  
+  /**
+   * JSON encode and print the given H5P JavaScript settings.
+   * 
+   * @since 1.0.0
+   * @param array $settings
+   */
+  public function print_settings(&$settings) {
+    $json_settings = json_encode($settings);
+    if ($json_settings !== FALSE) {
+      print '<script>H5P={settings:' . $json_settings . '}</script>';
+    }
+  }
+  
+  /**
+   * Get added JavaScript settings.
+   * 
+   * @since 1.0.0
+   * @return array
+   */
+  public function get_settings() {
+    return self::$settings;
   }
   
   /**

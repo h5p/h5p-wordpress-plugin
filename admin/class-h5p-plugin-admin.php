@@ -24,6 +24,14 @@ class H5P_Plugin_Admin {
    * @var \H5P_Plugin_Admin
    */
   protected static $instance = null;
+  
+  /**
+   * Instance of this class.
+   *
+   * @since 1.0.0
+   * @var \H5peditor
+   */
+  protected static $h5peditor = null;
 
   /**
    * Initialize the plugin by loading admin scripts & styles and adding a
@@ -112,6 +120,7 @@ class H5P_Plugin_Admin {
           print '<div class="error">' . $content . '</div>';
         }
         else {
+          // TODO: Change page title? (wp_title)
           $title = ($content['title'] === '' ? 'H5P ' . $id : $content['title']);
           $embed_code = $plugin->add_assets($content, TRUE);
           include_once('views/show-content.php');
@@ -169,6 +178,7 @@ class H5P_Plugin_Admin {
             wp_get_referer()
           )
         );
+        return;
       }
       else {
         // The uploaded file was not a valid H5P package
@@ -176,7 +186,13 @@ class H5P_Plugin_Admin {
       }
     }
     
+    // TODO: Validate if editor is used?
+    // TODO: Editor assets.
+    
+    $library = 0;
+    $parameters = '{}';
     include_once('views/new-content.php');
+    $this->add_editor_assets();
   }
   
   /**
@@ -225,5 +241,120 @@ class H5P_Plugin_Admin {
         print '</ul></div>';
       } 
     }
+  }
+  
+  /**
+   * Returns the instance of the h5p editor library.
+   * 
+   * @return \H5peditor
+   */
+  public function get_h5peditor_instance() {
+    if (self::$h5peditor === null) {
+      $path = plugin_dir_path(__FILE__);
+      include_once($path . '../h5p-editor-php-library/h5peditor.class.php');
+      include_once($path . '../h5p-editor-php-library/h5peditor-file.class.php');
+      include_once($path . '../h5p-editor-php-library/h5peditor-storage.interface.php');
+      include_once($path . 'class-h5p-editor-wordpress-storage.php');
+      
+      $upload_dir = wp_upload_dir();
+      $plugin = H5P_Plugin::get_instance();
+      self::$h5peditor = new H5peditor(
+        $plugin->get_h5p_instance('core'),
+        new H5PEditorWordPressStorage(),
+        $upload_dir['basedir'],
+        '/' // TODO: Use baseurl?
+      );
+    }
+    
+    return self::$h5peditor;
+  }
+  
+  /**
+   * Get proper handle for the given asset
+   * 
+   * @since 1.0.0
+   * @param string $path
+   * @return string
+   */
+  private function asset_handle($path) {
+    $plugin = H5P_Plugin::get_instance();
+    return $plugin->asset_handle($path);
+  }
+  
+  /**
+   * Small helper for simplifying script enqueuing.
+   * 
+   * @since 1.0.0
+   * @param string $handle
+   * @param string $path
+   */
+  private function add_script($handle, $path) {
+    wp_enqueue_script($this->asset_handle($handle), plugins_url('h5p/' . $path), array(), H5P_Plugin::VERSION);
+  }
+  
+  /**
+   * Small helper for simplifying style enqueuing.
+   * 
+   * @since 1.0.0
+   * @param string $handle
+   * @param string $path
+   */
+  private function add_style($handle, $path) {
+    wp_enqueue_style($this->asset_handle($handle), plugins_url('h5p/' . $path), array(), H5P_Plugin::VERSION);
+  }
+  
+  /**
+   * Add assets and JavaScript settings for the editor.
+   * 
+   * @since 1.0.0
+   * @param int $id optional content identifier
+   */
+  public function add_editor_assets($id = NULL) {
+    $plugin = H5P_Plugin::get_instance();
+    $plugin->add_core_assets();
+    
+    // Make sure the h5p classes are loaded
+    $plugin->get_h5p_instance('core');
+    $this->get_h5peditor_instance();
+
+    // Add editor styles
+    foreach (H5peditor::$styles as $style) {
+      $this->add_style('editor-' . $style, 'h5p-editor-php-library/' . $style);
+    }
+    
+    // Add editor JavaScript
+    foreach (H5peditor::$scripts as $script) {
+      $this->add_script('editor-' . $script, 'h5p-editor-php-library/' . $script);
+    }
+    
+    // Add JavaScript with library framework integration (editor part)
+    $this->add_script('editor', 'admin/scripts/h5p-editor.js');
+    
+    // Add translation
+    $language = $plugin->get_language();
+    $language_script = 'h5p-editor-php-library/language/' . $language . '.js';
+    if (!file_exists(plugin_dir_path(__FILE__) . '../' . $language_script)) {
+      $language_script = 'h5p-editor-php-library/language/en.js';
+    }
+    $this->add_script('language', $language_script);
+    
+    // Add JavaScript settings
+    $settings = $plugin->get_settings();
+    $settings['editor'] = array(
+      'fileIcon' => array(
+        'path' => plugins_url('h5p/h5p-editor-php-library/images/binary-file.png'),
+        'width' => 50,
+        'height' => 50,
+      ),
+      'ajaxPath' => null, // TODO: Implement ajax
+      'libraryUrl' => plugin_dir_url('h5p/h5p-editor-php-library/h5peditor.class.php'),
+      'copyrightSemantics' => H5PContentValidator::getCopyrightSemantics()
+    );
+
+    if ($id !== NULL) {
+      $settings['editor']['nodeVersionId'] = $id;
+    }
+    
+    $plugin->print_settings($settings);
   }
 }
