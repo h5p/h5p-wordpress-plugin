@@ -52,6 +52,20 @@ var H5PEditor = H5PEditor || {};
       }
     });
   };
+  
+  H5PEditor.getAjaxUrl = function (action, parameters) {
+    var url = H5P.settings.editor.ajaxPath + action;
+    
+    if (parameters !== undefined && parameters instanceof Object) {
+      for (var property in parameters) {
+        if (parameters.hasOwnProperty(property)) {
+          url += '&' + property + '=' + parameters[property];
+        }
+      }
+    }
+    
+    return url;
+  };
 
   $(document).ready(H5PEditor.init);
 })(H5P.jQuery);

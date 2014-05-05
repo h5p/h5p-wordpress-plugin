@@ -15,7 +15,7 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
     $plugin = H5P_Plugin::get_instance();
     
     return $wpdb->get_var($wpdb->prepare(
-        "SELECT language_json
+        "SELECT hlt.translation
           FROM {$wpdb->prefix}h5p_libraries_languages hlt
           JOIN {$wpdb->prefix}h5p_libraries hl ON hl.id = hlt.library_id
           WHERE hl.name = %s
@@ -65,7 +65,7 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
     $libraries = array();
 
     $libraries_result = $wpdb->get_results(
-        "SELECT machine_name AS machineName, title, major_version as majorVersion, minor_version as minorVersion 
+        "SELECT name AS machineName, title, major_version as majorVersion, minor_version as minorVersion 
           FROM {$wpdb->prefix}h5p_libraries
           WHERE runnable = 1 
           AND semantics IS NOT NULL 

@@ -485,13 +485,13 @@ class H5PWordPress implements H5PFrameworkInterface {
         $minorVersion),
         ARRAY_A
       );
-        
+
     $dependencies = $wpdb->get_results($wpdb->prepare(
         "SELECT hl.name as machineName, hl.major_version as majorVersion, hl.minor_version as minorVersion, hll.dependency_type as dependencyType
         FROM {$wpdb->prefix}h5p_libraries_libraries hll
         JOIN {$wpdb->prefix}h5p_libraries hl ON hll.required_library_id = hl.id
         WHERE hll.library_id = %d",
-        $library['id'])
+        $library['libraryId'])
       );
     foreach ($dependencies as $dependency) {
       $library[$dependency->dependencyType . 'Dependencies'][] = array(

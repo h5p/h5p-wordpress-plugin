@@ -52,6 +52,10 @@ class H5P_Plugin_Admin {
     // Custom media button for inserting H5Ps.
     add_action('media_buttons_context', array($this, 'add_insert_button'));
     add_action('wp_ajax_h5p_contents', array($this, 'ajax_select_content'));
+    
+    // Editor ajax
+    add_action('wp_ajax_h5p_libraries', array($this, 'ajax_libraries'));
+    add_action('wp_ajax_h5p_files', array($this, 'ajax_files'));
   }
 
   /**
@@ -262,7 +266,7 @@ class H5P_Plugin_Admin {
         $plugin->get_h5p_instance('core'),
         new H5PEditorWordPressStorage(),
         $upload_dir['basedir'],
-        '/' // TODO: Use baseurl?
+        ''
       );
     }
     
@@ -346,7 +350,12 @@ class H5P_Plugin_Admin {
         'width' => 50,
         'height' => 50,
       ),
-      'ajaxPath' => null, // TODO: Implement ajax
+      'ajaxPath' => add_query_arg(
+        array(
+          'action' => 'h5p_',
+        ), 
+        'admin-ajax.php'
+      ),
       'libraryUrl' => plugin_dir_url('h5p/h5p-editor-php-library/h5peditor.class.php'),
       'copyrightSemantics' => H5PContentValidator::getCopyrightSemantics()
     );
@@ -356,5 +365,67 @@ class H5P_Plugin_Admin {
     }
     
     $plugin->print_settings($settings);
+  }
+  
+  /**
+   * 
+   * 
+   * @since 1.0.0
+   */
+  public function ajax_libraries() {
+    $editor = $this->get_h5peditor_instance();
+    
+    $name = filter_input(INPUT_GET, 'machineName', FILTER_SANITIZE_STRING);
+    $major_version = filter_input(INPUT_GET, 'majorVersion', FILTER_SANITIZE_NUMBER_INT);
+    $minor_version = filter_input(INPUT_GET, 'minorVersion', FILTER_SANITIZE_NUMBER_INT);
+
+    header('Cache-Control: no-cache');
+    header('Content-type: application/json');
+    
+    if ($name) {
+      print $editor->getLibraryData($name, $major_version, $minor_version);
+    }
+    else {
+      print $editor->getLibraries();
+    }
+    
+    exit;
+  }
+  
+  /**
+   * 
+   * 
+   * @since 1.0.0
+   */
+  public function ajax_files() {
+    $plugin = H5P_Plugin::get_instance();
+    $files_directory = $plugin->get_h5p_path();
+    
+    $contentId = filter_input(INPUT_POST, 'contentId', FILTER_SANITIZE_NUMBER_INT);
+    if ($contentId) {
+      $files_directory .=  '/content/' . $contentId;
+    }
+    else {
+      $files_directory .= '/editor';
+    }
+
+    $editor = $this->get_h5peditor_instance();
+    $interface = $plugin->get_h5p_instance('interface');
+    $file = new H5peditorFile($interface, $files_directory);
+
+    if (!$file->isLoaded()) {
+      exit;
+    }
+
+    if ($file->validate() && $file->copy()) {
+      // Keep track of temporary files so they can be cleaned up later.
+      $editor->addTmpFile($file);
+    }
+    
+    header('Cache-Control: no-cache');
+    header('Content-type: application/json');
+
+    print $file->getResult();
+    exit;
   }
 }

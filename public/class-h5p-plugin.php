@@ -370,7 +370,7 @@ class H5P_Plugin {
       return '<div class="h5p-content" data-content-id="' . $content['id'] . '"></div>';
     }
     else {
-      return '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="width: 100%; height: 1px; border: none; display: block;" src="about:blank" frameBorder="0"></iframe></div>';
+      return '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no"></iframe></div>';
     }
   }
   
@@ -421,11 +421,10 @@ class H5P_Plugin {
         'styles' => array(),
         'scripts' => array()
       ),
-      'contentPath' => $this->get_h5p_url() . '/content/',
+      'url' => $this->get_h5p_url(),
       'exportEnabled' => $this->get_h5p_instance('interface')->isExportEnabled(),
       'h5pIconInActionBar' => 1,
       'cacheBuster' => self::VERSION,
-      'libraryPath' => $this->get_h5p_url() . '/libraries/',
       'loadedJs' => array(),
       'loadedCss' => array(),
       'i18n' => array(
@@ -476,7 +475,7 @@ class H5P_Plugin {
    */ 
   public function add_settings() {
     if (self::$settings !== null) {
-      print_settings(self::$settings);
+      $this->print_settings(self::$settings);
     }
   }
   

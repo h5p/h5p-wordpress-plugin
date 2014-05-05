@@ -7,12 +7,12 @@ if (window.parent !== window) {
   jQuery = window.parent.jQuery;
 }
 
-/*jQuery(document).ready(function () {
-  H5P.loadedJs = window[''] Drupal.settings.h5p !== undefined && Drupal.settings.h5p.loadedJs !== undefined ? Drupal.settings.h5p.loadedJs : [];
-  H5P.loadedCss = Drupal.settings.h5p !== undefined && Drupal.settings.h5p.loadedCss !== undefined ? Drupal.settings.h5p.loadedCss : [];
-  H5P.postUserStatistics = Drupal.settings.h5p !== undefined && Drupal.settings.h5p.postUserStatistics !== undefined ? Drupal.settings.h5p.postUserStatistics : false;
-  H5P.ajaxPath = Drupal.settings.h5p !== undefined && Drupal.settings.h5p.ajaxPath !== undefined ? Drupal.settings.h5p.ajaxPath : '';
-});*/
+jQuery(document).ready(function () {
+  H5P.loadedJs = H5P.settings.h5p !== undefined && H5P.settings.h5p.loadedJs !== undefined ? H5P.settings.h5p.loadedJs : [];
+  H5P.loadedCss = H5P.settings.h5p !== undefined && H5P.settings.h5p.loadedCss !== undefined ? H5P.settings.h5p.loadedCss : [];
+  H5P.postUserStatistics = false;
+  H5P.ajaxPath = '';
+});
 
 H5PIntegration.getContentData = function (id) {
   if (H5P.settings.content !== undefined) {
@@ -30,12 +30,7 @@ H5PIntegration.getJsonContent = function (contentId) {
 // Window parent is always available.
 var locationOrigin = window.parent.location.protocol + "//" + window.parent.location.host;
 H5PIntegration.getContentPath = function (contentId) {
-  if (contentId !== undefined) {
-    return locationOrigin + H5P.settings.contentPath + contentId + '/';
-  }
-  else if (H5P.settings.editor !== undefined)  {
-    return H5P.settings.editor.filesPath + '/h5peditor/';
-  }
+  return H5P.settings.url + (contentId !== undefined ? '/content/' + contentId + '/' : '/editor/');
 };
 
 /**
@@ -46,10 +41,7 @@ H5PIntegration.getContentPath = function (contentId) {
  * @returns {string} The full path to the library
  */
 H5PIntegration.getLibraryPath = function (library) {
-  // TODO: Does the h5peditor really need its own namespace for these things?
-  var libraryPath = H5P.settings.libraryPath !== undefined ? H5P.settings.libraryPath : H5P.settings.editor.libraryPath;
-
-  return '/' + libraryPath + library; // TODO: Get proper basepath?
+  return H5P.settings.url + '/libraries/' + library;
 };
 
 /**
