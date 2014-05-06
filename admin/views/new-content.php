@@ -13,7 +13,7 @@
 <div class="wrap">
   <h2><?php echo esc_html(get_admin_page_title()); ?></h2>
   <?php $this->print_messages(); ?>
-  <form method="post" enctype="multipart/form-data">
+  <form method="post" enctype="multipart/form-data" id="h5p-content-form">
     <dl>
       <dt><label for="title">Title</label></dt>
       <dd><input type="text" name="title" id="title"/></dd>
@@ -29,7 +29,7 @@
     </dl>
     <input type="hidden" name="library" value="<?php print $library; ?>"/>
     <input type="hidden" name="parameters" value="<?php print $parameters; ?>"/>
-    <?php wp_nonce_field('h5p_upload_content', 'yes_sir_will_do'); ?>
+    <?php wp_nonce_field('h5p_content', 'yes_sir_will_do'); ?>
     <input type="submit" name="submit" value="Go"/>
   </form>
 </div>

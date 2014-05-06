@@ -17,7 +17,7 @@
  * Description:       Create interactive rich content.
  * Version:           1.0.0
  * Author:            Joubel
- * Author URI:        Joubel
+ * Author URI:        http://joubel.com
  * Text Domain:       h5p
  * License:           MIT
  * License URI:       http://opensource.org/licenses/MIT

@@ -449,7 +449,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     
     foreach ($librariesInUse as $dependency) {
       $dropCss = in_array($dependency['library']['machineName'], $dropLibraryCssList) ? 1 : 0;
-      $wpdb->replace(
+      $wpdb->insert(
           $wpdb->prefix . 'h5p_contents_libraries', 
           array(
             'content_id' => $contentId,
@@ -605,6 +605,7 @@ class H5PWordPress implements H5PFrameworkInterface {
               , hl.name AS machineName
               , hl.major_version AS majorVersion
               , hl.minor_version AS minorVersion
+              , hl.patch_version AS patchVersion
               , hl.preloaded_css AS preloadedCss
               , hl.preloaded_js AS preloadedJs
               , hcl.drop_css AS dropCss

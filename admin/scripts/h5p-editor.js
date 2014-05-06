@@ -42,7 +42,7 @@ var H5PEditor = H5PEditor || {};
       $type.filter('input[value="create"]').attr('checked', true).change();
     }
 
-    $('#h5p-content-node-form').submit(function () {
+    $('#h5p-content-form').submit(function () {
       if (h5peditor !== undefined) {
         var params = h5peditor.getParams();
         if (params !== undefined) {

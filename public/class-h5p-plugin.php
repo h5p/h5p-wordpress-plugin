@@ -128,6 +128,7 @@ class H5P_Plugin {
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
       created_at TIMESTAMP NOT NULL,
       updated_at TIMESTAMP NOT NULL,
+      user_id INT UNSIGNED NOT NULL,
       title VARCHAR(255) NOT NULL,
       library_id INT UNSIGNED NOT NULL,
       parameters LONGTEXT NOT NULL,
@@ -146,7 +147,7 @@ class H5P_Plugin {
       library_id INT UNSIGNED NOT NULL,
       dependency_type VARCHAR(255) NOT NULL,
       drop_css TINYINT UNSIGNED NOT NULL,
-      UNIQUE KEY  (content_id, library_id)
+      UNIQUE KEY  (content_id, library_id, dependency_type)
     );");
     
     // Keep track of h5p libraries
@@ -330,8 +331,9 @@ class H5P_Plugin {
   /**
    * Include settings and assets for the given content.
    * 
-   * @param int $id
+   * @since 1.0.0
    * @param array $content
+   * @param boolean $no_cache
    * @return string Embed code
    */
   public function add_assets($content, $no_cache = FALSE) {
@@ -384,13 +386,15 @@ class H5P_Plugin {
     foreach ($assets['scripts'] as $js_path) {
       if (!in_array($js_path, self::$settings['loadedJs'])) {
         self::$settings['loadedJs'][] = $js_path;
-        wp_enqueue_script($this->asset_handle(str_replace($cut, '', $js_path)), $js_path, array(), self::VERSION);
+        $js_path = explode('?ver=', $js_path, 2);
+        wp_enqueue_script($this->asset_handle(str_replace($cut, '', $js_path[0])), $js_path[0], array(), $js_path[1]);
       }
     }
     foreach ($assets['styles'] as $css_path) {
       if (!in_array($css_path, self::$settings['loadedCss'])) {
         self::$settings['loadedCss'][] = $css_path;
-        wp_enqueue_style($this->asset_handle(str_replace($cut, '', $css_path)), $css_path, array(), self::VERSION);
+        $css_path = explode('?ver=', $css_path, 2);
+        wp_enqueue_style($this->asset_handle(str_replace($cut, '', $css_path[0])), $css_path[0], array(), $css_path[1]);
       }
     }
   }
@@ -424,7 +428,6 @@ class H5P_Plugin {
       'url' => $this->get_h5p_url(),
       'exportEnabled' => $this->get_h5p_instance('interface')->isExportEnabled(),
       'h5pIconInActionBar' => 1,
-      'cacheBuster' => self::VERSION,
       'loadedJs' => array(),
       'loadedCss' => array(),
       'i18n' => array(
@@ -448,22 +451,24 @@ class H5P_Plugin {
       )
     );
     
+    $cache_buster = '?ver=' . self::VERSION;
+    
     // Add core stylesheets
     foreach (H5PCore::$styles as $style) {
       $style_url = plugins_url('h5p/h5p-php-library/' . $style);
-      self::$settings['core']['styles'][] = $style_url;
+      self::$settings['core']['styles'][] = $style_url . $cache_buster;
       wp_enqueue_style($this->asset_handle('core-' . $style), $style_url, array(), self::VERSION);
     }
     
     // Add JavaScript with library framework integration
     $script_url = plugins_url('h5p/public/scripts/h5p-integration.js');
-    self::$settings['core']['scripts'][] = $script_url;
+    self::$settings['core']['scripts'][] = $script_url . $cache_buster;
     wp_enqueue_script($this->asset_handle('integration'), $script_url, array(), self::VERSION);
     
     // Add core JavaScript
     foreach (H5PCore::$scripts as $script) {
       $script_url = plugins_url('h5p/h5p-php-library/' . $script);
-      self::$settings['core']['scripts'][] = $script_url;
+      self::$settings['core']['scripts'][] = $script_url . $cache_buster;
       wp_enqueue_script($this->asset_handle('core-' . $script), $script_url, array(), self::VERSION);
     }
   }

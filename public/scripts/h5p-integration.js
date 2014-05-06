@@ -66,19 +66,11 @@ H5PIntegration.showH5PIconInActionBar = function () {
  */
 H5PIntegration.getHeadTags = function (contentId) {
   var basePath = locationOrigin + '/'; // TODO: Get proper basepath?
-
-  var createUrl = function (path) {
-    if (path.substring(0,7) !== 'http://') {
-      // Not external, add base path and cache buster.
-      path = basePath + path + '?' + H5P.settings.cacheBuster;
-    }
-    return path;
-  };
-
+  
   var createStyleTags = function (styles) {
     var tags = '';
     for (var i = 0; i < styles.length; i++) {
-      tags += '<link rel="stylesheet" href="' + createUrl(styles[i]) + '">';
+      tags += '<link rel="stylesheet" href="' + styles[i] + '">';
     }
     return tags;
   };
@@ -86,7 +78,7 @@ H5PIntegration.getHeadTags = function (contentId) {
   var createScriptTags = function (scripts) {
     var tags = '';
     for (var i = 0; i < scripts.length; i++) {
-      tags += '<script src="' + createUrl(scripts[i]) + '"></script>';
+      tags += '<script src="' + scripts[i] + '"></script>';
     }
     return tags;
   };

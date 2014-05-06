@@ -157,46 +157,130 @@ class H5P_Plugin_Admin {
    * @since 1.0.0
    */
   public function display_new_content_page() {
-    if (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
-      // Handle file upload
-      check_admin_referer('h5p_upload_content', 'yes_sir_will_do');
-
-      $plugin = H5P_Plugin::get_instance();
-      $validator = $plugin->get_h5p_instance('validator');
-      $interface = $plugin->get_h5p_instance('interface');
+    $action = filter_input(INPUT_POST, 'action', FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/^(upload|create)$/')));
+    
+    if ($action) {
+      check_admin_referer('h5p_content', 'yes_sir_will_do'); // Verify form
       
-      // Move so core can validate the file extension.
-      rename($_FILES['h5p_file']['tmp_name'], $interface->getUploadedH5pPath());
+      $result = false;
+      if ($action === 'create') {
+        // Handle creation of new content.
+        $result = $this->handle_content_creation();
+      }
+      elseif (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
+        // Handle file upload
+        $result = $this->handle_upload();
+      }
       
-      if ($validator->isValidPackage()) {
-        $storage = $plugin->get_h5p_instance('storage');
-        $storage->savePackage();
-        
+      if ($result) {
         wp_safe_redirect(
           add_query_arg(
             array(
               'page' => 'h5p',
               'task' => 'show',
-              'id' => $storage->contentId
+              'id' => $result
             ),
             wp_get_referer()
           )
         );
         return;
       }
-      else {
-        // The uploaded file was not a valid H5P package
-        unlink($interface->getUploadedH5pPath());
-      }
     }
-    
-    // TODO: Validate if editor is used?
-    // TODO: Editor assets.
     
     $library = 0;
     $parameters = '{}';
     include_once('views/new-content.php');
     $this->add_editor_assets();
+  }
+
+  /**
+   * 
+   * 
+   * @since 1.0.0
+   * @return boolean
+   */
+  private function handle_content_creation() {
+    global $wpdb;
+    
+    $plugin = H5P_Plugin::get_instance();
+    $core = $plugin->get_h5p_instance('core');
+    $library = $core->libraryFromString(filter_input(INPUT_POST, 'library'));
+    if (!$library) {
+      $core->h5pF->setErrorMessage(__('No such library.'));
+      return false;
+    }
+    
+    $library_id = $core->h5pF->getLibraryId($library['machineName'], $library['majorVersion'], $library['$minorVersion']);
+    if (!$library_id) {
+      $core->h5pF->setErrorMessage(__('No such library.'));
+      return false;
+    }
+    
+    // TODO: Validate title
+    $title = filter_input(INPUT_POST, 'title');
+    $parameters = filter_input(INPUT_POST, 'parameters');
+    $time = current_time('mysql', 1);
+    
+    $wpdb->insert(  
+        $wpdb->prefix . 'h5p_contents',
+        array(
+          'created_at' => $time,
+          'updated_at' => $time,
+          'user_id' => get_current_user_id(),
+          'title' => $title,
+          'library_id' => $library_id,
+          'parameters' => $parameters,
+          'embed_type' => 'div' // TODO: Check with library
+        ),
+        array( 
+          '%s',
+          '%s',
+          '%d',
+          '%s',
+          '%d',
+          '%s',
+          '%s'
+        )
+      );
+    $content_id = $wpdb->insert_id;
+    
+    $editor = $this->get_h5peditor_instance();
+    if (!$editor->createDirectories($content_id)) {
+      // TODO: Remove content?
+      $core->h5pF->setErrorMessage(__('Unable to create content directory.'));
+      return false;
+    }
+
+    $editor->processParameters($content_id, $library, json_decode($parameters), NULL, NULL);
+    return $content_id;
+  }
+  
+  /**
+   * Handle upload of new H5P content file.
+   * 
+   * 
+   * @since 1.0.0
+   * @return boolean
+   */
+  private function handle_upload() {
+    $plugin = H5P_Plugin::get_instance();
+    $validator = $plugin->get_h5p_instance('validator');
+    $interface = $plugin->get_h5p_instance('interface');
+
+    // Move so core can validate the file extension.
+    rename($_FILES['h5p_file']['tmp_name'], $interface->getUploadedH5pPath());
+
+    if ($validator->isValidPackage()) {
+      $storage = $plugin->get_h5p_instance('storage');
+      $storage->savePackage();
+      return $storage->contentId;
+    }
+    else {
+      // The uploaded file was not a valid H5P package
+      unlink($interface->getUploadedH5pPath());
+    }
+    
+    return false;
   }
   
   /**

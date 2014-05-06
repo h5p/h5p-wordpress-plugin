@@ -6,3 +6,6 @@
 .h5peditor-form a {
   text-decoration: none;
 }
+.h5p-iframe-wrapper, .h5p-content {
+  max-width: 960px;
+}
