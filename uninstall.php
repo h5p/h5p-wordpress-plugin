@@ -24,4 +24,44 @@ $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_languages");
 	
 delete_option('h5p_db_version');
 
-// TODO: Remove files?
+// TODO: Remove other settings when added.
+
+/**
+ * Recursively remove file or directory.
+ *
+ * @since 1.0.0
+ * @param string $file
+ */
+function _h5p_recursive_unlink($file) {
+  if (is_dir($file)) {
+    // Remove all files in dir.
+    $subfiles = array_diff(scandir($file), array('.','..'));
+    foreach ($subfiles as $subfile)  {
+      _h5p_recursive_unlink($file . '/' . $subfile);
+    }
+    rmdir($file);
+  }
+  elseif (file_exists($file)) {
+    unlink($file); // TODO: Remove from file_managed!!
+  }
+}
+
+// Clean out file dirs.
+$upload_dir = wp_upload_dir();
+$path = $upload_dir['basedir'] . '/h5p';
+   
+// Remove these regardless of their content.
+foreach (array('tmp', 'temp', 'libraries', 'content', 'exports', 'editor') as $directory) {
+  _h5p_recursive_unlink($path . '/' . $directory);
+}
+  
+// Only remove development dir if it's empty.
+$dir = $path . '/development';
+if (is_dir($dir) && count(scandir($dir)) === 2) {
+  rmdir($dir);
+
+  // Remove parent if empty.
+  if (count(scandir($path)) === 2) {
+    rmdir($path);
+  }
+}
