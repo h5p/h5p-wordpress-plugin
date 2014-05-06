@@ -51,6 +51,16 @@ var H5PEditor = H5PEditor || {};
         }
       }
     });
+    
+    var $title = $('#h5p-content-form #title');
+    var $label = $title.prev();
+    $title.focus(function () {
+      $label.addClass('screen-reader-text');
+    }).blur(function () {
+      if ($title.val() === '') {
+        $label.removeClass('screen-reader-text');
+      }
+    }).focus();
   };
   
   H5PEditor.getAjaxUrl = function (action, parameters) {

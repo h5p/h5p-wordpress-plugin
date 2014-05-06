@@ -126,8 +126,8 @@ class H5P_Plugin {
     // Keep track of h5p content entities
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_contents (
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-      created_at TIMESTAMP NOT NULL,
-      updated_at TIMESTAMP NOT NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT 0,
+      updated_at TIMESTAMP NOT NULL DEFAULT 0,
       user_id INT UNSIGNED NOT NULL,
       title VARCHAR(255) NOT NULL,
       library_id INT UNSIGNED NOT NULL,

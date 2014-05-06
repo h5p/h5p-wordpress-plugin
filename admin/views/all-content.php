@@ -11,12 +11,16 @@
 ?>
 
 <div class="wrap">
-  <h2><?php echo esc_html(get_admin_page_title()); ?></h2>
+  <h2><?php echo esc_html(get_admin_page_title()); ?><a href="<?php print add_query_arg(
+      array('page' => 'h5p_new', 'id' => NULL)); ?>" class="add-new-h2">Add new</a></h2>
   <?php if (count($contents)): ?>
     <table class="wp-list-table widefat fixed h5ps" cellspacing="0">
       <thead>
         <tr>
           <th><?php print __('Title', $this->plugin_slug); ?></th>
+          <th class="h5p-created-at"><?php print __('Created', $this->plugin_slug); ?></th>
+          <th class="h5p-updated-at"><?php print __('Last modified', $this->plugin_slug); ?></th>
+          <th class="h5p-edit-link"></th>
         </tr>
       </thead>
       <tbody>
@@ -30,6 +34,13 @@
                     'id' => $content->id
                   )); ?>"><?php print ($content->title === '' ? 'H5P ' . $content->id : $content->title); ?></a>
             </td>
+            <td class="h5p-created-at"><?php print date($datetimeformat, strtotime($content->created_at) + $offset); ?></td>
+            <td class="h5p-updated-at"><?php print date($datetimeformat, strtotime($content->updated_at) + $offset); ?></td>
+            <td class="h5p-edit-link"><a href="<?php print add_query_arg(
+                  array(
+                    'page' => 'h5p_new',
+                    'id' => $content->id
+                  )); ?>"><?php print __('Edit', $this->plugin_slug); ?></a></td>
           </tr>
         <?php endforeach; ?>
       </tbody>

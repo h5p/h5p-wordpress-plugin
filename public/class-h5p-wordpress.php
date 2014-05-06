@@ -363,29 +363,37 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements saveContentData
    */
-  public function saveContentData($parameters, $library, $libraryId, $contentMainId = NULL, $contentId = NULL) {
+  public function saveContentData($content, $contentMainId = NULL) {
     global $wpdb;
     
-    $embedTypes = '';
-    if (isset($library['embedTypes'])) {
-      $embedTypes = implode(', ', $library['embedTypes']);
+    $table = $wpdb->prefix . 'h5p_contents';
+    $data = array(
+      'updated_at' => current_time('mysql', 1),
+      'title' => $content['title'],
+      'parameters' => $content['params'],
+      'embed_type' => 'div', // TODO: Determine from library?
+      'library_id' => $content['library']['libraryId'],
+    );
+    $format = array(
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%d'
+    );
+    
+    if (!isset($content['id'])) {
+      // Insert new content
+      $data['created_at'] = $data['updated_at'];
+      $format[] = '%s';
+      $wpdb->insert($table, $data, $format);
+      return $wpdb->insert_id;
     }
-    
-    $wpdb->insert(
-        $wpdb->prefix . 'h5p_contents',
-        array(
-          'parameters' => $parameters,
-          'embed_type' => $embedTypes,
-          'library_id' => $libraryId,
-        ), 
-        array(
-          '%s',
-          '%s',
-          '%d'
-        )
-      );
-    
-    return $wpdb->insert_id;
+    else {
+      // Update existing content
+      $wpdb->update($table, $data, array('id' => $content['id']), $format, array('%d'));
+      return $content['id'];
+    }
   }
 
   /**

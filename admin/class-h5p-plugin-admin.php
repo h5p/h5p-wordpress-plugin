@@ -112,6 +112,8 @@ class H5P_Plugin_Admin {
     switch (filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING)) {
       case NULL:
         $contents = $this->get_contents();
+        $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
+        $offset = get_option('gmt_offset') * 3600;
         include_once('views/all-content.php');
         return;
       
@@ -145,7 +147,7 @@ class H5P_Plugin_Admin {
   public function get_contents() {
     global $wpdb;
     return $wpdb->get_results(
-        "SELECT id, title
+        "SELECT id, title, created_at, updated_at
           FROM {$wpdb->prefix}h5p_contents
           ORDER BY title, id"
       );
@@ -159,17 +161,30 @@ class H5P_Plugin_Admin {
   public function display_new_content_page() {
     $action = filter_input(INPUT_POST, 'action', FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/^(upload|create)$/')));
     
+    $content = NULL;
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    if ($id) {
+      $plugin = H5P_Plugin::get_instance();
+      $content = $plugin->get_content($id);
+      if (is_string($content)) {
+        $core = $plugin->get_h5p_instance('core');
+        $core->h5pF->setErrorMessage($content);
+        $content = NULL;
+        $id = NULL;
+      }
+    }
+    
     if ($action) {
       check_admin_referer('h5p_content', 'yes_sir_will_do'); // Verify form
       
       $result = false;
       if ($action === 'create') {
         // Handle creation of new content.
-        $result = $this->handle_content_creation();
+        $result = $this->handle_content_creation($content);
       }
       elseif (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
         // Handle file upload
-        $result = $this->handle_upload();
+        $result = $this->handle_upload($content);
       }
       
       if ($result) {
@@ -187,19 +202,28 @@ class H5P_Plugin_Admin {
       }
     }
     
+    $title = '';
     $library = 0;
     $parameters = '{}';
+    
+    if ($content) {
+      $title = $content['title'];
+      $library = H5PCore::libraryToString($content['library']);
+      $parameters = str_replace('"', '&quot;', $content['params']);
+    }
+    
     include_once('views/new-content.php');
-    $this->add_editor_assets();
+    $this->add_editor_assets($id);
   }
 
   /**
    * 
    * 
    * @since 1.0.0
+   * @param array $content
    * @return boolean
    */
-  private function handle_content_creation() {
+  private function handle_content_creation($content) {
     global $wpdb;
     
     $plugin = H5P_Plugin::get_instance();
@@ -216,33 +240,74 @@ class H5P_Plugin_Admin {
       return false;
     }
     
-    // TODO: Validate title
-    $title = filter_input(INPUT_POST, 'title');
-    $parameters = filter_input(INPUT_POST, 'parameters');
-    $time = current_time('mysql', 1);
+    // Get title
+    $title = $this->get_input_title();
+    if (!$title) {
+      return false;
+    }
     
-    $wpdb->insert(  
-        $wpdb->prefix . 'h5p_contents',
-        array(
-          'created_at' => $time,
-          'updated_at' => $time,
-          'user_id' => get_current_user_id(),
-          'title' => $title,
-          'library_id' => $library_id,
-          'parameters' => $parameters,
-          'embed_type' => 'div' // TODO: Check with library
-        ),
-        array( 
-          '%s',
-          '%s',
-          '%d',
-          '%s',
-          '%d',
-          '%s',
-          '%s'
-        )
+    // Check parameters
+    $parameters = filter_input(INPUT_POST, 'parameters');
+    if (!$parameters) {
+      $core->h5pF->setErrorMessage(__('Missing parameters.'));
+      return false;
+    }
+    $params = json_decode($parameters);
+    if ($params === NULL) {
+      $core->h5pF->setErrorMessage(__('Invalid parameters.'));
+      return false;
+    }
+    
+    // TODO: Use framework interface's saveContentData()?
+    $time = current_time('mysql', 1);
+    if ($content === NULL) {
+      // Insert new content
+      $wpdb->insert(  
+          $wpdb->prefix . 'h5p_contents',
+          array(
+            'created_at' => $time,
+            'updated_at' => $time,
+            'user_id' => get_current_user_id(),
+            'title' => $title,
+            'library_id' => $library_id,
+            'parameters' => $parameters,
+            'embed_type' => 'div' // TODO: Check with library
+          ),
+          array( 
+            '%s',
+            '%s',
+            '%d',
+            '%s',
+            '%d',
+            '%s',
+            '%s'
+          )
+        );
+      $content_id = $wpdb->insert_id;
+    }
+    else {
+      // Update existing content
+      $content_id = $content['id'];
+      $wpdb->update( 
+          $wpdb->prefix . 'h5p_contents',
+          array(
+            'updated_at' => $time,
+            'title' => $title,
+            'library_id' => $library_id,
+            'parameters' => $parameters,
+            'embed_type' => 'div' // TODO: Check with library
+          ), 
+          array('id' => $content_id), 
+          array(
+            '%s',
+            '%s',
+            '%d',
+            '%s',
+            '%s',
+          ), 
+          array('%d')
       );
-    $content_id = $wpdb->insert_id;
+    }
     
     $editor = $this->get_h5peditor_instance();
     if (!$editor->createDirectories($content_id)) {
@@ -250,19 +315,49 @@ class H5P_Plugin_Admin {
       $core->h5pF->setErrorMessage(__('Unable to create content directory.'));
       return false;
     }
+    
+    $oldLibrary = NULL;
+    $oldParams = NULL;
+    if ($content !== NULL) {
+      $oldLibrary = $content['library'];
+      $oldParams = $content['params'];
+    }
 
-    $editor->processParameters($content_id, $library, json_decode($parameters), NULL, NULL);
+    $editor->processParameters($content_id, $library, $params, $oldLibrary, $oldParams);
     return $content_id;
+  }
+  
+  /**
+   * Get post input title.
+   * 
+   * @return string
+   */
+  private function get_input_title() {
+    $plugin = H5P_Plugin::get_instance();
+    $core = $plugin->get_h5p_instance('core');
+    
+    // Check title
+    $title = filter_input(INPUT_POST, 'title');
+    if (!$title) {
+      $core->h5pF->setErrorMessage(__('Missing title.'));
+      return false;
+    }
+    $title = trim($title);
+    if ($title === '' || strlen($title) > 255) {
+      $core->h5pF->setErrorMessage(__('Invalid title.'));
+      return false;
+    }
+    return $title;
   }
   
   /**
    * Handle upload of new H5P content file.
    * 
-   * 
    * @since 1.0.0
+   * @param array $content
    * @return boolean
    */
-  private function handle_upload() {
+  private function handle_upload($content) {
     $plugin = H5P_Plugin::get_instance();
     $validator = $plugin->get_h5p_instance('validator');
     $interface = $plugin->get_h5p_instance('interface');
@@ -270,9 +365,14 @@ class H5P_Plugin_Admin {
     // Move so core can validate the file extension.
     rename($_FILES['h5p_file']['tmp_name'], $interface->getUploadedH5pPath());
 
-    if ($validator->isValidPackage()) {
+    if ($content === NULL) {
+      $content = array();
+    }
+    $content['title'] = $this->get_input_title();
+    
+    if ($validator->isValidPackage() && $title !== false) {
       $storage = $plugin->get_h5p_instance('storage');
-      $storage->savePackage();
+      $storage->savePackage($content);
       return $storage->contentId;
     }
     else {

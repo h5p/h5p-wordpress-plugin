@@ -11,7 +11,12 @@
 ?>
 
 <div class="wrap">
-  <h2><?php print esc_html($title); ?></h2>
+  <h2><?php print esc_html($title); ?><a href="<?php print add_query_arg(
+      array(
+        'page' => 'h5p_new',
+        'id' => $id
+      ),
+      wp_get_referer()) ?>" class="add-new-h2">Edit</a></h2>
   <?php print $this->print_messages(); ?>
   <?php print $embed_code; ?>
 </div>
