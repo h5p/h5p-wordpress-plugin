@@ -33,6 +33,7 @@ if (!defined('WPINC')) {
 // Public-Facing Functionality
 require_once(plugin_dir_path(__FILE__) . 'public/class-h5p-plugin.php');
 register_activation_hook(__FILE__, array('H5P_Plugin', 'activate'));
+register_deactivation_hook( __FILE__, array('H5P_Plugin', 'deactivate'));
 add_action('plugins_loaded', array('H5P_Plugin', 'get_instance'));
 
 // Dashboard and Administrative Functionality

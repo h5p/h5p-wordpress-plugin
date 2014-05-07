@@ -84,6 +84,9 @@ class H5P_Plugin {
     
     // Adds JavaScript settings to the bottom of the page.
     add_action('wp_footer', array($this, 'add_settings'));
+    
+    // Clean up tmp editor files
+    add_action('h5p_daily_cleanup', array($this, 'remove_old_tmp_files'));
   }
 
   /**
@@ -188,6 +191,17 @@ class H5P_Plugin {
     
     // Keep track of which DB we have.
     add_option('h5p_version', self::VERSION);
+    
+    // Cleaning rutine
+    wp_schedule_event(time(), 'daily', 'h5p_daily_cleanup');
+  }
+  
+  /**
+   * @since 1.0.0
+   */
+  public static function deactivate() {
+    // Remove cleaning rutine
+    wp_clear_scheduled_hook('h5p_daily_cleanup');
   }
 
   /**
@@ -542,5 +556,25 @@ class H5P_Plugin {
     }
     
     return $filtered_parameters;
+  }
+  
+  /**
+   * This function will unlink tmp editor files for content 
+   * that has never been saved.
+   * 
+   * @since 1.0.0
+   */
+  public function remove_old_tmp_files() {
+    $plugin = H5P_Plugin::get_instance();
+    foreach (glob($plugin->get_h5p_path() . DIRECTORY_SEPARATOR . 'editor' . DIRECTORY_SEPARATOR . '*') as $dir) {
+      if (is_dir($dir)) {
+        foreach (glob($dir . DIRECTORY_SEPARATOR . '*') as $file) {
+          if (time() - filemtime($file) > 86400) {
+            // Not modified in over a day
+            unlink($file);
+          }
+        }
+      }
+    }
   }
 }

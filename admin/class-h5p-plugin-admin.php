@@ -12,7 +12,6 @@
 /**
  * Plugin class.
  * 
- * TODO: Add clean up of tmp files
  * TODO: Add settings page
  * TODO: Add support for export
  *
