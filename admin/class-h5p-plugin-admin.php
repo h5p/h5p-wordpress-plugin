@@ -13,7 +13,7 @@
  * Plugin class.
  * 
  * TODO: Add settings page
- * TODO: Add support for export
+ * TODO: Add library admin
  *
  * @package H5P_Plugin_Admin
  * @author Joubel <contact@joubel.com>
@@ -183,6 +183,7 @@ class H5P_Plugin_Admin {
       if (wp_verify_nonce($delete, 'deleting_h5p_content')) {
         $core = $plugin->get_h5p_instance('core');
         $core->h5pF->deleteContentData($content['id']);
+        $this->delete_export($content['id']);
         wp_safe_redirect(add_query_arg(array('page' => 'h5p'), wp_get_referer()));
         return;
       }
@@ -205,6 +206,7 @@ class H5P_Plugin_Admin {
       }
       
       if ($result) {
+        $this->delete_export($result);
         wp_safe_redirect(
           add_query_arg(
             array(
@@ -228,6 +230,18 @@ class H5P_Plugin_Admin {
     $this->add_editor_assets($id);
   }
 
+  /**
+   * Remove h5p export file.
+   * 
+   * @since 1.0.0
+   * @param int $contentId
+   */
+  private function delete_export($contentId) {
+    $plugin = H5P_Plugin::get_instance();
+    $export = $plugin->get_h5p_instance('export');
+    $export->deleteExport($contentId);
+  }
+  
   /**
    * 
    * 

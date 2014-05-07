@@ -560,22 +560,6 @@ class H5PWordPress implements H5PFrameworkInterface {
   }
   
   /**
-   * Implements getExportData
-   */
-  public function getExportData($contentId) {
-    // TODO: Add support for export
-    return null;
-  }
-  
-  /**
-   * Implements isExportEnabled
-   */
-  public function isExportEnabled() {
-    // TODO: Add option to settings page
-    return false;
-  }
-  
-  /**
    * Implements loadContent
    */
   public function loadContent($id) {

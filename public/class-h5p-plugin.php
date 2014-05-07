@@ -322,6 +322,7 @@ class H5P_Plugin {
       return sprintf(__('Cannot find H5P content with id: %d.', $this->plugin_slug), $id);
     }
     
+    $content['language'] = $this->get_language();
     return $content;
   }
   
@@ -360,18 +361,27 @@ class H5P_Plugin {
     // Make sure content isn't added twice
     $cid = 'cid-' . $content['id'];
     if (!isset(self::$settings['content'][$cid])) {
+            
+      if (TRUE) { // TODO: If export is enabled.
+        $export = $this->get_h5p_instance('export');
+        $exportPath = str_replace($this->get_h5p_path(), $this->get_h5p_url(), $export->getExportPath($content));
+      }
+      else {
+        $exportPath = '';
+      }
       
       // Add JavaScript settings for this content
       self::$settings['content'][$cid] = array(
         'library' => H5PCore::libraryToString($content['library']),
         'jsonContent' => $this->get_filter_parameters($content, $no_cache),
         'fullScreen' => $content['library']['fullscreen'],
-        'export' => '', // TODO: Add support for export
+        'export' => $exportPath,
       );
       
       // Get assets for this content
       $core = $this->get_h5p_instance('core');
-      $files = $core->loadContentDependencies($content['id'], 'preloaded');
+      $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
+      $files = $core->getDependenciesFiles($preloaded_dependencies);
         
       if ($embed === 'div') {
         $this->enqueue_assets($files);
@@ -440,7 +450,7 @@ class H5P_Plugin {
         'scripts' => array()
       ),
       'url' => $this->get_h5p_url(),
-      'exportEnabled' => $this->get_h5p_instance('interface')->isExportEnabled(),
+      'exportEnabled' => 1, // TODO: Add setting
       'h5pIconInActionBar' => 1,
       'loadedJs' => array(),
       'loadedCss' => array(),
