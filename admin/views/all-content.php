@@ -11,15 +11,15 @@
 ?>
 
 <div class="wrap">
-  <h2><?php echo esc_html(get_admin_page_title()); ?><a href="<?php print add_query_arg(
+  <h2><?php print esc_html(get_admin_page_title()); ?><a href="<?php print add_query_arg(
       array('page' => 'h5p_new', 'id' => NULL)); ?>" class="add-new-h2">Add new</a></h2>
   <?php if (count($contents)): ?>
     <table class="wp-list-table widefat fixed h5ps" cellspacing="0">
       <thead>
         <tr>
-          <th><?php print __('Title', $this->plugin_slug); ?></th>
-          <th class="h5p-created-at"><?php print __('Created', $this->plugin_slug); ?></th>
-          <th class="h5p-updated-at"><?php print __('Last modified', $this->plugin_slug); ?></th>
+          <th><?php esc_html_e('Title', $this->plugin_slug); ?></th>
+          <th class="h5p-created-at"><?php esc_html_e('Created', $this->plugin_slug); ?></th>
+          <th class="h5p-updated-at"><?php esc_html_e('Last modified', $this->plugin_slug); ?></th>
           <th class="h5p-edit-link"></th>
         </tr>
       </thead>
@@ -40,12 +40,12 @@
                   array(
                     'page' => 'h5p_new',
                     'id' => $content->id
-                  )); ?>"><?php print __('Edit', $this->plugin_slug); ?></a></td>
+                  )); ?>"><?php esc_html_e('Edit', $this->plugin_slug); ?></a></td>
           </tr>
         <?php endforeach; ?>
       </tbody>
     </table>
   <?php else: ?>
-    <p><?php print __('No H5P content available. You must upload or create new content.', $this->plugin_slug); ?></p>
+    <p><?php esc_html_e('No H5P content available. You must upload or create new content.', $this->plugin_slug); ?></p>
   <?php endif; ?>
 </div>

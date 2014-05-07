@@ -16,7 +16,7 @@
         'page' => 'h5p_new',
         'id' => $id
       ),
-      wp_get_referer()) ?>" class="add-new-h2">Edit</a></h2>
+      wp_get_referer()) ?>" class="add-new-h2"><?php esc_html_e('Edit', $this->plugin_slug); ?></a></h2>
   <?php print $this->print_messages(); ?>
   <?php print $embed_code; ?>
 </div>

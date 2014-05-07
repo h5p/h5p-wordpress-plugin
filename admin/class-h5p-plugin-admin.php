@@ -11,6 +11,10 @@
 
 /**
  * Plugin class.
+ * 
+ * TODO: Add clean up of tmp files
+ * TODO: Add settings page
+ * TODO: Add support for export
  *
  * @package H5P_Plugin_Admin
  * @author Joubel <contact@joubel.com>
@@ -159,25 +163,39 @@ class H5P_Plugin_Admin {
    * @since 1.0.0
    */
   public function display_new_content_page() {
-    $action = filter_input(INPUT_POST, 'action', FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/^(upload|create)$/')));
+    $plugin = H5P_Plugin::get_instance();
     
+    // Try to load current content if any (editing)
     $content = NULL;
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
     if ($id) {
-      $plugin = H5P_Plugin::get_instance();
       $content = $plugin->get_content($id);
       if (is_string($content)) {
-        $core = $plugin->get_h5p_instance('core');
-        $core->h5pF->setErrorMessage($content);
+        $this->set_error($content);
         $content = NULL;
         $id = NULL;
       }
     }
+    $contentExists = ($content !== NULL);
     
+    // Check if we're deleting content
+    $delete = filter_input(INPUT_GET, 'delete');
+    if ($delete && $contentExists) {
+      if (wp_verify_nonce($delete, 'deleting_h5p_content')) {
+        $core = $plugin->get_h5p_instance('core');
+        $core->h5pF->deleteContentData($content['id']);
+        wp_safe_redirect(add_query_arg(array('page' => 'h5p'), wp_get_referer()));
+        return;
+      }
+      $this->set_error(__('Invalid confirmation code, not deleting.'));
+    }
+    
+    // Check if we're uploading or creating content
+    $action = filter_input(INPUT_POST, 'action', FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/^(upload|create)$/')));
     if ($action) {
       check_admin_referer('h5p_content', 'yes_sir_will_do'); // Verify form
       
-      $result = false;
+      $result = FALSE;
       if ($action === 'create') {
         // Handle creation of new content.
         $result = $this->handle_content_creation($content);
@@ -202,15 +220,10 @@ class H5P_Plugin_Admin {
       }
     }
     
-    $title = '';
-    $library = 0;
-    $parameters = '{}';
-    
-    if ($content) {
-      $title = $content['title'];
-      $library = H5PCore::libraryToString($content['library']);
-      $parameters = str_replace('"', '&quot;', $content['params']);
-    }
+    // Prepare form
+    $title = $this->get_input('title', $contentExists ? $content['title'] : '');
+    $library = $this->get_input('library', $contentExists ? H5PCore::libraryToString($content['library']) : 0);
+    $parameters = $this->get_input('parameters', $contentExists ? $content['params'] : '{}');
     
     include_once('views/new-content.php');
     $this->add_editor_assets($id);
@@ -224,130 +237,124 @@ class H5P_Plugin_Admin {
    * @return boolean
    */
   private function handle_content_creation($content) {
-    global $wpdb;
-    
-    $plugin = H5P_Plugin::get_instance();
-    $core = $plugin->get_h5p_instance('core');
-    $library = $core->libraryFromString(filter_input(INPUT_POST, 'library'));
-    if (!$library) {
-      $core->h5pF->setErrorMessage(__('No such library.'));
-      return false;
-    }
-    
-    $library_id = $core->h5pF->getLibraryId($library['machineName'], $library['majorVersion'], $library['$minorVersion']);
-    if (!$library_id) {
-      $core->h5pF->setErrorMessage(__('No such library.'));
-      return false;
-    }
-    
-    // Get title
-    $title = $this->get_input_title();
-    if (!$title) {
-      return false;
-    }
-    
-    // Check parameters
-    $parameters = filter_input(INPUT_POST, 'parameters');
-    if (!$parameters) {
-      $core->h5pF->setErrorMessage(__('Missing parameters.'));
-      return false;
-    }
-    $params = json_decode($parameters);
-    if ($params === NULL) {
-      $core->h5pF->setErrorMessage(__('Invalid parameters.'));
-      return false;
-    }
-    
-    // TODO: Use framework interface's saveContentData()?
-    $time = current_time('mysql', 1);
-    if ($content === NULL) {
-      // Insert new content
-      $wpdb->insert(  
-          $wpdb->prefix . 'h5p_contents',
-          array(
-            'created_at' => $time,
-            'updated_at' => $time,
-            'user_id' => get_current_user_id(),
-            'title' => $title,
-            'library_id' => $library_id,
-            'parameters' => $parameters,
-            'embed_type' => 'div' // TODO: Check with library
-          ),
-          array( 
-            '%s',
-            '%s',
-            '%d',
-            '%s',
-            '%d',
-            '%s',
-            '%s'
-          )
-        );
-      $content_id = $wpdb->insert_id;
-    }
-    else {
-      // Update existing content
-      $content_id = $content['id'];
-      $wpdb->update( 
-          $wpdb->prefix . 'h5p_contents',
-          array(
-            'updated_at' => $time,
-            'title' => $title,
-            'library_id' => $library_id,
-            'parameters' => $parameters,
-            'embed_type' => 'div' // TODO: Check with library
-          ), 
-          array('id' => $content_id), 
-          array(
-            '%s',
-            '%s',
-            '%d',
-            '%s',
-            '%s',
-          ), 
-          array('%d')
-      );
-    }
-    
-    $editor = $this->get_h5peditor_instance();
-    if (!$editor->createDirectories($content_id)) {
-      // TODO: Remove content?
-      $core->h5pF->setErrorMessage(__('Unable to create content directory.'));
-      return false;
-    }
-    
+    // Keep track of the old library and params
     $oldLibrary = NULL;
     $oldParams = NULL;
     if ($content !== NULL) {
       $oldLibrary = $content['library'];
-      $oldParams = $content['params'];
+      $oldParams = json_decode($content['params']);
+    }
+    else {
+      $content = array();
+    }
+    
+    $plugin = H5P_Plugin::get_instance();
+    $core = $plugin->get_h5p_instance('core');
+    
+    // Get library
+    $content['library'] = $core->libraryFromString($this->get_input('library'));
+    if (!$content['library']) {
+      $core->h5pF->setErrorMessage(__('Invalid library.', $this->plugin_slug));
+      return FALSE;
+    }
+    
+    // Check if library exists.
+    $content['library']['libraryId'] = $core->h5pF->getLibraryId($content['library']['machineName'], $content['library']['majorVersion'], $content['library']['$minorVersion']);
+    if (!$content['library']['libraryId']) {
+      $core->h5pF->setErrorMessage(__('No such library.', $this->plugin_slug));
+      return FALSE;
+    }
+    
+    // Get title
+    $content['title'] = $this->get_input_title();
+    if ($content['title'] === NULL) {
+      return FALSE;
+    }
+    
+    // Check parameters
+    $content['params'] = $this->get_input('parameters');
+    if ($content['params'] === NULL) {
+      return FALSE;
+    }
+    $params = json_decode($content['params']);
+    if ($params === NULL) {
+      $core->h5pF->setErrorMessage(__('Invalid parameters.', $this->plugin_slug));
+      return FALSE;
+    }
+    
+    // Save new content
+    $content['id'] = $core->h5pF->saveContentData($content);
+    
+    // Create content directory
+    $editor = $this->get_h5peditor_instance();
+    if (!$editor->createDirectories($content['id'])) {
+      $core->h5pF->setErrorMessage(__('Unable to create content directory.', $this->plugin_slug));
+      // Remove content.
+      $core->h5pF->deleteContentData($content['id']);
+      return FALSE;
     }
 
-    $editor->processParameters($content_id, $library, $params, $oldLibrary, $oldParams);
-    return $content_id;
+    // Move images and find all content dependencies
+    $editor->processParameters($content['id'], $content['library'], $params, $oldLibrary, $oldParams);
+    return $content['id'];
   }
   
   /**
-   * Get post input title.
+   * Set error message.
+   * 
+   * @param string $message
+   */
+  private function set_error($message) {
+    $plugin = H5P_Plugin::get_instance();
+    $core = $plugin->get_h5p_instance('core');
+    $core->h5pF->setErrorMessage($message);
+  }
+  
+  /**
+   * Get input post data field.
+   * 
+   * @param string $field The field to get data for.
+   * @param string $default Optional default return.
+   * @return string
+   */
+  private function get_input($field, $default = NULL) {
+    // Get field
+    $value = filter_input(INPUT_POST, $field);
+    if ($value === NULL) {
+      if ($default === NULL) {
+        // No default, set error message.
+        $this->set_error(sprintf(__('Missing %s.', $this->plugin_slug), $field));
+      }
+      return $default;
+    }
+    
+    return $value;
+  }
+  
+  /**
+   * Get input post data field title. Validates.
    * 
    * @return string
    */
   private function get_input_title() {
-    $plugin = H5P_Plugin::get_instance();
-    $core = $plugin->get_h5p_instance('core');
+    $title = $this->get_input('title');
+    if ($title === NULL) {
+      return NULL;
+    }
     
-    // Check title
-    $title = filter_input(INPUT_POST, 'title');
-    if (!$title) {
-      $core->h5pF->setErrorMessage(__('Missing title.'));
-      return false;
+    // Trim title and check length
+    $trimmed_title = trim($title);
+    if ($trimmed_title === '') {
+      $this->set_error(sprintf(__('Missing %s.', $this->plugin_slug), 'title'));
+      return NULL;
     }
-    $title = trim($title);
-    if ($title === '' || strlen($title) > 255) {
-      $core->h5pF->setErrorMessage(__('Invalid title.'));
-      return false;
+    
+    if (strlen($trimmed_title) > 255) {
+      $this->set_error(__('Title is too long. Must be 256 letters or shorter.', $this->plugin_slug));
+      return NULL;
     }
-    return $title;
+    
+    return $trimmed_title;
   }
   
   /**
@@ -370,7 +377,7 @@ class H5P_Plugin_Admin {
     }
     $content['title'] = $this->get_input_title();
     
-    if ($validator->isValidPackage() && $title !== false) {
+    if ($validator->isValidPackage() && $content['title'] !== NULL) {
       $storage = $plugin->get_h5p_instance('storage');
       $storage->savePackage($content);
       return $storage->contentId;
@@ -380,7 +387,7 @@ class H5P_Plugin_Admin {
       unlink($interface->getUploadedH5pPath());
     }
     
-    return false;
+    return FALSE;
   }
   
   /**
@@ -424,7 +431,7 @@ class H5P_Plugin_Admin {
       if (!empty($messages)) {
         print '<div class="' . $type . '"><ul>';
         foreach ($messages as $message) {
-          print '<li>' . $message . '</li>';
+          print '<li>' . esc_html($message) . '</li>';
         }
         print '</ul></div>';
       } 

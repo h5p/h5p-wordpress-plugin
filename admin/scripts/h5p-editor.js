@@ -52,6 +52,7 @@ var H5PEditor = H5PEditor || {};
       }
     });
     
+    // Title label
     var $title = $('#h5p-content-form #title');
     var $label = $title.prev();
     $title.focus(function () {
@@ -61,6 +62,13 @@ var H5PEditor = H5PEditor || {};
         $label.removeClass('screen-reader-text');
       }
     }).focus();
+    
+    // Delete confirm
+    $('.submitdelete').click(function () {
+      // TODO: Translate
+      return confirm('Are you sure you wish to delete this content?');
+    });
+    
   };
   
   H5PEditor.getAjaxUrl = function (action, parameters) {

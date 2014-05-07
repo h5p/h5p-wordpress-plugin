@@ -14,7 +14,7 @@
   <ul>
     <?php foreach ($contents as $i => $content): ?>
       <li>
-        <a href="#" class="h5p-insert" data-id="<?php print $content->id ?>"><?php print ($content->title === '' ? 'H5P ' . $content->id : $content->title); ?></a>
+        <a href="#" class="h5p-insert" data-id="<?php print $content->id ?>"><?php print esc_html($content->title === '' ? 'H5P ' . $content->id : $content->title); ?></a>
       </li>
     <?php endforeach; ?>
   </ul>
@@ -28,5 +28,5 @@
     });
   </script>
 <?php else: ?>
-  <p><?php print __('No H5P content available. You must upload or create new content.', $this->plugin_slug); ?></p>
+  <p><?php esc_html_e('No H5P content available. You must upload or create new content.', $this->plugin_slug); ?></p>
 <?php endif; ?>

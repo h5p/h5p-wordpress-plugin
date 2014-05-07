@@ -3,7 +3,7 @@ Contributors: joubel
 Donate link: http://h5p.org
 Tags: h5p, interactive content
 Requires at least: 3.8.1
-Tested up to: 3.8.1
+Tested up to: 3.9
 Stable tag: 1.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
