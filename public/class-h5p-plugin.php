@@ -281,7 +281,6 @@ class H5P_Plugin {
       
       $language = $this->get_language();
       
-      // TODO: Add support for development mode?
       self::$core = new H5PCore(self::$interface, $this->get_h5p_url(), $language); 
     }
 
@@ -362,7 +361,7 @@ class H5P_Plugin {
     $cid = 'cid-' . $content['id'];
     if (!isset(self::$settings['content'][$cid])) {
             
-      if (TRUE) { // TODO: If export is enabled.
+      if (get_option('h5p_export', TRUE)) {
         $export = $this->get_h5p_instance('export');
         $exportPath = str_replace($this->get_h5p_path(), $this->get_h5p_url(), $export->getExportPath($content));
       }
@@ -450,8 +449,8 @@ class H5P_Plugin {
         'scripts' => array()
       ),
       'url' => $this->get_h5p_url(),
-      'exportEnabled' => 1, // TODO: Add setting
-      'h5pIconInActionBar' => 1,
+      'exportEnabled' => get_option('h5p_export', TRUE),
+      'h5pIconInActionBar' => get_option('h5p_icon', TRUE),
       'loadedJs' => array(),
       'loadedCss' => array(),
       'i18n' => array(

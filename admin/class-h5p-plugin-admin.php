@@ -12,7 +12,6 @@
 /**
  * Plugin class.
  * 
- * TODO: Add settings page
  * TODO: Add library admin
  * TODO: Add development mode
  *
@@ -104,6 +103,7 @@ class H5P_Plugin_Admin {
    * @since 1.0.0
    */
   public function add_plugin_admin_menu() {
+    // H5P Content pages
     $h5p_content = __('H5P Content', $this->plugin_slug);
     add_menu_page($h5p_content, $h5p_content, 'manage_options', $this->plugin_slug, array($this, 'display_all_content_page'), 'none');
     
@@ -112,6 +112,33 @@ class H5P_Plugin_Admin {
     
     $add_new = __('Add New', $this->plugin_slug);
     add_submenu_page($this->plugin_slug, $add_new, $add_new, 'manage_options', $this->plugin_slug . '_new', array($this, 'display_new_content_page'));
+    
+    // Settings page
+    add_options_page('H5P Settings', 'H5P', 'manage_options', $this->plugin_slug . '_settings', array($this, 'display_settings_page'));
+  }
+  
+  /**
+   * Display a settings page for H5P.
+   * 
+   * @since 1.0.0
+   */
+  public function display_settings_page() {
+    $save = filter_input(INPUT_POST, 'save_these_settings');
+    if ($save !== NULL) {
+      check_admin_referer('h5p_settings', 'save_these_settings'); // Verify form
+      
+      $export = filter_input(INPUT_POST, 'h5p_export', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_export', $export ? TRUE : FALSE);
+      
+      $icon = filter_input(INPUT_POST, 'h5p_icon', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_icon', $icon ? TRUE : FALSE);
+    }
+    else {
+      $export = get_option('h5p_export', TRUE);
+      $icon = get_option('h5p_icon', TRUE);
+    }
+    
+    include_once('views/settings.php');
   }
 
   /**
