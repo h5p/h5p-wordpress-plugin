@@ -14,6 +14,7 @@
  * 
  * TODO: Add settings page
  * TODO: Add library admin
+ * TODO: Add development mode
  *
  * @package H5P_Plugin_Admin
  * @author Joubel <contact@joubel.com>
@@ -26,7 +27,7 @@ class H5P_Plugin_Admin {
    * @since 1.0.0
    * @var \H5P_Plugin_Admin
    */
-  protected static $instance = null;
+  protected static $instance = NULL;
   
   /**
    * Instance of this class.
@@ -34,7 +35,14 @@ class H5P_Plugin_Admin {
    * @since 1.0.0
    * @var \H5peditor
    */
-  protected static $h5peditor = null;
+  protected static $h5peditor = NULL;
+  
+  /**
+   * Keep track of the current content.
+   * 
+   * @since 1.0.0
+   */
+  private $content = NULL;
 
   /**
    * Initialize the plugin by loading admin scripts & styles and adding a
@@ -59,6 +67,9 @@ class H5P_Plugin_Admin {
     // Editor ajax
     add_action('wp_ajax_h5p_libraries', array($this, 'ajax_libraries'));
     add_action('wp_ajax_h5p_files', array($this, 'ajax_files'));
+    
+    // Alter title on some pages.
+    add_filter('admin_title', array($this, 'title'), 10, 2);
   }
 
   /**
@@ -85,7 +96,6 @@ class H5P_Plugin_Admin {
     $plugin = H5P_Plugin::get_instance();
     $plugin->enqueue_styles_and_scripts();
     wp_enqueue_style($this->plugin_slug . '-admin-styles', plugins_url('styles/admin.css', __FILE__), array(), H5P_Plugin::VERSION);
-    // Remember to check get_current_screen()->id if including page specific stuff 
   }
 
   /**
@@ -96,14 +106,44 @@ class H5P_Plugin_Admin {
   public function add_plugin_admin_menu() {
     $h5p_content = __('H5P Content', $this->plugin_slug);
     add_menu_page($h5p_content, $h5p_content, 'manage_options', $this->plugin_slug, array($this, 'display_all_content_page'), 'none');
-
+    
     $all_h5p_content = __('All H5P Content', $this->plugin_slug);
     add_submenu_page($this->plugin_slug, $all_h5p_content, $all_h5p_content, 'manage_options', $this->plugin_slug, array($this, 'display_all_content_page'));
     
     $add_new = __('Add New', $this->plugin_slug);
     add_submenu_page($this->plugin_slug, $add_new, $add_new, 'manage_options', $this->plugin_slug . '_new', array($this, 'display_new_content_page'));
+  }
 
-    // add_menu_page returns the id? Keep it if we should add page specific styles or scripts.
+  /**
+   * Load content and add to title for certain pages.
+   * 
+   * @param type $admin_title
+   * @param type $title
+   * @return type
+   */
+  public function title($admin_title, $title) {
+    // Should we have used get_current_screen() ?   
+    
+    $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
+    $task = filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING);
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    
+    $show = ($page === 'h5p' && $task === 'show');
+    $edit = ($page === 'h5p_new');
+    
+    if (($show || $edit) && $id !== NULL) {
+      $plugin = H5P_Plugin::get_instance();
+      $this->content = $plugin->get_content($id);
+
+      if (!is_string($this->content)) {
+        if ($edit) {
+          $admin_title = str_replace($title, 'Edit', $admin_title);
+        }
+        $admin_title = esc_html($this->content['title']) . ' &lsaquo; ' . $admin_title;
+      }
+    }
+    
+    return $admin_title;
   }
   
   /**
@@ -122,23 +162,20 @@ class H5P_Plugin_Admin {
       
       case 'show':
         // Admin preview of H5P content.
-        $plugin = H5P_Plugin::get_instance();
-        $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-        $content = $plugin->get_content($id);
-        if (is_string($content)) {
-          print '<div class="error">' . $content . '</div>';
+        if (is_string($this->content)) {
+          $this->set_error($this->content);
+          $this->print_messages();
         }
         else {
-          // TODO: Change page title? (wp_title)
-          $title = ($content['title'] === '' ? 'H5P ' . $id : $content['title']);
-          $embed_code = $plugin->add_assets($content, TRUE);
+          $plugin = H5P_Plugin::get_instance();
+          $embed_code = $plugin->add_assets($this->content, TRUE);
           include_once('views/show-content.php');
           H5P_Plugin::get_instance()->add_settings();
         }
         return;
     }
     
-    print '<div class="wrap"><h2>Unknown task.</h2></div>';
+    print '<div class="wrap"><h2>' . esc_html__('Unknown task.', $this->plugin_slug) . '</h2></div>';
   }
   
   /**
@@ -165,25 +202,21 @@ class H5P_Plugin_Admin {
     $plugin = H5P_Plugin::get_instance();
     
     // Try to load current content if any (editing)
-    $content = NULL;
-    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-    if ($id) {
-      $content = $plugin->get_content($id);
-      if (is_string($content)) {
-        $this->set_error($content);
-        $content = NULL;
-        $id = NULL;
+    if ($this->content !== NULL) {
+      if (is_string($this->content)) {
+        $this->set_error($this->content);
+        $this->content = NULL;
       }
     }
-    $contentExists = ($content !== NULL);
+    $contentExists = ($this->content !== NULL);
     
     // Check if we're deleting content
     $delete = filter_input(INPUT_GET, 'delete');
     if ($delete && $contentExists) {
       if (wp_verify_nonce($delete, 'deleting_h5p_content')) {
         $core = $plugin->get_h5p_instance('core');
-        $core->h5pF->deleteContentData($content['id']);
-        $this->delete_export($content['id']);
+        $core->h5pF->deleteContentData($this->content['id']);
+        $this->delete_export($this->content['id']);
         wp_safe_redirect(add_query_arg(array('page' => 'h5p'), wp_get_referer()));
         return;
       }
@@ -198,11 +231,11 @@ class H5P_Plugin_Admin {
       $result = FALSE;
       if ($action === 'create') {
         // Handle creation of new content.
-        $result = $this->handle_content_creation($content);
+        $result = $this->handle_content_creation($this->content);
       }
       elseif (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
         // Handle file upload
-        $result = $this->handle_upload($content);
+        $result = $this->handle_upload($this->content);
       }
       
       if ($result) {
@@ -222,12 +255,12 @@ class H5P_Plugin_Admin {
     }
     
     // Prepare form
-    $title = $this->get_input('title', $contentExists ? $content['title'] : '');
-    $library = $this->get_input('library', $contentExists ? H5PCore::libraryToString($content['library']) : 0);
-    $parameters = $this->get_input('parameters', $contentExists ? $content['params'] : '{}');
+    $title = $this->get_input('title', $contentExists ? $this->content['title'] : '');
+    $library = $this->get_input('library', $contentExists ? H5PCore::libraryToString($this->content['library']) : 0);
+    $parameters = $this->get_input('parameters', $contentExists ? $this->content['params'] : '{}');
     
     include_once('views/new-content.php');
-    $this->add_editor_assets($id);
+    $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
   }
 
   /**

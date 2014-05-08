@@ -24,6 +24,7 @@
 }
 #h5p-content-form .submitbox {
   line-height: 30px;
+  overflow: hidden;
 }
 #h5p-content-form .button-primary {
   float: right;

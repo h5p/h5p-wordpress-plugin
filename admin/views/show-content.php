@@ -11,10 +11,10 @@
 ?>
 
 <div class="wrap">
-  <h2><?php print esc_html($title); ?><a href="<?php print add_query_arg(
+  <h2><?php print esc_html($this->content['title']); ?><a href="<?php print add_query_arg(
       array(
         'page' => 'h5p_new',
-        'id' => $id
+        'id' => $this->content['id']
       ),
       wp_get_referer()) ?>" class="add-new-h2"><?php esc_html_e('Edit', $this->plugin_slug); ?></a></h2>
   <?php print $this->print_messages(); ?>
