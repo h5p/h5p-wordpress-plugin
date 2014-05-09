@@ -76,7 +76,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     static $dir;
     
     if (is_null($dir)) {
-      $dir = $this->getH5pPath() . '/tmp/' . uniqid('h5p-');
+      $dir = $this->getH5pPath() . '/temp/' . uniqid('h5p-');
       mkdir($dir, 0777, true);
     }
     

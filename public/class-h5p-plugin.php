@@ -386,8 +386,8 @@ class H5P_Plugin {
         $this->enqueue_assets($files);
       }
       elseif ($embed === 'iframe') {
-        self::$settings[$cid]['scripts'] = $files['scripts'];
-        self::$settings[$cid]['styles'] = $files['styles'];
+        self::$settings[$cid]['scripts'] = $core->getAssetsUrls($files['scripts']);
+        self::$settings[$cid]['styles'] = $core->getAssetsUrls($files['styles']);
       }
     }
     
@@ -406,18 +406,18 @@ class H5P_Plugin {
    */
   public function enqueue_assets(&$assets) {
     $cut = $this->get_h5p_url() . '/libraries/';
-    foreach ($assets['scripts'] as $js_path) {
-      if (!in_array($js_path, self::$settings['loadedJs'])) {
-        self::$settings['loadedJs'][] = $js_path;
-        $js_path = explode('?ver=', $js_path, 2);
-        wp_enqueue_script($this->asset_handle(str_replace($cut, '', $js_path[0])), $js_path[0], array(), $js_path[1]);
+    foreach ($assets['scripts'] as $script) {
+      $url = $script->path . $script->version;
+      if (!in_array($url, self::$settings['loadedJs'])) {
+        self::$settings['loadedJs'][] = $url;
+        wp_enqueue_script($this->asset_handle(str_replace($cut, '', $script->path)), $script->path, array(), str_replace('?ver', '', $script->version));
       }
     }
-    foreach ($assets['styles'] as $css_path) {
-      if (!in_array($css_path, self::$settings['loadedCss'])) {
-        self::$settings['loadedCss'][] = $css_path;
-        $css_path = explode('?ver=', $css_path, 2);
-        wp_enqueue_style($this->asset_handle(str_replace($cut, '', $css_path[0])), $css_path[0], array(), $css_path[1]);
+    foreach ($assets['styles'] as $style) {
+      $url = $style->path . $style->version;
+      if (!in_array($url, self::$settings['loadedCss'])) {
+        self::$settings['loadedCss'][] = $url;
+        wp_enqueue_style($this->asset_handle(str_replace($cut, '', $style->path)), $style->path, array(), str_replace('?ver', '', $style->version));
       }
     }
   }

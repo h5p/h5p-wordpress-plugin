@@ -451,13 +451,16 @@ class H5P_Plugin_Admin {
     $content['title'] = $this->get_input_title();
     
     if ($validator->isValidPackage() && $content['title'] !== NULL) {
+      if (isset($content['id'])) {
+        $interface->deleteLibraryUsage($content['id']);
+      }
       $storage = $plugin->get_h5p_instance('storage');
       $storage->savePackage($content);
       return $storage->contentId;
     }
     else {
       // The uploaded file was not a valid H5P package
-      unlink($interface->getUploadedH5pPath());
+      @unlink($interface->getUploadedH5pPath());
     }
     
     return FALSE;
