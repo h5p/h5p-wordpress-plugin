@@ -6,7 +6,7 @@
 .h5peditor-form a {
   text-decoration: none;
 }
-.h5p-iframe-wrapper, .h5p-content {
+.h5p-wp-admin-wrapper {
   max-width: 960px;
 }
 #h5p-content-form {
