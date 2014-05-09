@@ -69,6 +69,9 @@ class H5P_Plugin_Admin {
     
     // Alter title on some pages.
     add_filter('admin_title', array($this, 'title'), 10, 2);
+    
+    // Process form data when saving H5Ps.
+    add_action('load-h5p-content_page_h5p_new', array($this, 'process_new_content'));
   }
 
   /**
@@ -159,8 +162,10 @@ class H5P_Plugin_Admin {
     $edit = ($page === 'h5p_new');
     
     if (($show || $edit) && $id !== NULL) {
-      $plugin = H5P_Plugin::get_instance();
-      $this->content = $plugin->get_content($id);
+      if ($this->content === NULL) {
+        $plugin = H5P_Plugin::get_instance();
+        $this->content = $plugin->get_content($id);
+      }
 
       if (!is_string($this->content)) {
         if ($edit) {
@@ -221,30 +226,31 @@ class H5P_Plugin_Admin {
   }
   
   /**
-   * Display a form for adding h5p content.
+   * Handle form submit when uploading, deleteing or editing H5Ps.
    *
    * @since 1.0.0
    */
-  public function display_new_content_page() {
+  public function process_new_content() {
     $plugin = H5P_Plugin::get_instance();
     
-    // Try to load current content if any (editing)
-    if ($this->content !== NULL) {
+    // Check if we have any content or errors loading content
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    if ($id) {
+      $this->content = $plugin->get_content($id);
       if (is_string($this->content)) {
         $this->set_error($this->content);
         $this->content = NULL;
       }
     }
-    $contentExists = ($this->content !== NULL);
     
     // Check if we're deleting content
     $delete = filter_input(INPUT_GET, 'delete');
-    if ($delete && $contentExists) {
+    if ($delete && $this->content !== NULL) {
       if (wp_verify_nonce($delete, 'deleting_h5p_content')) {
         $core = $plugin->get_h5p_instance('core');
         $core->h5pF->deleteContentData($this->content['id']);
         $this->delete_export($this->content['id']);
-        wp_safe_redirect(add_query_arg(array('page' => 'h5p'), wp_get_referer()));
+        wp_safe_redirect(admin_url('admin.php?page=h5p'));
         return;
       }
       $this->set_error(__('Invalid confirmation code, not deleting.'));
@@ -267,19 +273,18 @@ class H5P_Plugin_Admin {
       
       if ($result) {
         $this->delete_export($result);
-        wp_safe_redirect(
-          add_query_arg(
-            array(
-              'page' => 'h5p',
-              'task' => 'show',
-              'id' => $result
-            ),
-            wp_get_referer()
-          )
-        );
-        return;
+        wp_safe_redirect(admin_url('admin.php?page=h5p&task=show&id=' . $result));
       }
     }
+  }
+  
+  /**
+   * Display a form for adding and editing h5p content.
+   *
+   * @since 1.0.0
+   */
+  public function display_new_content_page() {
+    $contentExists = ($this->content !== NULL);
     
     // Prepare form
     $title = $this->get_input('title', $contentExists ? $this->content['title'] : '');
@@ -473,12 +478,7 @@ class H5P_Plugin_Admin {
    * @return string
    */
   public function add_insert_button() {
-    $ajax_url = add_query_arg( 
-      array( 
-          'action' => 'h5p_contents',
-      ), 
-      'admin-ajax.php'
-    ); 
+    $ajax_url = admin_url('admin-ajax.php?action=h5p_contents'); 
     return '<a href="' . $ajax_url . '" class="button thickbox" title="Select and insert H5P Interactive Content">Add H5P</a>';
   }
  
@@ -617,12 +617,7 @@ class H5P_Plugin_Admin {
         'width' => 50,
         'height' => 50,
       ),
-      'ajaxPath' => add_query_arg(
-        array(
-          'action' => 'h5p_',
-        ), 
-        'admin-ajax.php'
-      ),
+      'ajaxPath' => admin_url('admin-ajax.php?page=h5p_'),
       'libraryUrl' => plugin_dir_url('h5p/h5p-editor-php-library/h5peditor.class.php'),
       'copyrightSemantics' => H5PContentValidator::getCopyrightSemantics()
     );

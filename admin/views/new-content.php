@@ -16,7 +16,7 @@
       <?php print esc_html(get_admin_page_title()); ?>
     <?php else: ?>
       <?php esc_html_e('Edit', $this->plugin_slug); ?> <em><?php print esc_html($title); ?></em>
-      <a href="<?php print add_query_arg(array('page' => 'h5p', 'task' => 'show', 'id' => $this->content['id']), wp_get_referer()) ?>" class="add-new-h2">View</a></h2>
+      <a href="<?php print admin_url('admin.php?page=h5p&task=show&id=' . $this->content['id']); ?>" class="add-new-h2">View</a></h2>
     <?php endif; ?>
   </h2>
   <?php $this->print_messages(); ?>
@@ -39,7 +39,7 @@
       </div>
       <div id="major-publishing-actions" class="submitbox">
         <?php if ($this->content !== NULL): ?>
-          <a class="submitdelete deletion" href="<?php print wp_nonce_url(add_query_arg(array('page' => 'h5p_new', 'id' => $this->content['id'])), 'deleting_h5p_content', 'delete'); ?>">Delete</a>
+          <a class="submitdelete deletion" href="<?php print wp_nonce_url(admin_url('admin.php?page=h5p_new&id=' . $this->content['id']), 'deleting_h5p_content', 'delete'); ?>">Delete</a>
         <?php endif; ?>
         <input type="submit" name="submit" value="<?php esc_html_e($this->content === NULL ? 'Create' : 'Update', $this->plugin_slug) ?>" class="button button-primary button-large"/>
       </div>
