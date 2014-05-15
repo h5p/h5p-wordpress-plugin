@@ -617,7 +617,7 @@ class H5P_Plugin_Admin {
         'width' => 50,
         'height' => 50,
       ),
-      'ajaxPath' => admin_url('admin-ajax.php?page=h5p_'),
+      'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
       'libraryUrl' => plugin_dir_url('h5p/h5p-editor-php-library/h5peditor.class.php'),
       'copyrightSemantics' => H5PContentValidator::getCopyrightSemantics()
     );
