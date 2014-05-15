@@ -36,6 +36,15 @@ Content is King!
 If you're cloning this plugin from GitHub, remember to get the sub modules as well:
 `git submodule update --init --recursive`
 
+== Screenshots ==
+
+1. Simple editor to create interactive H5P content
+2. Preview the H5P interactive content
+3. Press Add H5P to add interactive H5P content to posts
+4. Choose among available interactive H5P content from the list
+5. Interactive H5P content added to a post
+6. View post with interactive H5P content.
+
 == Changelog ==
 
 = 1.0 =
