@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.0.0';
+  const VERSION = '1.0.1';
 
   /**
    * The Unique identifier for this plugin.
@@ -363,7 +363,9 @@ class H5P_Plugin {
             
       if (get_option('h5p_export', TRUE)) {
         $export = $this->get_h5p_instance('export');
-        $exportPath = str_replace($this->get_h5p_path(), $this->get_h5p_url(), $export->getExportPath($content));
+        // For windows: need to convert c:\some\thing\ to c:/some/thing/
+        $h5p_basedir = str_replace('\\', '/', $this->get_h5p_path());
+        $exportPath = str_replace($h5p_basedir, $this->get_h5p_url(), $export->getExportPath($content));
       }
       else {
         $exportPath = '';
@@ -374,7 +376,7 @@ class H5P_Plugin {
         'library' => H5PCore::libraryToString($content['library']),
         'jsonContent' => $this->get_filter_parameters($content, $no_cache),
         'fullScreen' => $content['library']['fullscreen'],
-        'export' => $exportPath,
+        'export' => $exportPath
       );
       
       // Get assets for this content
