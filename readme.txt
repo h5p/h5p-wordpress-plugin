@@ -1,5 +1,5 @@
 ﻿=== H5P ===
-Contributors: icc0rz
+Contributors: icc0rz, fnoks, falcon28
 Donate link: http://h5p.org
 Tags: h5p, interactive content, interactive video, presentation, html5, modern web
 Requires at least: 3.8.1
