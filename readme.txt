@@ -1,7 +1,7 @@
 ﻿=== H5P ===
 Contributors: icc0rz, fnoks, falcon28
 Donate link: http://h5p.org
-Tags: h5p, interactive content, interactive video, presentation, html5, modern web
+Tags: h5p, interactive content, interactive video, presentation, html5, modern web, education
 Requires at least: 3.8.1
 Tested up to: 3.9
 Stable tag: 1.0
