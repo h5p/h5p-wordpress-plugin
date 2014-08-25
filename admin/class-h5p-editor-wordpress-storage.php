@@ -65,7 +65,7 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
     $libraries = array();
 
     $libraries_result = $wpdb->get_results(
-        "SELECT name AS machineName, title, major_version as majorVersion, minor_version as minorVersion 
+        "SELECT name, title, major_version as majorVersion, minor_version as minorVersion 
           FROM {$wpdb->prefix}h5p_libraries
           WHERE runnable = 1 
           AND semantics IS NOT NULL 
@@ -74,8 +74,7 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
     foreach ($libraries_result as $library) {
       // Make sure we only display the newest version of a library.
       foreach ($libraries as $key => $existingLibrary) {
-        if ($library->machineName === $existingLibrary->machineName) {
-          
+        if ($library->name === $existingLibrary->name) {
           // Mark old ones
           // This is the newest
           if (($library->majorVersion === $existingLibrary->majorVersion && $library->minorVersion > $existingLibrary->minorVersion) ||
@@ -91,7 +90,6 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
       // Add new library
       $libraries[] = $library;
     }
-    
     return $libraries;
   }
 }

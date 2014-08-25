@@ -150,16 +150,16 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements getLibraryUsage
    */
-  public function getLibraryUsage($id) {
+  public function getLibraryUsage($id, $skipContent = FALSE) {
     global $wpdb;
     
     return array(
-      'content' => intval($wpdb->get_var($wpdb->prepare(
+      'content' => $skipContent ? -1 : intval($wpdb->get_var($wpdb->prepare(
           "SELECT COUNT(distinct c.id)
           FROM {$wpdb->prefix}h5p_libraries l 
-          JOIN {$wpdb->prefix}h5p_contents_libraries cl ON l.library_id = cl.library_id 
-          JOIN {$wpdb->prefix}h5p_contents c ON nl.content_id = c.content_id
-          WHERE l.library_id = %d",
+          JOIN {$wpdb->prefix}h5p_contents_libraries cl ON l.id = cl.library_id 
+          JOIN {$wpdb->prefix}h5p_contents c ON cl.content_id = c.id
+          WHERE l.id = %d",
           $id)
         )),
       'libraries' => intval($wpdb->get_var($wpdb->prepare(
@@ -326,18 +326,17 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements deleteLibrary
    */
-  public function deleteLibrary($id) {
+  public function deleteLibrary($library) {
     global $wpdb;
     
-    $library = $wpdb->get_row("SELECT * FROM {$wpdb->prefix}h5p_libraries WHERE library_id = %d", $id);
-
-    // Delete files
+    // Delete library files
     H5PCore::deleteFileTree($this->getH5pPath() . '/libraries/' . $library->name . '-' . $library->major_version . '.' . $library->minor_version);
     
-    // Delete data in database (won't delete content)
-    $wpdb->delete($wpdb->prefix . 'h5p_libraries_libraries', array('library_id' => $id), array('%d'));
-    $wpdb->delete($wpdb->prefix . 'h5p_libraries_languages', array('library_id' => $id), array('%d'));
-    $wpdb->delete($wpdb->prefix . 'h5p_libraries', array('id' => $id), array('%d'));
+    
+    // Remove library data from database
+    $wpdb->delete($wpdb->prefix . 'h5p_libraries_libraries', array('library_id' => $library->id), array('%d'));
+    $wpdb->delete($wpdb->prefix . 'h5p_libraries_languages', array('library_id' => $library->id), array('%d'));
+    $wpdb->delete($wpdb->prefix . 'h5p_libraries', array('id' => $library->id), array('%d'));
   }
 
   /**
@@ -359,11 +358,11 @@ class H5PWordPress implements H5PFrameworkInterface {
       );
     }
   }
-
+  
   /**
-   * Implements saveContentData
+   * Implements updateContent
    */
-  public function saveContentData($content, $contentMainId = NULL) {
+  public function updateContent($content, $contentMainId = NULL) {
     global $wpdb;
     
     $table = $wpdb->prefix . 'h5p_contents';
@@ -373,13 +372,15 @@ class H5PWordPress implements H5PFrameworkInterface {
       'parameters' => $content['params'],
       'embed_type' => 'div', // TODO: Determine from library?
       'library_id' => $content['library']['libraryId'],
+      'filtered' => ''
     );
     $format = array(
       '%s',
       '%s',
       '%s',
       '%s',
-      '%d'
+      '%d',
+      '%s'
     );
     
     if (!isset($content['id'])) {
@@ -394,6 +395,13 @@ class H5PWordPress implements H5PFrameworkInterface {
       $wpdb->update($table, $data, array('id' => $content['id']), $format, array('%d'));
       return $content['id'];
     }
+  }
+  
+  /**
+   * Implements insertContent
+   */
+  public function insertContent($content, $contentMainId = NULL) {
+    return $this->updateContent($content);
   }
 
   /**
@@ -569,6 +577,7 @@ class H5PWordPress implements H5PFrameworkInterface {
         "SELECT hc.id
               , hc.title
               , hc.parameters AS params
+              , hc.filtered
               , hc.embed_type AS embedType 
               , hl.id AS libraryId 
               , hl.name AS libraryName
@@ -613,5 +622,110 @@ class H5PWordPress implements H5PFrameworkInterface {
     }
 
     return $wpdb->get_results($wpdb->prepare($query, $queryArgs), ARRAY_A);
+  }
+  
+  /**
+   * Implements cacheGet
+   */
+  public function cacheGet($group, $key) {
+    // WP uses contents table to store filtered parameters.
+    // TODO: Rewrite other impl to do the same.
+  }
+  
+  /**
+   * Implements cacheSet
+   */
+  public function cacheSet($group, $key, $data) {
+    global $wpdb;
+    
+    if ($group === 'parameters') {
+      // TODO: Rename and simply function.
+      $wpdb->update($wpdb->prefix . 'h5p_contents', array('filtered' => $data), array('id' => $key), array('%s'), array('%d'));
+    }
+  }
+  
+  /**
+   * Implements cacheDel
+   */
+  public function cacheDel($group, $key = NULL) {
+    // WP uses contents table to store filtered parameters.
+    // TODO: Rewrite other impl to do the same.
+  }
+  
+  /**
+   * Implements invalidateContentCache.
+   */
+  public function invalidateContentCache($library_id) {
+    global $wpdb;
+    
+    $wpdb->update($wpdb->prefix . 'h5p_contents', array('filtered' => NULL), array('library_id' => $library_id), array('%s'), array('%d'));
+  }
+  
+  /**
+   * Implements getNotCached.
+   */
+  public function getNotCached() {
+    global $wpdb;
+    
+    return $wpdb->get_var(
+        "SELECT COUNT(id)
+          FROM {$wpdb->prefix}h5p_contents
+          WHERE filtered = ''"
+    );
+  }
+  
+  /**
+   * Implements getNumContent.
+   */
+  public function getNumContent($library_id) {
+    global $wpdb;
+    
+    return intval($wpdb->get_var($wpdb->prepare(
+        "SELECT COUNT(id)
+          FROM {$wpdb->prefix}h5p_contents
+          WHERE library_id = %d",
+        $library_id
+    )));
+  }
+  
+  /**
+   * Implements loadLibraries.
+   */
+  public function loadLibraries() {
+    global $wpdb;
+    
+    $results = $wpdb->get_results(
+        "SELECT id, name, title, major_version, minor_version, patch_version, runnable 
+          FROM {$wpdb->prefix}h5p_libraries 
+          ORDER BY title ASC, major_version ASC, minor_version ASC"
+    );
+    
+    $libraries = array();
+    foreach ($results as $library) { 
+      $libraries[$library->name][] = $library;
+    }
+    
+    return $libraries;
+  }
+  
+  /**
+   * Implements setUnsupportedLibraries.
+   */
+  public function setUnsupportedLibraries($libraries) {
+
+  }
+  
+  /**
+   * Implements getUnsupportedLibraries.
+   */
+  public function getUnsupportedLibraries() {
+    
+  }
+  
+  /**
+   * Implements getAdminUrl.
+   */
+  public function getAdminUrl() {
+    
   }
 }

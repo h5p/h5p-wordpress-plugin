@@ -1,6 +1,6 @@
 #toplevel_page_h5p .wp-menu-image:before {
-  font-family: H5P !important;
-  content: "\e667";
+  font-family: 'H5P' !important;
+  content: "\e88e";
   padding: 7px 0;
 }
 .h5peditor-form a {
@@ -34,4 +34,21 @@
 }
 .h5p-updated-at, .h5p-created-at, .h5p-edit-link {
   width: 10em;
+}
+#h5p-admin-container table.libraries,
+#h5p-admin-container .h5p-content,
+#h5p-library-form .postbox {
+  width: 960px;
+}
+#h5p-library-form #minor-publishing {
+  padding: 10px;
+}
+
+#h5p-admin-container .h5p-used-in {
+  text-align: center;
+}
+
+.h5p-admin-rebuild-cache {
+  width: 940px;
+  padding: 0 10px 10px 10px;
 }

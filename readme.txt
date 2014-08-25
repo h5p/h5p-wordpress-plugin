@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: h5p, interactive content, interactive video, presentation, html5, modern web, education
 Requires at least: 3.8.1
 Tested up to: 3.9
-Stable tag: 1.0
+Stable tag: 1.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -49,3 +49,8 @@ If you're cloning this plugin from GitHub, remember to get the sub modules as we
 
 = 1.0 =
 This is the first release of this plugin.
+
+= 1.1 =
+Fixed dependencies cache.
+Added libraries admin.
+TODO.

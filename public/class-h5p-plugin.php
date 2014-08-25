@@ -12,6 +12,10 @@
 /**
  * Plugin class.
  *
+ * TODO: Add embed
+ * TODO: Test with PostgreSQL
+ * TODO: Check i18n
+ * 
  * @package H5P_Plugin
  * @author Joubel <contact@joubel.com>
  */
@@ -24,7 +28,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.0.1';
+  const VERSION = '1.1.0';
 
   /**
    * The Unique identifier for this plugin.
@@ -135,6 +139,7 @@ class H5P_Plugin {
       title VARCHAR(255) NOT NULL,
       library_id INT UNSIGNED NOT NULL,
       parameters LONGTEXT NOT NULL,
+      filtered LONGTEXT NOT NULL,
       embed_type VARCHAR(127) NOT NULL,
       content_type VARCHAR(127) NULL,
       author VARCHAR(127) NULL,
@@ -281,7 +286,7 @@ class H5P_Plugin {
       
       $language = $this->get_language();
       
-      self::$core = new H5PCore(self::$interface, $this->get_h5p_url(), $language); 
+      self::$core = new H5PCore(self::$interface, $this->get_h5p_url(), $language, get_option('h5p_export', TRUE)); 
     }
 
     switch ($type) {
@@ -360,27 +365,17 @@ class H5P_Plugin {
     // Make sure content isn't added twice
     $cid = 'cid-' . $content['id'];
     if (!isset(self::$settings['content'][$cid])) {
-            
-      if (get_option('h5p_export', TRUE)) {
-        $export = $this->get_h5p_instance('export');
-        // For windows: need to convert c:\some\thing\ to c:/some/thing/
-        $h5p_basedir = str_replace('\\', '/', $this->get_h5p_path());
-        $exportPath = str_replace($h5p_basedir, $this->get_h5p_url(), $export->getExportPath($content));
-      }
-      else {
-        $exportPath = '';
-      }
-      
+      $core = $this->get_h5p_instance('core');
+
       // Add JavaScript settings for this content
       self::$settings['content'][$cid] = array(
         'library' => H5PCore::libraryToString($content['library']),
-        'jsonContent' => $this->get_filter_parameters($content, $no_cache),
+        'jsonContent' => $core->filterParameters($content),
         'fullScreen' => $content['library']['fullscreen'],
-        'export' => $exportPath
+        'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : ''
       );
       
       // Get assets for this content
-      $core = $this->get_h5p_instance('core');
       $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
       $files = $core->getDependenciesFiles($preloaded_dependencies);
         
@@ -457,6 +452,7 @@ class H5P_Plugin {
       'loadedCss' => array(),
       'i18n' => array(
         'fullscreen' => __('Fullscreen', $this->plugin_slug),
+        'disableFullscreen' => __('Disable fullscreen', $this->plugin_slug),
         'download' => __('Download', $this->plugin_slug),
         'copyrights' => __('Rights of use', $this->plugin_slug),
         'embed' => __('Embed', $this->plugin_slug),
@@ -472,7 +468,11 @@ class H5P_Plugin {
         'downloadDescription' => __('Download this content as a H5P file.', $this->plugin_slug),
         'copyrightsDescription' => __('View copyright information for this content.', $this->plugin_slug),
         'embedDescription' => __('View the embed code for this content.', $this->plugin_slug),
-        'h5pDescription' => __('Visit H5P.org to check out more cool content.', $this->plugin_slug)
+        'h5pDescription' => __('Visit H5P.org to check out more cool content.', $this->plugin_slug),
+        'upgradeLibrary' => __('Upgrade library content', $this->plugin_slug),
+        'viewLibrary' => __('View library details', $this->plugin_slug),
+        'deleteLibrary' => __('Delete library', $this->plugin_slug),
+        'NA' => __('N/A', $this->plugin_slug)
       )
     );
     
@@ -530,43 +530,6 @@ class H5P_Plugin {
    */
   public function get_settings() {
     return self::$settings;
-  }
-  
-  /**
-   * Filter parameters before they're sent to the user.
-   * 
-   * @since 1.0.0
-   * @param object $content
-   * @return string
-   */
-  public function get_filter_parameters($content, $no_cache = FALSE) {
-    $cache_key = 'h5p-content-' . $content['id'];
-    $filtered_parameters = ($no_cache ? NULL : wp_cache_get($cache_key));
-
-    if (!$filtered_parameters) {
-      // Not cached
-      $filtered_parameters = NULL; 
-      
-      // Get semantics.
-      $core = $this->get_h5p_instance('core');
-      $semantics = $core->loadLibrarySemantics($content['library']['name'], $content['library']['majorVersion'], $content['library']['minorVersion']);
-      
-      if ($semantics !== NULL) {
-        // Get params as object
-        $filtered_parameters = json_decode($content['params']);
-
-        // Validate and filter against main library semantics.
-        $validator = $this->get_h5p_instance('contentvalidator');
-        $validator->validateBySemantics($filtered_parameters, $semantics);
-
-        $filtered_parameters = json_encode($filtered_parameters);
-      }
-
-      // Cache
-      wp_cache_set($cache_key, $filtered_parameters);
-    }
-    
-    return $filtered_parameters;
   }
   
   /**

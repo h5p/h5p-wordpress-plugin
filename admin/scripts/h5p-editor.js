@@ -6,9 +6,16 @@ var H5PEditor = H5PEditor || {};
     H5PEditor.basePath = H5P.settings.editor.libraryUrl;
     H5PEditor.fileIcon = H5P.settings.editor.fileIcon;
     H5PEditor.ajaxPath = H5P.settings.editor.ajaxPath;
+    H5PEditor.filesPath = H5P.settings.editor.filesPath;
     
     // Semantics describing what copyright information can be stored for media.
     H5PEditor.copyrightSemantics = H5P.settings.editor.copyrightSemantics;
+    
+    // Required styles and scripts for the editor
+    H5PEditor.assets = H5P.settings.editor.assets;
+    
+    // Required for assets
+    H5PEditor.baseUrl = '';
     
     if (H5P.settings.editor.nodeVersionId !== undefined) {
       H5PEditor.contentId = H5P.settings.editor.nodeVersionId;
@@ -31,8 +38,7 @@ var H5PEditor = H5PEditor || {};
       else {
         $upload.hide();
         if (h5peditor === undefined) {
-          h5peditor = new ns.Editor(library, JSON.parse($params.val()));
-          h5peditor.replace($editor);
+          h5peditor = new ns.Editor(library, $params.val(), $editor[0]);
         }
         $create.show();
       }
@@ -74,7 +80,7 @@ var H5PEditor = H5PEditor || {};
   H5PEditor.getAjaxUrl = function (action, parameters) {
     var url = H5P.settings.editor.ajaxPath + action;
     
-    if (parameters !== undefined && parameters instanceof Object) {
+    if (parameters !== undefined) {
       for (var property in parameters) {
         if (parameters.hasOwnProperty(property)) {
           url += '&' + property + '=' + parameters[property];

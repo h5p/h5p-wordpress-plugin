@@ -120,3 +120,5 @@ H5PIntegration.getLibraryInfo = function () {
 H5PIntegration.getAdminContainer = function () {
   return H5P.jQuery('#h5p-admin-container'); 
 };
+
+H5PIntegration.extraTableClasses = 'wp-list-table widefat fixed';

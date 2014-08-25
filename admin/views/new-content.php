@@ -19,7 +19,7 @@
       <a href="<?php print admin_url('admin.php?page=h5p&task=show&id=' . $this->content['id']); ?>" class="add-new-h2">View</a></h2>
     <?php endif; ?>
   </h2>
-  <?php $this->print_messages(); ?>
+  <?php H5P_Plugin_Admin::print_messages(); ?>
   <form method="post" enctype="multipart/form-data" id="h5p-content-form">
     <div id="post-body-content">
       <div id="titlediv">
