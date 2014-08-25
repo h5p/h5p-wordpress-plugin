@@ -16,15 +16,17 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 
 global $wpdb;
 
+// Drop tables
 $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents");
 $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents_libraries");
 $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries");
 $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_libraries");
 $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_languages");
-	
-delete_option('h5p_db_version');
 
-// TODO: Remove other settings when added.
+// Remove settings
+delete_option('h5p_db_version');
+delete_option('h5p_export');
+delete_option('h5p_icon');
 
 /**
  * Recursively remove file or directory.

@@ -51,6 +51,8 @@ If you're cloning this plugin from GitHub, remember to get the sub modules as we
 This is the first release of this plugin.
 
 = 1.1 =
-Fixed dependencies cache.
-Added libraries admin.
-TODO.
+Imported the latest changes and bug fixes from h5p core.
+Fixed so that content dependencies cache is rebuilt when library dependencies changes. This also include new export files.
+The H5P Editor is now inside an iframe to avoid messing up css styling.
+A library administration user interface has been added. This supports content upgrades, deletion of libraries without content and uploading h5p packages without content.
+Added 3 new capabilities. `manage_h5p_libraries` and `manage_h5p_settings` to the administrator role, and `manage_h5p_contents` to the editor role.

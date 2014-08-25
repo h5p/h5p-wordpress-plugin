@@ -311,7 +311,7 @@ class H5PContentAdmin {
    * @since 1.1.0
    * @return string
    */
-  private function get_input_title() {
+  public function get_input_title() {
     $title = $this->get_input('title');
     if ($title === NULL) {
       return NULL;

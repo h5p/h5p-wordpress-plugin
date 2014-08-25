@@ -199,6 +199,15 @@ class H5P_Plugin {
     
     // Cleaning rutine
     wp_schedule_event(time(), 'daily', 'h5p_daily_cleanup');
+    
+    // Add new capabilities 
+    $administrator = get_role('administrator');
+    $administrator->add_cap('manage_h5p_libraries');
+    $administrator->add_cap('manage_h5p_settings');
+    $administrator->add_cap('manage_h5p_contents');
+    
+    $editor = get_role('editor');
+    $editor->add_cap('manage_h5p_contents');
   }
   
   /**
@@ -341,7 +350,7 @@ class H5P_Plugin {
     $id = isset($atts['id']) ? intval($atts['id']) : NULL;
     $content = $this->get_content($id);
     if (is_string($content)) {
-      return current_user_can('manage_options') ? $content : NULL;
+      return current_user_can('manage_h5p_contents') ? $content : NULL;
     }
     
     return $this->add_assets($content);

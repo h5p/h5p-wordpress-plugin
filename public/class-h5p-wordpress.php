@@ -14,7 +14,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements setErrorMessage
    */
   public function setErrorMessage($message) {
-    if (current_user_can('manage_options')) {
+    if (current_user_can('manage_h5p_contents')) {
       $this->messages['error'][] = $message;
     }
   }
@@ -23,7 +23,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements setInfoMessage
    */
   public function setInfoMessage($message) {
-    if (current_user_can('manage_options')) {
+    if (current_user_can('manage_h5p_contents')) {
       $this->messages['updated'][] = $message;
     }
   }
@@ -144,7 +144,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements mayUpdateLibraries
    */
   public function mayUpdateLibraries() {
-    return current_user_can('manage_options');
+    return current_user_can('manage_h5p_libraries');
   }
 
   /**
