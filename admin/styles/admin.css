@@ -52,3 +52,11 @@
   width: 940px;
   padding: 0 10px 10px 10px;
 }
+
+#h5p-outdated {
+  overflow: hidden;
+}
+#h5p-outdated > li {
+  float: left;
+  padding-right: 1em;
+}

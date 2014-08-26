@@ -172,9 +172,13 @@ class H5PContentAdmin {
         $result = $this->handle_content_creation($this->content);
       }
       elseif (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
+        // Create new content if none exists
+        $content = ($this->content === NULL ? array() : $this->content);
+        $content['title'] = $this->content->get_input_title();
+        
         // Handle file upload
         $plugin_admin = H5P_Plugin_Admin::get_instance();
-        $result = $plugin_admin->handle_upload($this->content);
+        $result = $plugin_admin->handle_upload($content);
       }
       
       if ($result) {

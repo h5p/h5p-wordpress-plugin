@@ -163,6 +163,10 @@ class H5PLibraryAdmin {
     $plugin->add_core_assets();
     $settings = $plugin->get_settings();
 
+    // Find out which version of libraries that should be upgraded
+    $minVersions = $core->getMinimumVersionsSupported(plugins_url('h5p/h5p-php-library/library-support.json'));
+    $needsUpgrade = '';
+    
     // Add settings for each library
     foreach ($libraries as $versions) {
       foreach ($versions as $library) {
@@ -173,6 +177,14 @@ class H5PLibraryAdmin {
         }
         else {
           $upgradeUrl = NULL;
+        }
+        
+        // Check if this should be upgraded.
+        if ($minVersions !== NULL && isset($minVersions[$library->name])) {
+          $min = $minVersions[$library->name];
+          if (!$core->isLibraryVersionSupported($library, $min->versions)) {
+            $needsUpgrade .= '<li><a href="' . $min->downloadUrl . '">' . $library->name . '</a> (' . H5PCore::libraryVersion($library) . ')</li>';
+          }
         }
 
         $settings['libraries']['listData'][] = array(
@@ -203,7 +215,22 @@ class H5PLibraryAdmin {
     if ($not_cached) {
       $settings['libraries']['notCached'] = $this->get_not_cached_settings($not_cached);
     }
+    
+    if ($needsUpgrade !== '') {
+      // Set update message
+      $interface->setErrorMessage('
+          <p>The following libraries are outdated and should be upgraded:</p>
+          <ul id="h5p-outdated">' . $needsUpgrade . '</ul>
+          <p>To upgrade all the installed libraries, do the following:</p>
+          <ol>
+            <li>Download <a href="http://h5p.org/sites/default/files/upgrades.h5p">upgrades.h5p</a>.</li>
+            <li>Select the downloaded <em>upgrades.h5p</em> file in the form below.</li>
+            <li>Check off "Only upgrade" and click the <em>Upload</em> button.</li>
+          </ol> </p>'
+      );
+    }
 
+    // Assets
     $this->add_admin_assets();
     H5P_Plugin_Admin::add_script('library-list', 'h5p-php-library/js/h5p-library-list.js');
 
@@ -223,7 +250,7 @@ class H5PLibraryAdmin {
     if ($post && isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
       check_admin_referer('h5p_library', 'lets_upgrade_that'); // Verify form
       $plugin_admin = H5P_Plugin_Admin::get_instance();
-      $plugin_admin->handle_upload(NULL, TRUE);
+      $plugin_admin->handle_upload(NULL, filter_input(INPUT_POST, 'h5p_upgrade_only'));
       return;
     }
     

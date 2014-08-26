@@ -196,7 +196,7 @@ class H5P_Plugin_Admin {
    * @param array $content
    * @return boolean
    */
-  public function handle_upload($content, $skipContent = FALSE) {
+  public function handle_upload($content = NULL, $only_upgrade = NULL) {
     $plugin = H5P_Plugin::get_instance();
     $validator = $plugin->get_h5p_instance('validator');
     $interface = $plugin->get_h5p_instance('interface');
@@ -204,19 +204,13 @@ class H5P_Plugin_Admin {
     // Move so core can validate the file extension.
     rename($_FILES['h5p_file']['tmp_name'], $interface->getUploadedH5pPath());
 
-    if (!$skipContent) {
-      if ($content === NULL) {
-        $content = array();
-      }
-      $content['title'] = $this->content->get_input_title();
-    }
-    
+    $skipContent = ($content === NULL);
     if ($validator->isValidPackage($skipContent) && ($skipContent || $content['title'] !== NULL)) {
       if (isset($content['id'])) {
         $interface->deleteLibraryUsage($content['id']);
       }
       $storage = $plugin->get_h5p_instance('storage');
-      $storage->savePackage($content, NULL, $skipContent);
+      $storage->savePackage($content, NULL, $skipContent, $only_upgrade);
       return $storage->contentId;
     }
 
@@ -250,7 +244,7 @@ class H5P_Plugin_Admin {
       if (!empty($messages)) {
         print '<div class="' . $type . '"><ul>';
         foreach ($messages as $message) {
-          print '<li>' . esc_html($message) . '</li>';
+          print '<li>' . $message . '</li>';
         }
         print '</ul></div>';
       } 
