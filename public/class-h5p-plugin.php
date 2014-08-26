@@ -494,6 +494,11 @@ class H5P_Plugin {
       wp_enqueue_style($this->asset_handle('core-' . $style), $style_url, array(), self::VERSION);
     }
     
+    // Add custom WP style
+    $style_url = plugins_url('h5p/public/styles/h5p-integration.css');
+    self::$settings['core']['styles'][] = $style_url . $cache_buster;
+    wp_enqueue_style($this->asset_handle('integration'), $style_url, array(), self::VERSION);
+    
     // Add JavaScript with library framework integration
     $script_url = plugins_url('h5p/public/scripts/h5p-integration.js');
     self::$settings['core']['scripts'][] = $script_url . $cache_buster;
