@@ -681,12 +681,12 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function getNumContent($library_id) {
     global $wpdb;
     
-    return $wpdb->get_var($wpdb->prepare(
+    return intval($wpdb->get_var($wpdb->prepare(
         "SELECT COUNT(id)
           FROM {$wpdb->prefix}h5p_contents
           WHERE library_id = %d",
         $library_id
-    ));
+    )));
   }
   
   /**
