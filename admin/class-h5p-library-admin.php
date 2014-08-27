@@ -250,7 +250,7 @@ class H5PLibraryAdmin {
     if ($post && isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
       check_admin_referer('h5p_library', 'lets_upgrade_that'); // Verify form
       $plugin_admin = H5P_Plugin_Admin::get_instance();
-      $plugin_admin->handle_upload(NULL, filter_input(INPUT_POST, 'h5p_upgrade_only'));
+      $plugin_admin->handle_upload(NULL, filter_input(INPUT_POST, 'h5p_upgrade_only') ? TRUE : FALSE);
       return;
     }
     

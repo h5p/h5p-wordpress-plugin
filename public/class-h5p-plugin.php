@@ -91,6 +91,9 @@ class H5P_Plugin {
     
     // Clean up tmp editor files
     add_action('h5p_daily_cleanup', array($this, 'remove_old_tmp_files'));
+    
+    // Check for updates
+    add_action('plugins_loaded', array($this, 'check_for_updates'), 1);
   }
 
   /**
@@ -126,6 +129,22 @@ class H5P_Plugin {
    * @param boolean $network_wide
    */
   public static function activate($network_wide) {
+    self::update_database();
+    
+    // Keep track of which DB we have.
+    add_option('h5p_version', self::VERSION);
+    
+    // Cleaning rutine
+    wp_schedule_event(time(), 'daily', 'h5p_daily_cleanup');
+  }
+  
+  /**
+   * Makes sure the database is up to date.
+   * 
+   * @since 1.1.0
+   * @global \wpdb $wpdb
+   */
+  public static function update_database() {
     global $wpdb;
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -194,12 +213,6 @@ class H5P_Plugin {
       UNIQUE KEY  (library_id, language_code)
     );");
     
-    // Keep track of which DB we have.
-    add_option('h5p_version', self::VERSION);
-    
-    // Cleaning rutine
-    wp_schedule_event(time(), 'daily', 'h5p_daily_cleanup');
-    
     // Add new capabilities 
     $administrator = get_role('administrator');
     $administrator->add_cap('manage_h5p_libraries');
@@ -216,6 +229,16 @@ class H5P_Plugin {
   public static function deactivate() {
     // Remove cleaning rutine
     wp_clear_scheduled_hook('h5p_daily_cleanup');
+  }
+  
+  /**
+   * @since 1.1.0
+   */
+  public function check_for_updates() {
+    if (get_option('h5p_version') !== self::VERSION) {
+      self::update_database();
+      update_option('h5p_version', self::VERSION);
+    }
   }
 
   /**

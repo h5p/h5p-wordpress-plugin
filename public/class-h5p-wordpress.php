@@ -102,14 +102,16 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function getLibraryId($name, $majorVersion, $minorVersion) {
     global $wpdb;
     
-    return $wpdb->get_var($wpdb->prepare(
+    $id = $wpdb->get_var($wpdb->prepare(
         "SELECT id 
         FROM {$wpdb->prefix}h5p_libraries
         WHERE name = %s
         AND major_version = %d
         AND minor_version = %d",
         $name, $majorVersion, $minorVersion)
-      );
+    );
+        
+    return $id === NULL ? FALSE : $id;
   }
 
   /**
@@ -117,20 +119,20 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function isPatchedLibrary($library) {
     global $wpdb;
-    
+
     $operator = $this->isInDevMode() ? '<=' : '<';
     return $wpdb->get_var($wpdb->prepare(
-        "SELECT 1
-        FROM {$wpdb->prefix}h5p_libraries
-        WHERE name = %s
-        AND major_version = %d
-        AND minor_version = %d
-        AND patch_version {$operator} %d",
+        "SELECT id
+          FROM {$wpdb->prefix}h5p_libraries
+          WHERE name = '%s'
+          AND major_version = %d
+          AND minor_version = %d
+          AND patch_version {$operator} %d",
         $library['machineName'],
         $library['majorVersion'],
         $library['minorVersion'],
-        $library['patchVersion'])
-      ) === 1;
+        $library['patchVersion']
+    )) !== NULL;
   }
 
   /**
@@ -331,7 +333,6 @@ class H5PWordPress implements H5PFrameworkInterface {
     
     // Delete library files
     H5PCore::deleteFileTree($this->getH5pPath() . '/libraries/' . $library->name . '-' . $library->major_version . '.' . $library->minor_version);
-    
     
     // Remove library data from database
     $wpdb->delete($wpdb->prefix . 'h5p_libraries_libraries', array('library_id' => $library->id), array('%d'));
@@ -667,11 +668,11 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function getNotCached() {
     global $wpdb;
     
-    return $wpdb->get_var(
+    return intval($wpdb->get_var(
         "SELECT COUNT(id)
           FROM {$wpdb->prefix}h5p_contents
           WHERE filtered = ''"
-    );
+    ));
   }
   
   /**
@@ -680,12 +681,12 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function getNumContent($library_id) {
     global $wpdb;
     
-    return intval($wpdb->get_var($wpdb->prepare(
+    return $wpdb->get_var($wpdb->prepare(
         "SELECT COUNT(id)
           FROM {$wpdb->prefix}h5p_contents
           WHERE library_id = %d",
         $library_id
-    )));
+    ));
   }
   
   /**
