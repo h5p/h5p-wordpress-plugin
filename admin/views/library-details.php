@@ -12,7 +12,7 @@
 
 <div class="wrap">
   <h2><?php print esc_html($library->title); ?></h2>
-  <?php print $this->print_messages(); ?>
+  <?php print H5P_Plugin_Admin::print_messages(); ?>
   <div id="h5p-admin-container"></div>
 </div>
 
