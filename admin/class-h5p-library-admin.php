@@ -173,7 +173,7 @@ class H5PLibraryAdmin {
         $usage = $interface->getLibraryUsage($library->id, $not_cached ? TRUE : FALSE);
         if ($library->runnable) {
           $upgrades = $core->getUpgrades($library, $versions);
-          $upgradeUrl = empty($upgrades) ? FALSE : admin_url('admin.php?page=h5p_libraries&task=upgrade&id=' . $library->id);
+          $upgradeUrl = empty($upgrades) ? FALSE : admin_url('admin.php?page=h5p_libraries&task=upgrade&id=' . $library->id . '&destination=' . admin_url('admin.php?page=h5p_libraries'));
         }
         else {
           $upgradeUrl = NULL;
@@ -398,7 +398,7 @@ class H5PLibraryAdmin {
       'error' => __('An error occurred while processing parameters:', $this->plugin_slug),
       'errorData' => __('Could not load data for library %lib.', $this->plugin_slug),
       'errorScript' => __('Could not load upgrades script for %lib.', $this->plugin_slug),
-      'done' => sprintf(__('You have successfully upgraded %s.', $this->plugin_slug), $contents_plural) . ($return ? ' ' . l(t('Return'), $return) : ''),
+      'done' => sprintf(__('You have successfully upgraded %s.', $this->plugin_slug), $contents_plural) . ($return ? '<br/><a href="' . $return . '">' . __('Return', $this->plugin_slug) . '</a>' : ''),
       'library' => array(
         'name' => $library->name,
         'version' => $library->major_version . '.' . $library->minor_version,
