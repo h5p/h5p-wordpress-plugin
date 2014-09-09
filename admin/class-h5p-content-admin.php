@@ -247,7 +247,7 @@ class H5PContentAdmin {
     }
     
     // Check if library exists.
-    $content['library']['libraryId'] = $core->h5pF->getLibraryId($content['library']['machineName'], $content['library']['majorVersion'], $content['library']['$minorVersion']);
+    $content['library']['libraryId'] = $core->h5pF->getLibraryId($content['library']['machineName'], $content['library']['majorVersion'], $content['library']['minorVersion']);
     if (!$content['library']['libraryId']) {
       $core->h5pF->setErrorMessage(__('No such library.', $this->plugin_slug));
       return FALSE;
