@@ -43,11 +43,14 @@ var H5PEditor = H5PEditor || {};
         $create.show();
       }
     });
-
-    if (library) {
+    
+    if ($type.filter(':checked').val() === 'upload') {
+      $type.change();
+    }
+    else {
       $type.filter('input[value="create"]').attr('checked', true).change();
     }
-
+    
     $('#h5p-content-form').submit(function () {
       if (h5peditor !== undefined) {
         var params = h5peditor.getParams();

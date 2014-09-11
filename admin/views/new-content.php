@@ -31,7 +31,7 @@
     </div>
     <div class="postbox">
       <div id="minor-publishing">
-        <label><input type="radio" name="action" value="upload"/><?php esc_html_e('Upload', $this->plugin_slug); ?></label>
+        <label><input type="radio" name="action" value="upload"<?php if ($upload): print ' checked="checked"'; endif; ?>/><?php esc_html_e('Upload', $this->plugin_slug); ?></label>
         <label><input type="radio" name="action" value="create"/><?php esc_html_e('Create', $this->plugin_slug); ?></label>
         <input type="hidden" name="library" value="<?php print esc_attr($library); ?>"/>
         <input type="hidden" name="parameters" value="<?php print esc_attr($parameters); ?>"/>

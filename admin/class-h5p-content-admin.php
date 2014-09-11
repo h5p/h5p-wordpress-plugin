@@ -200,6 +200,7 @@ class H5PContentAdmin {
     $title = $this->get_input('title', $contentExists ? $this->content['title'] : '');
     $library = $this->get_input('library', $contentExists ? H5PCore::libraryToString($this->content['library']) : 0);
     $parameters = $this->get_input('parameters', $contentExists ? $this->content['params'] : '{}');
+    $upload = (filter_input(INPUT_POST, 'action') === 'upload');
     
     include_once('views/new-content.php');
     $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
