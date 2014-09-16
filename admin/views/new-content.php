@@ -34,7 +34,7 @@
         <label><input type="radio" name="action" value="upload"<?php if ($upload): print ' checked="checked"'; endif; ?>/><?php esc_html_e('Upload', $this->plugin_slug); ?></label>
         <label><input type="radio" name="action" value="create"/><?php esc_html_e('Create', $this->plugin_slug); ?></label>
         <input type="hidden" name="library" value="<?php print esc_attr($library); ?>"/>
-        <input type="hidden" name="parameters" value="<?php print esc_attr($parameters); ?>"/>
+        <input type="hidden" name="parameters" value="<?php print $parameters; ?>"/>
         <?php wp_nonce_field('h5p_content', 'yes_sir_will_do'); ?>
       </div>
       <div id="major-publishing-actions" class="submitbox">

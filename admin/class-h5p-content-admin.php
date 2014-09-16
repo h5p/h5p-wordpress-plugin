@@ -196,11 +196,20 @@ class H5PContentAdmin {
   public function display_new_content_page() {
     $contentExists = ($this->content !== NULL);
     
+    $plugin = H5P_Plugin::get_instance();
+    $core = $plugin->get_h5p_instance('core');
+    
     // Prepare form
     $title = $this->get_input('title', $contentExists ? $this->content['title'] : '');
     $library = $this->get_input('library', $contentExists ? H5PCore::libraryToString($this->content['library']) : 0);
-    $parameters = $this->get_input('parameters', $contentExists ? $this->content['params'] : '{}');
+    $parameters = $this->get_input('parameters', $contentExists ? $core->filterParameters($this->content) : '{}');
     $upload = (filter_input(INPUT_POST, 'action') === 'upload');
+    
+    if ($contentExists) {
+      $safe_text = wp_check_invalid_utf8($parameters);
+      $safe_text = _wp_specialchars($safe_text, ENT_QUOTES, false, true);
+      $parameters = apply_filters('attribute_escape', $safe_text, $parameters);
+    }
     
     include_once('views/new-content.php');
     $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
