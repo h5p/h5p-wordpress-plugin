@@ -221,6 +221,10 @@ class H5P_Plugin {
     
     $editor = get_role('editor');
     $editor->add_cap('manage_h5p_contents');
+    
+    // Add default setting options
+    add_option('h5p_export', TRUE);
+    add_option('h5p_icon', TRUE);
   }
   
   /**
