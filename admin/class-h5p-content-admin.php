@@ -205,11 +205,10 @@ class H5PContentAdmin {
     $parameters = $this->get_input('parameters', $contentExists ? $core->filterParameters($this->content) : '{}');
     $upload = (filter_input(INPUT_POST, 'action') === 'upload');
     
-    if ($contentExists) {
-      $safe_text = wp_check_invalid_utf8($parameters);
-      $safe_text = _wp_specialchars($safe_text, ENT_QUOTES, false, true);
-      $parameters = apply_filters('attribute_escape', $safe_text, $parameters);
-    }
+    // Filter/escape parameters, double escape that is...
+    $safe_text = wp_check_invalid_utf8($parameters);
+    $safe_text = _wp_specialchars($safe_text, ENT_QUOTES, false, true);
+    $parameters = apply_filters('attribute_escape', $safe_text, $parameters);
     
     include_once('views/new-content.php');
     $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
