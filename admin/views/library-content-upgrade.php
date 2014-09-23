@@ -16,6 +16,6 @@
   <?php endif; ?>
   <?php H5P_Plugin_Admin::print_messages(); ?>
   <?php if ($settings): ?>
-    <div id="h5p-admin-container"><?php print __('Please enable JavaScript.', $this->plugin_slug) ?></div>
+    <div id="h5p-admin-container"><?php esc_html_e('Please enable JavaScript.', $this->plugin_slug); ?></div>
   <?php endif; ?>
 </div>

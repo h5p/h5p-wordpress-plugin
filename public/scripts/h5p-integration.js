@@ -118,7 +118,7 @@ H5PIntegration.getLibraryInfo = function () {
  * @returns {jQuery object} The jquery object where the admin UI should be rendered
  */
 H5PIntegration.getAdminContainer = function () {
-  return H5P.jQuery('#h5p-admin-container'); 
+  return H5P.jQuery('#h5p-admin-container').html(''); 
 };
 
 H5PIntegration.extraTableClasses = 'wp-list-table widefat fixed';

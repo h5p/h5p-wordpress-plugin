@@ -28,5 +28,5 @@
     </div>
   </form>
   <h3 class="h5p-admin-header"><?php esc_html_e('Installed', $this->plugin_slug); ?></h3>
-  <div id="h5p-admin-container"></div>
+  <div id="h5p-admin-container"><?php esc_html_e('Please enable JavaScript.', $this->plugin_slug); ?></div>
 </div>

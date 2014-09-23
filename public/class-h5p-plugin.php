@@ -296,8 +296,15 @@ class H5P_Plugin {
    * @return string
    */
   public function get_language() {
-    if (WPLANG !== '') {
-      $languageParts = explode('_', WPLANG);
+    if (defined('WPLANG')) {
+      $language = WPLANG;
+    }
+    else {
+      $language = get_option('WPLANG');
+    }
+    
+    if ($language !== '') {
+      $languageParts = explode('_', $language);
       return $languageParts[0];
     }
     
