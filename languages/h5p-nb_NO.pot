@@ -1,17 +1,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: H5P\n"
-"POT-Creation-Date: 2014-09-22 15:03+0100\n"
-"PO-Revision-Date: 2014-09-22 16:39+0100\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2014-09-23 10:51+0100\n"
+"PO-Revision-Date: 2014-09-23 11:00+0100\n"
+"Last-Translator: Frode Petterson <frode.petterson@joubel.com>\n"
 "Language-Team: Joubel <contact@joubel.com>\n"
 "Language: Norwegian Bokmål\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
-"X-Poedit-KeywordsList: __;_e;t\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
+"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"t\n"
 "X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: h5p-editor-php-library/h5peditor-file.class.php:32
@@ -84,6 +88,7 @@ msgid "Close"
 msgstr "Lukk"
 
 #: public/class-h5p-plugin.php:497 admin/class-h5p-library-admin.php:204
+#: admin/views/all-content.php:19
 msgid "Title"
 msgstr "Tittel"
 
@@ -147,19 +152,19 @@ msgstr "Ikke tilgjengelig"
 msgid "Invalid json in semantics for %library"
 msgstr "Ugyldig JSON i semantikken til %library"
 
-#: admin/class-h5p-plugin-admin.php:131
+#: admin/class-h5p-plugin-admin.php:128
 msgid "H5P Content"
 msgstr "H5P-innhold"
 
-#: admin/class-h5p-plugin-admin.php:134
+#: admin/class-h5p-plugin-admin.php:131
 msgid "All H5P Content"
 msgstr "Alt H5P-innhold"
 
-#: admin/class-h5p-plugin-admin.php:137
+#: admin/class-h5p-plugin-admin.php:134
 msgid "Add New"
 msgstr "Legg til"
 
-#: admin/class-h5p-plugin-admin.php:140
+#: admin/class-h5p-plugin-admin.php:137
 msgid "Libraries"
 msgstr "Bibliotekene"
 
@@ -176,6 +181,25 @@ msgstr "Innholdsoppgradering"
 msgid "Cannot find library with id: %d."
 msgstr "Finner ikke biblioteket med id: %d."
 
+#: admin/class-h5p-library-admin.php:147 admin/class-h5p-content-admin.php:113
+msgid "Unknown task."
+msgstr "Ukjent oppgave."
+
+#: admin/class-h5p-library-admin.php:193 admin/class-h5p-library-admin.php:339
+#: admin/class-h5p-library-admin.php:390
+#, php-format
+msgid "1 content"
+msgid_plural "%d contents"
+msgstr[0] "1 innhold"
+msgstr[1] "%d innhold"
+
+#: admin/class-h5p-library-admin.php:194
+#, php-format
+msgid "1 library"
+msgid_plural "%d libraries"
+msgstr[0] "1 bibliotek"
+msgstr[1] "%d biblioteker"
+
 #: admin/class-h5p-library-admin.php:205
 msgid "Contents"
 msgstr "Innhold"
@@ -187,6 +211,32 @@ msgstr "Brukt i"
 #: admin/class-h5p-library-admin.php:211
 msgid "Actions"
 msgstr "Handlinger"
+
+#: admin/class-h5p-library-admin.php:222
+msgid "The following libraries are outdated and should be upgraded:"
+msgstr "Følgende biblioteker er utdatert og bør oppgraderes:"
+
+#: admin/class-h5p-library-admin.php:224
+msgid "To upgrade all the installed libraries, do the following:"
+msgstr "For å oppgradere alle de installerte bibliotekene, gjør du følgende:"
+
+#: admin/class-h5p-library-admin.php:226
+#, php-format
+msgid "Download %s."
+msgstr "Last ned %s."
+
+#: admin/class-h5p-library-admin.php:227
+#, php-format
+msgid "Select the downloaded <em>%s</em> file in the form below."
+msgstr "Velg den nedlastede <em>%s</ em>-filen i skjemaet nedenfor."
+
+#: admin/class-h5p-library-admin.php:228
+msgid ""
+"Check off \"Only update existing libraries\" and click the <em>Upload</em> "
+"button."
+msgstr ""
+"Kryss av \"Kun oppdater eksisterende biblioteker\" og trykk på <em>Oppdater</"
+"em>-knappen."
 
 #: admin/class-h5p-library-admin.php:270
 msgid ""
@@ -287,6 +337,13 @@ msgstr ""
 "for å være i stand til å slette biblioteker, og for å vise hvor mye innhold "
 "som bruker et gitt biblioteket."
 
+#: admin/class-h5p-library-admin.php:484
+#, php-format
+msgid "1 content need to get its cache rebuilt."
+msgid_plural "%d contents needs to get their cache rebuilt."
+msgstr[0] "1 innhold trenger å få mellomlageret sitt gjenoppbygd."
+msgstr[1] "%d innhold trenger å få mellomlageret sitt gjenoppbygd."
+
 #: admin/class-h5p-library-admin.php:485
 msgid "Rebuild cache"
 msgstr "Gjenoppbygg mellomlager"
@@ -340,6 +397,10 @@ msgstr "Tittelen er for lang. Den må være 256 tegn eller kortere."
 msgid "Are you sure you wish to delete this H5P library?"
 msgstr "Er du sikker på at du ønsker å slette dette H5P-biblioteket?"
 
+#: admin/views/library-delete.php:18
+msgid "Do it!"
+msgstr "Gjør det!"
+
 #: admin/views/library-content-upgrade.php:15
 #, php-format
 msgid "Upgrade %s %d.%d.%d content"
@@ -348,6 +409,30 @@ msgstr "Oppgrader %s %d.%d.%d-innhold"
 #: admin/views/library-content-upgrade.php:19
 msgid "Please enable JavaScript."
 msgstr "Vennligst skru på JavaScript"
+
+#: admin/views/show-content.php:14 admin/views/all-content.php:33
+#: admin/views/new-content.php:18
+msgid "Edit"
+msgstr "Rediger"
+
+#: admin/views/all-content.php:20
+msgid "Created"
+msgstr "Opprettet"
+
+#: admin/views/all-content.php:21
+msgid "Last modified"
+msgstr "Sist modifisert"
+
+#: admin/views/all-content.php:39 admin/views/select-content.php:31
+msgid "No H5P content available. You must upload or create new content."
+msgstr ""
+"Intet H5P-innhold er tilgjengelig. Du må lage laste opp eller lage nytt "
+"innhold."
+
+#: admin/views/libraries.php:15 admin/views/libraries.php:26
+#: admin/views/new-content.php:34
+msgid "Upload"
+msgstr "Last opp"
 
 #: admin/views/libraries.php:19
 msgid ""
@@ -361,6 +446,30 @@ msgstr ""
 #: admin/views/libraries.php:22
 msgid "Only update existing libraries"
 msgstr "Kun oppdater eksisterende biblioteker"
+
+#: admin/views/libraries.php:30
+msgid "Installed"
+msgstr "Installert"
+
+#: admin/views/new-content.php:26
+msgid "Enter title here"
+msgstr "Fyll inn tittel"
+
+#: admin/views/new-content.php:30
+msgid "Waiting for javascript..."
+msgstr "Venter på JavaScript..."
+
+#: admin/views/new-content.php:35 admin/views/new-content.php:44
+msgid "Create"
+msgstr "Opprett"
+
+#: admin/views/settings.php:16
+msgid "Settings saved."
+msgstr "Instillinger lagret"
+
+#: admin/views/settings.php:20
+msgid "Action bar"
+msgstr "Handlinger"
 
 #: h5p-php-library/h5p.classes.php:453
 msgid ""
@@ -533,3 +642,11 @@ msgstr "Ingen verdi gitt for påkrevd felt"
 msgid "Library used in content is not a valid library according to semantics"
 msgstr ""
 "Biblioteket som brukes i innholdet er ikke gyldig i henhold til semantikken"
+
+#: h5p.php:17
+msgid ""
+"Allowes you to upload, create, share and use rich interactive content on "
+"your WordPress site."
+msgstr ""
+"Gjør det mulig for deg å laste opp, lage, dele og bruke rikt interaktivt "
+"innhold på din WordPress-side."

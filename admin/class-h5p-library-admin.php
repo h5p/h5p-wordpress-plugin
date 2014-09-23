@@ -59,10 +59,10 @@ class H5PLibraryAdmin {
       $library = $this->get_library();
       if ($library) {
         if ($delete) {
-          $admin_title = str_replace($title, __('Delete'), $admin_title);
+          $admin_title = str_replace($title, __('Delete', $this->plugin_slug), $admin_title);
         }
         else if ($upgrade) {
-          $admin_title = str_replace($title, __('Content Upgrade'), $admin_title);
+          $admin_title = str_replace($title, __('Content Upgrade', $this->plugin_slug), $admin_title);
           $plugin = H5P_Plugin::get_instance();
           $plugin->get_h5p_instance('core'); // Load core
         }
@@ -219,13 +219,13 @@ class H5PLibraryAdmin {
     if ($needsUpgrade !== '') {
       // Set update message
       $interface->setErrorMessage('
-          <p>The following libraries are outdated and should be upgraded:</p>
+          <p>'. __('The following libraries are outdated and should be upgraded:', $this->plugin_slug) . '</p>
           <ul id="h5p-outdated">' . $needsUpgrade . '</ul>
-          <p>To upgrade all the installed libraries, do the following:</p>
+          <p>'. __('To upgrade all the installed libraries, do the following:', $this->plugin_slug) . '</p>
           <ol>
-            <li>Download <a href="http://h5p.org/sites/default/files/upgrades.h5p">upgrades.h5p</a>.</li>
-            <li>Select the downloaded <em>upgrades.h5p</em> file in the form below.</li>
-            <li>Check off "Only upgrade" and click the <em>Upload</em> button.</li>
+            <li>'. sprintf(__('Download %s.', $this->plugin_slug), '<a href="http://h5p.org/sites/default/files/upgrades.h5p">upgrades.h5p</a>') . '</li>
+            <li>'. sprintf(__('Select the downloaded <em>%s</em> file in the form below.', $this->plugin_slug), 'upgrades.h5p') . '</li>
+            <li>'. __('Check off "Only update existing libraries" and click the <em>Upload</em> button.', $this->plugin_slug) . '</li>
           </ol> </p>'
       );
     }
@@ -267,7 +267,7 @@ class H5PLibraryAdmin {
       // Check if this library can be deleted
       $usage = $interface->getLibraryUsage($library->id, $interface->getNotCached() ? TRUE : FALSE);
       if ($usage['content'] !== 0 || $usage['libraries'] !== 0) {
-        H5P_Plugin_Admin::set_error(__('This Library is used by content or other libraries and can therefore not be deleted.'));
+        H5P_Plugin_Admin::set_error(__('This Library is used by content or other libraries and can therefore not be deleted.', $this->plugin_slug));
         return; // Nope
       }
       
@@ -376,14 +376,14 @@ class H5PLibraryAdmin {
     }
     
     if (count($versions) < 2) {
-      H5P_Plugin_Admin::set_error(__('There are no available upgrades for this library.'));
+      H5P_Plugin_Admin::set_error(__('There are no available upgrades for this library.', $this->plugin_slug));
       return NULL;
     }
   
     // Get num of contents that can be upgraded
     $contents = $interface->getNumContent($library->id);
     if (!$contents) {
-      H5P_Plugin_Admin::set_error(__("There's no content instances to upgrade."));
+      H5P_Plugin_Admin::set_error(__("There's no content instances to upgrade.", $this->plugin_slug));
       return NULL;
     }
   

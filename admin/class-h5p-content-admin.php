@@ -158,7 +158,7 @@ class H5PContentAdmin {
         wp_safe_redirect(admin_url('admin.php?page=h5p'));
         return;
       }
-      H5P_Plugin_Admin::set_error(__('Invalid confirmation code, not deleting.'));
+      H5P_Plugin_Admin::set_error(__('Invalid confirmation code, not deleting.', $this->plugin_slug));
     }
     
     // Check if we're uploading or creating content

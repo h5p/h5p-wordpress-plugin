@@ -3,7 +3,7 @@ Contributors: icc0rz, fnoks, falcon28
 Donate link: http://h5p.org
 Tags: h5p, interactive content, interactive video, presentation, html5, modern web, education
 Requires at least: 3.8.1
-Tested up to: 3.9
+Tested up to: 4.0
 Stable tag: 1.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT

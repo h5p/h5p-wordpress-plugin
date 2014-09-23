@@ -12,7 +12,7 @@
 
 <div class="wrap">
   <?php if ($library): ?>
-    <h2><?php printf(__('Upgrade %s %d.%d.%d content'), esc_html($library->title), $library->major_version, $library->minor_version, $library->patch_version); ?></h2>
+    <h2><?php printf(__('Upgrade %s %d.%d.%d content', $this->plugin_slug), esc_html($library->title), $library->major_version, $library->minor_version, $library->patch_version); ?></h2>
   <?php endif; ?>
   <?php H5P_Plugin_Admin::print_messages(); ?>
   <?php if ($settings): ?>
