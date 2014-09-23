@@ -78,12 +78,6 @@ class H5P_Plugin_Admin {
     add_action('wp_ajax_h5p_libraries', array($this->content, 'ajax_libraries'));
     add_action('wp_ajax_h5p_files', array($this->content, 'ajax_files'));
     
-    // Process form data when saving H5Ps.
-    add_action('load-h5p-content_page_h5p_new', array($this->content, 'process_new_content'));
-    
-    // Process form data when upload H5Ps without content.
-    add_action('load-h5p-content_page_h5p_libraries', array($this->library, 'process_libraries'));
-    
     // AJAX for rebuilding all content caches
     add_action('wp_ajax_h5p_rebuild_cache', array($this->library, 'ajax_rebuild_cache'));
     
@@ -132,10 +126,16 @@ class H5P_Plugin_Admin {
     add_submenu_page($this->plugin_slug, $all_h5p_content, $all_h5p_content, 'manage_h5p_contents', $this->plugin_slug, array($this->content, 'display_contents_page'));
     
     $add_new = __('Add New', $this->plugin_slug);
-    add_submenu_page($this->plugin_slug, $add_new, $add_new, 'manage_h5p_contents', $this->plugin_slug . '_new', array($this->content, 'display_new_content_page'));
+    $contents_page = add_submenu_page($this->plugin_slug, $add_new, $add_new, 'manage_h5p_contents', $this->plugin_slug . '_new', array($this->content, 'display_new_content_page'));
+    
+    // Process form data when saving H5Ps.
+    add_action('load-' . $contents_page, array($this->content, 'process_new_content'));
     
     $libraries = __('Libraries', $this->plugin_slug);
-    add_submenu_page($this->plugin_slug, $libraries, $libraries, 'manage_h5p_libraries', $this->plugin_slug . '_libraries', array($this->library, 'display_libraries_page'));
+    $libraries_page = add_submenu_page($this->plugin_slug, $libraries, $libraries, 'manage_h5p_libraries', $this->plugin_slug . '_libraries', array($this->library, 'display_libraries_page'));
+
+    // Process form data when upload H5Ps without content.
+    add_action('load-' . $libraries_page, array($this->library, 'process_libraries'));
     
     // Settings page
     add_options_page('H5P Settings', 'H5P', 'manage_h5p_settings', $this->plugin_slug . '_settings', array($this, 'display_settings_page'));
