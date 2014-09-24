@@ -120,13 +120,13 @@ class H5P_Plugin_Admin {
   public function add_plugin_admin_menu() {
     // H5P Content pages
     $h5p_content = __('H5P Content', $this->plugin_slug);
-    add_menu_page($h5p_content, $h5p_content, 'manage_h5p_contents', $this->plugin_slug, array($this->content, 'display_contents_page'), 'none');
+    add_menu_page($h5p_content, $h5p_content, 'edit_h5p_contents', $this->plugin_slug, array($this->content, 'display_contents_page'), 'none');
     
     $all_h5p_content = __('All H5P Content', $this->plugin_slug);
-    add_submenu_page($this->plugin_slug, $all_h5p_content, $all_h5p_content, 'manage_h5p_contents', $this->plugin_slug, array($this->content, 'display_contents_page'));
+    add_submenu_page($this->plugin_slug, $all_h5p_content, $all_h5p_content, 'edit_h5p_contents', $this->plugin_slug, array($this->content, 'display_contents_page'));
     
     $add_new = __('Add New', $this->plugin_slug);
-    $contents_page = add_submenu_page($this->plugin_slug, $add_new, $add_new, 'manage_h5p_contents', $this->plugin_slug . '_new', array($this->content, 'display_new_content_page'));
+    $contents_page = add_submenu_page($this->plugin_slug, $add_new, $add_new, 'edit_h5p_contents', $this->plugin_slug . '_new', array($this->content, 'display_new_content_page'));
     
     // Process form data when saving H5Ps.
     add_action('load-' . $contents_page, array($this->content, 'process_new_content'));
@@ -138,7 +138,7 @@ class H5P_Plugin_Admin {
     add_action('load-' . $libraries_page, array($this->library, 'process_libraries'));
     
     // Settings page
-    add_options_page('H5P Settings', 'H5P', 'manage_h5p_settings', $this->plugin_slug . '_settings', array($this, 'display_settings_page'));
+    add_options_page('H5P Settings', 'H5P', 'manage_options', $this->plugin_slug . '_settings', array($this, 'display_settings_page'));
   }
   
   /**

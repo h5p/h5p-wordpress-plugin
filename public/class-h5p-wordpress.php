@@ -14,7 +14,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements setErrorMessage
    */
   public function setErrorMessage($message) {
-    if (current_user_can('manage_h5p_contents')) {
+    if (current_user_can('edit_h5p_contents')) {
       $this->messages['error'][] = $message;
     }
   }
@@ -23,7 +23,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements setInfoMessage
    */
   public function setInfoMessage($message) {
-    if (current_user_can('manage_h5p_contents')) {
+    if (current_user_can('edit_h5p_contents')) {
       $this->messages['updated'][] = $message;
     }
   }
@@ -373,6 +373,7 @@ class H5PWordPress implements H5PFrameworkInterface {
       'parameters' => $content['params'],
       'embed_type' => 'div', // TODO: Determine from library?
       'library_id' => $content['library']['libraryId'],
+      'user_id' => get_current_user_id(),
       'filtered' => ''
     );
     $format = array(
@@ -380,6 +381,7 @@ class H5PWordPress implements H5PFrameworkInterface {
       '%s',
       '%s',
       '%s',
+      '%d',
       '%d',
       '%s'
     );
@@ -579,6 +581,7 @@ class H5PWordPress implements H5PFrameworkInterface {
               , hc.title
               , hc.parameters AS params
               , hc.filtered
+              , hc.user_id
               , hc.embed_type AS embedType 
               , hl.id AS libraryId 
               , hl.name AS libraryName

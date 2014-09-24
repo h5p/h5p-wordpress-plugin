@@ -30,7 +30,11 @@
             </td>
             <td class="h5p-created-at"><?php print date($datetimeformat, strtotime($content->created_at) + $offset); ?></td>
             <td class="h5p-updated-at"><?php print date($datetimeformat, strtotime($content->updated_at) + $offset); ?></td>
-            <td class="h5p-edit-link"><a href="<?php print admin_url('admin.php?page=h5p_new&id=' . $content->id); ?>"><?php esc_html_e('Edit', $this->plugin_slug); ?></a></td>
+            <td class="h5p-edit-link">
+              <?php if ($this->current_user_can_edit($content)): ?> 
+                <a href="<?php print admin_url('admin.php?page=h5p_new&id=' . $content->id); ?>"><?php esc_html_e('Edit', $this->plugin_slug); ?></a>
+              <?php endif; ?>
+            </td>
           </tr>
         <?php endforeach; ?>
       </tbody>

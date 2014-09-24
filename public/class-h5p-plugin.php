@@ -216,11 +216,18 @@ class H5P_Plugin {
     // Add new capabilities 
     $administrator = get_role('administrator');
     $administrator->add_cap('manage_h5p_libraries');
-    $administrator->add_cap('manage_h5p_settings');
-    $administrator->add_cap('manage_h5p_contents');
+    $administrator->add_cap('edit_h5p_contents');
+    $administrator->add_cap('edit_others_h5p_contents');
     
     $editor = get_role('editor');
-    $editor->add_cap('manage_h5p_contents');
+    $editor->add_cap('edit_h5p_contents');
+    $editor->add_cap('edit_others_h5p_contents');
+    
+    $author = get_role('author');
+    $author->add_cap('edit_h5p_contents');
+    
+    $contributor = get_role('contributor');
+    $contributor->add_cap('edit_h5p_contents');
     
     // Add default setting options
     add_option('h5p_export', TRUE);
@@ -384,7 +391,8 @@ class H5P_Plugin {
     $id = isset($atts['id']) ? intval($atts['id']) : NULL;
     $content = $this->get_content($id);
     if (is_string($content)) {
-      return current_user_can('manage_h5p_contents') ? $content : NULL;
+      // Return error message if the user has the correct cap
+      return current_user_can('edit_h5p_contents') ? $content : NULL;
     }
     
     return $this->add_assets($content);

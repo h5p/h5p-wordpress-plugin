@@ -80,6 +80,23 @@ class H5PContentAdmin {
     return $admin_title;
   }
   
+  /**
+   * Display a list of all h5p content.
+   *
+   * @since 1.1.0
+   */
+  private function current_user_can_edit($content) {
+    if (current_user_can('edit_others_h5p_contents')) {
+      return true;
+    }
+    
+    $user_id = get_current_user_id();
+    if (is_array($content)) {
+      return ($user_id === (int)$content['user_id']);
+    }
+    
+    return ($user_id === (int)$content->user_id);
+  }
   
   /**
    * Display a list of all h5p content.
@@ -124,7 +141,7 @@ class H5PContentAdmin {
   private function get_contents() {
     global $wpdb;
     return $wpdb->get_results(
-        "SELECT id, title, created_at, updated_at
+        "SELECT id, title, created_at, updated_at, user_id
           FROM {$wpdb->prefix}h5p_contents
           ORDER BY title, id"
       );
@@ -132,12 +149,13 @@ class H5PContentAdmin {
   
   /**
    * Handle form submit when uploading, deleteing or editing H5Ps.
+   * TODO: Rename to process_content_form ? 
    *
    * @since 1.1.0
    */
   public function process_new_content() {
     $plugin = H5P_Plugin::get_instance();
-    
+
     // Check if we have any content or errors loading content
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
     if ($id) {
@@ -148,17 +166,27 @@ class H5PContentAdmin {
       }
     }
     
-    // Check if we're deleting content
-    $delete = filter_input(INPUT_GET, 'delete');
-    if ($delete && $this->content !== NULL) {
-      if (wp_verify_nonce($delete, 'deleting_h5p_content')) {
-        $core = $plugin->get_h5p_instance('core');
-        $core->h5pF->deleteContentData($this->content['id']);
-        $this->delete_export($this->content['id']);
-        wp_safe_redirect(admin_url('admin.php?page=h5p'));
+    if ($this->content !== NULL) {
+      // We have existing content
+      
+      if (!$this->current_user_can_edit($this->content)) {
+        // The user isn't allowed to edit this content
+        H5P_Plugin_Admin::set_error(__('You are not allowed to edit this content.', $this->plugin_slug));
         return;
       }
-      H5P_Plugin_Admin::set_error(__('Invalid confirmation code, not deleting.', $this->plugin_slug));
+      
+      // Check if we're deleting content
+      $delete = filter_input(INPUT_GET, 'delete');
+      if ($delete) {
+        if (wp_verify_nonce($delete, 'deleting_h5p_content')) {
+          $core = $plugin->get_h5p_instance('core');
+          $core->h5pF->deleteContentData($this->content['id']);
+          $this->delete_export($this->content['id']);
+          wp_safe_redirect(admin_url('admin.php?page=h5p'));
+          return;
+        }
+        H5P_Plugin_Admin::set_error(__('Invalid confirmation code, not deleting.', $this->plugin_slug));
+      }
     }
     
     // Check if we're uploading or creating content
