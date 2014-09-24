@@ -187,11 +187,12 @@ class H5PLibraryAdmin {
           }
         }
 
+        $contents_count = $interface->getNumContent($library->id);
         $settings['libraries']['listData'][] = array(
           'title' => $library->title . ' (' . H5PCore::libraryVersion($library) . ')',
-          'numContent' => $interface->getNumContent($library->id),
-          'numContentDependencies' => $usage['content'] < 1 ? '' : sprintf(_n('1 content', '%d contents', $usage['content'], $this->plugin_slug), $usage['content']),
-          'numLibraryDependencies' => $usage['libraries'] === 0 ? '' : sprintf(_n('1 library', '%d libraries', $usage['libraries'], $this->plugin_slug), $usage['libraries']),
+          'numContent' => $contents_count === 0 ? '' : $contents_count,
+          'numContentDependencies' => $usage['content'] < 1 ? '' : $usage['content'],
+          'numLibraryDependencies' => $usage['libraries'] === 0 ? '' : $usage['libraries'],
           'upgradeUrl' => $upgradeUrl,
           'detailsUrl' => admin_url('admin.php?page=h5p_libraries&task=show&id=' . $library->id),
           'deleteUrl' => admin_url('admin.php?page=h5p_libraries&task=delete&id=' . $library->id)
@@ -202,11 +203,17 @@ class H5PLibraryAdmin {
     // Translations
     $settings['libraries']['listHeaders'] = array(
       __('Title', $this->plugin_slug), 
-      __('Contents', $this->plugin_slug),
       array(
-        'text' => __('Used in', $this->plugin_slug),
-        'class' => 'h5p-used-in',
-        'colspan' => 2
+        'text' => __('Contents', $this->plugin_slug),
+        'class' => 'h5p-admin-center'
+      ),
+      array(
+        'text' => __('Contents using it', $this->plugin_slug),
+        'class' => 'h5p-admin-center'
+      ),
+      array(
+        'text' => __('Libraries using it', $this->plugin_slug),
+        'class' => 'h5p-admin-center'
       ),
       __('Actions', $this->plugin_slug)
     ); 
