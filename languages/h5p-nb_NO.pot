@@ -649,7 +649,7 @@ msgstr ""
 
 #: h5p.php:17
 msgid ""
-"Allowes you to upload, create, share and use rich interactive content on "
+"Allows you to upload, create, share and use rich interactive content on "
 "your WordPress site."
 msgstr ""
 "Gjør det mulig for deg å laste opp, lage, dele og bruke rikt interaktivt "
