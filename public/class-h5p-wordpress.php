@@ -373,7 +373,6 @@ class H5PWordPress implements H5PFrameworkInterface {
       'parameters' => $content['params'],
       'embed_type' => 'div', // TODO: Determine from library?
       'library_id' => $content['library']['libraryId'],
-      'user_id' => get_current_user_id(),
       'filtered' => ''
     );
     $format = array(
@@ -382,7 +381,6 @@ class H5PWordPress implements H5PFrameworkInterface {
       '%s',
       '%s',
       '%d',
-      '%d',
       '%s'
     );
     
@@ -390,6 +388,8 @@ class H5PWordPress implements H5PFrameworkInterface {
       // Insert new content
       $data['created_at'] = $data['updated_at'];
       $format[] = '%s';
+      $data['user_id'] = get_current_user_id();
+      $format[] = '%d';
       $wpdb->insert($table, $data, $format);
       return $wpdb->insert_id;
     }
