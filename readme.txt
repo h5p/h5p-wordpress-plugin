@@ -52,8 +52,10 @@ This is the first release of this plugin.
 
 = 1.1 =
 Imported the latest changes and bug fixes from h5p core.
-Fixed so that content dependencies cache is rebuilt when library dependencies changes. This also include new export files.
+Improved multilingual support. Added missing translations, and it should now be possible to translate the menu item without ruining the H5P forms.
+Fixed so that content dependencies cache is rebuilt when library dependencies changes. This also includes new export files.
 The H5P Editor is now inside an iframe to avoid messing up css styling.
 A library administration user interface has been added. This supports content upgrades, deletion of libraries without content and uploading h5p packages without content.
 Added own h5p capabilities to roles, matching the defaults used for posts.
-Minor bug fixes and improvements.
+Fixed bugs related to Windows paths and when debugging is enabled with notices.
+Other minor bug fixes and improvements.
