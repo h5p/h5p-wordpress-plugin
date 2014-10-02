@@ -11,7 +11,7 @@
 
 /**
  * Plugin admin class.
- * 
+ *
  * TODO: Add development mode
  * TODO: Fix custom permission for library admin
  *
@@ -27,22 +27,22 @@ class H5P_Plugin_Admin {
    * @var \H5P_Plugin_Admin
    */
   protected static $instance = NULL;
-  
+
   /**
    * @since 1.1.0
    */
   private $plugin_slug = NULL;
-  
+
   /**
    * Keep track of the current content.
-   * 
+   *
    * @since 1.0.0
    */
   private $content = NULL;
-  
+
   /**
    * Keep track of the current library.
-   * 
+   *
    * @since 1.1.0
    */
   private $library = NULL;
@@ -56,7 +56,7 @@ class H5P_Plugin_Admin {
   private function __construct() {
     $plugin = H5P_Plugin::get_instance();
     $this->plugin_slug = $plugin->get_plugin_slug();
-    
+
     // Prepare admin pages / sections
     $this->content = new H5PContentAdmin($this->plugin_slug);
     $this->library = new H5PLibraryAdmin($this->plugin_slug);
@@ -161,14 +161,14 @@ class H5P_Plugin_Admin {
       $export = get_option('h5p_export', TRUE);
       $icon = get_option('h5p_icon', TRUE);
     }
-    
+
     include_once('views/settings.php');
   }
 
   /**
    * Load content and add to title for certain pages.
    * Should we have used get_current_screen() ?
-   * 
+   *
    * @since 1.1.0
    * @param string $admin_title
    * @param string $title
@@ -176,22 +176,22 @@ class H5P_Plugin_Admin {
    */
   public function alter_title($admin_title, $title) {
     $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
-    
+
     switch ($page) {
       case 'h5p':
       case 'h5p_new':
         return $this->content->alter_title($page, $admin_title, $title);
-        
+
       case 'h5p_libraries':
         return $this->library->alter_title($page, $admin_title, $title);
     }
-  
+
     return $admin_title;
   }
-  
+
   /**
    * Handle upload of new H5P content file.
-   * 
+   *
    * @since 1.1.0
    * @param array $content
    * @return boolean
@@ -218,10 +218,10 @@ class H5P_Plugin_Admin {
     @unlink($interface->getUploadedH5pPath());
     return FALSE;
   }
-  
+
   /**
    * Set error message.
-   * 
+   *
    * @param string $message
    */
   public static function set_error($message) {
@@ -229,16 +229,16 @@ class H5P_Plugin_Admin {
     $interface = $plugin->get_h5p_instance('interface');
     $interface->setErrorMessage($message);
   }
-  
+
   /**
    * Print messages.
-   * 
+   *
    * @since 1.0.0
    */
   public static function print_messages() {
     $plugin = H5P_Plugin::get_instance();
     $interface = $plugin->get_h5p_instance('interface');
-    
+
     foreach (array('updated', 'error') as $type) {
       $messages = $interface->getMessages($type);
       if (!empty($messages)) {
@@ -247,13 +247,13 @@ class H5P_Plugin_Admin {
           print '<li>' . $message . '</li>';
         }
         print '</ul></div>';
-      } 
+      }
     }
   }
-  
+
   /**
    * Get proper handle for the given asset
-   * 
+   *
    * @since 1.1.0
    * @param string $path
    * @return string
@@ -262,10 +262,10 @@ class H5P_Plugin_Admin {
     $plugin = H5P_Plugin::get_instance();
     return $plugin->asset_handle($path);
   }
-  
+
   /**
    * Small helper for simplifying script enqueuing.
-   * 
+   *
    * @since 1.1.0
    * @param string $handle
    * @param string $path
@@ -273,10 +273,10 @@ class H5P_Plugin_Admin {
   public static function add_script($handle, $path) {
     wp_enqueue_script(self::asset_handle($handle), plugins_url('h5p/' . $path), array(), H5P_Plugin::VERSION);
   }
-  
+
   /**
    * Small helper for simplifying style enqueuing.
-   * 
+   *
    * @since 1.1.0
    * @param string $handle
    * @param string $path
