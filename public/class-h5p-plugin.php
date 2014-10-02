@@ -541,6 +541,9 @@ class H5P_Plugin {
     self::$settings['core']['styles'][] = $style_url . $cache_buster;
     wp_enqueue_style($this->asset_handle('integration'), $style_url, array(), self::VERSION);
 
+    // Make sure we have jQuery for the integration
+    wp_enqueue_script('jquery');
+
     // Add JavaScript with library framework integration
     $script_url = plugins_url('h5p/public/scripts/h5p-integration.js');
     self::$settings['core']['scripts'][] = $script_url . $cache_buster;
