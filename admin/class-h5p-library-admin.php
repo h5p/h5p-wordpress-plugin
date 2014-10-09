@@ -21,14 +21,14 @@ class H5PLibraryAdmin {
    * @since 1.1.0
    */
   private $plugin_slug = NULL;
-  
+
   /**
    * Keep track of the current library.
-   * 
+   *
    * @since 1.1.0
    */
   private $library = NULL;
-  
+
   /**
    * Initialize library admin
    *
@@ -38,10 +38,10 @@ class H5PLibraryAdmin {
   public function __construct($plugin_slug) {
     $this->plugin_slug = $plugin_slug;
   }
-  
+
   /**
    * Load content and alter page title for certain pages.
-   * 
+   *
    * @since 1.1.0
    * @param string $page
    * @param string $admin_title
@@ -50,8 +50,8 @@ class H5PLibraryAdmin {
    */
   public function alter_title($page, $admin_title, $title) {
     $task = filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING);
-    
-    // Find library title 
+
+    // Find library title
     $show = ($task === 'show');
     $delete = ($task === 'delete');
     $upgrade = ($task === 'upgrade');
@@ -69,10 +69,10 @@ class H5PLibraryAdmin {
         $admin_title = esc_html($library->title) . ($upgrade ? ' (' . H5PCore::libraryVersion($library) . ')' : '') . ' &lsaquo; ' . $admin_title;
       }
     }
-    
+
     return $admin_title;
   }
-  
+
   /**
    * Load library
    *
@@ -81,15 +81,15 @@ class H5PLibraryAdmin {
    */
   private function get_library($id = NULL) {
     global $wpdb;
-    
+
     if ($this->library !== NULL) {
       return $this->library; // Return the current loaded library.
     }
-    
+
     if ($id === NULL) {
       $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
     }
-    
+
     // Try to find content with $id.
     $this->library = $wpdb->get_row($wpdb->prepare(
         "SELECT id, title, name, major_version, minor_version, patch_version, runnable, fullscreen
@@ -101,10 +101,10 @@ class H5PLibraryAdmin {
     if (!$this->library) {
       H5P_Plugin_Admin::set_error(sprintf(__('Cannot find library with id: %d.', $this->plugin_slug), $id));
     }
-    
+
     return $this->library;
   }
-  
+
   /**
    * Display admin interface for managing content libraries.
    *
@@ -115,15 +115,15 @@ class H5PLibraryAdmin {
       case NULL:
         $this->display_libraries();
         return;
-      
+
       case 'show':
         $this->display_library_details();
         return;
-        
+
       case 'delete':
         $library = $this->get_library();
         H5P_Plugin_Admin::print_messages();
-        
+
         if ($library) {
           include_once('views/library-delete.php');
         }
@@ -134,7 +134,7 @@ class H5PLibraryAdmin {
         if ($library) {
           $settings = $this->display_content_upgrades($library);
         }
-        
+
         include_once('views/library-content-upgrade.php');
 
         if (isset($settings)) {
@@ -143,10 +143,10 @@ class H5PLibraryAdmin {
         }
         return;
     }
-    
+
     print '<div class="wrap"><h2>' . esc_html__('Unknown task.', $this->plugin_slug) . '</h2></div>';
   }
-  
+
   /**
    * Display a list of all h5p content libraries.
    *
@@ -166,7 +166,7 @@ class H5PLibraryAdmin {
     // Find out which version of libraries that should be upgraded
     $minVersions = $core->getMinimumVersionsSupported(plugins_url('h5p/h5p-php-library/library-support.json'));
     $needsUpgrade = '';
-    
+
     // Add settings for each library
     foreach ($libraries as $versions) {
       foreach ($versions as $library) {
@@ -178,7 +178,7 @@ class H5PLibraryAdmin {
         else {
           $upgradeUrl = NULL;
         }
-        
+
         // Check if this should be upgraded.
         if ($minVersions !== NULL && isset($minVersions[$library->name])) {
           $min = $minVersions[$library->name];
@@ -202,7 +202,7 @@ class H5PLibraryAdmin {
 
     // Translations
     $settings['libraries']['listHeaders'] = array(
-      __('Title', $this->plugin_slug), 
+      __('Title', $this->plugin_slug),
       array(
         'text' => __('Contents', $this->plugin_slug),
         'class' => 'h5p-admin-center'
@@ -216,13 +216,13 @@ class H5PLibraryAdmin {
         'class' => 'h5p-admin-center'
       ),
       __('Actions', $this->plugin_slug)
-    ); 
+    );
 
     // Make it possible to rebuild all caches.
     if ($not_cached) {
       $settings['libraries']['notCached'] = $this->get_not_cached_settings($not_cached);
     }
-    
+
     if ($needsUpgrade !== '') {
       // Set update message
       $interface->setErrorMessage('
@@ -245,39 +245,39 @@ class H5PLibraryAdmin {
     include_once('views/libraries.php');
     $plugin->print_settings($settings);
   }
-  
+
   /**
    * Handles upload of H5P libraries.
-   * 
+   *
    * @since 1.1.0
    */
   public function process_libraries() {
     $post = (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST');
-    
+
     if ($post && isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
       check_admin_referer('h5p_library', 'lets_upgrade_that'); // Verify form
       $plugin_admin = H5P_Plugin_Admin::get_instance();
       $plugin_admin->handle_upload(NULL, filter_input(INPUT_POST, 'h5p_upgrade_only') ? TRUE : FALSE);
       return;
     }
-    
+
     $task = filter_input(INPUT_GET, 'task');
     if ($task === 'delete') {
       $library = $this->get_library();
       if (!$library) {
         return;
       }
-      
+
       $plugin = H5P_Plugin::get_instance();
       $interface = $plugin->get_h5p_instance('interface');
-      
+
       // Check if this library can be deleted
       $usage = $interface->getLibraryUsage($library->id, $interface->getNotCached() ? TRUE : FALSE);
       if ($usage['content'] !== 0 || $usage['libraries'] !== 0) {
         H5P_Plugin_Admin::set_error(__('This Library is used by content or other libraries and can therefore not be deleted.', $this->plugin_slug));
         return; // Nope
       }
-      
+
       if ($post) {
         check_admin_referer('h5p_library', 'lets_delete_this'); // Verify delete form
         $interface->deleteLibrary($this->library);
@@ -285,7 +285,7 @@ class H5PLibraryAdmin {
       }
     }
   }
-  
+
   /**
    * Display details for a given content library.
    *
@@ -313,7 +313,7 @@ class H5PLibraryAdmin {
       'pageSizeSelectorLabel' => __('Elements per page', $this->plugin_slug),
       'filterPlaceholder' => __('Filter content', $this->plugin_slug),
       'pageXOfY' => __('Page $x of $y', $this->plugin_slug),
-    ); 
+    );
 
     $notCached = $interface->getNotCached();
     if ($notCached) {
@@ -322,7 +322,7 @@ class H5PLibraryAdmin {
     else {
       // List content which uses this library
       $contents = $wpdb->get_results($wpdb->prepare(
-          "SELECT DISTINCT hc.id, hc.title 
+          "SELECT DISTINCT hc.id, hc.title
             FROM {$wpdb->prefix}h5p_contents_libraries hcl
             JOIN {$wpdb->prefix}h5p_contents hc ON hcl.content_id = hc.id
             WHERE hcl.library_id = %d
@@ -332,12 +332,12 @@ class H5PLibraryAdmin {
       );
       foreach($contents as $content) {
         $settings['library']['content'][] = array(
-          'title' => $content->title, 
+          'title' => $content->title,
           'url' => admin_url('admin.php?page=h5p&task=show&id=' . $content->id),
         );
       }
     }
-    
+
     // Build library info
     $settings['library']['info'] = array(
       __('Version', $this->plugin_slug) => H5PCore::libraryVersion($library),
@@ -345,14 +345,14 @@ class H5PLibraryAdmin {
       __('Content library', $this->plugin_slug) => $library->runnable ? __('Yes', $this->plugin_slug) : __('No', $this->plugin_slug),
       __('Used by', $this->plugin_slug) => (isset($contents) ? sprintf(_n('1 content', '%d contents', count($contents), $this->plugin_slug), count($contents)) : __('N/A', $this->plugin_slug)),
     );
-    
+
     $this->add_admin_assets();
     H5P_Plugin_Admin::add_script('library-list', 'h5p-php-library/js/h5p-library-details.js');
 
     include_once('views/library-details.php');
     $plugin->print_settings($settings);
   }
-  
+
   /**
    * Display a list of all h5p content libraries.
    *
@@ -360,11 +360,11 @@ class H5PLibraryAdmin {
    */
   private function display_content_upgrades($library) {
     global $wpdb;
-    
+
     $plugin = H5P_Plugin::get_instance();
     $core = $plugin->get_h5p_instance('core');
     $interface = $plugin->get_h5p_instance('interface');
-        
+
     $versions = $wpdb->get_results($wpdb->prepare(
         "SELECT hl2.id, hl2.name, hl2.title, hl2.major_version, hl2.minor_version, hl2.patch_version
           FROM {$wpdb->prefix}h5p_libraries hl1
@@ -381,19 +381,19 @@ class H5PLibraryAdmin {
         break;
       }
     }
-    
+
     if (count($versions) < 2) {
       H5P_Plugin_Admin::set_error(__('There are no available upgrades for this library.', $this->plugin_slug));
       return NULL;
     }
-  
+
     // Get num of contents that can be upgraded
     $contents = $interface->getNumContent($library->id);
     if (!$contents) {
       H5P_Plugin_Admin::set_error(__("There's no content instances to upgrade.", $this->plugin_slug));
       return NULL;
     }
-  
+
     $contents_plural = sprintf(_n('1 content', '%d contents', $contents, $this->plugin_slug), $contents);
 
     // Add JavaScript settings
@@ -418,31 +418,31 @@ class H5PLibraryAdmin {
       'total' => $contents,
       'token' => wp_create_nonce('h5p_content_upgrade')
     );
-  
+
     $this->add_admin_assets();
     H5P_Plugin_Admin::add_script('library-list', 'h5p-php-library/js/h5p-content-upgrade.js');
-    
+
     return $settings;
   }
-  
+
   /**
    * Helps rebuild all content caches.
-   * 
+   *
    * @since 1.1.0
    */
   public function ajax_rebuild_cache() {
     global $wpdb;
-    
+
     if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
       exit; // POST is required
     }
-    
+
     $plugin = H5P_Plugin::get_instance();
     $core = $plugin->get_h5p_instance('core');
-    
+
     // Do as many as we can in five seconds.
     $start = microtime(TRUE);
-    
+
     $contents = $wpdb->get_results(
         "SELECT id
           FROM {$wpdb->prefix}h5p_contents
@@ -463,7 +463,7 @@ class H5PLibraryAdmin {
     print (count($contents) - $done);
     exit;
   }
-  
+
   /**
    * Add generic admin interface assets.
    *
@@ -477,7 +477,7 @@ class H5PLibraryAdmin {
     H5P_Plugin_Admin::add_style('h5p', 'h5p-php-library/styles/h5p.css');
     H5P_Plugin_Admin::add_style('admin', 'h5p-php-library/styles/h5p-admin.css');
   }
-  
+
   /**
    * JavaScript settings needed to rebuild content caches.
    *
@@ -492,28 +492,28 @@ class H5PLibraryAdmin {
       'button' => __('Rebuild cache', $this->plugin_slug)
     );
   }
-  
+
   /**
    * AJAX processing for content upgrade script.
    */
   public function ajax_upgrade_progress() {
     global $wpdb;
     header('Cache-Control: no-cache');
-    
+
     if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_content_upgrade')) {
       print __('Error, invalid security token!', $this->plugin_slug);
       exit;
     }
-    
+
     $library_id = filter_input(INPUT_GET, 'id');
     if (!$library_id) {
       print __('Error, missing library!', $this->plugin_slug);
       exit;
     }
-  
+
     // Get the library we're upgrading to
     $to_library = $wpdb->get_row($wpdb->prepare(
-        "SELECT id, name, major_version, minor_version 
+        "SELECT id, name, major_version, minor_version
           FROM {$wpdb->prefix}h5p_libraries
           WHERE id = %d",
         filter_input(INPUT_POST, 'libraryId')
@@ -522,12 +522,12 @@ class H5PLibraryAdmin {
       print __('Error, invalid library!', $this->plugin_slug);
       exit;
     }
-  
+
     // Prepare response
     $out = new stdClass();
     $out->params = array();
     $out->token = wp_create_nonce('h5p_content_upgrade');
-  
+
     // Get updated params
     $params = filter_input(INPUT_POST, 'params');
     if ($params !== NULL) {
@@ -535,36 +535,36 @@ class H5PLibraryAdmin {
       $params = json_decode($params);
       foreach ($params as $id => $param) {
         $wpdb->update(
-            $wpdb->prefix . 'h5p_contents', 
+            $wpdb->prefix . 'h5p_contents',
             array(
               'updated_at' => current_time('mysql', 1),
               'parameters' => $param,
               'library_id' => $to_library->id,
               'filtered' => ''
-            ), 
+            ),
             array(
               'id' => $id
-            ), 
+            ),
             array(
               '%s',
               '%s',
               '%d',
               '%s'
-            ), 
+            ),
             array(
               '%d'
             )
         );
       }
     }
-  
+
     // Prepare our interface
     $plugin = H5P_Plugin::get_instance();
     $interface = $plugin->get_h5p_instance('interface');
-    
+
     // Get number of contents for this library
     $out->left = $interface->getNumContent($library_id);
-  
+
     if ($out->left) {
       // Find the 10 first contents using library and add to params
       $contents = $wpdb->get_results($wpdb->prepare(
@@ -586,14 +586,14 @@ class H5PLibraryAdmin {
 
   /**
    * AJAX loading of libraries for content upgrade script.
-   * 
+   *
    * @param string $name
    * @param int $major
    * @param int $minor
    */
   public function ajax_upgrade_library() {
     header('Cache-Control: no-cache');
-    
+
     $library_string = filter_input(INPUT_GET, 'library');
     if (!$library_string) {
       print __('Error, missing library!', $this->plugin_slug);
@@ -636,7 +636,7 @@ class H5PLibraryAdmin {
       $upgrades_script_path = $plugin->get_h5p_path() . $suffix;
       $upgrades_script_url = $plugin->get_h5p_url() . $suffix;
     }
-    
+
     if (file_exists($upgrades_script_path)) {
       $library->upgradesScript = $upgrades_script_url;
     }

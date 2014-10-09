@@ -1,10 +1,10 @@
 <?php
 
 class H5PWordPress implements H5PFrameworkInterface {
-  
+
   /**
    * Kesps track of messages for the user.
-   * 
+   *
    * @since 1.0.0
    * @var array
    */
@@ -27,10 +27,10 @@ class H5PWordPress implements H5PFrameworkInterface {
       $this->messages['updated'][] = $message;
     }
   }
-  
+
   /**
    * Return the selected messages.
-   * 
+   *
    * @since 1.0.0
    * @param string $type
    * @return array
@@ -53,10 +53,10 @@ class H5PWordPress implements H5PFrameworkInterface {
       }
     }
     $message = preg_replace('/(!|@|%)[a-z0-9]+/i', '%s', $message);
-    
+
     $plugin = H5P_Plugin::get_instance();
     $this->plugin_slug = $plugin->get_plugin_slug();
-    
+
     // Assumes that replacement vars are in the correct order.
     return vsprintf(__($message, $this->plugin_slug), $replacements);
   }
@@ -74,12 +74,12 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function getUploadedH5pFolderPath() {
     static $dir;
-    
+
     if (is_null($dir)) {
       $dir = $this->getH5pPath() . '/temp/' . uniqid('h5p-');
       mkdir($dir, 0777, true);
     }
-    
+
     return $dir;
   }
 
@@ -88,11 +88,11 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function getUploadedH5pPath() {
     static $path;
-    
+
     if (is_null($path)) {
       $path = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $_FILES['h5p_file']['name'];
     }
-    
+
     return $path;
   }
 
@@ -101,16 +101,16 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function getLibraryId($name, $majorVersion, $minorVersion) {
     global $wpdb;
-    
+
     $id = $wpdb->get_var($wpdb->prepare(
-        "SELECT id 
+        "SELECT id
         FROM {$wpdb->prefix}h5p_libraries
         WHERE name = %s
         AND major_version = %d
         AND minor_version = %d",
         $name, $majorVersion, $minorVersion)
     );
-        
+
     return $id === NULL ? FALSE : $id;
   }
 
@@ -154,12 +154,12 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function getLibraryUsage($id, $skipContent = FALSE) {
     global $wpdb;
-    
+
     return array(
       'content' => $skipContent ? -1 : intval($wpdb->get_var($wpdb->prepare(
           "SELECT COUNT(distinct c.id)
-          FROM {$wpdb->prefix}h5p_libraries l 
-          JOIN {$wpdb->prefix}h5p_contents_libraries cl ON l.id = cl.library_id 
+          FROM {$wpdb->prefix}h5p_libraries l
+          JOIN {$wpdb->prefix}h5p_contents_libraries cl ON l.id = cl.library_id
           JOIN {$wpdb->prefix}h5p_contents c ON cl.content_id = c.id
           WHERE l.id = %d",
           $id)
@@ -172,13 +172,13 @@ class H5PWordPress implements H5PFrameworkInterface {
         ))
     );
   }
-  
+
   /**
    * Implements saveLibraryData
    */
   public function saveLibraryData(&$library, $new = TRUE) {
     global $wpdb;
-    
+
     $preloadedJs = $this->pathsToCsv($library, 'preloadedJs');
     $preloadedCss =  $this->pathsToCsv($library, 'preloadedCss');
     $dropLibraryCss = '';
@@ -217,8 +217,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             'preloaded_css' => $preloadedCss,
             'drop_library_css' => $dropLibraryCss,
             'semantics' => $library['semantics']
-          ), 
-          array( 
+          ),
+          array(
             '%s',
             '%s',
             '%d',
@@ -231,13 +231,13 @@ class H5PWordPress implements H5PFrameworkInterface {
             '%s',
             '%d',
             '%s'
-          ) 
+          )
         );
       $library['libraryId'] = $wpdb->insert_id;
     }
     else {
       $wpdb->update(
-          $wpdb->prefix . 'h5p_libraries', 
+          $wpdb->prefix . 'h5p_libraries',
           array(
             'title' => $library['title'],
             'patch_version' => $library['patchVersion'],
@@ -260,18 +260,18 @@ class H5PWordPress implements H5PFrameworkInterface {
             '%s',
             '%d',
             '%s'
-          ), 
-          array('%d') 
+          ),
+          array('%d')
         );
       $this->deleteLibraryDependencies($library['libraryId']);
     }
- 
+
     $wpdb->delete(
         $wpdb->prefix . 'h5p_libraries_languages',
         array('library_id' => $library['libraryId']),
         array('%d')
       );
-    
+
     if (isset($library['language'])) {
       foreach ($library['language'] as $languageCode => $translation) {
         $wpdb->insert(
@@ -280,8 +280,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             'library_id' => $library['libraryId'],
             'language_code' => $languageCode,
             'translation' => $translation
-          ), 
-          array( 
+          ),
+          array(
             '%d',
             '%s',
             '%s'
@@ -317,23 +317,23 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function deleteLibraryDependencies($id) {
     global $wpdb;
-    
+
     $wpdb->delete(
         $wpdb->prefix . 'h5p_libraries_libraries',
         array('library_id' => $id),
         array('%d')
       );
   }
-  
+
   /**
    * Implements deleteLibrary
    */
   public function deleteLibrary($library) {
     global $wpdb;
-    
+
     // Delete library files
     H5PCore::deleteFileTree($this->getH5pPath() . '/libraries/' . $library->name . '-' . $library->major_version . '.' . $library->minor_version);
-    
+
     // Remove library data from database
     $wpdb->delete($wpdb->prefix . 'h5p_libraries_libraries', array('library_id' => $library->id), array('%d'));
     $wpdb->delete($wpdb->prefix . 'h5p_libraries_languages', array('library_id' => $library->id), array('%d'));
@@ -345,7 +345,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function saveLibraryDependencies($id, $dependencies, $dependencyType) {
     global $wpdb;
-    
+
     foreach ($dependencies as $dependency) {
       $wpdb->query($wpdb->prepare(
         "INSERT INTO {$wpdb->prefix}h5p_libraries_libraries (library_id, required_library_id, dependency_type)
@@ -359,13 +359,13 @@ class H5PWordPress implements H5PFrameworkInterface {
       );
     }
   }
-  
+
   /**
    * Implements updateContent
    */
   public function updateContent($content, $contentMainId = NULL) {
     global $wpdb;
-    
+
     $table = $wpdb->prefix . 'h5p_contents';
     $data = array(
       'updated_at' => current_time('mysql', 1),
@@ -383,7 +383,7 @@ class H5PWordPress implements H5PFrameworkInterface {
       '%d',
       '%s'
     );
-    
+
     if (!isset($content['id'])) {
       // Insert new content
       $data['created_at'] = $data['updated_at'];
@@ -399,7 +399,7 @@ class H5PWordPress implements H5PFrameworkInterface {
       return $content['id'];
     }
   }
-  
+
   /**
    * Implements insertContent
    */
@@ -424,12 +424,12 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function copyLibraryUsage($contentId, $copyFromId, $contentMainId = NULL) {
     global $wpdb;
-    
+
     $wpdb->query($wpdb->prepare(
         "INSERT INTO {$wpdb->prefix}h5p_contents_libraries (content_id, library_id, dependency_type, drop_css)
         SELECT %d, hcl.library_id, hcl.dependency_type, hcl.drop_css
           FROM {$wpdb->prefix}h5p_contents_libraries hcl
-          WHERE hcl.content_id = %d", 
+          WHERE hcl.content_id = %d",
         $contentId, $copyFromId)
       );
   }
@@ -439,7 +439,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function deleteContentData($id) {
     global $wpdb;
-    
+
     $wpdb->delete($wpdb->prefix . 'h5p_contents', array('id' => $id), array('%d'));
     $this->deleteLibraryUsage($id);
   }
@@ -449,7 +449,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function deleteLibraryUsage($contentId) {
     global $wpdb;
-    
+
     $wpdb->delete($wpdb->prefix . 'h5p_contents_libraries', array('content_id' => $contentId), array('%d'));
   }
 
@@ -458,30 +458,30 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function saveLibraryUsage($contentId, $librariesInUse) {
     global $wpdb;
-    
+
     $dropLibraryCssList = array();
     foreach ($librariesInUse as $dependency) {
       if (!empty($dependency['library']['dropLibraryCss'])) {
         $dropLibraryCssList = array_merge($dropLibraryCssList, explode(', ', $dependency['library']['dropLibraryCss']));
       }
     }
-    
+
     foreach ($librariesInUse as $dependency) {
       $dropCss = in_array($dependency['library']['machineName'], $dropLibraryCssList) ? 1 : 0;
       $wpdb->insert(
-          $wpdb->prefix . 'h5p_contents_libraries', 
+          $wpdb->prefix . 'h5p_contents_libraries',
           array(
             'content_id' => $contentId,
             'library_id' => $dependency['library']['libraryId'],
-            'dependency_type' => $dependency['type'], 
+            'dependency_type' => $dependency['type'],
             'drop_css' => $dropCss
-          ), 
-          array( 
+          ),
+          array(
             '%d',
             '%d',
             '%s',
             '%d',
-          ) 
+          )
         );
     }
   }
@@ -491,9 +491,9 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function loadLibrary($name, $majorVersion, $minorVersion) {
     global $wpdb;
-    
+
     $library = $wpdb->get_row($wpdb->prepare(
-        "SELECT id as libraryId, name as machineName, title, major_version as majorVersion, minor_version as minorVersion, patch_version as patchVersion, 
+        "SELECT id as libraryId, name as machineName, title, major_version as majorVersion, minor_version as minorVersion, patch_version as patchVersion,
           embed_types as embedTypes, preloaded_js as preloadedJs, preloaded_css as preloadedCss, drop_library_css as dropLibraryCss, fullscreen, runnable, semantics
         FROM {$wpdb->prefix}h5p_libraries
         WHERE name = %s
@@ -527,7 +527,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     }
     return $library;
   }
-  
+
   private function getSemanticsFromFile($name, $majorVersion, $minorVersion) {
     $semanticsPath = $this->getH5pPath() . '/libraries/' . $name . '-' . $majorVersion . '.' . $minorVersion . '/semantics.json';
     if (file_exists($semanticsPath)) {
@@ -545,7 +545,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function loadLibrarySemantics($name, $majorVersion, $minorVersion) {
     global $wpdb;
-    
+
     if ($this->isInDevMode()) {
       $semantics = $this->getSemanticsFromFile($name, $majorVersion, $minorVersion);
     }
@@ -555,7 +555,7 @@ class H5PWordPress implements H5PFrameworkInterface {
           FROM {$wpdb->prefix}h5p_libraries
           WHERE name = %s
           AND major_version = %d
-          AND minor_version = %d", 
+          AND minor_version = %d",
           $name, $majorVersion, $minorVersion)
         );
     }
@@ -569,21 +569,21 @@ class H5PWordPress implements H5PFrameworkInterface {
     // TODO: Check if this actually works
     do_action('h5p_alter_library_semantics', $semantics, $name, $majorVersion, $minorVersion);
   }
-  
+
   /**
    * Implements loadContent
    */
   public function loadContent($id) {
     global $wpdb;
-    
+
     $content = $wpdb->get_row($wpdb->prepare(
         "SELECT hc.id
               , hc.title
               , hc.parameters AS params
               , hc.filtered
               , hc.user_id
-              , hc.embed_type AS embedType 
-              , hl.id AS libraryId 
+              , hc.embed_type AS embedType
+              , hl.id AS libraryId
               , hl.name AS libraryName
               , hl.major_version AS libraryMajorVersion
               , hl.minor_version AS libraryMinorVersion
@@ -604,7 +604,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function loadContentDependencies($id, $type = NULL) {
     global $wpdb;
-    
+
     $query =
         "SELECT hl.id
               , hl.name AS machineName
@@ -619,7 +619,7 @@ class H5PWordPress implements H5PFrameworkInterface {
         JOIN {$wpdb->prefix}h5p_libraries hl ON hcl.library_id = hl.id
         WHERE hcl.content_id = %d";
     $queryArgs = array($id);
-    
+
     if ($type !== NULL) {
       $query .= " AND hcl.dependency_type = %s";
       $queryArgs[] = $type;
@@ -627,7 +627,7 @@ class H5PWordPress implements H5PFrameworkInterface {
 
     return $wpdb->get_results($wpdb->prepare($query, $queryArgs), ARRAY_A);
   }
-  
+
   /**
    * Implements cacheGet
    */
@@ -635,19 +635,19 @@ class H5PWordPress implements H5PFrameworkInterface {
     // WP uses contents table to store filtered parameters.
     // TODO: Rewrite other impl to do the same.
   }
-  
+
   /**
    * Implements cacheSet
    */
   public function cacheSet($group, $key, $data) {
     global $wpdb;
-    
+
     if ($group === 'parameters') {
       // TODO: Rename and simply function.
       $wpdb->update($wpdb->prefix . 'h5p_contents', array('filtered' => $data), array('id' => $key), array('%s'), array('%d'));
     }
   }
-  
+
   /**
    * Implements cacheDel
    */
@@ -655,35 +655,35 @@ class H5PWordPress implements H5PFrameworkInterface {
     // WP uses contents table to store filtered parameters.
     // TODO: Rewrite other impl to do the same.
   }
-  
+
   /**
    * Implements invalidateContentCache.
    */
   public function invalidateContentCache($library_id) {
     global $wpdb;
-    
+
     $wpdb->update($wpdb->prefix . 'h5p_contents', array('filtered' => NULL), array('library_id' => $library_id), array('%s'), array('%d'));
   }
-  
+
   /**
    * Implements getNotCached.
    */
   public function getNotCached() {
     global $wpdb;
-    
+
     return intval($wpdb->get_var(
         "SELECT COUNT(id)
           FROM {$wpdb->prefix}h5p_contents
           WHERE filtered = ''"
     ));
   }
-  
+
   /**
    * Implements getNumContent.
    */
   public function getNumContent($library_id) {
     global $wpdb;
-    
+
     return intval($wpdb->get_var($wpdb->prepare(
         "SELECT COUNT(id)
           FROM {$wpdb->prefix}h5p_contents
@@ -691,45 +691,45 @@ class H5PWordPress implements H5PFrameworkInterface {
         $library_id
     )));
   }
-  
+
   /**
    * Implements loadLibraries.
    */
   public function loadLibraries() {
     global $wpdb;
-    
+
     $results = $wpdb->get_results(
-        "SELECT id, name, title, major_version, minor_version, patch_version, runnable 
-          FROM {$wpdb->prefix}h5p_libraries 
+        "SELECT id, name, title, major_version, minor_version, patch_version, runnable
+          FROM {$wpdb->prefix}h5p_libraries
           ORDER BY title ASC, major_version ASC, minor_version ASC"
     );
-    
+
     $libraries = array();
-    foreach ($results as $library) { 
+    foreach ($results as $library) {
       $libraries[$library->name][] = $library;
     }
-    
+
     return $libraries;
   }
-  
+
   /**
    * Implements setUnsupportedLibraries.
    */
   public function setUnsupportedLibraries($libraries) {
 
   }
-  
+
   /**
    * Implements getUnsupportedLibraries.
    */
   public function getUnsupportedLibraries() {
-    
+
   }
-  
+
   /**
    * Implements getAdminUrl.
    */
   public function getAdminUrl() {
-    
+
   }
 }
