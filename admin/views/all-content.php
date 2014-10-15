@@ -19,6 +19,7 @@
           <th><?php esc_html_e('Title', $this->plugin_slug); ?></th>
           <th class="h5p-created-at"><?php esc_html_e('Created', $this->plugin_slug); ?></th>
           <th class="h5p-updated-at"><?php esc_html_e('Last modified', $this->plugin_slug); ?></th>
+          <th class="h5p-results-link"></th>
           <th class="h5p-edit-link"></th>
         </tr>
       </thead>
@@ -30,8 +31,13 @@
             </td>
             <td class="h5p-created-at"><?php print date($datetimeformat, strtotime($content->created_at) + $offset); ?></td>
             <td class="h5p-updated-at"><?php print date($datetimeformat, strtotime($content->updated_at) + $offset); ?></td>
+            <td class="h5p-results-link">
+              <?php if ($this->current_user_can_edit($content)): ?>
+                <a href="<?php print admin_url('admin.php?page=h5p&task=results&id=' . $content->id); ?>"><?php esc_html_e('Results', $this->plugin_slug); ?></a>
+              <?php endif; ?>
+            </td>
             <td class="h5p-edit-link">
-              <?php if ($this->current_user_can_edit($content)): ?> 
+              <?php if ($this->current_user_can_edit($content)): ?>
                 <a href="<?php print admin_url('admin.php?page=h5p_new&id=' . $content->id); ?>"><?php esc_html_e('Edit', $this->plugin_slug); ?></a>
               <?php endif; ?>
             </td>

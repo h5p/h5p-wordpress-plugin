@@ -8,10 +8,10 @@ if (window.parent !== window) {
 }
 
 jQuery(document).ready(function () {
-  H5P.loadedJs = H5P.settings.h5p !== undefined && H5P.settings.h5p.loadedJs !== undefined ? H5P.settings.h5p.loadedJs : [];
-  H5P.loadedCss = H5P.settings.h5p !== undefined && H5P.settings.h5p.loadedCss !== undefined ? H5P.settings.h5p.loadedCss : [];
-  H5P.postUserStatistics = false;
-  H5P.ajaxPath = '';
+  H5P.loadedJs = H5P.settings.loadedJs;
+  H5P.loadedCss = H5P.settings.loadedCss;
+  H5P.postUserStatistics = H5P.settings.postUserStatistics;
+  H5P.ajaxPath = H5P.settings.ajaxPath;
 });
 
 H5PIntegration.getContentData = function (id) {
@@ -66,7 +66,7 @@ H5PIntegration.showH5PIconInActionBar = function () {
  */
 H5PIntegration.getHeadTags = function (contentId) {
   var basePath = locationOrigin + '/'; // TODO: Get proper basepath?
-  
+
   var createStyleTags = function (styles) {
     var tags = '';
     for (var i = 0; i < styles.length; i++) {
@@ -83,10 +83,10 @@ H5PIntegration.getHeadTags = function (contentId) {
     return tags;
   };
 
-  return createStyleTags(H5P.settings.core.styles)
-       + createStyleTags(H5P.settings['cid-' + contentId].styles)
-       + createScriptTags(H5P.settings.core.scripts)
-       + createScriptTags(H5P.settings['cid-' + contentId].scripts);
+  return createStyleTags(H5P.settings.core.styles) +
+       createStyleTags(H5P.settings['cid-' + contentId].styles) +
+       createScriptTags(H5P.settings.core.scripts) +
+       createScriptTags(H5P.settings['cid-' + contentId].scripts);
 };
 
 /**
@@ -96,8 +96,8 @@ H5PIntegration.i18n = {H5P: H5P.settings.i18n};
 
 /**
  *  Returns an object containing a library metadata
- *  
- *  @returns {object} { listData: object containing libraries, listHeaders: array containing table headers (translation done server-side) } 
+ *
+ *  @returns {object} { listData: object containing libraries, listHeaders: array containing table headers (translation done server-side) }
  */
 H5PIntegration.getLibraryList = function () {
   return H5P.settings.libraries;
@@ -105,8 +105,8 @@ H5PIntegration.getLibraryList = function () {
 
 /**
  *  Returns an object containing detailed info for a library
- *  
- *  @returns {object} { info: object containing libraryinfo, content: array containing content info, translations: an object containing key/value } 
+ *
+ *  @returns {object} { info: object containing libraryinfo, content: array containing content info, translations: an object containing key/value }
  */
 H5PIntegration.getLibraryInfo = function () {
   return H5P.settings.library;
@@ -114,11 +114,11 @@ H5PIntegration.getLibraryInfo = function () {
 
 /**
  * Get the DOM element where the admin UI should be rendered
- * 
+ *
  * @returns {jQuery object} The jquery object where the admin UI should be rendered
  */
 H5PIntegration.getAdminContainer = function () {
-  return H5P.jQuery('#h5p-admin-container').html(''); 
+  return H5P.jQuery('#h5p-admin-container').html('');
 };
 
 H5PIntegration.extraTableClasses = 'wp-list-table widefat fixed';

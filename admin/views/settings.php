@@ -12,7 +12,7 @@
 <div class="wrap">
   <h2><?php print esc_html(get_admin_page_title()); ?></h2>
   <?php if ($save !== NULL): ?>
-    <div id="setting-error-settings_updated" class="updated settings-error"> 
+    <div id="setting-error-settings_updated" class="updated settings-error">
       <p><strong><?php esc_html_e('Settings saved.', $this->plugin_slug) ?></strong></p>
     </div>
   <?php endif; ?>
@@ -23,15 +23,22 @@
         <tr valign="top">
           <th scope="row">Export</th>
           <td>
-            <input name="h5p_export" id="h5p-export" type="checkbox" value="true"<?php if ($export): ?> checked="checked"<?php endif ?>/>
+            <input name="h5p_export" id="h5p-export" type="checkbox" value="true"<?php if ($export): ?> checked="checked"<?php endif; ?>/>
             <label for="h5p-export">Show a link to download the H5P below each content</label>
           </td>
         </tr>
         <tr valign="top">
           <th scope="row">H5P Icon</th>
           <td>
-            <input name="h5p_icon" id="h5p-icon" type="checkbox" value="true"<?php if ($icon): ?> checked="checked"<?php endif ?>/>
+            <input name="h5p_icon" id="h5p-icon" type="checkbox" value="true"<?php if ($icon): ?> checked="checked"<?php endif; ?>/>
             <label for="h5p-icon">Show a H5P icon below each content</label>
+          </td>
+        </tr>
+        <tr valign="top">
+          <th scope="row">H5P User Tracking</th>
+          <td>
+            <input name="h5p_track_user" id="h5p-track-user" type="checkbox" value="true"<?php if ($track_user): ?> checked="checked"<?php endif; ?>/>
+            <label for="h5p-track-user">Log results for signed in users</label>
           </td>
         </tr>
       </tbody>

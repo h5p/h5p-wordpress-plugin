@@ -61,7 +61,7 @@ class H5PContentAdmin {
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
     // Find content title
-    $show = ($page === 'h5p' && $task === 'show');
+    $show = ($page === 'h5p' && ($task === 'show' || $task === 'results'));
     $edit = ($page === 'h5p_new');
     if (($show || $edit) && $id !== NULL) {
       if ($this->content === NULL) {
@@ -123,6 +123,50 @@ class H5PContentAdmin {
           $embed_code = $plugin->add_assets($this->content);
           include_once('views/show-content.php');
           H5P_Plugin::get_instance()->add_settings();
+        }
+        return;
+
+      case 'results':
+        // View content results
+        if (is_string($this->content)) {
+          H5P_Plugin_Admin::set_error($this->content);
+          H5P_Plugin_Admin::print_messages();
+        }
+        else {
+          // Print HTML
+          include_once('views/results.php');
+
+          // Add JS settings
+          $settings = array(
+            'contentResults' => array(
+              'source' => admin_url('admin-ajax.php?action=h5p_content_results&id=' . $this->content['id']),
+              'headers' => array(
+                __('User', $this->plugin_slug),
+                __('Score', $this->plugin_slug),
+                __('Maximum Score', $this->plugin_slug),
+                __('Opened', $this->plugin_slug),
+                __('Finished', $this->plugin_slug),
+                __('Time spent', $this->plugin_slug)
+              ),
+              'l10n' => array(
+                'loading' => __('Loading data.', $this->plugin_slug),
+                'ajaxFailed' => __('Failed to load data.', $this->plugin_slug),
+                'noData' => __("There's no data available that matches your criteria.", $this->plugin_slug),
+                'currentPage' => __('Page $current of $total', $this->plugin_slug),
+                'nextPage' => __('Next page', $this->plugin_slug),
+                'previousPage' =>__('Previous page', $this->plugin_slug),
+              )
+            )
+          );
+          $plugin = H5P_Plugin::get_instance();
+          $plugin->print_settings($settings);
+
+          // Add JS
+          H5P_Plugin_Admin::add_script('jquery', 'h5p-php-library/js/jquery.js');
+          H5P_Plugin_Admin::add_script('utils', 'h5p-php-library/js/h5p-utils.js');
+          H5P_Plugin_Admin::add_script('data-view', 'h5p-php-library/js/h5p-data-view.js');
+          H5P_Plugin_Admin::add_script('content-results', 'admin/scripts/h5p-content-results.js');
+          H5P_Plugin_Admin::add_style('admin', 'h5p-php-library/styles/h5p-admin.css');
         }
         return;
     }
@@ -559,6 +603,68 @@ class H5PContentAdmin {
     header('Content-type: application/json');
 
     print $file->getResult();
+    exit;
+  }
+
+  /**
+   * Provide data for content results view.
+   *
+   * @since 1.2.0
+   */
+  public function ajax_content_results() {
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    if (!$id) {
+      return; // Missing id
+    }
+
+    $plugin = H5P_Plugin::get_instance();
+    $content = $plugin->get_content($id);
+    if (is_string($content) || !$this->current_user_can_edit($content)) {
+      return; // Error loading content or no access
+    }
+
+    // Load offset and limit.
+    $offset = filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT);
+    if (!$offset) {
+      $offset = 0; // Not set, use default
+    }
+    $limit = filter_input(INPUT_GET, 'limit', FILTER_SANITIZE_NUMBER_INT);
+    if (!$limit) {
+      $limit = 20; // Not set, use default
+    }
+
+    $plugin_admin = H5P_Plugin_Admin::get_instance();
+    $results = $plugin_admin->get_results($id, NULL, $offset, $limit);
+
+    $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
+    $offset = get_option('gmt_offset') * 3600;
+
+    // Make data more readable for humans
+    $rows = array();
+    foreach ($results as $result)  {
+      if ($result->time === '0') {
+        $result->time = $result->finished - $result->opened;
+      }
+      $seconds = ($result->time % 60);
+      $time = floor($result->time / 60) . ':' . ($seconds < 10 ? '0' : '') . $seconds;
+
+      $rows[] = array(
+        $result->user_name,
+        (int) $result->score,
+        (int) $result->max_score,
+        date($datetimeformat, $offset + $result->opened),
+        date($datetimeformat, $offset + $result->finished),
+        $time,
+      );
+    }
+
+    // Print results
+    header('Cache-Control: no-cache');
+    header('Content-type: application/json');
+    print json_encode(array(
+      'num' => $plugin_admin->get_results_num($id),
+      'rows' => $rows
+    ));
     exit;
   }
 }

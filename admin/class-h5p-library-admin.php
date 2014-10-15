@@ -330,11 +330,13 @@ class H5PLibraryAdmin {
           $library->id
         )
       );
+      for ($i = 0; $i < 1000; $i++) {
       foreach($contents as $content) {
         $settings['library']['content'][] = array(
           'title' => $content->title,
           'url' => admin_url('admin.php?page=h5p&task=show&id=' . $content->id),
         );
+      }
       }
     }
 

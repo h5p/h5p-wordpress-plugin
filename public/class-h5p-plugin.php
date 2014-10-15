@@ -12,10 +12,6 @@
 /**
  * Plugin class.
  *
- * TODO: Add embed
- * TODO: Test with PostgreSQL
- * TODO: Check i18n
- *
  * @package H5P_Plugin
  * @author Joubel <contact@joubel.com>
  */
@@ -28,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.1.0';
+  const VERSION = '1.2.0';
 
   /**
    * The Unique identifier for this plugin.
@@ -177,6 +173,20 @@ class H5P_Plugin {
       UNIQUE KEY  (content_id, library_id, dependency_type)
     );");
 
+    // Keep track of results (contents >-< users)
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_results (
+      id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      content_id INT UNSIGNED NOT NULL,
+      user_id INT UNSIGNED NOT NULL,
+      score INT UNSIGNED NOT NULL,
+      max_score INT UNSIGNED NOT NULL,
+      opened INT UNSIGNED NOT NULL,
+      finished INT UNSIGNED NOT NULL,
+      time INT UNSIGNED NOT NULL,
+      UNIQUE KEY  (id),
+      KEY content_user (content_id, user_id)
+    );");
+
     // Keep track of h5p libraries
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries (
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -194,7 +204,9 @@ class H5P_Plugin {
       preloaded_css TEXT NULL,
       drop_library_css TEXT NULL,
       semantics TEXT NOT NULL,
-      UNIQUE KEY  (id)
+      UNIQUE KEY  (id),
+      KEY name_version (name, major_version, minor_version, patch_version),
+      KEY runnable (runnable)
     );");
 
     // Keep track of h5p library dependencies
@@ -232,6 +244,7 @@ class H5P_Plugin {
     // Add default setting options
     add_option('h5p_export', TRUE);
     add_option('h5p_icon', TRUE);
+    add_option('h5p_track_user', FALSE);
   }
 
   /**
@@ -499,8 +512,10 @@ class H5P_Plugin {
       'url' => $this->get_h5p_url(),
       'exportEnabled' => get_option('h5p_export', TRUE),
       'h5pIconInActionBar' => get_option('h5p_icon', TRUE),
+      'postUserStatistics' => (get_option('h5p_track_user', FALSE) === '1'),
       'loadedJs' => array(),
       'loadedCss' => array(),
+      'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
       'i18n' => array(
         'fullscreen' => __('Fullscreen', $this->plugin_slug),
         'disableFullscreen' => __('Disable fullscreen', $this->plugin_slug),

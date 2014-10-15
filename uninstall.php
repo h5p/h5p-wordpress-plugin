@@ -19,6 +19,7 @@ global $wpdb;
 // Drop tables
 $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents");
 $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents_libraries");
+$wpdb->query("DROP TABLE {$wpdb->prefix}h5p_results");
 $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries");
 $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_libraries");
 $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_languages");
@@ -51,12 +52,12 @@ function _h5p_recursive_unlink($file) {
 // Clean out file dirs.
 $upload_dir = wp_upload_dir();
 $path = $upload_dir['basedir'] . '/h5p';
-   
+
 // Remove these regardless of their content.
 foreach (array('tmp', 'temp', 'libraries', 'content', 'exports', 'editor') as $directory) {
   _h5p_recursive_unlink($path . '/' . $directory);
 }
-  
+
 // Only remove development dir if it's empty.
 $dir = $path . '/development';
 if (is_dir($dir) && count(scandir($dir)) === 2) {

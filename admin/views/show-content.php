@@ -14,7 +14,8 @@
   <h2>
     <?php print esc_html($this->content['title']); ?>
     <?php if ($this->current_user_can_edit($this->content)): ?>
-      <a href="<?php print admin_url('admin.php?page=h5p_new&id=' . $this->content['id']); ?>" class="add-new-h2"><?php esc_html_e('Edit', $this->plugin_slug); ?></a>
+      <a href="<?php print admin_url('admin.php?page=h5p&task=results&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('Results', $this->plugin_slug); ?></a>
+      <a href="<?php print admin_url('admin.php?page=h5p_new&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('Edit', $this->plugin_slug); ?></a>
     <?php endif; ?>
   </h2>
   <?php print H5P_Plugin_Admin::print_messages(); ?>
