@@ -90,6 +90,9 @@ class H5P_Plugin_Admin {
 
     // AJAX for display content results
     add_action('wp_ajax_h5p_content_results', array($this->content, 'ajax_content_results'));
+
+    // AJAX for display user results
+    add_action('wp_ajax_h5p_my_results', array($this, 'ajax_my_results'));
   }
 
   /**
@@ -142,6 +145,11 @@ class H5P_Plugin_Admin {
 
     // Process form data when upload H5Ps without content.
     add_action('load-' . $libraries_page, array($this->library, 'process_libraries'));
+
+    if (get_option('h5p_track_user', TRUE) === '1') {
+      $my_results = __('My Results', $this->plugin_slug);
+      add_submenu_page($this->plugin_slug, $my_results, $my_results, 'view_h5p_results', $this->plugin_slug . '_results', array($this, 'display_results_page'));
+    }
 
     // Settings page
     add_options_page('H5P Settings', 'H5P', 'manage_options', $this->plugin_slug . '_settings', array($this, 'display_settings_page'));
@@ -431,5 +439,123 @@ class H5P_Plugin_Admin {
         LIMIT {$offset}, {$limit}",
       $query_args
     ));
+  }
+
+  /**
+   * Print settings, adds JavaScripts and stylesheets necessary for providing
+   * a data view.
+   *
+   * @since 1.2.0
+   * @param string $name of the data view
+   * @param string $source URL for data
+   * @param array $headers for the table
+   */
+  public function print_data_view_settings($name, $source, $headers) {
+    // Add JS settings
+    $data_views = array();
+    $data_views[$name] = array(
+      'source' => $source,
+      'headers' => $headers,
+      'l10n' => array(
+        'loading' => __('Loading data.', $this->plugin_slug),
+        'ajaxFailed' => __('Failed to load data.', $this->plugin_slug),
+        'noData' => __("There's no data available that matches your criteria.", $this->plugin_slug),
+        'currentPage' => __('Page $current of $total', $this->plugin_slug),
+        'nextPage' => __('Next page', $this->plugin_slug),
+        'previousPage' =>__('Previous page', $this->plugin_slug),
+      )
+    );
+    $plugin = H5P_Plugin::get_instance();
+    $settings = array('dataViews' => $data_views);
+    $plugin->print_settings($settings);
+
+    // Add JS
+    H5P_Plugin_Admin::add_script('jquery', 'h5p-php-library/js/jquery.js');
+    H5P_Plugin_Admin::add_script('utils', 'h5p-php-library/js/h5p-utils.js');
+    H5P_Plugin_Admin::add_script('data-view', 'h5p-php-library/js/h5p-data-view.js');
+    H5P_Plugin_Admin::add_script('data-views', 'admin/scripts/h5p-data-views.js');
+    H5P_Plugin_Admin::add_style('admin', 'h5p-php-library/styles/h5p-admin.css');
+  }
+
+  /**
+   * Displays the "My Results" page.
+   *
+   * @since 1.2.0
+   */
+  public function display_results_page() {
+    include_once('views/my-results.php');
+    $this->print_data_view_settings(
+      'h5p-my-results',
+      admin_url('admin-ajax.php?action=h5p_my_results'),
+      array(
+        __('Content', $this->plugin_slug),
+        __('Score', $this->plugin_slug),
+        __('Maximum Score', $this->plugin_slug),
+        __('Opened', $this->plugin_slug),
+        __('Finished', $this->plugin_slug),
+        __('Time spent', $this->plugin_slug)
+      )
+    );
+  }
+
+  /**
+   * Print results ajax data for either content or user, not both.
+   *
+   * @since 1.2.0
+   * @param int $content_id
+   * @param int $user_id
+   */
+  public function print_results($content_id = NULL, $user_id = NULL) {
+    // Load offset and limit.
+    $offset = filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT);
+    if (!$offset) {
+      $offset = 0; // Not set, use default
+    }
+    $limit = filter_input(INPUT_GET, 'limit', FILTER_SANITIZE_NUMBER_INT);
+    if (!$limit) {
+      $limit = 20; // Not set, use default
+    }
+
+    $results = $this->get_results($content_id, $user_id, $offset, $limit);
+
+    $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
+    $offset = get_option('gmt_offset') * 3600;
+
+    // Make data more readable for humans
+    $rows = array();
+    foreach ($results as $result)  {
+      if ($result->time === '0') {
+        $result->time = $result->finished - $result->opened;
+      }
+      $seconds = ($result->time % 60);
+      $time = floor($result->time / 60) . ':' . ($seconds < 10 ? '0' : '') . $seconds;
+
+      $rows[] = array(
+        ($content_id === NULL ? $result->content_title : $result->user_name),
+        (int) $result->score,
+        (int) $result->max_score,
+        date($datetimeformat, $offset + $result->opened),
+        date($datetimeformat, $offset + $result->finished),
+        $time,
+      );
+    }
+
+    // Print results
+    header('Cache-Control: no-cache');
+    header('Content-type: application/json');
+    print json_encode(array(
+      'num' => $this->get_results_num($content_id, $user_id),
+      'rows' => $rows
+    ));
+    exit;
+  }
+
+  /**
+   * Provide data for content results view.
+   *
+   * @since 1.2.0
+   */
+  public function ajax_my_results() {
+    $this->print_results(NULL, get_current_user_id());
   }
 }
