@@ -112,7 +112,7 @@ class H5PContentAdmin {
       return FALSE;
     }
 
-    return current_user_can_edit($content);
+    return $this->current_user_can_edit($content);
   }
 
   /**
