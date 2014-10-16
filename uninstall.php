@@ -15,6 +15,11 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 }
 
 global $wpdb;
+global $wp_roles;
+
+if (!isset($wp_roles)) {
+  $wp_roles = new WP_Roles();
+}
 
 // Drop tables
 $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents");
@@ -28,6 +33,25 @@ $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_languages");
 delete_option('h5p_db_version');
 delete_option('h5p_export');
 delete_option('h5p_icon');
+
+// Remove capabilities
+$all_roles = $wp_roles->roles;
+foreach ($all_roles as $role_name => $role_info) {
+  $role = get_role($role_name);
+
+  if (isset($role_info['capabilities']['manage_h5p_libraries'])) {
+    $role->remove_cap('manage_h5p_libraries');
+  }
+  if (isset($role_info['capabilities']['edit_others_h5p_contents'])) {
+    $role->remove_cap('edit_others_h5p_contents');
+  }
+  if (isset($role_info['capabilities']['edit_h5p_contents'])) {
+    $role->remove_cap('edit_h5p_contents');
+  }
+  if (isset($role_info['capabilities']['view_h5p_results'])) {
+    $role->remove_cap('view_h5p_results');
+  }
+}
 
 /**
  * Recursively remove file or directory.

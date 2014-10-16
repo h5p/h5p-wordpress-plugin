@@ -225,22 +225,6 @@ class H5P_Plugin {
       UNIQUE KEY  (library_id, language_code)
     );");
 
-    // Add new capabilities
-    $administrator = get_role('administrator');
-    $administrator->add_cap('manage_h5p_libraries');
-    $administrator->add_cap('edit_h5p_contents');
-    $administrator->add_cap('edit_others_h5p_contents');
-
-    $editor = get_role('editor');
-    $editor->add_cap('edit_h5p_contents');
-    $editor->add_cap('edit_others_h5p_contents');
-
-    $author = get_role('author');
-    $author->add_cap('edit_h5p_contents');
-
-    $contributor = get_role('contributor');
-    $contributor->add_cap('edit_h5p_contents');
-
     // Add default setting options
     add_option('h5p_export', TRUE);
     add_option('h5p_icon', TRUE);
@@ -256,12 +240,65 @@ class H5P_Plugin {
   }
 
   /**
+   * Check if the plugin has been updated and we need to do something.
+   *
    * @since 1.1.0
    */
   public function check_for_updates() {
-    if (get_option('h5p_version') !== self::VERSION) {
-      self::update_database();
-      update_option('h5p_version', self::VERSION);
+    $current_version = get_option('h5p_version');
+    if ($current_version === self::VERSION) {
+      return; // Same version as before
+    }
+
+    // We have a new version!
+    if (!$current_version) {
+      // Never installed before
+      $current_version = '0.0.0';
+    }
+
+    // Split version number
+    $current_version = explode('.', $current_version);
+    $major = (int) $current_version[0];
+    $minor = (int) $current_version[1];
+    $patch = (int) $current_version[2];
+
+    // Run version specific updates
+    if ($major < 1 || ($major === 1 && $minor < 2)) { // < 1.2.0
+      // Add caps again, has not worked for everyone in 1.1.0
+      $this->add_capabilities();
+    }
+
+    // Run database updates
+    self::update_database();
+    update_option('h5p_version', self::VERSION);
+  }
+
+  /**
+   * Add capabilities to roles. "Copy" default WP caps on roles.
+   *
+   * @since 1.2.0
+   */
+  private function add_capabilities() {
+    global $wp_roles;
+    if (!isset($wp_roles)) {
+      $wp_roles = new WP_Roles();
+    }
+
+    $all_roles = $wp_roles->roles;
+    foreach ($all_roles as $role_name => $role_info) {
+      $role = get_role($role_name);
+
+      if (isset($role_info['capabilities']['manage_options'])) {
+        $role->add_cap('manage_h5p_libraries');
+      }
+      if (isset($role_info['capabilities']['edit_others_pages'])) {
+        $role->add_cap('edit_others_h5p_contents');
+      }
+      if (isset($role_info['capabilities']['edit_posts'])) {
+        $role->add_cap('edit_h5p_contents');
+      }
+      if (isset($role_info['capabilities']['read'])) {
+      }
     }
   }
 

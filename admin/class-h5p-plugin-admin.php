@@ -143,9 +143,6 @@ class H5P_Plugin_Admin {
     // Process form data when upload H5Ps without content.
     add_action('load-' . $libraries_page, array($this->library, 'process_libraries'));
 
-//    $results = __('Results', $this->plugin_slug);
-//    add_submenu_page($this->plugin_slug, $results, $results, 'view_h5p_results', $this->plugin_slug . '_results', array($this, 'display_user_results_page'));
-
     // Settings page
     add_options_page('H5P Settings', 'H5P', 'manage_options', $this->plugin_slug . '_settings', array($this, 'display_settings_page'));
   }
