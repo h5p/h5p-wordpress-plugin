@@ -81,13 +81,15 @@ class H5PContentAdmin {
   }
 
   /**
-   * Display a list of all h5p content.
+   * Permission check. Can the current user edit the given content?
    *
    * @since 1.1.0
+   * @param array $content
+   * @return boolean
    */
   private function current_user_can_edit($content) {
     if (current_user_can('edit_others_h5p_contents')) {
-      return true;
+      return TRUE;
     }
 
     $user_id = get_current_user_id();
@@ -96,6 +98,21 @@ class H5PContentAdmin {
     }
 
     return ($user_id === (int)$content->user_id);
+  }
+
+  /**
+   * Permission check. Can the current user view results for the given content?
+   *
+   * @since 1.2.0
+   * @param array $content
+   * @return boolean
+   */
+  private function current_user_can_view_content_results($content) {
+    if (get_option('h5p_track_user', TRUE) !== '1') {
+      return FALSE;
+    }
+
+    return current_user_can_edit($content);
   }
 
   /**
@@ -109,6 +126,7 @@ class H5PContentAdmin {
         $contents = $this->get_contents();
         $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
         $offset = get_option('gmt_offset') * 3600;
+        $user_tracking = (get_option('h5p_track_user', TRUE) === '1');
         include_once('views/all-content.php');
         return;
 

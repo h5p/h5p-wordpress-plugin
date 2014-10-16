@@ -32,8 +32,11 @@
 #h5p-content-form label {
   display: block;
 }
-.h5p-updated-at, .h5p-created-at, .h5p-results-link, .h5p-edit-link {
-  width: 10em;
+.h5p-updated-at, .h5p-created-at {
+  width: 15em;
+}
+.h5p-results-link, .h5p-edit-link {
+  width: 5em;
 }
 #h5p-admin-container table.libraries,
 #h5p-admin-container .h5p-content,

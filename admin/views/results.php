@@ -14,7 +14,9 @@
   <h2>
     <?php printf(__('Results for "%s"', $this->plugin_slug), esc_html($this->content['title'])); ?>
     <a href="<?php print admin_url('admin.php?page=h5p&task=show&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('View', $this->plugin_slug); ?></a>
-    <a href="<?php print admin_url('admin.php?page=h5p_new&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('Edit', $this->plugin_slug); ?></a>
+    <?php if ($this->current_user_can_edit($this->content)): ?>
+      <a href="<?php print admin_url('admin.php?page=h5p_new&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('Edit', $this->plugin_slug); ?></a>
+    <?php endif; ?>
   </h2>
   <div id="h5p-content-results">
     <?php _e('Waiting for JavaScript.', $this->plugin_slug); ?>

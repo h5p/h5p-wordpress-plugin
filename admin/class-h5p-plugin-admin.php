@@ -172,7 +172,7 @@ class H5P_Plugin_Admin {
     else {
       $export = get_option('h5p_export', TRUE);
       $icon = get_option('h5p_icon', TRUE);
-      $track_user = get_option('h5p_track_user', FALSE);
+      $track_user = get_option('h5p_track_user', TRUE);
     }
 
     include_once('views/settings.php');

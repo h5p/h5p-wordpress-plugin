@@ -244,7 +244,7 @@ class H5P_Plugin {
     // Add default setting options
     add_option('h5p_export', TRUE);
     add_option('h5p_icon', TRUE);
-    add_option('h5p_track_user', FALSE);
+    add_option('h5p_track_user', TRUE);
   }
 
   /**
@@ -512,7 +512,7 @@ class H5P_Plugin {
       'url' => $this->get_h5p_url(),
       'exportEnabled' => get_option('h5p_export', TRUE),
       'h5pIconInActionBar' => get_option('h5p_icon', TRUE),
-      'postUserStatistics' => (get_option('h5p_track_user', FALSE) === '1'),
+      'postUserStatistics' => (get_option('h5p_track_user', TRUE) === '1'),
       'loadedJs' => array(),
       'loadedCss' => array(),
       'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
