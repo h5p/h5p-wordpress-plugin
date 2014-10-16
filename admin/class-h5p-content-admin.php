@@ -164,7 +164,8 @@ class H5PContentAdmin {
               __('Opened', $this->plugin_slug),
               __('Finished', $this->plugin_slug),
               __('Time spent', $this->plugin_slug)
-            )
+            ),
+            array(true)
           );
         }
         return;

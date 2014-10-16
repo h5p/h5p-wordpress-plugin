@@ -13,7 +13,7 @@
  * Plugin admin class.
  *
  * TODO: Add development mode
- * TODO: Fix custom permission for library admin
+ * TODO: Move results stuff to seperate class
  *
  * @package H5P_Plugin_Admin
  * @author Joubel <contact@joubel.com>
@@ -365,7 +365,7 @@ class H5P_Plugin_Admin {
    * @param int $user_id
    * @return array
    */
-  private function get_results_query_where(&$query_args, $content_id = NULL, $user_id = NULL) {
+  private function get_results_query_where(&$query_args, $content_id = NULL, $user_id = NULL, $filters = array()) {
     if ($content_id !== NULL) {
       $where = ' WHERE hr.content_id = %d';
       $query_args[] = $content_id;
@@ -373,6 +373,10 @@ class H5P_Plugin_Admin {
     if ($user_id !== NULL) {
       $where = (isset($where) ? $where . ' AND' : ' WHERE') . ' hr.user_id = %d';
       $query_args[] = $user_id;
+    }
+    if (isset($where) && isset($filters[0])) {
+      $where .= ' AND ' . ($content_id === NULL ? 'hc.title' : 'u.user_login') . " LIKE '%%%s%%'";
+      $query_args[] = $filters[0];
     }
     return (isset($where) ? $where : '');
   }
@@ -385,7 +389,7 @@ class H5P_Plugin_Admin {
    * @param int $user_id
    * @return int
    */
-  public function get_results_num($content_id = NULL, $user_id = NULL) {
+  public function get_results_num($content_id = NULL, $user_id = NULL, $filters = array()) {
     global $wpdb;
 
     $query_args = array();
@@ -404,7 +408,7 @@ class H5P_Plugin_Admin {
    * @param int $user_id
    * @return array
    */
-  public function get_results($content_id = NULL, $user_id = NULL, $offset = 0, $limit = 20) {
+  public function get_results($content_id = NULL, $user_id = NULL, $offset = 0, $limit = 20, $filters = array()) {
     global $wpdb;
 
     if ($limit > 100) {
@@ -423,7 +427,7 @@ class H5P_Plugin_Admin {
     }
 
     $query_args = array();
-    $where = $this->get_results_query_where($query_args, $content_id, $user_id);
+    $where = $this->get_results_query_where($query_args, $content_id, $user_id, $filters);
 
     return $wpdb->get_results($wpdb->prepare(
       "SELECT hr.id,
@@ -450,12 +454,13 @@ class H5P_Plugin_Admin {
    * @param string $source URL for data
    * @param array $headers for the table
    */
-  public function print_data_view_settings($name, $source, $headers) {
+  public function print_data_view_settings($name, $source, $headers, $filters) {
     // Add JS settings
     $data_views = array();
     $data_views[$name] = array(
       'source' => $source,
       'headers' => $headers,
+      'filters' => $filters,
       'l10n' => array(
         'loading' => __('Loading data.', $this->plugin_slug),
         'ajaxFailed' => __('Failed to load data.', $this->plugin_slug),
@@ -463,6 +468,7 @@ class H5P_Plugin_Admin {
         'currentPage' => __('Page $current of $total', $this->plugin_slug),
         'nextPage' => __('Next page', $this->plugin_slug),
         'previousPage' =>__('Previous page', $this->plugin_slug),
+        'search' =>__('Search', $this->plugin_slug),
       )
     );
     $plugin = H5P_Plugin::get_instance();
@@ -494,7 +500,8 @@ class H5P_Plugin_Admin {
         __('Opened', $this->plugin_slug),
         __('Finished', $this->plugin_slug),
         __('Time spent', $this->plugin_slug)
-      )
+      ),
+      array(true)
     );
   }
 
@@ -515,8 +522,9 @@ class H5P_Plugin_Admin {
     if (!$limit) {
       $limit = 20; // Not set, use default
     }
+    $filters = filter_input(INPUT_GET, 'filters', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
-    $results = $this->get_results($content_id, $user_id, $offset, $limit);
+    $results = $this->get_results($content_id, $user_id, $offset, $limit, $filters);
 
     $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
     $offset = get_option('gmt_offset') * 3600;
@@ -531,7 +539,7 @@ class H5P_Plugin_Admin {
       $time = floor($result->time / 60) . ':' . ($seconds < 10 ? '0' : '') . $seconds;
 
       $rows[] = array(
-        ($content_id === NULL ? $result->content_title : $result->user_name),
+        esc_html($content_id === NULL ? $result->content_title : $result->user_name), // TODO: Check escaping
         (int) $result->score,
         (int) $result->max_score,
         date($datetimeformat, $offset + $result->opened),
@@ -544,7 +552,7 @@ class H5P_Plugin_Admin {
     header('Cache-Control: no-cache');
     header('Content-type: application/json');
     print json_encode(array(
-      'num' => $this->get_results_num($content_id, $user_id),
+      'num' => $this->get_results_num($content_id, $user_id, $filters),
       'rows' => $rows
     ));
     exit;

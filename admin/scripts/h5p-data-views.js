@@ -14,7 +14,8 @@
             dataView.l10n,
             {
               table: 'wp-list-table widefat fixed'
-            }
+            },
+            dataView.filters
           );
         }
       }
