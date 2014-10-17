@@ -629,68 +629,71 @@ class H5PWordPress implements H5PFrameworkInterface {
   }
 
   /**
-   * Implements cacheGet
+   * Implements getOption().
    */
-  public function cacheGet($group, $key) {
-    // WP uses contents table to store filtered parameters.
-    // TODO: Rewrite other impl to do the same.
+  public function getOption($name, $default = FALSE) {
+    return get_option('h5p_' . $name, $default);
   }
 
-  /**
-   * Implements cacheSet
-   */
-  public function cacheSet($group, $key, $data) {
-    global $wpdb;
 
-    if ($group === 'parameters') {
-      // TODO: Rename and simply function.
-      $wpdb->update($wpdb->prefix . 'h5p_contents', array('filtered' => $data), array('id' => $key), array('%s'), array('%d'));
+  /**
+   * Implements setOption().
+   */
+  public function setOption($name, $value) {
+    $var = $this->getOption($name);
+    if ($var === FALSE) {
+      add_option($name, $value);
+    }
+    else {
+      update_option($name, $value);
     }
   }
 
   /**
-   * Implements cacheDel
+   * Implements setFilteredParameters().
    */
-  public function cacheDel($group, $key = NULL) {
-    // WP uses contents table to store filtered parameters.
-    // TODO: Rewrite other impl to do the same.
+  public function setFilteredParameters($content_id, $parameters = '') {
+    global $wpdb;
+
+    $wpdb->update($wpdb->prefix . 'h5p_contents', array('filtered' => $parameters), array('id' => $content_id), array('%s'), array('%d'));
   }
 
   /**
-   * Implements invalidateContentCache.
+   * Implements clearFilteredParameters().
    */
-  public function invalidateContentCache($library_id) {
+  public function clearFilteredParameters($library_id) {
     global $wpdb;
 
     $wpdb->update($wpdb->prefix . 'h5p_contents', array('filtered' => NULL), array('library_id' => $library_id), array('%s'), array('%d'));
   }
 
   /**
-   * Implements getNotCached.
+   * Implements getNumNotFiltered().
    */
-  public function getNotCached() {
+  public function getNumNotFiltered() {
     global $wpdb;
 
-    return intval($wpdb->get_var(
-        "SELECT COUNT(id)
-          FROM {$wpdb->prefix}h5p_contents
-          WHERE filtered = ''"
-    ));
+    return (int) $wpdb->get_var(
+      "SELECT COUNT(id)
+        FROM {$wpdb->prefix}h5p_contents
+        WHERE filtered = ''"
+    );
   }
 
   /**
-   * Implements getNumContent.
+   * Implements getNumContent().
    */
   public function getNumContent($library_id) {
     global $wpdb;
 
-    return intval($wpdb->get_var($wpdb->prepare(
-        "SELECT COUNT(id)
-          FROM {$wpdb->prefix}h5p_contents
-          WHERE library_id = %d",
-        $library_id
-    )));
+    return (int) $wpdb->get_var($wpdb->prepare(
+      "SELECT COUNT(id)
+        FROM {$wpdb->prefix}h5p_contents
+        WHERE library_id = %d",
+      $library_id
+    ));
   }
+
 
   /**
    * Implements loadLibraries.
