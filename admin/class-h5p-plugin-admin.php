@@ -408,7 +408,7 @@ class H5P_Plugin_Admin {
    * @param int $user_id
    * @return array
    */
-  public function get_results($content_id = NULL, $user_id = NULL, $offset = 0, $limit = 20, $filters = array()) {
+  public function get_results($content_id = NULL, $user_id = NULL, $offset = 0, $limit = 20, $sort_by = 0, $sort_dir = 0, $filters = array()) {
     global $wpdb;
 
     if ($limit > 100) {
@@ -429,6 +429,30 @@ class H5P_Plugin_Admin {
     $query_args = array();
     $where = $this->get_results_query_where($query_args, $content_id, $user_id, $filters);
 
+    $order_by = '';
+    switch ($sort_by) {
+      case 0:
+        $order_by = 'ORDER BY ' . ($content_id === NULL ? 'hc.title' : 'u.user_login');
+        $sort_dir = !$sort_dir;
+        break;
+      case 1:
+        $order_by = 'ORDER BY hr.score';
+        break;
+      case 2:
+        $order_by = 'ORDER BY hr.max_score';
+        break;
+      case 3:
+        $order_by = 'ORDER BY hr.opened';
+        break;
+      case 4:
+        $order_by = 'ORDER BY hr.finished';
+        break;
+    }
+
+    if ($order_by !== '') {
+      $order_by .= ($sort_dir ? ' ASC' : ' DESC');
+    }
+
     return $wpdb->get_results($wpdb->prepare(
       "SELECT hr.id,
               {$extra_fields}
@@ -440,6 +464,7 @@ class H5P_Plugin_Admin {
         FROM {$wpdb->prefix}h5p_results hr
         {$joins}
         {$where}
+        {$order_by}
         LIMIT {$offset}, {$limit}",
       $query_args
     ));
@@ -494,11 +519,26 @@ class H5P_Plugin_Admin {
       'h5p-my-results',
       admin_url('admin-ajax.php?action=h5p_my_results'),
       array(
-        __('Content', $this->plugin_slug),
-        __('Score', $this->plugin_slug),
-        __('Maximum Score', $this->plugin_slug),
-        __('Opened', $this->plugin_slug),
-        __('Finished', $this->plugin_slug),
+        (object) array(
+          'text' => __('Content', $this->plugin_slug),
+          'sortable' => TRUE
+        ),
+        (object) array(
+          'text' => __('Score', $this->plugin_slug),
+          'sortable' => TRUE
+        ),
+        (object) array(
+          'text' => __('Maximum Score', $this->plugin_slug),
+          'sortable' => TRUE
+        ),
+        (object) array(
+          'text' => __('Opened', $this->plugin_slug),
+          'sortable' => TRUE
+        ),
+        (object) array(
+          'text' => __('Finished', $this->plugin_slug),
+          'sortable' => TRUE
+        ),
         __('Time spent', $this->plugin_slug)
       ),
       array(true)
@@ -515,16 +555,16 @@ class H5P_Plugin_Admin {
   public function print_results($content_id = NULL, $user_id = NULL) {
     // Load offset and limit.
     $offset = filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT);
-    if (!$offset) {
-      $offset = 0; // Not set, use default
-    }
+    $offset = (!$offset ? 0 : (int) $offset); // Use default if not set or invalid
     $limit = filter_input(INPUT_GET, 'limit', FILTER_SANITIZE_NUMBER_INT);
-    if (!$limit) {
-      $limit = 20; // Not set, use default
-    }
+    $limit = (!$limit ? 20 : (int) $limit); // Use default if not set or invalid
+    $sortBy = filter_input(INPUT_GET, 'sortBy', FILTER_SANITIZE_NUMBER_INT);
+    $sortBy = (!$sortBy ? 0 : (int) $sortBy); // Use default if not set or invalid
+    $sortDir = filter_input(INPUT_GET, 'sortDir', FILTER_SANITIZE_NUMBER_INT);
+    $sortDir = (!$sortDir ? 0 : (int) $sortDir); // Use default if not set or invalid
     $filters = filter_input(INPUT_GET, 'filters', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
-    $results = $this->get_results($content_id, $user_id, $offset, $limit, $filters);
+    $results = $this->get_results($content_id, $user_id, $offset, $limit, $sortBy, $sortDir, $filters);
 
     $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
     $offset = get_option('gmt_offset') * 3600;

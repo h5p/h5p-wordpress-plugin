@@ -158,11 +158,26 @@ class H5PContentAdmin {
             'h5p-content-results',
             admin_url('admin-ajax.php?action=h5p_content_results&id=' . $this->content['id']),
             array(
-              __('User', $this->plugin_slug),
-              __('Score', $this->plugin_slug),
-              __('Maximum Score', $this->plugin_slug),
-              __('Opened', $this->plugin_slug),
-              __('Finished', $this->plugin_slug),
+              (object) array(
+                'text' => __('User', $this->plugin_slug),
+                'sortable' => TRUE
+              ),
+              (object) array(
+                'text' => __('Score', $this->plugin_slug),
+                'sortable' => TRUE
+              ),
+              (object) array(
+                'text' => __('Maximum Score', $this->plugin_slug),
+                'sortable' => TRUE
+              ),
+              (object) array(
+                'text' => __('Opened', $this->plugin_slug),
+                'sortable' => TRUE
+              ),
+              (object) array(
+                'text' => __('Finished', $this->plugin_slug),
+                'sortable' => TRUE
+              ),
               __('Time spent', $this->plugin_slug)
             ),
             array(true)
