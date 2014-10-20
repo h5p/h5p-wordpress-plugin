@@ -157,7 +157,7 @@ class H5PLibraryAdmin {
     $core = $plugin->get_h5p_instance('core');
     $interface = $plugin->get_h5p_instance('interface');
 
-    $not_cached = $interface->getNotCached();
+    $not_cached = $interface->getNumNotFiltered();
     $libraries = $interface->loadLibraries();
 
     $plugin->add_core_assets();
@@ -272,7 +272,7 @@ class H5PLibraryAdmin {
       $interface = $plugin->get_h5p_instance('interface');
 
       // Check if this library can be deleted
-      $usage = $interface->getLibraryUsage($library->id, $interface->getNotCached() ? TRUE : FALSE);
+      $usage = $interface->getLibraryUsage($library->id, $interface->getNumNotFiltered() ? TRUE : FALSE);
       if ($usage['content'] !== 0 || $usage['libraries'] !== 0) {
         H5P_Plugin_Admin::set_error(__('This Library is used by content or other libraries and can therefore not be deleted.', $this->plugin_slug));
         return; // Nope
@@ -315,7 +315,7 @@ class H5PLibraryAdmin {
       'pageXOfY' => __('Page $x of $y', $this->plugin_slug),
     );
 
-    $notCached = $interface->getNotCached();
+    $notCached = $interface->getNumNotFiltered();
     if ($notCached) {
       $settings['library']['notCached'] = $this->get_not_cached_settings($notCached);
     }
