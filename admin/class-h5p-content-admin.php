@@ -38,6 +38,13 @@ class H5PContentAdmin {
   private $content = NULL;
 
   /**
+   * Are we inserting H5P content on this page?
+   *
+   * @since 1.2.0
+   */
+  private $insertButton = FALSE;
+
+  /**
    * Initialize content admin and editor
    *
    * @since 1.1.0
@@ -123,11 +130,47 @@ class H5PContentAdmin {
   public function display_contents_page() {
     switch (filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING)) {
       case NULL:
-        $contents = $this->get_contents();
-        $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
-        $offset = get_option('gmt_offset') * 3600;
-        $user_tracking = (get_option('h5p_track_user', TRUE) === '1');
-        include_once('views/all-content.php');
+        include_once('views/contents.php');
+
+        $headers = array(
+          (object) array(
+            'text' => __('Title', $this->plugin_slug),
+            'sortable' => TRUE
+          ),
+          (object) array(
+            'text' => __('Content type', $this->plugin_slug),
+            'sortable' => TRUE
+          ),
+          (object) array(
+            'text' => __('Created', $this->plugin_slug),
+            'sortable' => TRUE
+          ),
+          (object) array(
+            'text' => __('Last modified', $this->plugin_slug),
+            'sortable' => TRUE
+          ),
+          (object) array(
+            'text' => __('Author', $this->plugin_slug),
+            'sortable' => TRUE
+          )
+        );
+        if (get_option('h5p_track_user', TRUE) === '1') {
+          $headers[] = (object) array(
+            'class' => 'h5p-results-link'
+          );
+        }
+        $headers[] = (object) array(
+          'class' => 'h5p-edit-link'
+        );
+
+        $plugin_admin = H5P_Plugin_Admin::get_instance();
+        $plugin_admin->print_data_view_settings(
+          'h5p-contents',
+          admin_url('admin-ajax.php?action=h5p_contents'),
+          $headers,
+          array(true),
+          __("No H5P content available. You must upload or create new content.", $this->plugin_slug)
+        );
         return;
 
       case 'show':
@@ -180,30 +223,14 @@ class H5PContentAdmin {
               ),
               __('Time spent', $this->plugin_slug)
             ),
-            array(true)
+            array(true),
+            __("No one has completed this H5P task yet.", $this->plugin_slug)
           );
         }
         return;
     }
 
     print '<div class="wrap"><h2>' . esc_html__('Unknown task.', $this->plugin_slug) . '</h2></div>';
-  }
-
-
-  /**
-   * Get list of H5P contents.
-   *
-   * @since 1.1.0
-   * @global \wpdb $wpdb
-   * @return array
-   */
-  private function get_contents() {
-    global $wpdb;
-    return $wpdb->get_results(
-        "SELECT id, title, created_at, updated_at, user_id
-          FROM {$wpdb->prefix}h5p_contents
-          ORDER BY title, id"
-      );
   }
 
   /**
@@ -439,18 +466,184 @@ class H5PContentAdmin {
    * @return string
    */
   public function add_insert_button() {
-    $ajax_url = admin_url('admin-ajax.php?action=h5p_contents');
-    return '<a href="' . $ajax_url . '" class="button thickbox" title="' . __('Select and insert H5P Interactive Content', $this->plugin_slug) . '">' . __('Add H5P', $this->plugin_slug) . '</a>';
+    $this->insertButton = TRUE;
+    return '<a href="#" id="add-h5p" class="button" title="' . __('Insert H5P Content', $this->plugin_slug) . '">' . __('Add H5P', $this->plugin_slug) . '</a>';
   }
 
   /**
-   * List to select H5P content from.
+   * Adds scripts and settings for allowing selection of H5P contents when
+   * inserting into pages, posts etc.
    *
-   * @since 1.1.0
+   * @since 1.2.0
    */
-  public function ajax_select_content() {
-    $contents = $this->get_contents();
-    include_once('views/select-content.php');
+  public function print_insert_content_scripts() {
+    if (!$this->insertButton) {
+      return;
+    }
+
+    $plugin_admin = H5P_Plugin_Admin::get_instance();
+    $plugin_admin->print_data_view_settings(
+      'h5p-insert-content',
+      admin_url('admin-ajax.php?action=h5p_insert_content'),
+      array(
+        (object) array(
+          'text' => __('Title', $this->plugin_slug),
+          'sortable' => TRUE
+        ),
+        (object) array(
+          'text' => __('Content type', $this->plugin_slug),
+          'sortable' => TRUE
+        ),
+        (object) array(
+          'text' => __('Last modified', $this->plugin_slug),
+          'sortable' => TRUE
+        ),
+        (object) array(
+          'class' => 'h5p-insert-link'
+        )
+      ),
+      array(true),
+      __("No H5P content available. You must upload or create new content.", $this->plugin_slug)
+    );
+  }
+
+  /**
+   * List content to choose from when inserting H5Ps.
+   *
+   * @since 1.2.0
+   */
+  public function ajax_insert_content() {
+    $this->ajax_contents(TRUE);
+  }
+
+  /**
+   * Generic function for listing all H5P contents.
+   *
+   * @global \wpdb $wpdb
+   * @since 1.2.0
+   * @param boolean $insert Place insert buttons instead of edit links.
+   */
+  public function ajax_contents($insert = FALSE) {
+    global $wpdb;
+
+    // Load input vars.
+    $admin = H5P_Plugin_Admin::get_instance();
+    list($offset, $limit, $sort_by, $sort_dir, $filters) = $admin->get_data_view_input();
+
+    // Add filters to data query
+    $where = '';
+    $query_args = array();
+    if (isset($filters[0])) {
+      $where = "WHERE hc.title LIKE '%%%s%%'";
+      $query_args[] = $filters[0];
+    }
+
+    // Use correct sorting of columns
+    $order = '';
+    switch ($sort_by) {
+      case 0:
+      default:
+        $order = 'ORDER BY hc.title';
+        $sort_dir = !$sort_dir;
+        break;
+      case 1:
+        $order = 'ORDER BY hl.title';
+        $sort_dir = !$sort_dir;
+        break;
+      case 2:
+        $order = 'ORDER BY hc.created_at';
+        break;
+      case 3:
+        $order = 'ORDER BY hc.updated_at';
+        break;
+      case 4:
+        $order = 'ORDER BY u.user_login';
+        $sort_dir = !$sort_dir;
+        break;
+    }
+    $order .= ($sort_dir ? ' ASC' : ' DESC');
+
+    // Get contents from database
+    $results = $wpdb->get_results($wpdb->prepare(
+      "SELECT hc.id, hc.title, hl.title AS content_type, hc.created_at, hc.updated_at, u.user_login AS user
+        FROM {$wpdb->prefix}h5p_contents hc
+        LEFT JOIN {$wpdb->prefix}h5p_libraries hl
+        ON hl.id = hc.library_id
+        LEFT JOIN {$wpdb->prefix}users u
+        ON hc.user_id = u.ID
+        {$where}
+        {$order}
+        LIMIT %d, %d",
+      array_merge($query_args, array($offset, $limit))
+    ));
+
+    $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
+    $offset = get_option('gmt_offset') * 3600;
+    $user_tracking = (get_option('h5p_track_user', TRUE) === '1');
+
+    // Make data more readable for humans
+    $rows = array();
+    foreach ($results as $result)  {
+      $row = array(
+        '<a href="' . admin_url('admin.php?page=h5p&task=show&id=' . $result->id) . '">' . esc_html($result->title) . '</a>',
+        esc_html($result->content_type),
+      );
+
+      // Created
+      if (!$insert) {
+        $row[] = date($datetimeformat, strtotime($result->created_at) + $offset);
+      }
+
+      // Last modified
+      $row[] = date($datetimeformat, strtotime($result->updated_at) + $offset);
+
+      if ($insert) {
+        // Insert button
+        $row[] = '<button class="button h5p-insert" data-id="' . $result->id . '">' . __('Insert', $this->plugin_slug) . '</button>';
+      }
+      else {
+        // Author
+        $row[] = esc_html($result->user);
+
+        // Add user results link
+        if ($user_tracking) {
+          if ($this->current_user_can_view_content_results($result)) {
+            $row[] = '<a href="' . admin_url('admin.php?page=h5p&task=results&id=' . $result->id) . '">' . __('Results', $this->plugin_slug) . '</a>';
+          }
+          else {
+            $row[] = '';
+          }
+        }
+
+        // Add edit link
+        if ($this->current_user_can_edit($result)) {
+          $row[] = '<a href="' . admin_url('admin.php?page=h5p_new&id=' . $result->id) . '">' . __('Edit', $this->plugin_slug) . '</a>';
+        }
+        else {
+          $row[] = '';
+        }
+      }
+
+      $rows[] = $row;
+    }
+
+    // Find total number of contents
+    $num_query = "SELECT COUNT(hc.id)
+                  FROM {$wpdb->prefix}h5p_contents hc
+                  {$where}";
+
+    if (count($query_args)) {
+      $num_query = $wpdb->prepare($num_query, $query_args);
+    }
+    $num = (int) $wpdb->get_var($num_query);
+
+    // Print results
+    header('Cache-Control: no-cache');
+    header('Content-type: application/json');
+    print json_encode(array(
+      'num' => $num,
+      'rows' => $rows
+    ));
     exit;
   }
 

@@ -72,7 +72,8 @@ class H5P_Plugin_Admin {
 
     // Custom media button for inserting H5Ps.
     add_action('media_buttons_context', array($this->content, 'add_insert_button'));
-    add_action('wp_ajax_h5p_contents', array($this->content, 'ajax_select_content'));
+    add_action('admin_footer', array($this->content, 'print_insert_content_scripts'));
+    add_action('wp_ajax_h5p_insert_content', array($this->content, 'ajax_insert_content'));
 
     // Editor ajax
     add_action('wp_ajax_h5p_libraries', array($this->content, 'ajax_libraries'));
@@ -93,6 +94,9 @@ class H5P_Plugin_Admin {
 
     // AJAX for display user results
     add_action('wp_ajax_h5p_my_results', array($this, 'ajax_my_results'));
+
+    // AJAX for getting contents list
+    add_action('wp_ajax_h5p_contents', array($this->content, 'ajax_contents'));
   }
 
   /**
@@ -411,10 +415,6 @@ class H5P_Plugin_Admin {
   public function get_results($content_id = NULL, $user_id = NULL, $offset = 0, $limit = 20, $sort_by = 0, $sort_dir = 0, $filters = array()) {
     global $wpdb;
 
-    if ($limit > 100) {
-      $limit = 100; // Prevent wrong use
-    }
-
     $extra_fields = '';
     $joins = '';
     if ($content_id === NULL) {
@@ -432,6 +432,7 @@ class H5P_Plugin_Admin {
     $order_by = '';
     switch ($sort_by) {
       case 0:
+      default:
         $order_by = 'ORDER BY ' . ($content_id === NULL ? 'hc.title' : 'u.user_login');
         $sort_dir = !$sort_dir;
         break;
@@ -453,6 +454,9 @@ class H5P_Plugin_Admin {
       $order_by .= ($sort_dir ? ' ASC' : ' DESC');
     }
 
+    $query_args[] = $offset;
+    $query_args[] = $limit;
+
     return $wpdb->get_results($wpdb->prepare(
       "SELECT hr.id,
               {$extra_fields}
@@ -465,7 +469,7 @@ class H5P_Plugin_Admin {
         {$joins}
         {$where}
         {$order_by}
-        LIMIT {$offset}, {$limit}",
+        LIMIT %d, %d",
       $query_args
     ));
   }
@@ -479,7 +483,7 @@ class H5P_Plugin_Admin {
    * @param string $source URL for data
    * @param array $headers for the table
    */
-  public function print_data_view_settings($name, $source, $headers, $filters) {
+  public function print_data_view_settings($name, $source, $headers, $filters, $empty) {
     // Add JS settings
     $data_views = array();
     $data_views[$name] = array(
@@ -494,6 +498,7 @@ class H5P_Plugin_Admin {
         'nextPage' => __('Next page', $this->plugin_slug),
         'previousPage' =>__('Previous page', $this->plugin_slug),
         'search' =>__('Search', $this->plugin_slug),
+        'empty' => $empty
       )
     );
     $plugin = H5P_Plugin::get_instance();
@@ -541,7 +546,8 @@ class H5P_Plugin_Admin {
         ),
         __('Time spent', $this->plugin_slug)
       ),
-      array(true)
+      array(true),
+      __("You haven't completed any H5P tasks yet.", $this->plugin_slug)
     );
   }
 
@@ -553,17 +559,10 @@ class H5P_Plugin_Admin {
    * @param int $user_id
    */
   public function print_results($content_id = NULL, $user_id = NULL) {
-    // Load offset and limit.
-    $offset = filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT);
-    $offset = (!$offset ? 0 : (int) $offset); // Use default if not set or invalid
-    $limit = filter_input(INPUT_GET, 'limit', FILTER_SANITIZE_NUMBER_INT);
-    $limit = (!$limit ? 20 : (int) $limit); // Use default if not set or invalid
-    $sortBy = filter_input(INPUT_GET, 'sortBy', FILTER_SANITIZE_NUMBER_INT);
-    $sortBy = (!$sortBy ? 0 : (int) $sortBy); // Use default if not set or invalid
-    $sortDir = filter_input(INPUT_GET, 'sortDir', FILTER_SANITIZE_NUMBER_INT);
-    $sortDir = (!$sortDir ? 0 : (int) $sortDir); // Use default if not set or invalid
-    $filters = filter_input(INPUT_GET, 'filters', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+    // Load input vars.
+    list($offset, $limit, $sortBy, $sortDir, $filters) = $this->get_data_view_input();
 
+    // Get results
     $results = $this->get_results($content_id, $user_id, $offset, $limit, $sortBy, $sortDir, $filters);
 
     $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
@@ -579,7 +578,7 @@ class H5P_Plugin_Admin {
       $time = floor($result->time / 60) . ':' . ($seconds < 10 ? '0' : '') . $seconds;
 
       $rows[] = array(
-        esc_html($content_id === NULL ? $result->content_title : $result->user_name), // TODO: Check escaping
+        esc_html($content_id === NULL ? $result->content_title : $result->user_name),
         (int) $result->score,
         (int) $result->max_score,
         date($datetimeformat, $offset + $result->opened),
@@ -605,5 +604,34 @@ class H5P_Plugin_Admin {
    */
   public function ajax_my_results() {
     $this->print_results(NULL, get_current_user_id());
+  }
+
+  /**
+   * Load input vars for data views.
+   *
+   * @since 1.2.0
+   * @return array offset, limit, sort by, sort direction, filters
+   */
+  public function get_data_view_input() {
+    $offset = filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT);
+    $limit = filter_input(INPUT_GET, 'limit', FILTER_SANITIZE_NUMBER_INT);
+    $sortBy = filter_input(INPUT_GET, 'sortBy', FILTER_SANITIZE_NUMBER_INT);
+    $sortDir = filter_input(INPUT_GET, 'sortDir', FILTER_SANITIZE_NUMBER_INT);
+    $filters = filter_input(INPUT_GET, 'filters', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+
+    $limit = (!$limit ? 20 : (int) $limit);
+    if ($limit > 100) {
+      $limit = 100; // Prevent wrong usage.
+    }
+
+    // Use default if not set or invalid
+    return array(
+      (!$offset ? 0 : (int) $offset),
+      $limit,
+      (!$sortBy ? 0 : (int) $sortBy),
+      (!$sortDir ? 0 : (int) $sortDir),
+      $filters
+    );
+
   }
 }
