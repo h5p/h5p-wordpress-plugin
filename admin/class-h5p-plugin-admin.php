@@ -167,20 +167,34 @@ class H5P_Plugin_Admin {
   public function display_settings_page() {
     $save = filter_input(INPUT_POST, 'save_these_settings');
     if ($save !== NULL) {
+      // Get input and store settings
       check_admin_referer('h5p_settings', 'save_these_settings'); // Verify form
 
-      $export = filter_input(INPUT_POST, 'h5p_export', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_export', $export ? TRUE : FALSE);
+      // Action bar
+      $frame = filter_input(INPUT_POST, 'h5p_frame', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_frame', $frame ? TRUE : FALSE);
 
-      $icon = filter_input(INPUT_POST, 'h5p_icon', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_icon', $icon ? TRUE : FALSE);
+      $download = filter_input(INPUT_POST, 'h5p_download', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_export', $download ? TRUE : FALSE);
+
+      $embed = filter_input(INPUT_POST, 'h5p_embed', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_embed', $embed ? TRUE : FALSE);
+
+      $copyright = filter_input(INPUT_POST, 'h5p_copyright', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_copyright', $copyright ? TRUE : FALSE);
+
+      $about = filter_input(INPUT_POST, 'h5p_about', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_icon', $about ? TRUE : FALSE);
 
       $track_user = filter_input(INPUT_POST, 'h5p_track_user', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_track_user', $track_user ? TRUE : FALSE);
     }
     else {
-      $export = get_option('h5p_export', TRUE);
-      $icon = get_option('h5p_icon', TRUE);
+      $frame = get_option('h5p_frame', TRUE);
+      $download = get_option('h5p_export', TRUE);
+      $embed = get_option('h5p_embed', TRUE);
+      $copyright = get_option('h5p_copyright', TRUE);
+      $about = get_option('h5p_icon', TRUE);
       $track_user = get_option('h5p_track_user', TRUE);
     }
 

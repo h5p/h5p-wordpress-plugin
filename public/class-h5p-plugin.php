@@ -226,7 +226,10 @@ class H5P_Plugin {
     );");
 
     // Add default setting options
+    add_option('h5p_frame', TRUE);
     add_option('h5p_export', TRUE);
+    add_option('h5p_embed', TRUE);
+    add_option('h5p_copyright', TRUE);
     add_option('h5p_icon', TRUE);
     add_option('h5p_track_user', TRUE);
   }
