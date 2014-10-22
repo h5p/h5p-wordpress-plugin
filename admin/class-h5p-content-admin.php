@@ -768,7 +768,8 @@ class H5PContentAdmin {
     header('Content-type: application/json');
 
     if ($name) {
-      print $editor->getLibraryData($name, $major_version, $minor_version);
+      $plugin = H5P_Plugin::get_instance();
+      print $editor->getLibraryData($name, $major_version, $minor_version, $plugin->get_language());
     }
     else {
       print $editor->getLibraries();
