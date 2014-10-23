@@ -584,10 +584,18 @@ class H5PContentAdmin {
     // Make data more readable for humans
     $rows = array();
     foreach ($results as $result)  {
-      $row = array(
-        '<a href="' . admin_url('admin.php?page=h5p&task=show&id=' . $result->id) . '">' . esc_html($result->title) . '</a>',
-        esc_html($result->content_type),
-      );
+      $row = array();
+
+      // Title
+      if ($insert) {
+        $row[] = esc_html($result->title);
+      }
+      else {
+        $row[] = '<a href="' . admin_url('admin.php?page=h5p&task=show&id=' . $result->id) . '">' . esc_html($result->title) . '</a>';
+      }
+
+      // Content type
+      $row[] = esc_html($result->content_type);
 
       // Created
       if (!$insert) {
