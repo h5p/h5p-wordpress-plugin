@@ -17,8 +17,9 @@
   float: right;
   margin-right: -300px;
   width: 280px;
+  clear: right;
 }
-#h5p-content-form #minor-publishing {
+#h5p-content-form #minor-publishing, #h5p-content-form .h5p-action-bar-settings {
   line-height: 175%;
   padding: 12px;
 }

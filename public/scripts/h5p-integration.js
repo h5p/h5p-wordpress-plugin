@@ -52,13 +52,6 @@ H5PIntegration.getFullscreen = function (contentId) {
 };
 
 /**
- * Should H5P Icon be displayed in action bar?
- */
-H5PIntegration.showH5PIconInActionBar = function () {
-  return H5P.settings.h5pIconInActionBar;
-};
-
-/**
  * Loop trough styles and create a set of tags for head.
  *
  * @param {Array} styles List of stylesheets

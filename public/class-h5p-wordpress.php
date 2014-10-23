@@ -373,7 +373,8 @@ class H5PWordPress implements H5PFrameworkInterface {
       'parameters' => $content['params'],
       'embed_type' => 'div', // TODO: Determine from library?
       'library_id' => $content['library']['libraryId'],
-      'filtered' => ''
+      'filtered' => '',
+      'disable' => $content['disable'],
     );
     $format = array(
       '%s',
@@ -381,7 +382,8 @@ class H5PWordPress implements H5PFrameworkInterface {
       '%s',
       '%s',
       '%d',
-      '%s'
+      '%s',
+      '%d'
     );
 
     if (!isset($content['id'])) {
@@ -583,6 +585,7 @@ class H5PWordPress implements H5PFrameworkInterface {
               , hc.filtered
               , hc.user_id
               , hc.embed_type AS embedType
+              , hc.disable
               , hl.id AS libraryId
               , hl.name AS libraryName
               , hl.major_version AS libraryMajorVersion

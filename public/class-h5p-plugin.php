@@ -17,6 +17,14 @@
  */
 class H5P_Plugin {
 
+  /* Constants */
+  const DISABLE_NONE = 0;
+  const DISABLE_FRAME = 1;
+  const DISABLE_DOWNLOAD = 2;
+  const DISABLE_EMBED = 4;
+  const DISABLE_COPYRIGHT = 8;
+  const DISABLE_ABOUT = 16;
+
   /**
    * Plugin version, used for cache-busting of style and script file references.
    * Keeping track of the DB version.
@@ -156,6 +164,7 @@ class H5P_Plugin {
       parameters LONGTEXT NOT NULL,
       filtered LONGTEXT NOT NULL,
       embed_type VARCHAR(127) NOT NULL,
+      disable INT UNSIGNED NOT NULL DEFAULT 0,
       content_type VARCHAR(127) NULL,
       author VARCHAR(127) NULL,
       license VARCHAR(7) NULL,
@@ -474,12 +483,30 @@ class H5P_Plugin {
     if (!isset(self::$settings['content'][$cid])) {
       $core = $this->get_h5p_instance('core');
 
+      // Allow global settings to override and disable features
+      if (!get_option('h5p_frame', TRUE)) {
+        $content['disable'] |= self::DISABLE_FRAME;
+      }
+      else {
+        if (!get_option('h5p_export', TRUE)) {
+          $content['disable'] |= self::DISABLE_DOWNLOAD;
+        }
+        $content['disable'] |= self::DISABLE_EMBED; // No embed suppport in WP, yet.
+        if (!get_option('h5p_copyright', TRUE)) {
+          $content['disable'] |= self::DISABLE_COPYRIGHT;
+        }
+        if (!get_option('h5p_icon', TRUE)) {
+          $content['disable'] |= self::DISABLE_ABOUT;
+        }
+      }
+
       // Add JavaScript settings for this content
       self::$settings['content'][$cid] = array(
         'library' => H5PCore::libraryToString($content['library']),
         'jsonContent' => $core->filterParameters($content),
         'fullScreen' => $content['library']['fullscreen'],
-        'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : ''
+        'disable' => $content['disable'],
+        'exportUrl' => $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p'
       );
 
       // Get assets for this content
@@ -553,9 +580,7 @@ class H5P_Plugin {
         'scripts' => array()
       ),
       'url' => $this->get_h5p_url(),
-      'exportEnabled' => get_option('h5p_export', TRUE),
-      'h5pIconInActionBar' => get_option('h5p_icon', TRUE),
-      'postUserStatistics' => (get_option('h5p_track_user', TRUE) === '1'),
+      'postUserStatistics' => (bool) get_option('h5p_track_user', TRUE),
       'loadedJs' => array(),
       'loadedCss' => array(),
       'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),

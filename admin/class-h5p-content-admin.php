@@ -115,7 +115,7 @@ class H5PContentAdmin {
    * @return boolean
    */
   private function current_user_can_view_content_results($content) {
-    if (get_option('h5p_track_user', TRUE) !== '1') {
+    if (!get_option('h5p_track_user', TRUE)) {
       return FALSE;
     }
 
@@ -154,7 +154,7 @@ class H5PContentAdmin {
             'sortable' => TRUE
           )
         );
-        if (get_option('h5p_track_user', TRUE) === '1') {
+        if (get_option('h5p_track_user', TRUE)) {
           $headers[] = (object) array(
             'class' => 'h5p-results-link'
           );
@@ -289,6 +289,7 @@ class H5PContentAdmin {
         // Create new content if none exists
         $content = ($this->content === NULL ? array() : $this->content);
         $content['title'] = $this->get_input_title();
+        $content['disable'] = $this->get_disabled_content_features();
 
         // Handle file upload
         $plugin_admin = H5P_Plugin_Admin::get_instance();
@@ -326,6 +327,7 @@ class H5PContentAdmin {
 
     include_once('views/new-content.php');
     $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
+    H5P_Plugin_Admin::add_script('disable', 'admin/scripts/h5p-disable.js');
   }
 
   /**
@@ -393,6 +395,9 @@ class H5PContentAdmin {
       return FALSE;
     }
 
+    // Set disabled features
+    $content['disable'] = $this->get_disabled_content_features();
+
     // Save new content
     $content['id'] = $core->saveContent($content);
 
@@ -408,6 +413,27 @@ class H5PContentAdmin {
     // Move images and find all content dependencies
     $editor->processParameters($content['id'], $content['library'], $params, $oldLibrary, $oldParams);
     return $content['id'];
+  }
+
+  /**
+   * Extract disabled content features from input post.
+   *
+   * @since 1.2.0
+   * @return int
+   */
+  private function get_disabled_content_features() {
+    $disabled = H5P_Plugin::DISABLE_NONE;
+    if (!filter_input(INPUT_POST, 'frame', FILTER_VALIDATE_BOOLEAN)) {
+      $disabled |= H5P_Plugin::DISABLE_FRAME;
+    }
+    if (!filter_input(INPUT_POST, 'download', FILTER_VALIDATE_BOOLEAN)) {
+      $disabled |= H5P_Plugin::DISABLE_DOWNLOAD;
+    }
+    if (!filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN)) {
+      $disabled |= H5P_Plugin::DISABLE_COPYRIGHT;
+    }
+
+    return $disabled;
   }
 
   /**
@@ -579,7 +605,7 @@ class H5PContentAdmin {
 
     $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
     $offset = get_option('gmt_offset') * 3600;
-    $user_tracking = (get_option('h5p_track_user', TRUE) === '1');
+    $user_tracking = get_option('h5p_track_user', TRUE);
 
     // Make data more readable for humans
     $rows = array();
