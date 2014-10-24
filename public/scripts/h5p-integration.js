@@ -30,7 +30,7 @@ H5PIntegration.getJsonContent = function (contentId) {
 // Window parent is always available.
 var locationOrigin = window.parent.location.protocol + "//" + window.parent.location.host;
 H5PIntegration.getContentPath = function (contentId) {
-  return H5P.settings.url + (contentId !== undefined ? '/content/' + contentId + '/' : '/editor/');
+  return H5P.settings.url + (contentId !== undefined ? '/content/' + contentId : '/editor');
 };
 
 /**
