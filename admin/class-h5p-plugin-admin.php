@@ -13,7 +13,7 @@
  * Plugin admin class.
  *
  * TODO: Add development mode
- * TODO: Fix custom permission for library admin
+ * TODO: Move results stuff to seperate class
  *
  * @package H5P_Plugin_Admin
  * @author Joubel <contact@joubel.com>
@@ -66,24 +66,37 @@ class H5P_Plugin_Admin {
 
     // Add the options page and menu item.
     add_action('admin_menu', array($this, 'add_plugin_admin_menu'));
-    
+
     // Allow altering of page titles for different page actions.
     add_filter('admin_title', array($this, 'alter_title'), 10, 2);
-    
+
     // Custom media button for inserting H5Ps.
     add_action('media_buttons_context', array($this->content, 'add_insert_button'));
-    add_action('wp_ajax_h5p_contents', array($this->content, 'ajax_select_content'));
-    
+    add_action('admin_footer', array($this->content, 'print_insert_content_scripts'));
+    add_action('wp_ajax_h5p_insert_content', array($this->content, 'ajax_insert_content'));
+
     // Editor ajax
     add_action('wp_ajax_h5p_libraries', array($this->content, 'ajax_libraries'));
     add_action('wp_ajax_h5p_files', array($this->content, 'ajax_files'));
-    
+
     // AJAX for rebuilding all content caches
     add_action('wp_ajax_h5p_rebuild_cache', array($this->library, 'ajax_rebuild_cache'));
-    
+
     // AJAX for content upgrade
     add_action('wp_ajax_h5p_content_upgrade_library', array($this->library, 'ajax_upgrade_library'));
     add_action('wp_ajax_h5p_content_upgrade_progress', array($this->library, 'ajax_upgrade_progress'));
+
+    // AJAX for logging results
+    add_action('wp_ajax_h5p_setFinished', array($this, 'ajax_results'));
+
+    // AJAX for display content results
+    add_action('wp_ajax_h5p_content_results', array($this->content, 'ajax_content_results'));
+
+    // AJAX for display user results
+    add_action('wp_ajax_h5p_my_results', array($this, 'ajax_my_results'));
+
+    // AJAX for getting contents list
+    add_action('wp_ajax_h5p_contents', array($this->content, 'ajax_contents'));
   }
 
   /**
@@ -121,45 +134,54 @@ class H5P_Plugin_Admin {
     // H5P Content pages
     $h5p_content = __('H5P Content', $this->plugin_slug);
     add_menu_page($h5p_content, $h5p_content, 'edit_h5p_contents', $this->plugin_slug, array($this->content, 'display_contents_page'), 'none');
-    
+
     $all_h5p_content = __('All H5P Content', $this->plugin_slug);
     add_submenu_page($this->plugin_slug, $all_h5p_content, $all_h5p_content, 'edit_h5p_contents', $this->plugin_slug, array($this->content, 'display_contents_page'));
-    
+
     $add_new = __('Add New', $this->plugin_slug);
     $contents_page = add_submenu_page($this->plugin_slug, $add_new, $add_new, 'edit_h5p_contents', $this->plugin_slug . '_new', array($this->content, 'display_new_content_page'));
-    
+
     // Process form data when saving H5Ps.
     add_action('load-' . $contents_page, array($this->content, 'process_new_content'));
-    
+
     $libraries = __('Libraries', $this->plugin_slug);
     $libraries_page = add_submenu_page($this->plugin_slug, $libraries, $libraries, 'manage_h5p_libraries', $this->plugin_slug . '_libraries', array($this->library, 'display_libraries_page'));
 
     // Process form data when upload H5Ps without content.
     add_action('load-' . $libraries_page, array($this->library, 'process_libraries'));
-    
+
+    if (get_option('h5p_track_user', TRUE) === '1') {
+      $my_results = __('My Results', $this->plugin_slug);
+      add_submenu_page($this->plugin_slug, $my_results, $my_results, 'view_h5p_results', $this->plugin_slug . '_results', array($this, 'display_results_page'));
+    }
+
     // Settings page
     add_options_page('H5P Settings', 'H5P', 'manage_options', $this->plugin_slug . '_settings', array($this, 'display_settings_page'));
   }
-  
+
   /**
    * Display a settings page for H5P.
-   * 
+   *
    * @since 1.0.0
    */
   public function display_settings_page() {
     $save = filter_input(INPUT_POST, 'save_these_settings');
     if ($save !== NULL) {
       check_admin_referer('h5p_settings', 'save_these_settings'); // Verify form
-      
+
       $export = filter_input(INPUT_POST, 'h5p_export', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_export', $export ? TRUE : FALSE);
-      
+
       $icon = filter_input(INPUT_POST, 'h5p_icon', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_icon', $icon ? TRUE : FALSE);
+
+      $track_user = filter_input(INPUT_POST, 'h5p_track_user', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_track_user', $track_user ? TRUE : FALSE);
     }
     else {
       $export = get_option('h5p_export', TRUE);
       $icon = get_option('h5p_icon', TRUE);
+      $track_user = get_option('h5p_track_user', TRUE);
     }
 
     include_once('views/settings.php');
@@ -200,6 +222,13 @@ class H5P_Plugin_Admin {
     $plugin = H5P_Plugin::get_instance();
     $validator = $plugin->get_h5p_instance('validator');
     $interface = $plugin->get_h5p_instance('interface');
+
+    if (current_user_can('disable_h5p_security')) {
+      $core = $plugin->get_h5p_instance('core');
+
+      // Make it possible to disable file extension check
+      $core->disableFileCheck = (filter_input(INPUT_POST, 'h5p_disable_file_check', FILTER_VALIDATE_BOOLEAN) ? TRUE : FALSE);
+    }
 
     // Move so core can validate the file extension.
     rename($_FILES['h5p_file']['tmp_name'], $interface->getUploadedH5pPath());
@@ -283,5 +312,333 @@ class H5P_Plugin_Admin {
    */
   public static function add_style($handle, $path) {
     wp_enqueue_style(self::asset_handle($handle), plugins_url('h5p/' . $path), array(), H5P_Plugin::VERSION);
+  }
+
+  /**
+   * Handle user results reported by the H5P content.
+   *
+   * @since 1.2.0
+   */
+  public function ajax_results() {
+    global $wpdb;
+
+    $content_id = filter_input(INPUT_POST, 'contentId', FILTER_VALIDATE_INT);
+    if (!$content_id) {
+      return;
+    }
+
+    $user_id = get_current_user_id();
+    $result_id = $wpdb->get_var($wpdb->prepare(
+        "SELECT id
+        FROM {$wpdb->prefix}h5p_results
+        WHERE user_id = %d
+        AND content_id = %d",
+        $user_id,
+        $content_id
+    ));
+
+    $table = $wpdb->prefix . 'h5p_results';
+    $data = array(
+      'score' => filter_input(INPUT_POST, 'score', FILTER_VALIDATE_INT),
+      'max_score' => filter_input(INPUT_POST, 'maxScore', FILTER_VALIDATE_INT),
+      'opened' => filter_input(INPUT_POST, 'opened', FILTER_VALIDATE_INT),
+      'finished' => filter_input(INPUT_POST, 'finished', FILTER_VALIDATE_INT),
+      'time' => filter_input(INPUT_POST, 'time', FILTER_VALIDATE_INT)
+    );
+    $format = array(
+      '%d',
+      '%d',
+      '%d',
+      '%d',
+      '%d'
+    );
+
+    if (!$result_id) {
+      // Insert new results
+      $data['user_id'] = $user_id;
+      $format[] = '%d';
+      $data['content_id'] = $content_id;
+      $format[] = '%d';
+      $wpdb->insert($table, $data, $format);
+    }
+    else {
+      // Update existing results
+      $wpdb->update($table, $data, array('id' => $result_id), $format, array('%d'));
+    }
+  }
+
+  /**
+   * Create the where part of the results queries.
+   *
+   * @since 1.2.0
+   * @param array $query_args
+   * @param int $content_id
+   * @param int $user_id
+   * @return array
+   */
+  private function get_results_query_where(&$query_args, $content_id = NULL, $user_id = NULL, $filters = array()) {
+    if ($content_id !== NULL) {
+      $where = ' WHERE hr.content_id = %d';
+      $query_args[] = $content_id;
+    }
+    if ($user_id !== NULL) {
+      $where = (isset($where) ? $where . ' AND' : ' WHERE') . ' hr.user_id = %d';
+      $query_args[] = $user_id;
+    }
+    if (isset($where) && isset($filters[0])) {
+      $where .= ' AND ' . ($content_id === NULL ? 'hc.title' : 'u.user_login') . " LIKE '%%%s%%'";
+      $query_args[] = $filters[0];
+    }
+    return (isset($where) ? $where : '');
+  }
+
+  /**
+   * Find number of results.
+   *
+   * @since 1.2.0
+   * @param int $content_id
+   * @param int $user_id
+   * @return int
+   */
+  public function get_results_num($content_id = NULL, $user_id = NULL, $filters = array()) {
+    global $wpdb;
+
+    $query_args = array();
+    return (int) $wpdb->get_var($wpdb->prepare(
+      "SELECT COUNT(id) FROM {$wpdb->prefix}h5p_results hr" .
+        $this->get_results_query_where($query_args, $content_id, $user_id),
+      $query_args
+    ));
+  }
+
+  /**
+   * Handle user results reported by the H5P content.
+   *
+   * @since 1.2.0
+   * @param int $content_id
+   * @param int $user_id
+   * @return array
+   */
+  public function get_results($content_id = NULL, $user_id = NULL, $offset = 0, $limit = 20, $sort_by = 0, $sort_dir = 0, $filters = array()) {
+    global $wpdb;
+
+    $extra_fields = '';
+    $joins = '';
+    if ($content_id === NULL) {
+      $extra_fields .= " hr.content_id, hc.title AS content_title,";
+      $joins .= " LEFT JOIN {$wpdb->prefix}h5p_contents hc ON hr.content_id = hc.id";
+    }
+    if ($user_id === NULL) {
+      $extra_fields .= " hr.user_id, u.user_login AS user_name,";
+      $joins .= " LEFT JOIN {$wpdb->prefix}users u ON hr.user_id = u.ID";
+    }
+
+    $query_args = array();
+    $where = $this->get_results_query_where($query_args, $content_id, $user_id, $filters);
+
+    $order_by = '';
+    switch ($sort_by) {
+      case 0:
+      default:
+        $order_by = 'ORDER BY ' . ($content_id === NULL ? 'hc.title' : 'u.user_login');
+        $sort_dir = !$sort_dir;
+        break;
+      case 1:
+        $order_by = 'ORDER BY hr.score';
+        break;
+      case 2:
+        $order_by = 'ORDER BY hr.max_score';
+        break;
+      case 3:
+        $order_by = 'ORDER BY hr.opened';
+        break;
+      case 4:
+        $order_by = 'ORDER BY hr.finished';
+        break;
+    }
+
+    if ($order_by !== '') {
+      $order_by .= ($sort_dir ? ' ASC' : ' DESC');
+    }
+
+    $query_args[] = $offset;
+    $query_args[] = $limit;
+
+    return $wpdb->get_results($wpdb->prepare(
+      "SELECT hr.id,
+              {$extra_fields}
+              hr.score,
+              hr.max_score,
+              hr.opened,
+              hr.finished,
+              hr.time
+        FROM {$wpdb->prefix}h5p_results hr
+        {$joins}
+        {$where}
+        {$order_by}
+        LIMIT %d, %d",
+      $query_args
+    ));
+  }
+
+  /**
+   * Print settings, adds JavaScripts and stylesheets necessary for providing
+   * a data view.
+   *
+   * @since 1.2.0
+   * @param string $name of the data view
+   * @param string $source URL for data
+   * @param array $headers for the table
+   */
+  public function print_data_view_settings($name, $source, $headers, $filters, $empty) {
+    // Add JS settings
+    $data_views = array();
+    $data_views[$name] = array(
+      'source' => $source,
+      'headers' => $headers,
+      'filters' => $filters,
+      'l10n' => array(
+        'loading' => __('Loading data.', $this->plugin_slug),
+        'ajaxFailed' => __('Failed to load data.', $this->plugin_slug),
+        'noData' => __("There's no data available that matches your criteria.", $this->plugin_slug),
+        'currentPage' => __('Page $current of $total', $this->plugin_slug),
+        'nextPage' => __('Next page', $this->plugin_slug),
+        'previousPage' =>__('Previous page', $this->plugin_slug),
+        'search' =>__('Search', $this->plugin_slug),
+        'empty' => $empty
+      )
+    );
+    $plugin = H5P_Plugin::get_instance();
+    $settings = array('dataViews' => $data_views);
+    $plugin->print_settings($settings);
+
+    // Add JS
+    H5P_Plugin_Admin::add_script('jquery', 'h5p-php-library/js/jquery.js');
+    H5P_Plugin_Admin::add_script('utils', 'h5p-php-library/js/h5p-utils.js');
+    H5P_Plugin_Admin::add_script('data-view', 'h5p-php-library/js/h5p-data-view.js');
+    H5P_Plugin_Admin::add_script('data-views', 'admin/scripts/h5p-data-views.js');
+    H5P_Plugin_Admin::add_style('admin', 'h5p-php-library/styles/h5p-admin.css');
+  }
+
+  /**
+   * Displays the "My Results" page.
+   *
+   * @since 1.2.0
+   */
+  public function display_results_page() {
+    include_once('views/my-results.php');
+    $this->print_data_view_settings(
+      'h5p-my-results',
+      admin_url('admin-ajax.php?action=h5p_my_results'),
+      array(
+        (object) array(
+          'text' => __('Content', $this->plugin_slug),
+          'sortable' => TRUE
+        ),
+        (object) array(
+          'text' => __('Score', $this->plugin_slug),
+          'sortable' => TRUE
+        ),
+        (object) array(
+          'text' => __('Maximum Score', $this->plugin_slug),
+          'sortable' => TRUE
+        ),
+        (object) array(
+          'text' => __('Opened', $this->plugin_slug),
+          'sortable' => TRUE
+        ),
+        (object) array(
+          'text' => __('Finished', $this->plugin_slug),
+          'sortable' => TRUE
+        ),
+        __('Time spent', $this->plugin_slug)
+      ),
+      array(true),
+      __("You haven't completed any H5P tasks yet.", $this->plugin_slug)
+    );
+  }
+
+  /**
+   * Print results ajax data for either content or user, not both.
+   *
+   * @since 1.2.0
+   * @param int $content_id
+   * @param int $user_id
+   */
+  public function print_results($content_id = NULL, $user_id = NULL) {
+    // Load input vars.
+    list($offset, $limit, $sortBy, $sortDir, $filters) = $this->get_data_view_input();
+
+    // Get results
+    $results = $this->get_results($content_id, $user_id, $offset, $limit, $sortBy, $sortDir, $filters);
+
+    $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
+    $offset = get_option('gmt_offset') * 3600;
+
+    // Make data more readable for humans
+    $rows = array();
+    foreach ($results as $result)  {
+      if ($result->time === '0') {
+        $result->time = $result->finished - $result->opened;
+      }
+      $seconds = ($result->time % 60);
+      $time = floor($result->time / 60) . ':' . ($seconds < 10 ? '0' : '') . $seconds;
+
+      $rows[] = array(
+        esc_html($content_id === NULL ? $result->content_title : $result->user_name),
+        (int) $result->score,
+        (int) $result->max_score,
+        date($datetimeformat, $offset + $result->opened),
+        date($datetimeformat, $offset + $result->finished),
+        $time,
+      );
+    }
+
+    // Print results
+    header('Cache-Control: no-cache');
+    header('Content-type: application/json');
+    print json_encode(array(
+      'num' => $this->get_results_num($content_id, $user_id, $filters),
+      'rows' => $rows
+    ));
+    exit;
+  }
+
+  /**
+   * Provide data for content results view.
+   *
+   * @since 1.2.0
+   */
+  public function ajax_my_results() {
+    $this->print_results(NULL, get_current_user_id());
+  }
+
+  /**
+   * Load input vars for data views.
+   *
+   * @since 1.2.0
+   * @return array offset, limit, sort by, sort direction, filters
+   */
+  public function get_data_view_input() {
+    $offset = filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT);
+    $limit = filter_input(INPUT_GET, 'limit', FILTER_SANITIZE_NUMBER_INT);
+    $sortBy = filter_input(INPUT_GET, 'sortBy', FILTER_SANITIZE_NUMBER_INT);
+    $sortDir = filter_input(INPUT_GET, 'sortDir', FILTER_SANITIZE_NUMBER_INT);
+    $filters = filter_input(INPUT_GET, 'filters', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+
+    $limit = (!$limit ? 20 : (int) $limit);
+    if ($limit > 100) {
+      $limit = 100; // Prevent wrong usage.
+    }
+
+    // Use default if not set or invalid
+    return array(
+      (!$offset ? 0 : (int) $offset),
+      $limit,
+      (!$sortBy ? 0 : (int) $sortBy),
+      (!$sortDir ? 0 : (int) $sortDir),
+      $filters
+    );
+
   }
 }

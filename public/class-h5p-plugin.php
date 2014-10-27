@@ -12,10 +12,6 @@
 /**
  * Plugin class.
  *
- * TODO: Add embed
- * TODO: Test with PostgreSQL
- * TODO: Check i18n
- *
  * @package H5P_Plugin
  * @author Joubel <contact@joubel.com>
  */
@@ -28,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.1.0';
+  const VERSION = '1.2.0';
 
   /**
    * The Unique identifier for this plugin.
@@ -177,6 +173,20 @@ class H5P_Plugin {
       UNIQUE KEY  (content_id, library_id, dependency_type)
     );");
 
+    // Keep track of results (contents >-< users)
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_results (
+      id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      content_id INT UNSIGNED NOT NULL,
+      user_id INT UNSIGNED NOT NULL,
+      score INT UNSIGNED NOT NULL,
+      max_score INT UNSIGNED NOT NULL,
+      opened INT UNSIGNED NOT NULL,
+      finished INT UNSIGNED NOT NULL,
+      time INT UNSIGNED NOT NULL,
+      UNIQUE KEY  (id),
+      KEY content_user (content_id, user_id)
+    );");
+
     // Keep track of h5p libraries
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries (
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -194,7 +204,9 @@ class H5P_Plugin {
       preloaded_css TEXT NULL,
       drop_library_css TEXT NULL,
       semantics TEXT NOT NULL,
-      UNIQUE KEY  (id)
+      UNIQUE KEY  (id),
+      KEY name_version (name, major_version, minor_version, patch_version),
+      KEY runnable (runnable)
     );");
 
     // Keep track of h5p library dependencies
@@ -213,25 +225,10 @@ class H5P_Plugin {
       UNIQUE KEY  (library_id, language_code)
     );");
 
-    // Add new capabilities
-    $administrator = get_role('administrator');
-    $administrator->add_cap('manage_h5p_libraries');
-    $administrator->add_cap('edit_h5p_contents');
-    $administrator->add_cap('edit_others_h5p_contents');
-
-    $editor = get_role('editor');
-    $editor->add_cap('edit_h5p_contents');
-    $editor->add_cap('edit_others_h5p_contents');
-
-    $author = get_role('author');
-    $author->add_cap('edit_h5p_contents');
-
-    $contributor = get_role('contributor');
-    $contributor->add_cap('edit_h5p_contents');
-
     // Add default setting options
     add_option('h5p_export', TRUE);
     add_option('h5p_icon', TRUE);
+    add_option('h5p_track_user', TRUE);
   }
 
   /**
@@ -243,12 +240,68 @@ class H5P_Plugin {
   }
 
   /**
+   * Check if the plugin has been updated and we need to do something.
+   *
    * @since 1.1.0
    */
   public function check_for_updates() {
-    if (get_option('h5p_version') !== self::VERSION) {
-      self::update_database();
-      update_option('h5p_version', self::VERSION);
+    $current_version = get_option('h5p_version');
+    if ($current_version === self::VERSION) {
+      return; // Same version as before
+    }
+
+    // We have a new version!
+    if (!$current_version) {
+      // Never installed before
+      $current_version = '0.0.0';
+    }
+
+    // Split version number
+    $current_version = explode('.', $current_version);
+    $major = (int) $current_version[0];
+    $minor = (int) $current_version[1];
+    $patch = (int) $current_version[2];
+
+    // Run version specific updates
+    if ($major < 1 || ($major === 1 && $minor < 2)) { // < 1.2.0
+      // Add caps again, has not worked for everyone in 1.1.0
+      $this->add_capabilities();
+    }
+
+    // Run database updates
+    self::update_database();
+    update_option('h5p_version', self::VERSION);
+  }
+
+  /**
+   * Add capabilities to roles. "Copy" default WP caps on roles.
+   *
+   * @since 1.2.0
+   */
+  private function add_capabilities() {
+    global $wp_roles;
+    if (!isset($wp_roles)) {
+      $wp_roles = new WP_Roles();
+    }
+
+    $all_roles = $wp_roles->roles;
+    foreach ($all_roles as $role_name => $role_info) {
+      $role = get_role($role_name);
+
+      if (isset($role_info['capabilities']['install_plugins'])) {
+        $role->add_cap('disable_h5p_security');
+      }
+      if (isset($role_info['capabilities']['manage_options'])) {
+        $role->add_cap('manage_h5p_libraries');
+      }
+      if (isset($role_info['capabilities']['edit_others_pages'])) {
+        $role->add_cap('edit_others_h5p_contents');
+      }
+      if (isset($role_info['capabilities']['edit_posts'])) {
+        $role->add_cap('edit_h5p_contents');
+      }
+      if (isset($role_info['capabilities']['read'])) {
+      }
     }
   }
 
@@ -499,8 +552,10 @@ class H5P_Plugin {
       'url' => $this->get_h5p_url(),
       'exportEnabled' => get_option('h5p_export', TRUE),
       'h5pIconInActionBar' => get_option('h5p_icon', TRUE),
+      'postUserStatistics' => (get_option('h5p_track_user', TRUE) === '1'),
       'loadedJs' => array(),
       'loadedCss' => array(),
+      'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
       'i18n' => array(
         'fullscreen' => __('Fullscreen', $this->plugin_slug),
         'disableFullscreen' => __('Disable fullscreen', $this->plugin_slug),

@@ -13,10 +13,10 @@ jQuery(document).ready(function () {
    */
   H5PIntegration.i18n = {H5P: H5P.settings.i18n};
 
-  H5P.loadedJs = H5P.settings.h5p !== undefined && H5P.settings.h5p.loadedJs !== undefined ? H5P.settings.h5p.loadedJs : [];
-  H5P.loadedCss = H5P.settings.h5p !== undefined && H5P.settings.h5p.loadedCss !== undefined ? H5P.settings.h5p.loadedCss : [];
-  H5P.postUserStatistics = false;
-  H5P.ajaxPath = '';
+  H5P.loadedJs = H5P.settings.loadedJs;
+  H5P.loadedCss = H5P.settings.loadedCss;
+  H5P.postUserStatistics = H5P.settings.postUserStatistics;
+  H5P.ajaxPath = H5P.settings.ajaxPath;
 });
 
 H5PIntegration.getContentData = function (id) {

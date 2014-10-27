@@ -16,7 +16,10 @@
       <?php print esc_html(get_admin_page_title()); ?>
     <?php else: ?>
       <?php esc_html_e('Edit', $this->plugin_slug); ?> <em><?php print esc_html($title); ?></em>
-      <a href="<?php print admin_url('admin.php?page=h5p&task=show&id=' . $this->content['id']); ?>" class="add-new-h2">View</a></h2>
+      <a href="<?php print admin_url('admin.php?page=h5p&task=show&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('View', $this->plugin_slug); ?></a>
+      <?php if ($this->current_user_can_view_content_results($this->content)): ?>
+        <a href="<?php print admin_url('admin.php?page=h5p&task=results&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('Results', $this->plugin_slug); ?></a>
+      <?php endif;?>
     <?php endif; ?>
   </h2>
   <?php H5P_Plugin_Admin::print_messages(); ?>
@@ -27,7 +30,15 @@
           <label class="" id="title-prompt-text" for="title"><?php esc_html_e('Enter title here', $this->plugin_slug); ?></label>
           <input id="title" type="text" name="title" id="title" value="<?php print esc_attr($title); ?>"/>
         </div>
-        <div class="h5p-upload"><input type="file" name="h5p_file" id="h5p-file"/></div>
+        <div class="h5p-upload">
+          <input type="file" name="h5p_file" id="h5p-file"/>
+          <?php if (current_user_can('disable_h5p_security')): ?>
+            <div class="h5p-disable-file-check">
+              <label><input type="checkbox" name="h5p_disable_file_check" id="h5p-disable-file-check"/> <?php _e('Disable file extension check', $this->plugin_slug); ?></label>
+              <div class="h5p-warning"><?php _e("Warning! This may have security implications as it allows for uploading php files. That in turn could make it possible for attackers to execute malicious code on your site. Please make sure you know exactly what you're uploading.", $this->plugin_slug); ?></div>
+            </div>
+          <?php endif; ?>
+        </div>
         <div class="h5p-create"><div class="h5p-editor"><?php esc_html_e('Waiting for javascript...', $this->plugin_slug); ?></div></div>
       </div>
       <div class="postbox">
