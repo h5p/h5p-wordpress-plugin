@@ -30,7 +30,7 @@ $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_libraries");
 $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_languages");
 
 // Remove settings
-delete_option('h5p_db_version');
+delete_option('h5p_version');
 delete_option('h5p_frame');
 delete_option('h5p_export');
 delete_option('h5p_embed');
@@ -73,7 +73,7 @@ function _h5p_recursive_unlink($file) {
     rmdir($file);
   }
   elseif (file_exists($file)) {
-    unlink($file); // TODO: Remove from file_managed!!
+    unlink($file);
   }
 }
 
