@@ -660,7 +660,7 @@ class H5P_Plugin {
   public function print_settings(&$settings) {
     $json_settings = json_encode($settings);
     if ($json_settings !== FALSE) {
-      print '<script>H5P={settings:' . $json_settings . '}</script>';
+      print '<script>var H5P = H5P || {};H5P.settings=' . $json_settings . '</script>';
     }
   }
 
