@@ -88,8 +88,8 @@ class H5P_Plugin {
     // Clean up tmp editor files
     add_action('h5p_daily_cleanup', array($this, 'remove_old_tmp_files'));
 
-    // Check for updates
-    add_action('plugins_loaded', array($this, 'check_for_updates'), 1);
+    // Always check if the plugin has been updated to a newer version
+    add_action('init', array('H5P_Plugin', 'check_for_updates'), 1);
   }
 
   /**
@@ -125,10 +125,8 @@ class H5P_Plugin {
    * @param boolean $network_wide
    */
   public static function activate($network_wide) {
-    self::update_database();
-
-    // Keep track of which DB we have.
-    add_option('h5p_version', self::VERSION);
+    // Check to see if the plugin has been updated to a newer version
+    self::check_for_updates();
 
     // Cleaning rutine
     wp_schedule_event(time(), 'daily', 'h5p_daily_cleanup');
@@ -240,11 +238,12 @@ class H5P_Plugin {
   }
 
   /**
-   * Check if the plugin has been updated and we need to do something.
+   * Check if the plugin has been updated and if we need to run some upgrade
+   * scripts, change the database or something else.
    *
-   * @since 1.1.0
+   * @since 1.2.0
    */
-  public function check_for_updates() {
+  public static function check_for_updates() {
     $current_version = get_option('h5p_version');
     if ($current_version === self::VERSION) {
       return; // Same version as before
@@ -265,12 +264,19 @@ class H5P_Plugin {
     // Run version specific updates
     if ($major < 1 || ($major === 1 && $minor < 2)) { // < 1.2.0
       // Add caps again, has not worked for everyone in 1.1.0
-      $this->add_capabilities();
+      self::add_capabilities();
     }
 
     // Run database updates
     self::update_database();
-    update_option('h5p_version', self::VERSION);
+
+    // Keep track of which version of the plugin we have.
+    if ($current_version === '0.0.0') {
+      add_option('h5p_version', self::VERSION);
+    }
+    else {
+      update_option('h5p_version', self::VERSION);
+    }
   }
 
   /**

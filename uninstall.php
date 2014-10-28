@@ -30,7 +30,7 @@ $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_libraries");
 $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_languages");
 
 // Remove settings
-delete_option('h5p_db_version');
+delete_option('h5p_version');
 delete_option('h5p_export');
 delete_option('h5p_icon');
 
