@@ -538,30 +538,23 @@ class H5PContentAdmin {
       $query_args[] = $filters[0];
     }
 
-    // Use correct sorting of columns
-    $order = '';
-    switch ($sort_by) {
-      case 0:
-      default:
-        $order = 'ORDER BY hc.title';
-        $sort_dir = !$sort_dir;
-        break;
-      case 1:
-        $order = 'ORDER BY hl.title';
-        $sort_dir = !$sort_dir;
-        break;
-      case 2:
-        $order = 'ORDER BY hc.created_at';
-        break;
-      case 3:
-        $order = 'ORDER BY hc.updated_at';
-        break;
-      case 4:
-        $order = 'ORDER BY u.user_login';
-        $sort_dir = !$sort_dir;
-        break;
-    }
-    $order .= ($sort_dir ? ' ASC' : ' DESC');
+    // Order results by the select column and direction
+    $order = $admin->get_order_by($sort_by, $sort_dir, array(
+      (object) array(
+        'name' => 'hc.title',
+        'reverse' => TRUE
+      ),
+      (object) array(
+        'name' => 'hl.title',
+        'reverse' => TRUE
+      ),
+      'hc.created_at',
+      'hc.updated_at',
+      (object) array(
+        'name' => 'u.display_name',
+        'reverse' => TRUE
+      ),
+    ));
 
     // Get contents from database
     $results = $wpdb->get_results($wpdb->prepare(
