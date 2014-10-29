@@ -424,42 +424,32 @@ class H5P_Plugin_Admin {
 
     $extra_fields = '';
     $joins = '';
+    $query_args = array();
+
+    // Add extra fields and joins for the different result lists
     if ($content_id === NULL) {
       $extra_fields .= " hr.content_id, hc.title AS content_title,";
       $joins .= " LEFT JOIN {$wpdb->prefix}h5p_contents hc ON hr.content_id = hc.id";
     }
     if ($user_id === NULL) {
-      $extra_fields .= " hr.user_id, u.user_login AS user_name,";
+      $extra_fields .= " hr.user_id, u.display_name AS user_name,";
       $joins .= " LEFT JOIN {$wpdb->prefix}users u ON hr.user_id = u.ID";
     }
 
-    $query_args = array();
+    // Add filters
     $where = $this->get_results_query_where($query_args, $content_id, $user_id, $filters);
 
-    $order_by = '';
-    switch ($sort_by) {
-      case 0:
-      default:
-        $order_by = 'ORDER BY ' . ($content_id === NULL ? 'hc.title' : 'u.user_login');
-        $sort_dir = !$sort_dir;
-        break;
-      case 1:
-        $order_by = 'ORDER BY hr.score';
-        break;
-      case 2:
-        $order_by = 'ORDER BY hr.max_score';
-        break;
-      case 3:
-        $order_by = 'ORDER BY hr.opened';
-        break;
-      case 4:
-        $order_by = 'ORDER BY hr.finished';
-        break;
-    }
-
-    if ($order_by !== '') {
-      $order_by .= ($sort_dir ? ' ASC' : ' DESC');
-    }
+    // Order results by the select column and direction
+    $order_by = $this->get_order_by($sort_by, $sort_dir, array(
+      (object) array(
+        'name' => ($content_id === NULL ? 'hc.title' : 'u.user_login'),
+        'reverse' => TRUE
+      ),
+      'hr.score',
+      'hr.max_score',
+      'hr.opened',
+      'hr.finished'
+    ));
 
     $query_args[] = $offset;
     $query_args[] = $limit;
@@ -479,6 +469,36 @@ class H5P_Plugin_Admin {
         LIMIT %d, %d",
       $query_args
     ));
+  }
+
+  /**
+   * Generate order by part of SQLs.
+   *
+   * @since 1.2.0
+   * @param int $field Index of field to order by
+   * @param int $direction Direction to order in. 0=DESC,1=ASC
+   * @param array $field Objects containing name and reverse sort option.
+   * @return string Order by part of SQL
+   */
+  public function get_order_by($field, $direction, $fields) {
+    // Make sure selected sortable field is valid
+    if (!isset($fields[$field])) {
+      $field = 0; // Fall back to default
+    }
+
+    // Find selected sortable field
+    $field = $fields[$field];
+
+    if (is_object($field)) {
+      // Some fields are reverse sorted by default, e.g. text fields.
+      if (!empty($field->reverse)) {
+        $direction = !$direction;
+      }
+
+      $field = $field->name;
+    }
+
+    return 'ORDER BY ' . $field . ' ' . ($direction ? 'ASC' : 'DESC');
   }
 
   /**
@@ -554,7 +574,7 @@ class H5P_Plugin_Admin {
         __('Time spent', $this->plugin_slug)
       ),
       array(true),
-      __("You haven't completed any H5P tasks yet.", $this->plugin_slug)
+      __("There are no logged results for your user.", $this->plugin_slug)
     );
   }
 
