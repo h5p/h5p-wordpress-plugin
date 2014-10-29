@@ -224,7 +224,7 @@ class H5PContentAdmin {
               __('Time spent', $this->plugin_slug)
             ),
             array(true),
-            __("No one has completed this H5P task yet.", $this->plugin_slug)
+            __("There are no logged results for this content.", $this->plugin_slug)
           );
         }
         return;
@@ -564,34 +564,33 @@ class H5PContentAdmin {
       $query_args[] = $filters[0];
     }
 
-    // Use correct sorting of columns
-    $order = '';
-    switch ($sort_by) {
-      case 0:
-      default:
-        $order = 'ORDER BY hc.title';
-        $sort_dir = !$sort_dir;
-        break;
-      case 1:
-        $order = 'ORDER BY hl.title';
-        $sort_dir = !$sort_dir;
-        break;
-      case 2:
-        $order = 'ORDER BY hc.created_at';
-        break;
-      case 3:
-        $order = 'ORDER BY hc.updated_at';
-        break;
-      case 4:
-        $order = 'ORDER BY u.user_login';
-        $sort_dir = !$sort_dir;
-        break;
-    }
-    $order .= ($sort_dir ? ' ASC' : ' DESC');
+    // Order results by the select column and direction
+    $order = $admin->get_order_by($sort_by, $sort_dir, array(
+      (object) array(
+        'name' => 'hc.title',
+        'reverse' => TRUE
+      ),
+      (object) array(
+        'name' => 'hl.title',
+        'reverse' => TRUE
+      ),
+      'hc.created_at',
+      'hc.updated_at',
+      (object) array(
+        'name' => 'u.display_name',
+        'reverse' => TRUE
+      ),
+    ));
 
     // Get contents from database
     $results = $wpdb->get_results($wpdb->prepare(
-      "SELECT hc.id, hc.title, hl.title AS content_type, hc.created_at, hc.updated_at, u.user_login AS user
+      "SELECT hc.id,
+              hc.title,
+              hl.title AS content_type,
+              hc.created_at,
+              hc.updated_at,
+              u.ID AS user_id,
+              u.display_name AS user_name
         FROM {$wpdb->prefix}h5p_contents hc
         LEFT JOIN {$wpdb->prefix}h5p_libraries hl
         ON hl.id = hc.library_id
@@ -603,62 +602,10 @@ class H5PContentAdmin {
       array_merge($query_args, array($offset, $limit))
     ));
 
-    $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
-    $offset = get_option('gmt_offset') * 3600;
-    $user_tracking = get_option('h5p_track_user', TRUE);
-
     // Make data more readable for humans
     $rows = array();
     foreach ($results as $result)  {
-      $row = array();
-
-      // Title
-      if ($insert) {
-        $row[] = esc_html($result->title);
-      }
-      else {
-        $row[] = '<a href="' . admin_url('admin.php?page=h5p&task=show&id=' . $result->id) . '">' . esc_html($result->title) . '</a>';
-      }
-
-      // Content type
-      $row[] = esc_html($result->content_type);
-
-      // Created
-      if (!$insert) {
-        $row[] = date($datetimeformat, strtotime($result->created_at) + $offset);
-      }
-
-      // Last modified
-      $row[] = date($datetimeformat, strtotime($result->updated_at) + $offset);
-
-      if ($insert) {
-        // Insert button
-        $row[] = '<button class="button h5p-insert" data-id="' . $result->id . '">' . __('Insert', $this->plugin_slug) . '</button>';
-      }
-      else {
-        // Author
-        $row[] = esc_html($result->user);
-
-        // Add user results link
-        if ($user_tracking) {
-          if ($this->current_user_can_view_content_results($result)) {
-            $row[] = '<a href="' . admin_url('admin.php?page=h5p&task=results&id=' . $result->id) . '">' . __('Results', $this->plugin_slug) . '</a>';
-          }
-          else {
-            $row[] = '';
-          }
-        }
-
-        // Add edit link
-        if ($this->current_user_can_edit($result)) {
-          $row[] = '<a href="' . admin_url('admin.php?page=h5p_new&id=' . $result->id) . '">' . __('Edit', $this->plugin_slug) . '</a>';
-        }
-        else {
-          $row[] = '';
-        }
-      }
-
-      $rows[] = $row;
+      $rows[] = ($insert ? $this->get_contents_insert_row($result) : $this->get_contents_row($result));
     }
 
     // Find total number of contents
@@ -679,6 +626,67 @@ class H5PContentAdmin {
       'rows' => $rows
     ));
     exit;
+  }
+
+  /**
+   * Get row for insert table with all values escaped and ready for view.
+   *
+   * @since 1.2.0
+   * @param stdClass $result Database result for row
+   * @return array
+   */
+  private function get_contents_insert_row($result) {
+    $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
+    $offset = get_option('gmt_offset') * 3600;
+
+    return array(
+      esc_html($result->title),
+      esc_html($result->content_type),
+      date($datetimeformat, strtotime($result->updated_at) + $offset),
+      '<button class="button h5p-insert" data-id="' . $result->id . '">' . __('Insert', $this->plugin_slug) . '</button>'
+    );
+  }
+
+  /**
+   * Get row for contents table with all values escaped and ready for view.
+   *
+   * @since 1.2.0
+   * @param stdClass $result Database result for row
+   * @return array
+   */
+  private function get_contents_row($result) {
+    $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
+    $offset = get_option('gmt_offset') * 3600;
+
+    $row = array(
+      '<a href="' . admin_url('admin.php?page=h5p&task=show&id=' . $result->id) . '">' . esc_html($result->title) . '</a>',
+      esc_html($result->content_type),
+      date($datetimeformat, strtotime($result->created_at) + $offset),
+      date($datetimeformat, strtotime($result->updated_at) + $offset),
+      esc_html($result->user_name)
+    );
+
+    $content = array('user_id' => $result->user_id);
+
+    // Add user results link
+    if (get_option('h5p_track_user', TRUE)) {
+      if ($this->current_user_can_view_content_results($content)) {
+        $row[] = '<a href="' . admin_url('admin.php?page=h5p&task=results&id=' . $result->id) . '">' . __('Results', $this->plugin_slug) . '</a>';
+      }
+      else {
+        $row[] = '';
+      }
+    }
+
+    // Add edit link
+    if ($this->current_user_can_edit($content)) {
+      $row[] = '<a href="' . admin_url('admin.php?page=h5p_new&id=' . $result->id) . '">' . __('Edit', $this->plugin_slug) . '</a>';
+    }
+    else {
+      $row[] = '';
+    }
+
+    return $row;
   }
 
   /**
