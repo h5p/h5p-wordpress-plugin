@@ -831,25 +831,24 @@ class H5PContentAdmin {
     exit;
   }
 
-
-    /**
-     * Provide data for content results view.
-     *
-     * @since 1.2.0
-     */
-    public function ajax_content_results() {
-      $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-      if (!$id) {
-        return; // Missing id
-      }
-
-      $plugin = H5P_Plugin::get_instance();
-      $content = $plugin->get_content($id);
-      if (is_string($content) || !$this->current_user_can_edit($content)) {
-        return; // Error loading content or no access
-      }
-
-      $plugin_admin = H5P_Plugin_Admin::get_instance();
-      $plugin_admin->print_results($id);
+  /**
+   * Provide data for content results view.
+   *
+   * @since 1.2.0
+   */
+  public function ajax_content_results() {
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    if (!$id) {
+      return; // Missing id
     }
+
+    $plugin = H5P_Plugin::get_instance();
+    $content = $plugin->get_content($id);
+    if (is_string($content) || !$this->current_user_can_edit($content)) {
+      return; // Error loading content or no access
+    }
+
+    $plugin_admin = H5P_Plugin_Admin::get_instance();
+    $plugin_admin->print_results($id);
+  }
 }
