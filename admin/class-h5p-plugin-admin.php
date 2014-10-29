@@ -422,7 +422,7 @@ class H5P_Plugin_Admin {
       $joins .= " LEFT JOIN {$wpdb->prefix}h5p_contents hc ON hr.content_id = hc.id";
     }
     if ($user_id === NULL) {
-      $extra_fields .= " hr.user_id, u.user_login AS user_name,";
+      $extra_fields .= " hr.user_id, u.display_name AS user_name,";
       $joins .= " LEFT JOIN {$wpdb->prefix}users u ON hr.user_id = u.ID";
     }
 
