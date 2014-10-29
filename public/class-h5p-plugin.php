@@ -143,6 +143,9 @@ class H5P_Plugin {
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
+    // Get charset to use
+    $charset = self::determine_charset();
+
     // Keep track of h5p content entities
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_contents (
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -159,8 +162,8 @@ class H5P_Plugin {
       license VARCHAR(7) NULL,
       keywords TEXT NULL,
       description TEXT NULL,
-      UNIQUE KEY  (id)
-    );");
+      PRIMARY KEY  (id)
+    ) {$charset};");
 
     // Keep track of content dependencies
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_contents_libraries (
@@ -168,8 +171,8 @@ class H5P_Plugin {
       library_id INT UNSIGNED NOT NULL,
       dependency_type VARCHAR(255) NOT NULL,
       drop_css TINYINT UNSIGNED NOT NULL,
-      UNIQUE KEY  (content_id, library_id, dependency_type)
-    );");
+      PRIMARY KEY  (content_id,library_id,dependency_type)
+    ) {$charset};");
 
     // Keep track of results (contents >-< users)
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_results (
@@ -181,9 +184,9 @@ class H5P_Plugin {
       opened INT UNSIGNED NOT NULL,
       finished INT UNSIGNED NOT NULL,
       time INT UNSIGNED NOT NULL,
-      UNIQUE KEY  (id),
-      KEY content_user (content_id, user_id)
-    );");
+      PRIMARY KEY  (id),
+      KEY content_user (content_id,user_id)
+    ) {$charset};");
 
     // Keep track of h5p libraries
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries (
@@ -202,31 +205,51 @@ class H5P_Plugin {
       preloaded_css TEXT NULL,
       drop_library_css TEXT NULL,
       semantics TEXT NOT NULL,
-      UNIQUE KEY  (id),
-      KEY name_version (name, major_version, minor_version, patch_version),
+      PRIMARY KEY  (id),
+      KEY name_version (name,major_version,minor_version,patch_version),
       KEY runnable (runnable)
-    );");
+    ) {$charset};");
 
     // Keep track of h5p library dependencies
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries_libraries (
       library_id INT UNSIGNED NOT NULL,
       required_library_id INT UNSIGNED NOT NULL,
       dependency_type VARCHAR(255) NOT NULL,
-      UNIQUE KEY  (library_id, required_library_id)
-    );");
+      PRIMARY KEY  (library_id,required_library_id)
+    ) {$charset};");
 
     // Keep track of h5p library translations
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries_languages (
       library_id INT UNSIGNED NOT NULL,
       language_code VARCHAR(255) NOT NULL,
       translation TEXT NOT NULL,
-      UNIQUE KEY  (library_id, language_code)
-    );");
+      PRIMARY KEY  (library_id,language_code)
+    ) {$charset};");
 
     // Add default setting options
     add_option('h5p_export', TRUE);
     add_option('h5p_icon', TRUE);
     add_option('h5p_track_user', TRUE);
+  }
+
+  /**
+   * Determine charset to use for database tables
+   *
+   * @since 1.2.0
+   * @global \wpdb $wpdb
+   */
+  public static function determine_charset() {
+    global $wpdb;
+    $charset = '';
+
+    if (!empty($wpdb->charset)) {
+      $charset = "DEFAULT CHARACTER SET {$wpdb->charset}";
+
+      if (!empty($wpdb->collate)) {
+        $charset .= " COLLATE {$wpdb->collate}";
+      }
+    }
+    return $charset;
   }
 
   /**
@@ -245,6 +268,7 @@ class H5P_Plugin {
    */
   public static function check_for_updates() {
     $current_version = get_option('h5p_version');
+    $current_version = '0.0.1';
     if ($current_version === self::VERSION) {
       return; // Same version as before
     }
@@ -261,14 +285,13 @@ class H5P_Plugin {
     $minor = (int) $current_version[1];
     $patch = (int) $current_version[2];
 
+    // Check and update database
+    self::update_database();
+
     // Run version specific updates
     if ($major < 1 || ($major === 1 && $minor < 2)) { // < 1.2.0
-      // Add caps again, has not worked for everyone in 1.1.0
-      self::add_capabilities();
+      self::upgrade_120();
     }
-
-    // Run database updates
-    self::update_database();
 
     // Keep track of which version of the plugin we have.
     if ($current_version === '0.0.0') {
@@ -277,6 +300,58 @@ class H5P_Plugin {
     else {
       update_option('h5p_version', self::VERSION);
     }
+  }
+
+  /**
+   * Migration procedures when upgrading to >= 1.2.0.
+   *
+   * @since 1.2.0
+   * @global \wpdb $wpdb
+   */
+  public static function upgrade_120() {
+    global $wpdb;
+
+    // Add caps again, has not worked for everyone in 1.1.0
+    self::add_capabilities();
+
+    // Clean up duplicate indexes (due to bug in dbDelta)
+    self::remove_duplicate_indexes('h5p_contents', 'id');
+    self::remove_duplicate_indexes('h5p_contents_libraries', 'content_id');
+    self::remove_duplicate_indexes('h5p_results', 'id');
+    self::remove_duplicate_indexes('h5p_libraries', 'id');
+    self::remove_duplicate_indexes('h5p_libraries_libraries', 'library_id');
+    self::remove_duplicate_indexes('h5p_libraries_languages', 'library_id');
+
+    // Make sure we use the charset defined in wp-config, and not DB default.
+    $charset = self::determine_charset();
+    if (!empty($charset)) {
+      $wpdb->query("ALTER TABLE `{$wpdb->prefix}h5p_contents` {$charset}");
+      $wpdb->query("ALTER TABLE `{$wpdb->prefix}h5p_contents_libraries` {$charset}");
+      $wpdb->query("ALTER TABLE `{$wpdb->prefix}h5p_results` {$charset}");
+      $wpdb->query("ALTER TABLE `{$wpdb->prefix}h5p_libraries` {$charset}");
+      $wpdb->query("ALTER TABLE `{$wpdb->prefix}h5p_libraries_libraries` {$charset}");
+      $wpdb->query("ALTER TABLE `{$wpdb->prefix}h5p_libraries_languages` {$charset}");
+    }
+  }
+
+  /**
+   * Remove duplicate keys that might have been created by a bug in dbDelta.
+   *
+   * @since 1.2.0
+   * @global \wpdb $wpdb
+   * @param string $table Table name without wp prefix
+   * @param string $index Key name
+   */
+  public static function remove_duplicate_indexes($table, $index) {
+    global $wpdb;
+    $wpdb->hide_errors();
+
+    $wpdb->query("ALTER TABLE `{$wpdb->prefix}{$table}` DROP INDEX `{$index}`");
+    for ($i = 0; $i < 5; $i++) {
+      $wpdb->query("ALTER TABLE `{$wpdb->prefix}{$table}` DROP INDEX `{$index}_$i`");
+    }
+
+    $wpdb->show_errors();
   }
 
   /**
