@@ -381,6 +381,7 @@ class H5P_Plugin {
         $role->add_cap('edit_h5p_contents');
       }
       if (isset($role_info['capabilities']['read'])) {
+        $role->add_cap('view_h5p_results');
       }
     }
   }
