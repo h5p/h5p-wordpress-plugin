@@ -567,7 +567,7 @@ class H5P_Plugin_Admin {
         __('Time spent', $this->plugin_slug)
       ),
       array(true),
-      __("You haven't completed any H5P tasks yet.", $this->plugin_slug)
+      __("There are no logged results for your user.", $this->plugin_slug)
     );
   }
 

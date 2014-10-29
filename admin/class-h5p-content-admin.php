@@ -224,7 +224,7 @@ class H5PContentAdmin {
               __('Time spent', $this->plugin_slug)
             ),
             array(true),
-            __("No one has completed this H5P task yet.", $this->plugin_slug)
+            __("There are no logged results for this content.", $this->plugin_slug)
           );
         }
         return;
