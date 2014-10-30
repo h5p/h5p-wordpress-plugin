@@ -30,7 +30,15 @@
           <label class="" id="title-prompt-text" for="title"><?php esc_html_e('Enter title here', $this->plugin_slug); ?></label>
           <input id="title" type="text" name="title" id="title" value="<?php print esc_attr($title); ?>"/>
         </div>
-        <div class="h5p-upload"><input type="file" name="h5p_file" id="h5p-file"/></div>
+        <div class="h5p-upload">
+          <input type="file" name="h5p_file" id="h5p-file"/>
+          <?php if (current_user_can('disable_h5p_security')): ?>
+            <div class="h5p-disable-file-check">
+              <label><input type="checkbox" name="h5p_disable_file_check" id="h5p-disable-file-check"/> <?php _e('Disable file extension check', $this->plugin_slug); ?></label>
+              <div class="h5p-warning"><?php _e("Warning! This may have security implications as it allows for uploading php files. That in turn could make it possible for attackers to execute malicious code on your site. Please make sure you know exactly what you're uploading.", $this->plugin_slug); ?></div>
+            </div>
+          <?php endif; ?>
+        </div>
         <div class="h5p-create"><div class="h5p-editor"><?php esc_html_e('Waiting for javascript...', $this->plugin_slug); ?></div></div>
       </div>
       <div class="postbox">

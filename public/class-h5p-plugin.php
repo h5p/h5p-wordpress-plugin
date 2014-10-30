@@ -368,6 +368,9 @@ class H5P_Plugin {
     foreach ($all_roles as $role_name => $role_info) {
       $role = get_role($role_name);
 
+      if (isset($role_info['capabilities']['install_plugins'])) {
+        $role->add_cap('disable_h5p_security');
+      }
       if (isset($role_info['capabilities']['manage_options'])) {
         $role->add_cap('manage_h5p_libraries');
       }
@@ -710,7 +713,7 @@ class H5P_Plugin {
   public function print_settings(&$settings) {
     $json_settings = json_encode($settings);
     if ($json_settings !== FALSE) {
-      print '<script>H5P={settings:' . $json_settings . '}</script>';
+      print '<script>var H5P = H5P || {};H5P.settings=' . $json_settings . '</script>';
     }
   }
 

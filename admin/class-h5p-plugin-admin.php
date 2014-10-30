@@ -223,6 +223,13 @@ class H5P_Plugin_Admin {
     $validator = $plugin->get_h5p_instance('validator');
     $interface = $plugin->get_h5p_instance('interface');
 
+    if (current_user_can('disable_h5p_security')) {
+      $core = $plugin->get_h5p_instance('core');
+
+      // Make it possible to disable file extension check
+      $core->disableFileCheck = (filter_input(INPUT_POST, 'h5p_disable_file_check', FILTER_VALIDATE_BOOLEAN) ? TRUE : FALSE);
+    }
+
     // Move so core can validate the file extension.
     rename($_FILES['h5p_file']['tmp_name'], $interface->getUploadedH5pPath());
 
