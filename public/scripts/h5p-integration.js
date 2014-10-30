@@ -8,6 +8,11 @@ if (window.parent !== window) {
 }
 
 jQuery(document).ready(function () {
+  /**
+   * Define core translations.
+   */
+  H5PIntegration.i18n = {H5P: H5P.settings.i18n};
+
   H5P.loadedJs = H5P.settings.loadedJs;
   H5P.loadedCss = H5P.settings.loadedCss;
   H5P.postUserStatistics = H5P.settings.postUserStatistics;
@@ -30,7 +35,7 @@ H5PIntegration.getJsonContent = function (contentId) {
 // Window parent is always available.
 var locationOrigin = window.parent.location.protocol + "//" + window.parent.location.host;
 H5PIntegration.getContentPath = function (contentId) {
-  return H5P.settings.url + (contentId !== undefined ? '/content/' + contentId + '/' : '/editor/');
+  return H5P.settings.url + (contentId !== undefined ? '/content/' + contentId : '/editor');
 };
 
 /**
@@ -84,15 +89,10 @@ H5PIntegration.getHeadTags = function (contentId) {
   };
 
   return createStyleTags(H5P.settings.core.styles) +
-       createStyleTags(H5P.settings['cid-' + contentId].styles) +
-       createScriptTags(H5P.settings.core.scripts) +
-       createScriptTags(H5P.settings['cid-' + contentId].scripts);
+    createStyleTags(H5P.settings['cid-' + contentId].styles) +
+    createScriptTags(H5P.settings.core.scripts) +
+    createScriptTags(H5P.settings['cid-' + contentId].scripts);
 };
-
-/**
- * Define core translations.
- */
-H5PIntegration.i18n = {H5P: H5P.settings.i18n};
 
 /**
  *  Returns an object containing a library metadata
