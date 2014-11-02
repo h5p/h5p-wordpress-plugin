@@ -45,7 +45,7 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
       // Get details for the specified libraries only.
       foreach ($libraries as $library) {
         $details = $wpdb->get_row($wpdb->prepare(
-            "SELECT title, runnable, restricted
+            "SELECT title, runnable, restricted, tutorial_url
               FROM {$wpdb->prefix}h5p_libraries
               WHERE name = %s
               AND major_version = %d
@@ -69,8 +69,9 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
     $libraries_result = $wpdb->get_results(
         "SELECT name,
                 title,
-                major_version as majorVersion,
-                minor_version as minorVersion,
+                major_version AS majorVersion,
+                minor_version AS minorVersion,
+                tutorial_url AS tutorialUrl,
                 restricted
           FROM {$wpdb->prefix}h5p_libraries
           WHERE runnable = 1
