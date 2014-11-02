@@ -735,4 +735,44 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function getAdminUrl() {
 
   }
+
+  /**
+   * Implements getPlatformInfo
+   */
+  public function getPlatformInfo() {
+    global $wp_version;
+
+    return array(
+      'name' => 'WordPress',
+      'version' => $wp_version,
+      'plugin' => H5P_Plugin::VERSION
+    );
+  }
+
+  /**
+   * Implements fetchExternalData
+   */
+  public function fetchExternalData($url) {
+    $data = wp_remote_get($url);
+    if ($data['response']['code'] === 200) {
+      return $data['body'];
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Implements setLibraryTutorialUrl
+   */
+  public function setLibraryTutorialUrl($library_name, $url) {
+    global $wpdb;
+
+    $wpdb->update(
+      $wpdb->prefix . 'h5p_libraries',
+      array('tutorial_url' => $url),
+      array('name' => $library_name),
+      array('%s'),
+      array('%s')
+    );
+  }
 }

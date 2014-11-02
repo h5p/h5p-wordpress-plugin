@@ -88,6 +88,9 @@ class H5P_Plugin {
     // Clean up tmp editor files
     add_action('h5p_daily_cleanup', array($this, 'remove_old_tmp_files'));
 
+    // Check for library updates
+    add_action('h5p_daily_cleanup', array($this, 'get_library_updates'));
+
     // Always check if the plugin has been updated to a newer version
     add_action('init', array('H5P_Plugin', 'check_for_updates'), 1);
   }
@@ -205,6 +208,7 @@ class H5P_Plugin {
       preloaded_css TEXT NULL,
       drop_library_css TEXT NULL,
       semantics TEXT NOT NULL,
+      tutorial_url VARCHAR(1023) NOT NULL,
       PRIMARY KEY  (id),
       KEY name_version (name,major_version,minor_version,patch_version),
       KEY runnable (runnable)
@@ -230,6 +234,7 @@ class H5P_Plugin {
     add_option('h5p_export', TRUE);
     add_option('h5p_icon', TRUE);
     add_option('h5p_track_user', TRUE);
+    add_option('h5p_library_updates', TRUE);
   }
 
   /**
@@ -745,5 +750,20 @@ class H5P_Plugin {
         }
       }
     }
+  }
+
+  /**
+   * Try to connect with H5P.org and look for updates to our libraries.
+   * Can be disabled through settings
+   *
+   * @since 1.2.0
+   */
+  public function get_library_updates() {
+    if (true) {
+      return;
+    }
+
+    $core = $this->get_h5p_instance('core');
+    $core->fetchLibrariesMetadata();
   }
 }
