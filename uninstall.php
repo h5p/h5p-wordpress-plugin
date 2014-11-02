@@ -33,6 +33,7 @@ $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_languages");
 delete_option('h5p_version');
 delete_option('h5p_export');
 delete_option('h5p_icon');
+delete_option('h5p_library_updates');
 
 // Remove capabilities
 $all_roles = $wp_roles->roles;
