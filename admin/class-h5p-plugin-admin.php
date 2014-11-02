@@ -97,6 +97,9 @@ class H5P_Plugin_Admin {
 
     // AJAX for getting contents list
     add_action('wp_ajax_h5p_contents', array($this->content, 'ajax_contents'));
+
+    // AJAX for restricting library access
+    add_action('wp_ajax_h5p_restrict_library', array($this->library, 'ajax_restrict_access'));
   }
 
   /**

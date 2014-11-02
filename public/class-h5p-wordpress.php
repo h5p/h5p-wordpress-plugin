@@ -702,7 +702,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     global $wpdb;
 
     $results = $wpdb->get_results(
-        "SELECT id, name, title, major_version, minor_version, patch_version, runnable
+        "SELECT id, name, title, major_version, minor_version, patch_version, runnable, restricted
           FROM {$wpdb->prefix}h5p_libraries
           ORDER BY title ASC, major_version ASC, minor_version ASC"
     );

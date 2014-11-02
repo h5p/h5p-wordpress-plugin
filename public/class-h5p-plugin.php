@@ -202,6 +202,7 @@ class H5P_Plugin {
       minor_version INT UNSIGNED NOT NULL,
       patch_version INT UNSIGNED NOT NULL,
       runnable INT UNSIGNED NOT NULL,
+      restricted INT UNSIGNED NOT NULL DEFAULT 0,
       fullscreen INT UNSIGNED NOT NULL,
       embed_types VARCHAR(255) NOT NULL,
       preloaded_js TEXT NULL,
