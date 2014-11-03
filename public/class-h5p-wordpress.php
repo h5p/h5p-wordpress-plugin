@@ -640,6 +640,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements setOption().
    */
   public function setOption($name, $value) {
+    $name = 'h5p_' . $name; // Always prefix to avoid conflicts
     $var = $this->getOption($name);
     if ($var === FALSE) {
       add_option($name, $value);
@@ -745,7 +746,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     return array(
       'name' => 'WordPress',
       'version' => $wp_version,
-      'plugin' => H5P_Plugin::VERSION
+      'h5pVersion' => H5P_Plugin::VERSION
     );
   }
 

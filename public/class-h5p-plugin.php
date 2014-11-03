@@ -760,10 +760,6 @@ class H5P_Plugin {
    * @since 1.2.0
    */
   public function get_library_updates() {
-    if (true) {
-      return;
-    }
-
     $core = $this->get_h5p_instance('core');
     $core->fetchLibrariesMetadata();
   }
