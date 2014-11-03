@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: h5p, interactive content, interactive video, presentation, html5, modern web, education
 Requires at least: 3.8.1
 Tested up to: 4.0
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -67,3 +67,8 @@ Updated views for viewing all content and inserting H5P into posts or pages. The
 Added the ability to restrict creation of certain content types through the libraries administration UI.
 Implemented function which will fetch meta data updates for content types(libraries) from H5P.org. This can be disabled throught the settings interface. Currently it will only display links for tutorials when creating content, but in the future it might fetch information about new versions and upgrades.
 Other minor bug fixes and improvements.
+
+= 1.2.1 =
+Fixed JavaScript error when the users doesn't have access to the currently selected library. (It has been restricted.)
+Made sure the whole copyrights dialog always is visible.
+Fixed pagination translation.

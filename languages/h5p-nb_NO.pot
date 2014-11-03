@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: H5P\n"
 "POT-Creation-Date: 2014-11-03 13:01+0100\n"
-"PO-Revision-Date: 2014-11-03 13:01+0100\n"
+"PO-Revision-Date: 2014-11-03 14:27+0100\n"
 "Last-Translator: Frode Petterson <frode.petterson@joubel.com>\n"
 "Language-Team: Joubel <contact@joubel.com>\n"
 "Language: Norwegian Bokmål\n"
@@ -186,7 +186,7 @@ msgstr "Det er ingen data tilgjengelig som passer med kriteriene dine."
 
 #: admin/class-h5p-plugin-admin.php:531
 msgid "Page $current of $total"
-msgstr "Side $x av $y"
+msgstr "Side $current av $total"
 
 #: admin/class-h5p-plugin-admin.php:532
 msgid "Next page"
@@ -779,6 +779,14 @@ msgid "Library used in content is not a valid library according to semantics"
 msgstr ""
 "Biblioteket som brukes i innholdet er ikke gyldig i henhold til semantikken"
 
+#: h5p.php:17
+msgid ""
+"Allows you to upload, create, share and use rich interactive content on your "
+"WordPress site."
+msgstr ""
+"Gjør det mulig for deg å laste opp, lage, dele og bruke rikt interaktivt "
+"innhold på din WordPress-side."
+
 #~ msgid "1 library"
 #~ msgid_plural "%d libraries"
 #~ msgstr[0] "1 bibliotek"
@@ -786,11 +794,3 @@ msgstr ""
 
 #~ msgid "Used in"
 #~ msgstr "Brukt i"
-
-#: h5p.php:17
-msgid ""
-"Allows you to upload, create, share and use rich interactive content on "
-"your WordPress site."
-msgstr ""
-"Gjør det mulig for deg å laste opp, lage, dele og bruke rikt interaktivt "
-"innhold på din WordPress-side."
