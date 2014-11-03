@@ -2,7 +2,7 @@
 /**
  * H5P Plugin.
  *
- * Eases the creation and insertion of rich interactive content 
+ * Eases the creation and insertion of rich interactive content
  * into you blog. Find content libraries at http://h5p.org
  *
  * @package   H5P
@@ -15,7 +15,7 @@
  * Plugin Name:       H5P
  * Plugin URI:        http://h5p.org/wordpress
  * Description:       Allows you to upload, create, share and use rich interactive content on your WordPress site.
- * Version:           1.1.0
+ * Version:           1.2.0
  * Author:            Joubel
  * Author URI:        http://joubel.com
  * Text Domain:       h5p

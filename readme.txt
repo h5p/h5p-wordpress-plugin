@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: h5p, interactive content, interactive video, presentation, html5, modern web, education
 Requires at least: 3.8.1
 Tested up to: 4.0
-Stable tag: 1.1
+Stable tag: 1.2
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -63,3 +63,7 @@ Other minor bug fixes and improvements.
 = 1.2 =
 Added user results tracking and views for H5Ps. Can be disabled through settings.
 Re-adding capabilities. Now adds to roles which have the default WP capabilities. Should fix issues for users which has changed the default roles.
+Updated views for viewing all content and inserting H5P into posts or pages. These are now paginated and can be filtered and sorted as needed.
+Added the ability to restrict creation of certain content types through the libraries administration UI.
+Implemented function which will fetch meta data updates for content types(libraries) from H5P.org. This can be disabled throught the settings interface. Currently it will only display links for tutorials when creating content, but in the future it might fetch information about new versions and upgrades.
+Other minor bug fixes and improvements.
