@@ -168,15 +168,25 @@ class H5PLibraryAdmin {
     $needsUpgrade = '';
 
     // Add settings for each library
+    $i = 0;
     foreach ($libraries as $versions) {
       foreach ($versions as $library) {
         $usage = $interface->getLibraryUsage($library->id, $not_cached ? TRUE : FALSE);
         if ($library->runnable) {
           $upgrades = $core->getUpgrades($library, $versions);
           $upgradeUrl = empty($upgrades) ? FALSE : admin_url('admin.php?page=h5p_libraries&task=upgrade&id=' . $library->id . '&destination=' . admin_url('admin.php?page=h5p_libraries'));
+
+          $restricted = ($library->restricted ? TRUE : FALSE);
+          $restricted_url = admin_url('admin-ajax.php?action=h5p_restrict_library' .
+            '&id=' . $library->id .
+            '&token=' . wp_create_nonce('h5p_library_' . $i) .
+            '&token_id=' . $i .
+            '&restrict=' . ($library->restricted === '1' ? 0 : 1));
         }
         else {
           $upgradeUrl = NULL;
+          $restricted = NULL;
+          $restricted_url = NULL;
         }
 
         // Check if this should be upgraded.
@@ -190,6 +200,8 @@ class H5PLibraryAdmin {
         $contents_count = $interface->getNumContent($library->id);
         $settings['libraries']['listData'][] = array(
           'title' => $library->title . ' (' . H5PCore::libraryVersion($library) . ')',
+          'restricted' => $restricted,
+          'restrictedUrl' => $restricted_url,
           'numContent' => $contents_count === 0 ? '' : $contents_count,
           'numContentDependencies' => $usage['content'] < 1 ? '' : $usage['content'],
           'numLibraryDependencies' => $usage['libraries'] === 0 ? '' : $usage['libraries'],
@@ -197,12 +209,15 @@ class H5PLibraryAdmin {
           'detailsUrl' => admin_url('admin.php?page=h5p_libraries&task=show&id=' . $library->id),
           'deleteUrl' => admin_url('admin.php?page=h5p_libraries&task=delete&id=' . $library->id)
         );
+
+        $i++;
       }
     }
 
     // Translations
     $settings['libraries']['listHeaders'] = array(
       __('Title', $this->plugin_slug),
+      __('Restricted', $this->plugin_slug),
       array(
         'text' => __('Contents', $this->plugin_slug),
         'class' => 'h5p-admin-center'
@@ -587,6 +602,7 @@ class H5PLibraryAdmin {
   /**
    * AJAX loading of libraries for content upgrade script.
    *
+   * @since 1.1.0
    * @param string $name
    * @param int $major
    * @param int $minor
@@ -643,6 +659,42 @@ class H5PLibraryAdmin {
 
     header('Content-type: application/json');
     print json_encode($library);
+    exit;
+  }
+
+  /**
+   * Handle ajax request to restrict access to the given library.
+   *
+   * @since 1.2.0
+   */
+  public function ajax_restrict_access() {
+    global $wpdb;
+
+    $library_id = filter_input(INPUT_GET, 'id');
+    $restricted = filter_input(INPUT_GET, 'restrict');
+    $restrict = ($restricted === '1');
+
+    $token_id = filter_input(INPUT_GET, 'token_id');
+    if (!wp_verify_nonce(filter_input(INPUT_GET, 'token'), 'h5p_library_' . $token_id) || (!$restrict && $restricted !== '0')) {
+      return;
+    }
+
+    $wpdb->update(
+      $wpdb->prefix . 'h5p_libraries',
+      array('restricted' => $restricted),
+      array('id' => $library_id),
+      array('%d'),
+      array('%d')
+    );
+
+    header('Content-type: application/json');
+    print json_encode(array(
+      'url' => admin_url('admin-ajax.php?action=h5p_restrict_library' .
+        '&id=' . $library_id .
+        '&token=' . wp_create_nonce('h5p_library_' . $token_id) .
+        '&token_id=' . $token_id .
+        '&restrict=' . ($restrict ? 0 : 1)),
+    ));
     exit;
   }
 }

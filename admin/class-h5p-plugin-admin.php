@@ -97,6 +97,9 @@ class H5P_Plugin_Admin {
 
     // AJAX for getting contents list
     add_action('wp_ajax_h5p_contents', array($this->content, 'ajax_contents'));
+
+    // AJAX for restricting library access
+    add_action('wp_ajax_h5p_restrict_library', array($this->library, 'ajax_restrict_access'));
   }
 
   /**
@@ -177,11 +180,15 @@ class H5P_Plugin_Admin {
 
       $track_user = filter_input(INPUT_POST, 'h5p_track_user', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_track_user', $track_user ? TRUE : FALSE);
+
+      $library_updates = filter_input(INPUT_POST, 'library_updates', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_library_updates', $track_user);
     }
     else {
       $export = get_option('h5p_export', TRUE);
       $icon = get_option('h5p_icon', TRUE);
       $track_user = get_option('h5p_track_user', TRUE);
+      $library_updates = get_option('h5p_library_updates', TRUE);
     }
 
     include_once('views/settings.php');

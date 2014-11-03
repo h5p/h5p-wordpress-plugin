@@ -640,6 +640,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements setOption().
    */
   public function setOption($name, $value) {
+    $name = 'h5p_' . $name; // Always prefix to avoid conflicts
     $var = $this->getOption($name);
     if ($var === FALSE) {
       add_option($name, $value);
@@ -702,7 +703,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     global $wpdb;
 
     $results = $wpdb->get_results(
-        "SELECT id, name, title, major_version, minor_version, patch_version, runnable
+        "SELECT id, name, title, major_version, minor_version, patch_version, runnable, restricted
           FROM {$wpdb->prefix}h5p_libraries
           ORDER BY title ASC, major_version ASC, minor_version ASC"
     );
@@ -734,5 +735,45 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function getAdminUrl() {
 
+  }
+
+  /**
+   * Implements getPlatformInfo
+   */
+  public function getPlatformInfo() {
+    global $wp_version;
+
+    return array(
+      'name' => 'WordPress',
+      'version' => $wp_version,
+      'h5pVersion' => H5P_Plugin::VERSION
+    );
+  }
+
+  /**
+   * Implements fetchExternalData
+   */
+  public function fetchExternalData($url) {
+    $data = wp_remote_get($url);
+    if ($data['response']['code'] === 200) {
+      return $data['body'];
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Implements setLibraryTutorialUrl
+   */
+  public function setLibraryTutorialUrl($library_name, $url) {
+    global $wpdb;
+
+    $wpdb->update(
+      $wpdb->prefix . 'h5p_libraries',
+      array('tutorial_url' => $url),
+      array('name' => $library_name),
+      array('%s'),
+      array('%s')
+    );
   }
 }
