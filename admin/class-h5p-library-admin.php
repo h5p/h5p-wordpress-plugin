@@ -419,6 +419,7 @@ class H5PLibraryAdmin {
       'inProgress' => __('Upgrading to %ver...', $this->plugin_slug),
       'error' => __('An error occurred while processing parameters:', $this->plugin_slug),
       'errorData' => __('Could not load data for library %lib.', $this->plugin_slug),
+      'errorContent' => __('Could not upgrade content %id:', $this->plugin_slug),
       'errorScript' => __('Could not load upgrades script for %lib.', $this->plugin_slug),
       'done' => sprintf(__('You have successfully upgraded %s.', $this->plugin_slug), $contents_plural) . ($return ? '<br/><a href="' . $return . '">' . __('Return', $this->plugin_slug) . '</a>' : ''),
       'library' => array(

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: H5P\n"
-"POT-Creation-Date: 2014-11-03 13:01+0100\n"
-"PO-Revision-Date: 2014-11-03 14:27+0100\n"
+"POT-Creation-Date: 2014-11-17 11:02+0100\n"
+"PO-Revision-Date: 2014-11-17 11:03+0100\n"
 "Last-Translator: Frode Petterson <frode.petterson@joubel.com>\n"
 "Language-Team: Joubel <contact@joubel.com>\n"
 "Language: Norwegian Bokmål\n"
@@ -372,23 +372,27 @@ msgid "Could not load data for library %lib."
 msgstr "Kunne ikke laste inn data for biblioteket %lib."
 
 #: admin/class-h5p-library-admin.php:422
+msgid "Could not upgrade content %id:"
+msgstr "Kunne ikke oppgradere innhold %id:"
+
+#: admin/class-h5p-library-admin.php:423
 msgid "Could not load upgrades script for %lib."
 msgstr "Kunne ikke laste oppgraderingsscript for %lib."
 
-#: admin/class-h5p-library-admin.php:423
+#: admin/class-h5p-library-admin.php:424
 #, php-format
 msgid "You have successfully upgraded %s."
 msgstr "Du har nå oppgradert %s."
 
-#: admin/class-h5p-library-admin.php:423
+#: admin/class-h5p-library-admin.php:424
 msgid "Return"
 msgstr "Tilbake"
 
-#: admin/class-h5p-library-admin.php:431
+#: admin/class-h5p-library-admin.php:432
 msgid "Upgrade"
 msgstr "Oppgrader"
 
-#: admin/class-h5p-library-admin.php:505
+#: admin/class-h5p-library-admin.php:506
 msgid ""
 "Not all content has gotten their cache rebuilt. This is required to be able "
 "to delete libraries, and to display how many contents that uses the library."
@@ -397,30 +401,30 @@ msgstr ""
 "for å være i stand til å slette biblioteker, og for å vise hvor mye innhold "
 "som bruker et gitt biblioteket."
 
-#: admin/class-h5p-library-admin.php:506
+#: admin/class-h5p-library-admin.php:507
 #, php-format
 msgid "1 content need to get its cache rebuilt."
 msgid_plural "%d contents needs to get their cache rebuilt."
 msgstr[0] "1 innhold trenger å få mellomlageret sitt gjenoppbygd."
 msgstr[1] "%d innhold trenger å få mellomlageret sitt gjenoppbygd."
 
-#: admin/class-h5p-library-admin.php:507
+#: admin/class-h5p-library-admin.php:508
 msgid "Rebuild cache"
 msgstr "Gjenoppbygg mellomlager"
 
-#: admin/class-h5p-library-admin.php:519
+#: admin/class-h5p-library-admin.php:520
 msgid "Error, invalid security token!"
 msgstr "Feil, ugyldig sikkerhetskode!"
 
-#: admin/class-h5p-library-admin.php:525 admin/class-h5p-library-admin.php:615
+#: admin/class-h5p-library-admin.php:526 admin/class-h5p-library-admin.php:616
 msgid "Error, missing library!"
 msgstr "Feil, mangler bibliotek!"
 
-#: admin/class-h5p-library-admin.php:537 admin/class-h5p-library-admin.php:621
+#: admin/class-h5p-library-admin.php:538 admin/class-h5p-library-admin.php:622
 msgid "Error, invalid library!"
 msgstr "Feil, ugyldig bibliotek!"
 
-#: admin/class-h5p-library-admin.php:638
+#: admin/class-h5p-library-admin.php:639
 msgid "Error, could not library semantics!"
 msgstr "Feil, kunne ikke laste semantikken til biblioteket!"
 
@@ -505,6 +509,10 @@ msgstr "Resultater"
 #: admin/views/show-content.php:20 admin/views/new-content.php:18
 msgid "Edit"
 msgstr "Rediger"
+
+#: admin/views/contents.php:14
+msgid "Add new"
+msgstr "Legg til"
 
 #: admin/views/contents.php:16 admin/views/content-results.php:22
 #: admin/views/libraries.php:37 admin/views/my-results.php:16
@@ -725,15 +733,15 @@ msgstr "Ugyldig alternativ %option i %library"
 msgid "@num libraries were upgraded!"
 msgstr "@num biblioteker ble oppdatert!"
 
-#: h5p-php-library/h5p.classes.php:1858
+#: h5p-php-library/h5p.classes.php:1859
 msgid "Missing dependency @dep required by @lib."
 msgstr "Manglende avhengigheten @dep som kreves av @lib."
 
-#: h5p-php-library/h5p.classes.php:1921
+#: h5p-php-library/h5p.classes.php:1922
 msgid "Unable to copy tree, no such directory: @dir"
 msgstr "Kan ikke kopiere treet, katalogen finnes ikke: @dir"
 
-#: h5p-php-library/h5p.classes.php:2306
+#: h5p-php-library/h5p.classes.php:2307
 msgid ""
 "Provided string is not valid according to regexp in semantics. (value: "
 "\"%value\", regexp: \"%regexp\")"
@@ -741,7 +749,7 @@ msgstr ""
 "Den oppgitte streng er ikke gyldig i henhold til uttrykket i semantikken. "
 "(value: \"%value\", regexp: \"%regexp\")"
 
-#: h5p-php-library/h5p.classes.php:2345
+#: h5p-php-library/h5p.classes.php:2346
 #, php-format
 msgid ""
 "File \"%filename\" not allowed. Only files with the following extensions are "
@@ -750,15 +758,15 @@ msgstr ""
 "Filen \"%filename\" er ikke tillatt. Bare filer med følgende filendelser er "
 "tillatt: %files-allowed."
 
-#: h5p-php-library/h5p.classes.php:2419
+#: h5p-php-library/h5p.classes.php:2420
 msgid "Invalid selected option in multiselect."
 msgstr "Et valg flervalg-alternativ er ugyldig."
 
-#: h5p-php-library/h5p.classes.php:2435
+#: h5p-php-library/h5p.classes.php:2436
 msgid "Invalid selected option in select."
 msgstr "Et valg alternativ er ugyldig."
 
-#: h5p-php-library/h5p.classes.php:2577
+#: h5p-php-library/h5p.classes.php:2578
 msgid ""
 "H5P internal error: unknown content type \"@type\" in semantics. Removing "
 "content!"
@@ -766,31 +774,24 @@ msgstr ""
 "H5P intern feil: ukjent innholdstype \"@type\" i semantikken. Fjerner "
 "innholdet!"
 
-#: h5p-php-library/h5p.classes.php:2584
+#: h5p-php-library/h5p.classes.php:2585
 msgid "H5P internal error: no validator exists for @key"
 msgstr "H5P intern feil: ingen validator finnes for @key"
 
-#: h5p-php-library/h5p.classes.php:2593
+#: h5p-php-library/h5p.classes.php:2594
 msgid "No value given for mandatory field "
 msgstr "Ingen verdi gitt for påkrevd felt"
 
-#: h5p-php-library/h5p.classes.php:2607
+#: h5p-php-library/h5p.classes.php:2608
 msgid "Library used in content is not a valid library according to semantics"
 msgstr ""
 "Biblioteket som brukes i innholdet er ikke gyldig i henhold til semantikken"
 
 #: h5p.php:17
 msgid ""
-"Allows you to upload, create, share and use rich interactive content on your "
-"WordPress site."
+"Allows you to upload, create, share and use rich interactive content on "
+"your WordPress site."
 msgstr ""
 "Gjør det mulig for deg å laste opp, lage, dele og bruke rikt interaktivt "
 "innhold på din WordPress-side."
 
-#~ msgid "1 library"
-#~ msgid_plural "%d libraries"
-#~ msgstr[0] "1 bibliotek"
-#~ msgstr[1] "%d biblioteker"
-
-#~ msgid "Used in"
-#~ msgstr "Brukt i"
