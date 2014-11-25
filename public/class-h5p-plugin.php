@@ -364,7 +364,7 @@ class H5P_Plugin {
    *
    * @since 1.2.0
    */
-  private function add_capabilities() {
+  private static function add_capabilities() {
     global $wp_roles;
     if (!isset($wp_roles)) {
       $wp_roles = new WP_Roles();
