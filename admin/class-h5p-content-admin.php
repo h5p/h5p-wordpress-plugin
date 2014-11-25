@@ -568,7 +568,7 @@ class H5PContentAdmin {
         FROM {$wpdb->prefix}h5p_contents hc
         LEFT JOIN {$wpdb->prefix}h5p_libraries hl
         ON hl.id = hc.library_id
-        LEFT JOIN {$wpdb->prefix}users u
+        LEFT JOIN {$wpdb->base_prefix}users u
         ON hc.user_id = u.ID
         {$where}
         {$order}
