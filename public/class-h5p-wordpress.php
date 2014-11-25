@@ -120,6 +120,11 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function isPatchedLibrary($library) {
     global $wpdb;
 
+    if (defined('H5P_DEV') && H5P_DEV) {
+      // Makes sure libraries are updated, patch version does not matter. 
+      return TRUE;
+    }
+
     $operator = $this->isInDevMode() ? '<=' : '<';
     return $wpdb->get_var($wpdb->prepare(
         "SELECT id
