@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: h5p, interactive content, interactive video, presentation, html5, modern web, education
 Requires at least: 3.8.1
 Tested up to: 4.0
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -72,3 +72,10 @@ Other minor bug fixes and improvements.
 Fixed JavaScript error when the users doesn't have access to the currently selected library. (It has been restricted.)
 Made sure the whole copyrights dialog always is visible.
 Fixed pagination translation.
+
+= 1.2.2 =
+Fixed support for multi-site setups(network).
+Fixed issue when repacking h5p files after dependencies have changed, old libraries was still in the pack.
+Added missing string to translation.
+Fixed code causing php notices.
+Added H5P_DEV option. Can be set in wp-config to always override libraries when "new" ones are uploaded.
