@@ -741,7 +741,14 @@ class H5P_Plugin {
    */
   public function remove_old_tmp_files() {
     $plugin = H5P_Plugin::get_instance();
-    foreach (glob($plugin->get_h5p_path() . DIRECTORY_SEPARATOR . 'editor' . DIRECTORY_SEPARATOR . '*') as $dir) {
+
+    $h5p_path = $plugin->get_h5p_path();
+    $editor_path = $path . DIRECTORY_SEPARATOR . 'editor';
+    if (!is_dir($h5p_path) || !is_dir($editor_path)) {
+      return;
+    }
+
+    foreach (glob($editor_path . DIRECTORY_SEPARATOR . '*') as $dir) {
       if (is_dir($dir)) {
         foreach (glob($dir . DIRECTORY_SEPARATOR . '*') as $file) {
           if (time() - filemtime($file) > 86400) {
