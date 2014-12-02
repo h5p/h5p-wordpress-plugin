@@ -1,7 +1,7 @@
 ﻿=== H5P ===
 Contributors: icc0rz, fnoks, falcon28
 Donate link: http://h5p.org
-Tags: h5p, interactive content, interactive video, presentation, html5, modern web, education
+Tags: h5p, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, video
 Requires at least: 3.8.1
 Tested up to: 4.0
 Stable tag: 1.2.2
@@ -13,10 +13,13 @@ H5P is a WordPress plugin for creating and sharing rich HTML5 content in your br
 == Description ==
 
 H5P makes it easy to create and share HTML5 content and applications. H5P empowers creatives to create rich
-and interactive web experiences more efficiently - all you need is a web browser and a web site with an H5P plugin.
+and interactive web experiences in Wordpress more efficiently.
 
-After installing this plugin, you may upload .h5p files containing both HTML5 libraries and content. The content
-may be inserted into you posts and pages using shortcodes, like this `[h5p id="1"]`.
+With the H5P plugin you may create interactive videos, interactive presentations, quizzes, image hotspots
+and many other types of interactive HTML5 content. Content may be created using the built in authoring
+tool or by uploading H5P files containing content others have created.
+
+The content may be inserted into your posts and pages using shortcodes, like this `[h5p id="1"]`.
 Whenever you get a new H5P library this enables you to start creating rich content of a new type using this library,
 i.e. if you download [Interactive Video](http://h5p.org/interactive-video) and upload in your WordPress, you may create
 your own interactive videos.
