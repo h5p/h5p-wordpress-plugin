@@ -267,7 +267,7 @@ class H5PLibraryAdmin {
    * @since 1.1.0
    */
   public function process_libraries() {
-    $post = (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST');
+    $post = ($_SERVER['REQUEST_METHOD'] === 'POST');
 
     if ($post && isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
       check_admin_referer('h5p_library', 'lets_upgrade_that'); // Verify form
@@ -449,7 +449,7 @@ class H5PLibraryAdmin {
   public function ajax_rebuild_cache() {
     global $wpdb;
 
-    if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       exit; // POST is required
     }
 
