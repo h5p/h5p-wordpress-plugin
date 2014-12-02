@@ -1,7 +1,7 @@
 ﻿=== H5P ===
 Contributors: icc0rz, fnoks, falcon28
 Donate link: http://h5p.org
-Tags: h5p, content, interactive, video, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, shortcode, plugin, admin, images, slideshow, sharing, multisite, mobile, media, javascript, package, export, user results, download
+Tags: h5p, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, video
 Requires at least: 3.8.1
 Tested up to: 4.0
 Stable tag: 1.2.2
