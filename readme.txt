@@ -1,7 +1,7 @@
 ﻿=== H5P ===
 Contributors: icc0rz, fnoks, falcon28
 Donate link: http://h5p.org
-Tags: h5p, content, interactive, video, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, shortcode, plugin, admin, images, slideshow, sharing, multisite, mobile, media, javascript, package, export, user results, download
+Tags: h5p, content, interactive, video, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, shortcode, plugin, admin, images, slideshow, sharing, multisite, mobile, media, javascript, package, export, user results, download, quiz, games, memory game
 Requires at least: 3.8.1
 Tested up to: 4.0
 Stable tag: 1.2.2
@@ -18,8 +18,8 @@ and interactive web experiences in Wordpress more efficiently.
 With the H5P plugin you may create interactive videos, interactive presentations, quizzes, image hotspots
 and many other types of interactive HTML5 content. Content may be created using the built in authoring
 tool or by uploading H5P files containing content others have created.
+The content may be inserted into multiple posts and pages using shortcodes, like this `[h5p id="1"]`.
 
-The content may be inserted into your posts and pages using shortcodes, like this `[h5p id="1"]`.
 Whenever you get a new H5P library this enables you to start creating rich content of a new type using this library,
 i.e. if you download [Interactive Video](http://h5p.org/interactive-video) and upload in your WordPress, you may create
 your own interactive videos.
@@ -28,6 +28,7 @@ If you think you've found a bug related to this plugin, report it [here](https:/
 Content bugs are reported to their respective issue trackers.
 
 Content is King!
+
 
 == Installation ==
 
@@ -81,4 +82,5 @@ Fixed support for multi-site setups(network).
 Fixed issue when repacking h5p files after dependencies have changed, old libraries was still in the pack.
 Added missing string to translation.
 Fixed code causing php notices.
-Added H5P_DEV option. Can be set in wp-config to always override libraries when "new" ones are uploaded.
+Added H5P_DEV option. Can be set in wp-config to always override libraries when "new" ones are uploaded. 
+
