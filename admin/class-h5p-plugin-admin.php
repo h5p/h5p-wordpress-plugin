@@ -67,6 +67,9 @@ class H5P_Plugin_Admin {
     // Add the options page and menu item.
     add_action('admin_menu', array($this, 'add_plugin_admin_menu'));
 
+    // Add menu options to admin bar.
+    add_action('admin_bar_menu', array($this, 'admin_bar'));
+
     // Allow altering of page titles for different page actions.
     add_filter('admin_title', array($this, 'alter_title'), 10, 2);
 
@@ -160,6 +163,20 @@ class H5P_Plugin_Admin {
 
     // Settings page
     add_options_page('H5P Settings', 'H5P', 'manage_options', $this->plugin_slug . '_settings', array($this, 'display_settings_page'));
+  }
+
+  /**
+   * Add menu options to the WordPress admin bar
+   *
+   * @since 1.2.2
+   */
+  public function admin_bar($wp_admin_bar) {
+    $wp_admin_bar->add_menu(array(
+      'parent' => 'new-content',
+      'id' => 'new-h5p-content',
+      'title' => __('H5P Content', $this->plugin_slug),
+      'href' => admin_url('admin.php?page=h5p_new')
+    ));
   }
 
   /**
