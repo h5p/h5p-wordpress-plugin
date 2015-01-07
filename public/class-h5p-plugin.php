@@ -93,6 +93,9 @@ class H5P_Plugin {
 
     // Always check if the plugin has been updated to a newer version
     add_action('init', array('H5P_Plugin', 'check_for_updates'), 1);
+
+    // Add menu options to admin bar.
+    add_action('admin_bar_menu', array($this, 'admin_bar'));
   }
 
   /**
@@ -412,6 +415,20 @@ class H5P_Plugin {
    */
   public function enqueue_styles_and_scripts() {
     wp_enqueue_style($this->plugin_slug . '-plugin-styles', plugins_url('h5p/h5p-php-library/styles/h5p.css'), array(), self::VERSION);
+  }
+  
+  /**
+  * Add menu options to the WordPress admin bar
+  *
+  * @since 1.2.2
+  */
+  public function admin_bar($wp_admin_bar) {
+    $wp_admin_bar->add_menu(array(
+      'parent' => 'new-content',
+      'id' => 'new-h5p-content',
+      'title' => __('H5P Content', $this->plugin_slug),
+      'href' => admin_url('admin.php?page=h5p_new')
+    ));
   }
 
   /**
