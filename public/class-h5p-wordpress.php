@@ -90,7 +90,14 @@ class H5PWordPress implements H5PFrameworkInterface {
     static $path;
 
     if (is_null($path)) {
-      $path = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $_FILES['h5p_file']['name'];
+      // Try upload dir first since some multi-hosted envs doesn't allow writing to sys tmp dir.
+      $path = ini_get('upload_tmp_dir');
+      if (!$path) {
+        // Some systems doesn't set set the upload dir, so try this
+        $path = sys_get_temp_dir();
+      }
+
+      $path .= '/' . $_FILES['h5p_file']['name'];
     }
 
     return $path;
@@ -121,7 +128,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     global $wpdb;
 
     if (defined('H5P_DEV') && H5P_DEV) {
-      // Makes sure libraries are updated, patch version does not matter. 
+      // Makes sure libraries are updated, patch version does not matter.
       return TRUE;
     }
 
