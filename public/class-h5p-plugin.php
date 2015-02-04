@@ -96,8 +96,14 @@ class H5P_Plugin {
     // Clean up tmp editor files
     add_action('h5p_daily_cleanup', array($this, 'remove_old_tmp_files'));
 
+    // Check for library updates
+    add_action('h5p_daily_cleanup', array($this, 'get_library_updates'));
+
     // Always check if the plugin has been updated to a newer version
     add_action('init', array('H5P_Plugin', 'check_for_updates'), 1);
+
+    // Add menu options to admin bar.
+    add_action('admin_bar_menu', array($this, 'admin_bar'));
   }
 
   /**
@@ -208,12 +214,14 @@ class H5P_Plugin {
       minor_version INT UNSIGNED NOT NULL,
       patch_version INT UNSIGNED NOT NULL,
       runnable INT UNSIGNED NOT NULL,
+      restricted INT UNSIGNED NOT NULL DEFAULT 0,
       fullscreen INT UNSIGNED NOT NULL,
       embed_types VARCHAR(255) NOT NULL,
       preloaded_js TEXT NULL,
       preloaded_css TEXT NULL,
       drop_library_css TEXT NULL,
       semantics TEXT NOT NULL,
+      tutorial_url VARCHAR(1023) NOT NULL,
       PRIMARY KEY  (id),
       KEY name_version (name,major_version,minor_version,patch_version),
       KEY runnable (runnable)
@@ -242,6 +250,7 @@ class H5P_Plugin {
     add_option('h5p_copyright', TRUE);
     add_option('h5p_icon', TRUE);
     add_option('h5p_track_user', TRUE);
+    add_option('h5p_library_updates', TRUE);
   }
 
   /**
@@ -370,7 +379,7 @@ class H5P_Plugin {
    *
    * @since 1.2.0
    */
-  private function add_capabilities() {
+  private static function add_capabilities() {
     global $wp_roles;
     if (!isset($wp_roles)) {
       $wp_roles = new WP_Roles();
@@ -418,6 +427,20 @@ class H5P_Plugin {
    */
   public function enqueue_styles_and_scripts() {
     wp_enqueue_style($this->plugin_slug . '-plugin-styles', plugins_url('h5p/h5p-php-library/styles/h5p.css'), array(), self::VERSION);
+  }
+  
+  /**
+  * Add menu options to the WordPress admin bar
+  *
+  * @since 1.2.2
+  */
+  public function admin_bar($wp_admin_bar) {
+    $wp_admin_bar->add_menu(array(
+      'parent' => 'new-content',
+      'id' => 'new-h5p-content',
+      'title' => __('H5P Content', $this->plugin_slug),
+      'href' => admin_url('admin.php?page=h5p_new')
+    ));
   }
 
   /**
@@ -763,7 +786,14 @@ class H5P_Plugin {
    */
   public function remove_old_tmp_files() {
     $plugin = H5P_Plugin::get_instance();
-    foreach (glob($plugin->get_h5p_path() . DIRECTORY_SEPARATOR . 'editor' . DIRECTORY_SEPARATOR . '*') as $dir) {
+
+    $h5p_path = $plugin->get_h5p_path();
+    $editor_path = $path . DIRECTORY_SEPARATOR . 'editor';
+    if (!is_dir($h5p_path) || !is_dir($editor_path)) {
+      return;
+    }
+
+    foreach (glob($editor_path . DIRECTORY_SEPARATOR . '*') as $dir) {
       if (is_dir($dir)) {
         foreach (glob($dir . DIRECTORY_SEPARATOR . '*') as $file) {
           if (time() - filemtime($file) > 86400) {
@@ -773,5 +803,16 @@ class H5P_Plugin {
         }
       }
     }
+  }
+
+  /**
+   * Try to connect with H5P.org and look for updates to our libraries.
+   * Can be disabled through settings
+   *
+   * @since 1.2.0
+   */
+  public function get_library_updates() {
+    $core = $this->get_h5p_instance('core');
+    $core->fetchLibrariesMetadata();
   }
 }

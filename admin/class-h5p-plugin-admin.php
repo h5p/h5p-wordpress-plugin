@@ -97,6 +97,9 @@ class H5P_Plugin_Admin {
 
     // AJAX for getting contents list
     add_action('wp_ajax_h5p_contents', array($this->content, 'ajax_contents'));
+
+    // AJAX for restricting library access
+    add_action('wp_ajax_h5p_restrict_library', array($this->library, 'ajax_restrict_access'));
   }
 
   /**
@@ -185,6 +188,9 @@ class H5P_Plugin_Admin {
 
       $track_user = filter_input(INPUT_POST, 'track_user', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_track_user', $track_user);
+
+      $library_updates = filter_input(INPUT_POST, 'library_updates', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_library_updates', $track_user);
     }
     else {
       $frame = get_option('h5p_frame', TRUE);
@@ -192,6 +198,7 @@ class H5P_Plugin_Admin {
       $copyright = get_option('h5p_copyright', TRUE);
       $about = get_option('h5p_icon', TRUE);
       $track_user = get_option('h5p_track_user', TRUE);
+      $library_updates = get_option('h5p_library_updates', TRUE);
     }
 
     include_once('views/settings.php');
@@ -444,7 +451,7 @@ class H5P_Plugin_Admin {
     }
     if ($user_id === NULL) {
       $extra_fields .= " hr.user_id, u.display_name AS user_name,";
-      $joins .= " LEFT JOIN {$wpdb->prefix}users u ON hr.user_id = u.ID";
+      $joins .= " LEFT JOIN {$wpdb->base_prefix}users u ON hr.user_id = u.ID";
     }
 
     // Add filters

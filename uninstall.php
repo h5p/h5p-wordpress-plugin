@@ -14,29 +14,10 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
   exit;
 }
 
-global $wpdb;
 global $wp_roles;
-
 if (!isset($wp_roles)) {
   $wp_roles = new WP_Roles();
 }
-
-// Drop tables
-$wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents");
-$wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents_libraries");
-$wpdb->query("DROP TABLE {$wpdb->prefix}h5p_results");
-$wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries");
-$wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_libraries");
-$wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_languages");
-
-// Remove settings
-delete_option('h5p_version');
-delete_option('h5p_frame');
-delete_option('h5p_export');
-delete_option('h5p_embed');
-delete_option('h5p_copyright');
-delete_option('h5p_icon');
-delete_option('h5p_track_user');
 
 // Remove capabilities
 $all_roles = $wp_roles->roles;
@@ -58,11 +39,11 @@ foreach ($all_roles as $role_name => $role_info) {
 }
 
 /**
- * Recursively remove file or directory.
- *
- * @since 1.0.0
- * @param string $file
- */
+* Recursively remove file or directory.
+*
+* @since 1.0.0
+* @param string $file
+*/
 function _h5p_recursive_unlink($file) {
   if (is_dir($file)) {
     // Remove all files in dir.
@@ -77,22 +58,68 @@ function _h5p_recursive_unlink($file) {
   }
 }
 
-// Clean out file dirs.
-$upload_dir = wp_upload_dir();
-$path = $upload_dir['basedir'] . '/h5p';
+/**
+ * Uninstall procedure to run per site level.
+ *
+ * @since 1.2.2
+ */
+function _h5p_uninstall() {
+  global $wpdb;
 
-// Remove these regardless of their content.
-foreach (array('tmp', 'temp', 'libraries', 'content', 'exports', 'editor') as $directory) {
-  _h5p_recursive_unlink($path . '/' . $directory);
-}
+  // Drop tables
+  $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents");
+  $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents_libraries");
+  $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_results");
+  $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries");
+  $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_libraries");
+  $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_languages");
 
-// Only remove development dir if it's empty.
-$dir = $path . '/development';
-if (is_dir($dir) && count(scandir($dir)) === 2) {
-  rmdir($dir);
+  // Remove settings
+  delete_option('h5p_version');
+  delete_option('h5p_frame');
+  delete_option('h5p_export');
+  delete_option('h5p_embed');
+  delete_option('h5p_copyright');
+  delete_option('h5p_icon');
+  delete_option('h5p_track_user');
+  delete_option('h5p_library_updates');
+
+  // Clean out file dirs.
+  $upload_dir = wp_upload_dir();
+  $path = $upload_dir['basedir'] . '/h5p';
+
+  // Remove these regardless of their content.
+  foreach (array('tmp', 'temp', 'libraries', 'content', 'exports', 'editor') as $directory) {
+    _h5p_recursive_unlink($path . '/' . $directory);
+  }
+
+  // Only remove development dir if it's empty.
+  $dir = $path . '/development';
+  if (is_dir($dir) && count(scandir($dir)) === 2) {
+    rmdir($dir);
+  }
 
   // Remove parent if empty.
-  if (count(scandir($path)) === 2) {
+  if (is_dir($path) && count(scandir($path)) === 2) {
     rmdir($path);
   }
+}
+
+
+if (!is_multisite()) {
+  // Simple uninstall for single site
+  _h5p_uninstall();
+}
+else {
+  // Run uninstall on each site in the network.
+  global $wpdb;
+  $blog_ids = $wpdb->get_col("SELECT blog_id FROM {$wpdb->blogs}");
+  $original_blog_id = get_current_blog_id();
+
+  foreach ($blog_ids as $blog_id) {
+    switch_to_blog($blog_id);
+    _h5p_uninstall();
+  }
+
+  switch_to_blog($original_blog_id);
 }

@@ -57,6 +57,15 @@
             </label>
           </td>
         </tr>
+        <tr valign="top">
+          <th scope="row"><?php _e("Library updates", $this->plugin_slug); ?></th>
+          <td>
+            <label>
+              <input name="library_updates" type="checkbox" value="true"<?php if ($library_updates): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Fetch information about updates for your H5P content types", $this->plugin_slug); ?>
+            </label>
+          </td>
+        </tr>
       </tbody>
     </table>
     <?php wp_nonce_field('h5p_settings', 'save_these_settings'); ?>
