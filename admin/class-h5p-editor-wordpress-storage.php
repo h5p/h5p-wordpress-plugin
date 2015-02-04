@@ -43,6 +43,7 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
 
     if ($libraries !== NULL) {
       // Get details for the specified libraries only.
+      $librariesWithDetails = array();
       foreach ($libraries as $library) {
         $details = $wpdb->get_row($wpdb->prepare(
             "SELECT title, runnable, restricted, tutorial_url
@@ -58,10 +59,11 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
           $library->title = $details->title;
           $library->runnable = $details->runnable;
           $library->restricted = $super_user ? FALSE : ($details->restricted === '1' ? TRUE : FALSE);
+          $librariesWithDetails[] = $library;
         }
       }
 
-      return $libraries;
+      return $librariesWithDetails;
     }
 
     $libraries = array();
