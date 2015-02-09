@@ -788,4 +788,10 @@ class H5PWordPress implements H5PFrameworkInterface {
       array('%s')
     );
   }
+
+  /* Not used, we don't have library development mode */
+  public function lockDependencyStorage() {
+  }
+  public function unlockDependencyStorage() {
+  }
 }

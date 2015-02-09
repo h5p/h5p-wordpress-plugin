@@ -1,13 +1,9 @@
-var H5PIntegration = H5PIntegration || {};
-
 // If run in an iframe, use parent version of globals.
-if (window.parent !== window) {
-  H5P = {} || H5P;
+if (window.self !== window.top) {
   H5P.settings = window.parent.H5P.settings;
-  jQuery = window.parent.jQuery;
 }
 
-jQuery(document).ready(function () {
+H5P.jQuery(document).ready(function () {
   /**
    * Define core translations.
    */
@@ -17,51 +13,12 @@ jQuery(document).ready(function () {
   H5P.loadedCss = H5P.settings.loadedCss;
   H5P.postUserStatistics = H5P.settings.postUserStatistics;
   H5P.ajaxPath = H5P.settings.ajaxPath;
+  H5P.url = H5P.settings.url;
+  H5P.l10n = {H5P: H5P.settings.i18n};
+  H5P.contentDatas = H5P.settings.content;
+
+  H5P.init();
 });
-
-H5PIntegration.getContentData = function (id) {
-  if (H5P.settings.content !== undefined) {
-    return H5P.settings.content['cid-' + id];
-  }
-};
-
-H5PIntegration.getJsonContent = function (contentId) {
-  var content = H5PIntegration.getContentData(contentId);
-  if (content !== undefined) {
-    return content.jsonContent;
-  }
-};
-
-// Window parent is always available.
-var locationOrigin = window.parent.location.protocol + "//" + window.parent.location.host;
-H5PIntegration.getContentPath = function (contentId) {
-  return H5P.settings.url + (contentId !== undefined ? '/content/' + contentId : '/editor');
-};
-
-/**
- * Get the path to the library
- *
- * @param {string} library
- *  The library identifier as string, for instance 'downloadify-1.0'
- * @returns {string} The full path to the library
- */
-H5PIntegration.getLibraryPath = function (library) {
-  return H5P.settings.url + '/libraries/' + library;
-};
-
-/**
- * Get Fullscreenability setting.
- */
-H5PIntegration.getFullscreen = function (contentId) {
-  return H5P.settings.content['cid-' + contentId].fullScreen === '1';
-};
-
-/**
- * Should H5P Icon be displayed in action bar?
- */
-H5PIntegration.showH5PIconInActionBar = function () {
-  return H5P.settings.h5pIconInActionBar;
-};
 
 /**
  * Loop trough styles and create a set of tags for head.
@@ -69,8 +26,8 @@ H5PIntegration.showH5PIconInActionBar = function () {
  * @param {Array} styles List of stylesheets
  * @returns {String} HTML
  */
-H5PIntegration.getHeadTags = function (contentId) {
-  var basePath = locationOrigin + '/'; // TODO: Get proper basepath?
+H5P.getHeadTags = function (contentId) {
+  var basePath = window.parent.location.protocol + "//" + window.parent.location.host + '/'; // TODO: Get proper basepath?
 
   var createStyleTags = function (styles) {
     var tags = '';
@@ -93,6 +50,13 @@ H5PIntegration.getHeadTags = function (contentId) {
     createScriptTags(H5P.settings.core.scripts) +
     createScriptTags(H5P.settings['cid-' + contentId].scripts);
 };
+
+
+/**
+ * @namespace H5PIntegration
+ * Only used by libraries admin
+ */
+var H5PIntegration = H5PIntegration || {};
 
 /**
  *  Returns an object containing a library metadata

@@ -416,7 +416,7 @@ class H5P_Plugin {
   public function enqueue_styles_and_scripts() {
     wp_enqueue_style($this->plugin_slug . '-plugin-styles', plugins_url('h5p/h5p-php-library/styles/h5p.css'), array(), self::VERSION);
   }
-  
+
   /**
   * Add menu options to the WordPress admin bar
   *
@@ -580,7 +580,8 @@ class H5P_Plugin {
         'library' => H5PCore::libraryToString($content['library']),
         'jsonContent' => $core->filterParameters($content),
         'fullScreen' => $content['library']['fullscreen'],
-        'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : ''
+        'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : '',
+        'embedCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '"></script>' . "\n" . '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width="640" height="421" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
       );
 
       // Get assets for this content
@@ -639,26 +640,15 @@ class H5P_Plugin {
   }
 
   /**
-   * Set core JavaScript settings and add core assets.
+   * Get generic h5p settings
    *
-   * @since 1.0.0
+   * @since 1.3.0
    */
-  public function add_core_assets() {
-    if (self::$settings !== null) {
-      return; // Already added
-    }
-
-    self::$settings = array(
-      'core' => array(
-        'styles' => array(),
-        'scripts' => array()
-      ),
+  public function get_core_settings() {
+    return array(
       'url' => $this->get_h5p_url(),
       'exportEnabled' => get_option('h5p_export', TRUE),
-      'h5pIconInActionBar' => get_option('h5p_icon', TRUE),
       'postUserStatistics' => (get_option('h5p_track_user', TRUE) === '1'),
-      'loadedJs' => array(),
-      'loadedCss' => array(),
       'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
       'i18n' => array(
         'fullscreen' => __('Fullscreen', $this->plugin_slug),
@@ -685,7 +675,25 @@ class H5P_Plugin {
         'NA' => __('N/A', $this->plugin_slug)
       )
     );
+  }
 
+  /**
+   * Set core JavaScript settings and add core assets.
+   *
+   * @since 1.0.0
+   */
+  public function add_core_assets() {
+    if (self::$settings !== null) {
+      return; // Already added
+    }
+
+    self::$settings = $this->get_core_settings();
+    self::$settings['core'] = array(
+      'styles' => array(),
+      'scripts' => array()
+    );
+    self::$settings['loadedJs'] = array();
+    self::$settings['loadedCss'] = array();
     $cache_buster = '?ver=' . self::VERSION;
 
     // Add core stylesheets
@@ -700,20 +708,17 @@ class H5P_Plugin {
     self::$settings['core']['styles'][] = $style_url . $cache_buster;
     wp_enqueue_style($this->asset_handle('integration'), $style_url, array(), self::VERSION);
 
-    // Make sure we have jQuery for the integration
-    wp_enqueue_script('jquery');
-
-    // Add JavaScript with library framework integration
-    $script_url = plugins_url('h5p/public/scripts/h5p-integration.js');
-    self::$settings['core']['scripts'][] = $script_url . $cache_buster;
-    wp_enqueue_script($this->asset_handle('integration'), $script_url, array(), self::VERSION);
-
     // Add core JavaScript
     foreach (H5PCore::$scripts as $script) {
       $script_url = plugins_url('h5p/h5p-php-library/' . $script);
       self::$settings['core']['scripts'][] = $script_url . $cache_buster;
       wp_enqueue_script($this->asset_handle('core-' . $script), $script_url, array(), self::VERSION);
     }
+
+    // Add JavaScript with library framework integration
+    $script_url = plugins_url('h5p/public/scripts/h5p-integration.js');
+    self::$settings['core']['scripts'][] = $script_url . $cache_buster;
+    wp_enqueue_script($this->asset_handle('integration'), $script_url, array(), self::VERSION);
   }
 
   /**
