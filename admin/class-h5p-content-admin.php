@@ -327,7 +327,7 @@ class H5PContentAdmin {
 
     include_once('views/new-content.php');
     $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
-    H5P_Plugin_Admin::add_script('disable', 'admin/scripts/h5p-disable.js');
+    H5P_Plugin_Admin::add_script('disable', 'h5p-php-library/js/disable.js');
   }
 
   /**
@@ -422,18 +422,11 @@ class H5PContentAdmin {
    * @return int
    */
   private function get_disabled_content_features() {
-    $disabled = H5P_Plugin::DISABLE_NONE;
-    if (!filter_input(INPUT_POST, 'frame', FILTER_VALIDATE_BOOLEAN)) {
-      $disabled |= H5P_Plugin::DISABLE_FRAME;
-    }
-    if (!filter_input(INPUT_POST, 'download', FILTER_VALIDATE_BOOLEAN)) {
-      $disabled |= H5P_Plugin::DISABLE_DOWNLOAD;
-    }
-    if (!filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN)) {
-      $disabled |= H5P_Plugin::DISABLE_COPYRIGHT;
-    }
-
-    return $disabled;
+    return H5PCore::getDisable(array(
+      'frame' => filter_input(INPUT_POST, 'frame', FILTER_VALIDATE_BOOLEAN),
+      'download' => filter_input(INPUT_POST, 'download', FILTER_VALIDATE_BOOLEAN),
+      'copyright' => filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN),
+    ));
   }
 
   /**

@@ -202,7 +202,7 @@ class H5P_Plugin_Admin {
     }
 
     include_once('views/settings.php');
-    H5P_Plugin_Admin::add_script('disable', 'admin/scripts/h5p-disable.js');
+    H5P_Plugin_Admin::add_script('disable', 'h5p-php-library/js/disable.js');
   }
 
   /**

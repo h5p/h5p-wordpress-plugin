@@ -647,6 +647,9 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements getOption().
    */
   public function getOption($name, $default = FALSE) {
+    if ($name === 'site_uuid') {
+      $name = 'h5p_site_uuid'; // Make up for old core bug
+    }
     return get_option('h5p_' . $name, $default);
   }
 
@@ -655,6 +658,9 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements setOption().
    */
   public function setOption($name, $value) {
+    if ($name === 'site_uuid') {
+      $name = 'h5p_site_uuid'; // Make up for old core bug
+    }
     $name = 'h5p_' . $name; // Always prefix to avoid conflicts
     $var = $this->getOption($name);
     if ($var === FALSE) {

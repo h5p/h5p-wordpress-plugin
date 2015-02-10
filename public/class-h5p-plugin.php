@@ -17,14 +17,6 @@
  */
 class H5P_Plugin {
 
-  /* Constants */
-  const DISABLE_NONE = 0;
-  const DISABLE_FRAME = 1;
-  const DISABLE_DOWNLOAD = 2;
-  const DISABLE_EMBED = 4;
-  const DISABLE_COPYRIGHT = 8;
-  const DISABLE_ABOUT = 16;
-
   /**
    * Plugin version, used for cache-busting of style and script file references.
    * Keeping track of the DB version.
@@ -428,7 +420,7 @@ class H5P_Plugin {
   public function enqueue_styles_and_scripts() {
     wp_enqueue_style($this->plugin_slug . '-plugin-styles', plugins_url('h5p/h5p-php-library/styles/h5p.css'), array(), self::VERSION);
   }
-  
+
   /**
   * Add menu options to the WordPress admin bar
   *
@@ -587,22 +579,7 @@ class H5P_Plugin {
     if (!isset(self::$settings['content'][$cid])) {
       $core = $this->get_h5p_instance('core');
 
-      // Allow global settings to override and disable features
-      if (!get_option('h5p_frame', TRUE)) {
-        $content['disable'] |= self::DISABLE_FRAME;
-      }
-      else {
-        if (!get_option('h5p_export', TRUE)) {
-          $content['disable'] |= self::DISABLE_DOWNLOAD;
-        }
-        $content['disable'] |= self::DISABLE_EMBED; // No embed suppport in WP, yet.
-        if (!get_option('h5p_copyright', TRUE)) {
-          $content['disable'] |= self::DISABLE_COPYRIGHT;
-        }
-        if (!get_option('h5p_icon', TRUE)) {
-          $content['disable'] |= self::DISABLE_ABOUT;
-        }
-      }
+      $content['disable'] |= $core->getGlobalDisable();
 
       // Add JavaScript settings for this content
       self::$settings['content'][$cid] = array(
