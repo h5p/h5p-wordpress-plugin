@@ -176,6 +176,7 @@ class H5P_Plugin {
       content_id INT UNSIGNED NOT NULL,
       library_id INT UNSIGNED NOT NULL,
       dependency_type VARCHAR(255) NOT NULL,
+      weight SMALLINT UNSIGNED NOT NULL DEFAULT 0,
       drop_css TINYINT UNSIGNED NOT NULL,
       PRIMARY KEY  (content_id,library_id,dependency_type)
     ) {$charset};");
@@ -416,7 +417,7 @@ class H5P_Plugin {
   public function enqueue_styles_and_scripts() {
     wp_enqueue_style($this->plugin_slug . '-plugin-styles', plugins_url('h5p/h5p-php-library/styles/h5p.css'), array(), self::VERSION);
   }
-  
+
   /**
   * Add menu options to the WordPress admin bar
   *
