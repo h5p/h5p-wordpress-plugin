@@ -201,6 +201,7 @@ class H5P_Plugin {
       created_at TIMESTAMP NOT NULL,
       updated_at TIMESTAMP NOT NULL,
       name VARCHAR(255) NOT NULL,
+      constructor VARCHAR(127) NOT NULL,
       title VARCHAR(255) NOT NULL,
       major_version INT UNSIGNED NOT NULL,
       minor_version INT UNSIGNED NOT NULL,
@@ -579,6 +580,7 @@ class H5P_Plugin {
       // Add JavaScript settings for this content
       self::$settings['content'][$cid] = array(
         'library' => H5PCore::libraryToString($content['library']),
+        'constructor' => $content['library']['constructor'],
         'jsonContent' => $core->filterParameters($content),
         'fullScreen' => $content['library']['fullscreen'],
         'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : ''

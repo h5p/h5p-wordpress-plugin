@@ -188,102 +188,74 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements saveLibraryData
    */
-  public function saveLibraryData(&$library, $new = TRUE) {
+  public function saveLibraryData(&$library, $preloadedJs, $preloadedCss, $dropLibraryCss, $embedTypes) {
     global $wpdb;
 
-    $preloadedJs = $this->pathsToCsv($library, 'preloadedJs');
-    $preloadedCss =  $this->pathsToCsv($library, 'preloadedCss');
-    $dropLibraryCss = '';
+    $data = array(
+      'constructor' => $library['constructor'],
+      'title' => $library['title'],
+      'patch_version' => $library['patchVersion'],
+      'runnable' => $library['runnable'],
+      'fullscreen' => $library['fullscreen'],
+      'embed_types' => $embedTypes,
+      'preloaded_js' => $preloadedJs,
+      'preloaded_css' => $preloadedCss,
+      'drop_library_css' => $dropLibraryCss,
+      'semantics' => $library['semantics']
+    );
+    $format = array(
+      '%s',
+      '%s',
+      '%d',
+      '%d',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%s'
+    );
 
-    if (isset($library['dropLibraryCss'])) {
-      $libs = array();
-      foreach ($library['dropLibraryCss'] as $lib) {
-        $libs[] = $lib['machineName'];
-      }
-      $dropLibraryCss = implode(', ', $libs);
-    }
-
-    $embedTypes = '';
-    if (isset($library['embedTypes'])) {
-      $embedTypes = implode(', ', $library['embedTypes']);
-    }
-    if (!isset($library['semantics'])) {
-      $library['semantics'] = '';
-    }
-    if (!isset($library['fullscreen'])) {
-      $library['fullscreen'] = 0;
-    }
-    if ($new) {
-      $wpdb->insert(
-          $wpdb->prefix . 'h5p_libraries',
-          array(
-            'name' => $library['machineName'],
-            'title' => $library['title'],
-            'major_version' => $library['majorVersion'],
-            'minor_version' => $library['minorVersion'],
-            'patch_version' => $library['patchVersion'],
-            'runnable' => $library['runnable'],
-            'fullscreen' => $library['fullscreen'],
-            'embed_types' => $embedTypes,
-            'preloaded_js' => $preloadedJs,
-            'preloaded_css' => $preloadedCss,
-            'drop_library_css' => $dropLibraryCss,
-            'semantics' => $library['semantics']
-          ),
-          array(
-            '%s',
-            '%s',
-            '%d',
-            '%d',
-            '%d',
-            '%d',
-            '%d',
-            '%s',
-            '%s',
-            '%s',
-            '%d',
-            '%s'
-          )
-        );
-      $library['libraryId'] = $wpdb->insert_id;
-    }
-    else {
+    if (isset($library['libraryId'])) {
+      // Update old record
       $wpdb->update(
-          $wpdb->prefix . 'h5p_libraries',
-          array(
-            'title' => $library['title'],
-            'patch_version' => $library['patchVersion'],
-            'runnable' => $library['runnable'],
-            'fullscreen' => $library['fullscreen'],
-            'embed_types' => $embedTypes,
-            'preloaded_js' => $preloadedJs,
-            'preloaded_css' => $preloadedCss,
-            'drop_library_css' => $dropLibraryCss,
-            'semantics' => $library['semantics']
-          ),
-          array('id' => $library['libraryId']),
-          array(
-            '%s',
-            '%d',
-            '%d',
-            '%d',
-            '%s',
-            '%s',
-            '%s',
-            '%d',
-            '%s'
-          ),
-          array('%d')
-        );
-      $this->deleteLibraryDependencies($library['libraryId']);
-    }
+        $wpdb->prefix . 'h5p_libraries',
+        $data,
+        array('id' => $library['libraryId']),
+        $format,
+        array('%d')
+      );
 
-    $wpdb->delete(
+      // Remove dependencies
+      $this->deleteLibraryDependencies($library['libraryId']);
+
+      // Remove old localization
+      $wpdb->delete(
         $wpdb->prefix . 'h5p_libraries_languages',
         array('library_id' => $library['libraryId']),
         array('%d')
       );
+    }
+    else {
+      // New record
+      $data['name'] = $library['machineName'];
+      $data['major_version'] = $library['majorVersion'];
+      $data['minor_version'] = $library['minorVersion'];
+      $format[] = '%s';
+      $format[] = '%d';
+      $format[] = '%d';
 
+      $wpdb->insert(
+        $wpdb->prefix . 'h5p_libraries',
+        $data,
+        $format
+      );
+
+      // Keep track of local id
+      $library['libraryId'] = $wpdb->insert_id;
+    }
+
+    // Insert localizations
     if (isset($library['language'])) {
       foreach ($library['language'] as $languageCode => $translation) {
         $wpdb->insert(
@@ -301,27 +273,6 @@ class H5PWordPress implements H5PFrameworkInterface {
         );
       }
     }
-  }
-
-  /**
-   * Convert list of file paths to csv
-   *
-   * @param array $library
-   *  Library data as found in library.json files
-   * @param string $key
-   *  Key that should be found in $libraryData
-   * @return string
-   *  file paths separated by ', '
-   */
-  private function pathsToCsv($library, $key) {
-    if (isset($library[$key])) {
-      $paths = array();
-      foreach ($library[$key] as $file) {
-        $paths[] = $file['path'];
-      }
-      return implode(', ', $paths);
-    }
-    return '';
   }
 
   /**
@@ -506,7 +457,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     global $wpdb;
 
     $library = $wpdb->get_row($wpdb->prepare(
-        "SELECT id as libraryId, name as machineName, title, major_version as majorVersion, minor_version as minorVersion, patch_version as patchVersion,
+        "SELECT id as libraryId, name as machineName, constructor, title, major_version as majorVersion, minor_version as minorVersion, patch_version as patchVersion,
           embed_types as embedTypes, preloaded_js as preloadedJs, preloaded_css as preloadedCss, drop_library_css as dropLibraryCss, fullscreen, runnable, semantics
         FROM {$wpdb->prefix}h5p_libraries
         WHERE name = %s
@@ -598,6 +549,7 @@ class H5PWordPress implements H5PFrameworkInterface {
               , hc.embed_type AS embedType
               , hl.id AS libraryId
               , hl.name AS libraryName
+              , hl.constructor AS libraryConstructor
               , hl.major_version AS libraryMajorVersion
               , hl.minor_version AS libraryMinorVersion
               , hl.embed_types AS libraryEmbedTypes
