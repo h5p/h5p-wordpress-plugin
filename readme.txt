@@ -3,8 +3,8 @@ Contributors: icc0rz, fnoks, falcon28
 Donate link: http://h5p.org
 Tags: h5p, content, interactive, video, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, shortcode, plugin, admin, images, slideshow, sharing, multisite, mobile, media, javascript, package, export, user results, download, quiz, games, memory game
 Requires at least: 3.8.1
-Tested up to: 4.0
-Stable tag: 1.2.2
+Tested up to: 4.1
+Stable tag: 1.3.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -82,5 +82,21 @@ Fixed support for multi-site setups(network).
 Fixed issue when repacking h5p files after dependencies have changed, old libraries was still in the pack.
 Added missing string to translation.
 Fixed code causing php notices.
-Added H5P_DEV option. Can be set in wp-config to always override libraries when "new" ones are uploaded. 
+Added H5P_DEV option. Can be set in wp-config to always override libraries when "new" ones are uploaded.
 
+= 1.3.0 =
+Added mini tutorial after activating plugin.
+Fixed issues with tmp directories on multi-hosted environments.
+Added H5P option to the admin bar's new menu.
+Improved plugin description and tags.
+Fixed issues with uploading and deleting libraries for php builds that doesn't support INPUT_SERVER.
+Removed cleanup warnings when there's no dir to clean.
+Updated to latest version of core, now supporting xAPI. [!]
+H5P now has its own event system better suited for OO.
+Libraries are now loaded in the same order as they are required by content types.
+Improved the performance of the editor by reduced ajax requests.
+Support for external video sources and using video URLs from YouTube. [!]
+YouTube integration (also requires updated libraries)
+Support for external video files
+Other minor bug fixes.
+[!] Only work with the lastest version of the content types. Find upgrades at http://h5p.org/update-all-content-types
