@@ -582,7 +582,8 @@ class H5P_Plugin {
         'library' => H5PCore::libraryToString($content['library']),
         'jsonContent' => $core->filterParameters($content),
         'fullScreen' => $content['library']['fullscreen'],
-        'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : ''
+        'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : '',
+        'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id'])
       );
 
       // Get assets for this content
@@ -650,6 +651,8 @@ class H5P_Plugin {
       return; // Already added
     }
 
+    $current_user = wp_get_current_user();
+
     self::$settings = array(
       'core' => array(
         'styles' => array(),
@@ -662,6 +665,10 @@ class H5P_Plugin {
       'loadedJs' => array(),
       'loadedCss' => array(),
       'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
+      'user' => array(
+        'name' => $current_user->display_name,
+        'mail' => $current_user->user_email
+      ),
       'i18n' => array(
         'fullscreen' => __('Fullscreen', $this->plugin_slug),
         'disableFullscreen' => __('Disable fullscreen', $this->plugin_slug),

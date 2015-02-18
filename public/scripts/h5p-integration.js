@@ -64,6 +64,27 @@ H5PIntegration.showH5PIconInActionBar = function () {
 };
 
 /**
+ * Get user details for xAPI events.
+ *
+ * @returns {object}
+ */
+H5PIntegration.getUser = function () {
+  if (H5P.settings.user) {
+    return H5P.settings.user;
+  }
+};
+
+/**
+ * Get content url for xAPI events.
+ *
+ * @param {number} contentId
+ * @returns {string}
+ */
+H5PIntegration.getContentUrl = function (contentId) {
+  return H5P.settings.content['cid-' + contentId].url;
+};
+
+/**
  * Loop trough styles and create a set of tags for head.
  *
  * @param {Array} styles List of stylesheets
