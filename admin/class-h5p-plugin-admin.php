@@ -133,6 +133,8 @@ class H5P_Plugin_Admin {
         <div class="updated">
           <p><?php _e('Thank you for choosing H5P.', $this->plugin_slug); ?></p>
           <?php $this->print_minitutorial(); ?>
+          <p><strong><?php _e('Content type upgrades are here!'); ?></strong><br/>
+          <?php printf(__('If you\'ve just upgraded you plugin, you should install the <a href="%s" target="_blank">lastest version</a> of your content types.'), 'http://h5p.org/update-all-content-types'); ?></p>
         </div>
       <?php
     }
@@ -153,7 +155,7 @@ class H5P_Plugin_Admin {
         <li><?php printf(__('Upload the content types through the <a href="%s" target="_blank">Add new</a> page on your WordPress installation.'), admin_url('admin.php?page=h5p_new')); ?></li>
         <li><?php printf(__('Start creating your own interactive content through the <a href="%s" target="_blank">Add new</a> page.'), admin_url('admin.php?page=h5p_new')); ?></li>
       </ol>
-      <p><?php printf(__('If you need help getting started you could file a <a href="%s" target="_blank">support request</a>, check out our <a href="%s" target="_blank">forum</a> or join our IRC channel #H5P on Freenode.'), 'https://wordpress.org/support/plugin/h5p', 'http://h5p.org/forum'); ?></p>
+      <p><?php printf(__('If you need help getting started you can file a <a href="%s" target="_blank">support request</a>, check out our <a href="%s" target="_blank">forum</a> or join our IRC channel #H5P on Freenode.'), 'https://wordpress.org/support/plugin/h5p', 'http://h5p.org/forum'); ?></p>
     <?php
   }
 
