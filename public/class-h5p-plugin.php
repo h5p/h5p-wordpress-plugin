@@ -240,6 +240,7 @@ class H5P_Plugin {
     add_option('h5p_icon', TRUE);
     add_option('h5p_track_user', TRUE);
     add_option('h5p_library_updates', TRUE);
+    add_option('h5p_minitutorial', FALSE);
   }
 
   /**

@@ -80,6 +80,7 @@ function _h5p_uninstall() {
   delete_option('h5p_icon');
   delete_option('h5p_library_updates');
   delete_option('h5p_track_user');
+  delete_option('h5p_minitutorial');
 
   // Clean out file dirs.
   $upload_dir = wp_upload_dir();
