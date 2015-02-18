@@ -148,7 +148,7 @@ class H5P_Plugin_Admin {
    */
   public function print_minitutorial() {
     ?>
-      <p><?php _e('In order to take advantage of this plugin you must first select and download the H5P content types you with to use.', $this->plugin_slug); ?><br/>
+      <p><?php _e('In order to take advantage of this plugin you must first select and download the H5P content types you wish to use.', $this->plugin_slug); ?><br/>
         <strong><?php _e('Here is a short guide to get you started:', $this->plugin_slug); ?></strong></p>
       <ol>
         <li><?php printf(__('Select and download the desired content types from <a href="%s" target="_blank">H5P.org</a>.'), 'http://h5p.org/content-types-and-applications'); ?></li>
