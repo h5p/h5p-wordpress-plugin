@@ -16,30 +16,10 @@ H5P.jQuery(document).ready(function () {
   H5P.url = H5P.settings.url;
   H5P.l10n = {H5P: H5P.settings.i18n};
   H5P.contentDatas = H5P.settings.content;
+  H5P.user = H5P.settings.user;
 
   H5P.init();
 });
-
-/**
- * Get user details for xAPI events.
- *
- * @returns {object}
- */
-H5PIntegration.getUser = function () {
-  if (H5P.settings.user) {
-    return H5P.settings.user;
-  }
-};
-
-/**
- * Get content url for xAPI events.
- *
- * @param {number} contentId
- * @returns {string}
- */
-H5PIntegration.getContentUrl = function (contentId) {
-  return H5P.settings.content['cid-' + contentId].url;
-};
 
 /**
  * Loop trough styles and create a set of tags for head.
