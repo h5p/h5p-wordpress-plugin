@@ -48,8 +48,6 @@ H5PIntegration.getContentUrl = function (contentId) {
  * @returns {String} HTML
  */
 H5P.getHeadTags = function (contentId) {
-  var basePath = window.parent.location.protocol + "//" + window.parent.location.host + '/'; // TODO: Get proper basepath?
-
   var createStyleTags = function (styles) {
     var tags = '';
     for (var i = 0; i < styles.length; i++) {
