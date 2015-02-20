@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.2.0';
+  const VERSION = '1.3.0';
 
   /**
    * The Unique identifier for this plugin.
@@ -176,6 +176,7 @@ class H5P_Plugin {
       content_id INT UNSIGNED NOT NULL,
       library_id INT UNSIGNED NOT NULL,
       dependency_type VARCHAR(255) NOT NULL,
+      weight SMALLINT UNSIGNED NOT NULL DEFAULT 0,
       drop_css TINYINT UNSIGNED NOT NULL,
       PRIMARY KEY  (content_id,library_id,dependency_type)
     ) {$charset};");
@@ -239,6 +240,7 @@ class H5P_Plugin {
     add_option('h5p_icon', TRUE);
     add_option('h5p_track_user', TRUE);
     add_option('h5p_library_updates', TRUE);
+    add_option('h5p_minitutorial', FALSE);
   }
 
   /**
@@ -581,7 +583,8 @@ class H5P_Plugin {
         'jsonContent' => $core->filterParameters($content),
         'fullScreen' => $content['library']['fullscreen'],
         'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : '',
-        'embedCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '"></script>' . "\n" . '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width="640" height="421" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
+        'embedCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '"></script>' . "\n" . '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width="640" height="421" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
+        'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id'])
       );
 
       // Get assets for this content
@@ -645,11 +648,17 @@ class H5P_Plugin {
    * @since 1.3.0
    */
   public function get_core_settings() {
+    $current_user = wp_get_current_user();
+
     return array(
       'url' => $this->get_h5p_url(),
       'exportEnabled' => get_option('h5p_export', TRUE),
       'postUserStatistics' => (get_option('h5p_track_user', TRUE) === '1'),
       'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
+      'user' => array(
+        'name' => $current_user->display_name,
+        'mail' => $current_user->user_email
+      ),
       'i18n' => array(
         'fullscreen' => __('Fullscreen', $this->plugin_slug),
         'disableFullscreen' => __('Disable fullscreen', $this->plugin_slug),

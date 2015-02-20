@@ -438,8 +438,8 @@ class H5PWordPress implements H5PFrameworkInterface {
     global $wpdb;
 
     $wpdb->query($wpdb->prepare(
-        "INSERT INTO {$wpdb->prefix}h5p_contents_libraries (content_id, library_id, dependency_type, drop_css)
-        SELECT %d, hcl.library_id, hcl.dependency_type, hcl.drop_css
+        "INSERT INTO {$wpdb->prefix}h5p_contents_libraries (content_id, library_id, dependency_type, weight, drop_css)
+        SELECT %d, hcl.library_id, hcl.dependency_type, hcl.weight, hcl.drop_css
           FROM {$wpdb->prefix}h5p_contents_libraries hcl
           WHERE hcl.content_id = %d",
         $contentId, $copyFromId)
@@ -486,7 +486,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             'content_id' => $contentId,
             'library_id' => $dependency['library']['libraryId'],
             'dependency_type' => $dependency['type'],
-            'drop_css' => $dropCss
+            'drop_css' => $dropCss,
+            'weight' => $dependency['weight']
           ),
           array(
             '%d',
@@ -637,6 +638,7 @@ class H5PWordPress implements H5PFrameworkInterface {
       $queryArgs[] = $type;
     }
 
+    $query .= " ORDER BY hcl.weight";
     return $wpdb->get_results($wpdb->prepare($query, $queryArgs), ARRAY_A);
   }
 
@@ -789,9 +791,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     );
   }
 
-  /* Not used, we don't have library development mode */
-  public function lockDependencyStorage() {
-  }
-  public function unlockDependencyStorage() {
-  }
+  // Magic stuff not used, we do not support library development mode.
+  public function lockDependencyStorage() {}
+  public function unlockDependencyStorage() {}
 }
