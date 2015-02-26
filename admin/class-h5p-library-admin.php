@@ -486,10 +486,10 @@ class H5PLibraryAdmin {
    * @since 1.1.0
    */
   private function add_admin_assets() {
-    H5P_Plugin_Admin::add_script('integration', 'public/scripts/h5p-integration.js');
     foreach (H5PCore::$adminScripts as $script) {
       H5P_Plugin_Admin::add_script('admin-' . $script, 'h5p-php-library/' . $script);
     }
+    H5P_Plugin_Admin::add_script('integration', 'public/scripts/h5p-integration.js');
     H5P_Plugin_Admin::add_style('h5p', 'h5p-php-library/styles/h5p.css');
     H5P_Plugin_Admin::add_style('admin', 'h5p-php-library/styles/h5p-admin.css');
   }
