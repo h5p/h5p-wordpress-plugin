@@ -436,7 +436,8 @@ class H5PLibraryAdmin {
     );
 
     $this->add_admin_assets();
-    H5P_Plugin_Admin::add_script('library-list', 'h5p-php-library/js/h5p-content-upgrade.js');
+    H5P_Plugin_Admin::add_script('version', 'h5p-php-library/js/h5p-version.js');
+    H5P_Plugin_Admin::add_script('content-upgrade', 'h5p-php-library/js/h5p-content-upgrade.js');
 
     return $settings;
   }
@@ -587,7 +588,7 @@ class H5PLibraryAdmin {
           "SELECT id, parameters
             FROM {$wpdb->prefix}h5p_contents
             WHERE library_id = %d
-            LIMIT 10",
+            LIMIT 40",
           $library_id
       ));
       foreach ($contents as $content) {
