@@ -583,7 +583,8 @@ class H5P_Plugin {
         'jsonContent' => $core->filterParameters($content),
         'fullScreen' => $content['library']['fullscreen'],
         'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : '',
-        'embedCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '"></script>' . "\n" . '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width="640" height="421" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
+        'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
+        'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '"></script>',
         'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id'])
       );
 
@@ -665,6 +666,10 @@ class H5P_Plugin {
         'download' => __('Download', $this->plugin_slug),
         'copyrights' => __('Rights of use', $this->plugin_slug),
         'embed' => __('Embed', $this->plugin_slug),
+        'size' => __('Size', $this->plugin_slug),
+        'showAdvanced' => __('Show advanced', $this->plugin_slug),
+        'hideAdvanced' => __('Hide advanced', $this->plugin_slug),
+        'advancedHelp' => __('Include this script on your website if you want dynamic sizing of the embedded content:', $this->plugin_slug),
         'copyrightInformation' => __('Rights of use', $this->plugin_slug),
         'close' => __('Close', $this->plugin_slug),
         'title' => __('Title', $this->plugin_slug),
