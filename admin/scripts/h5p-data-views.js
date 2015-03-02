@@ -32,7 +32,7 @@
         // Create new data view
         $wrapper = $('<div id="h5p-insert-content"/>').appendTo('#TB_ajaxContent');
 
-        createDataView(H5P.settings.dataViews[id], $wrapper.get(0), function () {
+        createDataView(H5PIntegration.dataViews[id], $wrapper.get(0), function () {
           // Data loaded
           $wrapper.find('.h5p-insert').click(function () {
             // Inserting content
@@ -53,8 +53,8 @@
   };
 
   $(document).ready(function () {
-    for (var id in H5P.settings.dataViews) {
-      if (!H5P.settings.dataViews.hasOwnProperty(id)) {
+    for (var id in H5PIntegration.dataViews) {
+      if (!H5PIntegration.dataViews.hasOwnProperty(id)) {
         continue;
       }
       if (id === 'h5p-insert-content') {
@@ -64,7 +64,7 @@
 
       var wrapper = $('#' + id).get(0);
       if (wrapper !== undefined) {
-        createDataView(H5P.settings.dataViews[id], wrapper);
+        createDataView(H5PIntegration.dataViews[id], wrapper);
       }
     }
   });
