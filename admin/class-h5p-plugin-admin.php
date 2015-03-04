@@ -142,7 +142,6 @@ class H5P_Plugin_Admin {
         foreach (H5PCore::$styles as $style) {
           $styles[] = plugins_url('h5p/h5p-php-library/' . $style) . $cache_buster;
         }
-        $styles[] = plugins_url('h5p/public/styles/h5p-integration.css') . $cache_buster;
 
         // Get content settings
         $core = $plugin->get_h5p_instance('core');
@@ -161,7 +160,7 @@ class H5P_Plugin_Admin {
         $scripts = array_merge($scripts, $core->getAssetsUrls($files['scripts']));
         $styles = array_merge($styles, $core->getAssetsUrls($files['styles']));
 
-        include_once('views/embed.php');
+        include_once('../h5p-php-library/embed.php');
         exit;
       }
     }

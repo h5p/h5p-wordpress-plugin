@@ -574,16 +574,17 @@ class H5P_Plugin {
 
     // Make sure content isn't added twice
     $cid = 'cid-' . $content['id'];
-    if (!isset(self::$settings['content'][$cid])) {
+    if (!isset(self::$settings['contents'][$cid])) {
       $core = $this->get_h5p_instance('core');
 
       // Add JavaScript settings for this content
-      self::$settings['content'][$cid] = array(
+      self::$settings['contents'][$cid] = array(
         'library' => H5PCore::libraryToString($content['library']),
         'jsonContent' => $core->filterParameters($content),
         'fullScreen' => $content['library']['fullscreen'],
         'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : '',
-        'embedCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '"></script>' . "\n" . '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width="640" height="421" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
+        'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
+        'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '"></script>',
         'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id'])
       );
 
@@ -595,8 +596,8 @@ class H5P_Plugin {
         $this->enqueue_assets($files);
       }
       elseif ($embed === 'iframe') {
-        self::$settings[$cid]['scripts'] = $core->getAssetsUrls($files['scripts']);
-        self::$settings[$cid]['styles'] = $core->getAssetsUrls($files['styles']);
+        self::$settings['contents'][$cid]['scripts'] = $core->getAssetsUrls($files['scripts']);
+        self::$settings['contents'][$cid]['styles'] = $core->getAssetsUrls($files['styles']);
       }
     }
 
@@ -651,37 +652,39 @@ class H5P_Plugin {
     $current_user = wp_get_current_user();
 
     return array(
+      'basePath' => '/',
       'url' => $this->get_h5p_url(),
-      'exportEnabled' => get_option('h5p_export', TRUE),
       'postUserStatistics' => (get_option('h5p_track_user', TRUE) === '1'),
       'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
       'user' => array(
         'name' => $current_user->display_name,
         'mail' => $current_user->user_email
       ),
-      'i18n' => array(
-        'fullscreen' => __('Fullscreen', $this->plugin_slug),
-        'disableFullscreen' => __('Disable fullscreen', $this->plugin_slug),
-        'download' => __('Download', $this->plugin_slug),
-        'copyrights' => __('Rights of use', $this->plugin_slug),
-        'embed' => __('Embed', $this->plugin_slug),
-        'copyrightInformation' => __('Rights of use', $this->plugin_slug),
-        'close' => __('Close', $this->plugin_slug),
-        'title' => __('Title', $this->plugin_slug),
-        'author' => __('Author', $this->plugin_slug),
-        'year' => __('Year', $this->plugin_slug),
-        'source' => __('Source', $this->plugin_slug),
-        'license' => __('License', $this->plugin_slug),
-        'thumbnail' => __('Thumbnail', $this->plugin_slug),
-        'noCopyrights' => __('No copyright information available for this content.', $this->plugin_slug),
-        'downloadDescription' => __('Download this content as a H5P file.', $this->plugin_slug),
-        'copyrightsDescription' => __('View copyright information for this content.', $this->plugin_slug),
-        'embedDescription' => __('View the embed code for this content.', $this->plugin_slug),
-        'h5pDescription' => __('Visit H5P.org to check out more cool content.', $this->plugin_slug),
-        'upgradeLibrary' => __('Upgrade library content', $this->plugin_slug),
-        'viewLibrary' => __('View library details', $this->plugin_slug),
-        'deleteLibrary' => __('Delete library', $this->plugin_slug),
-        'NA' => __('N/A', $this->plugin_slug)
+      'l10n' => array(
+        'H5P' => array(
+          'fullscreen' => __('Fullscreen', $this->plugin_slug),
+          'disableFullscreen' => __('Disable fullscreen', $this->plugin_slug),
+          'download' => __('Download', $this->plugin_slug),
+          'copyrights' => __('Rights of use', $this->plugin_slug),
+          'embed' => __('Embed', $this->plugin_slug),
+          'size' => __('Size', $this->plugin_slug),
+          'showAdvanced' => __('Show advanced', $this->plugin_slug),
+          'hideAdvanced' => __('Hide advanced', $this->plugin_slug),
+          'advancedHelp' => __('Include this script on your website if you want dynamic sizing of the embedded content:', $this->plugin_slug),
+          'copyrightInformation' => __('Rights of use', $this->plugin_slug),
+          'close' => __('Close', $this->plugin_slug),
+          'title' => __('Title', $this->plugin_slug),
+          'author' => __('Author', $this->plugin_slug),
+          'year' => __('Year', $this->plugin_slug),
+          'source' => __('Source', $this->plugin_slug),
+          'license' => __('License', $this->plugin_slug),
+          'thumbnail' => __('Thumbnail', $this->plugin_slug),
+          'noCopyrights' => __('No copyright information available for this content.', $this->plugin_slug),
+          'downloadDescription' => __('Download this content as a H5P file.', $this->plugin_slug),
+          'copyrightsDescription' => __('View copyright information for this content.', $this->plugin_slug),
+          'embedDescription' => __('View the embed code for this content.', $this->plugin_slug),
+          'h5pDescription' => __('Visit H5P.org to check out more cool content.', $this->plugin_slug)
+        )
       )
     );
   }
@@ -712,22 +715,12 @@ class H5P_Plugin {
       wp_enqueue_style($this->asset_handle('core-' . $style), $style_url, array(), self::VERSION);
     }
 
-    // Add custom WP style
-    $style_url = plugins_url('h5p/public/styles/h5p-integration.css');
-    self::$settings['core']['styles'][] = $style_url . $cache_buster;
-    wp_enqueue_style($this->asset_handle('integration'), $style_url, array(), self::VERSION);
-
     // Add core JavaScript
     foreach (H5PCore::$scripts as $script) {
       $script_url = plugins_url('h5p/h5p-php-library/' . $script);
       self::$settings['core']['scripts'][] = $script_url . $cache_buster;
       wp_enqueue_script($this->asset_handle('core-' . $script), $script_url, array(), self::VERSION);
     }
-
-    // Add JavaScript with library framework integration
-    $script_url = plugins_url('h5p/public/scripts/h5p-integration.js');
-    self::$settings['core']['scripts'][] = $script_url . $cache_buster;
-    wp_enqueue_script($this->asset_handle('integration'), $script_url, array(), self::VERSION);
   }
 
   /**
@@ -747,10 +740,14 @@ class H5P_Plugin {
    * @since 1.0.0
    * @param array $settings
    */
-  public function print_settings(&$settings) {
+  public function print_settings(&$settings, $obj_name = 'H5PIntegration') {
     $json_settings = json_encode($settings);
     if ($json_settings !== FALSE) {
-      print '<script>var H5P = H5P || {};H5P.settings=' . $json_settings . '</script>';
+      print '<script>' . $obj_name . ' = ' . $json_settings . ';';
+      if ($obj_name === 'H5PIntegration') {
+        print ' jQuery(document).ready(function () { if (H5P.init) H5P.init(); });';
+      }
+      print '</script>';
     }
   }
 

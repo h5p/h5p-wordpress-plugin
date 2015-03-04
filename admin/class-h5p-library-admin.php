@@ -139,7 +139,7 @@ class H5PLibraryAdmin {
 
         if (isset($settings)) {
           $plugin = H5P_Plugin::get_instance();
-          $plugin->print_settings($settings);
+          $plugin->print_settings($settings, 'H5PAdminIntegration');
         }
         return;
     }
@@ -160,8 +160,15 @@ class H5PLibraryAdmin {
     $not_cached = $interface->getNumNotFiltered();
     $libraries = $interface->loadLibraries();
 
-    $plugin->add_core_assets();
-    $settings = $plugin->get_settings();
+    $settings = array(
+      'containerSelector' => '#h5p-admin-container',
+      'l10n' => array(
+        'NA' => __('N/A', $this->plugin_slug),
+        'viewLibrary' => __('View library details', $this->plugin_slug),
+        'deleteLibrary' => __('Delete library', $this->plugin_slug),
+        'upgradeLibrary' => __('Upgrade library content', $this->plugin_slug)
+      )
+    );
 
     // Find out which version of libraries that should be upgraded
     $minVersions = $core->getMinimumVersionsSupported(plugins_url('h5p/h5p-php-library/library-support.json'));
@@ -198,7 +205,7 @@ class H5PLibraryAdmin {
         }
 
         $contents_count = $interface->getNumContent($library->id);
-        $settings['libraries']['listData'][] = array(
+        $settings['libraryList']['listData'][] = array(
           'title' => $library->title . ' (' . H5PCore::libraryVersion($library) . ')',
           'restricted' => $restricted,
           'restrictedUrl' => $restricted_url,
@@ -215,7 +222,7 @@ class H5PLibraryAdmin {
     }
 
     // Translations
-    $settings['libraries']['listHeaders'] = array(
+    $settings['libraryList']['listHeaders'] = array(
       __('Title', $this->plugin_slug),
       __('Restricted', $this->plugin_slug),
       array(
@@ -235,7 +242,7 @@ class H5PLibraryAdmin {
 
     // Make it possible to rebuild all caches.
     if ($not_cached) {
-      $settings['libraries']['notCached'] = $this->get_not_cached_settings($not_cached);
+      $settings['libraryList']['notCached'] = $this->get_not_cached_settings($not_cached);
     }
 
     if ($needsUpgrade !== '') {
@@ -246,7 +253,7 @@ class H5PLibraryAdmin {
           <p>'. __('To upgrade all the installed libraries, do the following:', $this->plugin_slug) . '</p>
           <ol>
             <li>'. sprintf(__('Download %s.', $this->plugin_slug), '<a href="http://h5p.org/sites/default/files/upgrades.h5p">upgrades.h5p</a>') . '</li>
-            <li>'. sprintf(__('Select the downloaded <em>%s</em> file in the form below.', $this->plugin_slug), 'upgrades.h5p') . '</li>
+            <li>'. sprintf(__('Select the downloaded <em> %s</em> file in the form below.', $this->plugin_slug), 'upgrades.h5p') . '</li>
             <li>'. __('Check off "Only update existing libraries" and click the <em>Upload</em> button.', $this->plugin_slug) . '</li>
           </ol> </p>'
       );
@@ -258,7 +265,7 @@ class H5PLibraryAdmin {
 
     H5P_Plugin_Admin::print_messages();
     include_once('views/libraries.php');
-    $plugin->print_settings($settings);
+    $plugin->print_settings($settings, 'H5PAdminIntegration');
   }
 
   /**
@@ -318,11 +325,13 @@ class H5PLibraryAdmin {
     // Add settings and translations
     $plugin = H5P_Plugin::get_instance();
     $interface = $plugin->get_h5p_instance('interface');
-    $plugin->add_core_assets();
-    $settings = $plugin->get_settings();
+
+    $settings = array(
+      'containerSelector' => '#h5p-admin-container',
+    );
 
     // Build the translations needed
-    $settings['library']['translations'] = array(
+    $settings['libraryInfo']['translations'] = array(
       'noContent' => __('No content is using this library', $this->plugin_slug),
       'contentHeader' => __('Content using this library', $this->plugin_slug),
       'pageSizeSelectorLabel' => __('Elements per page', $this->plugin_slug),
@@ -332,7 +341,7 @@ class H5PLibraryAdmin {
 
     $notCached = $interface->getNumNotFiltered();
     if ($notCached) {
-      $settings['library']['notCached'] = $this->get_not_cached_settings($notCached);
+      $settings['libraryInfo']['notCached'] = $this->get_not_cached_settings($notCached);
     }
     else {
       // List content which uses this library
@@ -346,7 +355,7 @@ class H5PLibraryAdmin {
         )
       );
       foreach($contents as $content) {
-        $settings['library']['content'][] = array(
+        $settings['libraryInfo']['content'][] = array(
           'title' => $content->title,
           'url' => admin_url('admin.php?page=h5p&task=show&id=' . $content->id),
         );
@@ -354,7 +363,7 @@ class H5PLibraryAdmin {
     }
 
     // Build library info
-    $settings['library']['info'] = array(
+    $settings['libraryInfo']['info'] = array(
       __('Version', $this->plugin_slug) => H5PCore::libraryVersion($library),
       __('Fullscreen', $this->plugin_slug) => $library->fullscreen ? __('Yes', $this->plugin_slug) : __('No', $this->plugin_slug),
       __('Content library', $this->plugin_slug) => $library->runnable ? __('Yes', $this->plugin_slug) : __('No', $this->plugin_slug),
@@ -365,7 +374,7 @@ class H5PLibraryAdmin {
     H5P_Plugin_Admin::add_script('library-list', 'h5p-php-library/js/h5p-library-details.js');
 
     include_once('views/library-details.php');
-    $plugin->print_settings($settings);
+    $plugin->print_settings($settings, 'H5PAdminIntegration');
   }
 
   /**
@@ -413,26 +422,28 @@ class H5PLibraryAdmin {
 
     // Add JavaScript settings
     $return = filter_input(INPUT_GET, 'destination');
-    $settings = $plugin->get_settings();
-    $settings['library'] = array(
-      'message' => sprintf(__('You are about to upgrade %s. Please select upgrade version.', $this->plugin_slug), $contents_plural),
-      'inProgress' => __('Upgrading to %ver...', $this->plugin_slug),
-      'error' => __('An error occurred while processing parameters:', $this->plugin_slug),
-      'errorData' => __('Could not load data for library %lib.', $this->plugin_slug),
-      'errorContent' => __('Could not upgrade content %id:', $this->plugin_slug),
-      'errorScript' => __('Could not load upgrades script for %lib.', $this->plugin_slug),
-      'done' => sprintf(__('You have successfully upgraded %s.', $this->plugin_slug), $contents_plural) . ($return ? '<br/><a href="' . $return . '">' . __('Return', $this->plugin_slug) . '</a>' : ''),
-      'library' => array(
-        'name' => $library->name,
-        'version' => $library->major_version . '.' . $library->minor_version,
-      ),
-      'libraryBaseUrl' => admin_url('admin-ajax.php?action=h5p_content_upgrade_library&library='),
-      'versions' => $upgrades,
-      'contents' => $contents,
-      'buttonLabel' => __('Upgrade', $this->plugin_slug),
-      'infoUrl' => admin_url('admin-ajax.php?action=h5p_content_upgrade_progress&id=' . $library->id),
-      'total' => $contents,
-      'token' => wp_create_nonce('h5p_content_upgrade')
+    $settings = array(
+      'containerSelector' => '#h5p-admin-container',
+      'libraryInfo' => array(
+        'message' => sprintf(__('You are about to upgrade %s. Please select upgrade version.', $this->plugin_slug), $contents_plural),
+        'inProgress' => __('Upgrading to %ver...', $this->plugin_slug),
+        'error' => __('An error occurred while processing parameters:', $this->plugin_slug),
+        'errorData' => __('Could not load data for library %lib.', $this->plugin_slug),
+        'errorContent' => __('Could not upgrade content %id:', $this->plugin_slug),
+        'errorScript' => __('Could not load upgrades script for %lib.', $this->plugin_slug),
+        'done' => sprintf(__('You have successfully upgraded %s.', $this->plugin_slug), $contents_plural) . ($return ? '<br/><a href="' . $return . '">' . __('Return', $this->plugin_slug) . '</a>' : ''),
+        'library' => array(
+          'name' => $library->name,
+          'version' => $library->major_version . '.' . $library->minor_version,
+        ),
+        'libraryBaseUrl' => admin_url('admin-ajax.php?action=h5p_content_upgrade_library&library='),
+        'versions' => $upgrades,
+        'contents' => $contents,
+        'buttonLabel' => __('Upgrade', $this->plugin_slug),
+        'infoUrl' => admin_url('admin-ajax.php?action=h5p_content_upgrade_progress&id=' . $library->id),
+        'total' => $contents,
+        'token' => wp_create_nonce('h5p_content_upgrade')
+      )
     );
 
     $this->add_admin_assets();
@@ -490,7 +501,6 @@ class H5PLibraryAdmin {
     foreach (H5PCore::$adminScripts as $script) {
       H5P_Plugin_Admin::add_script('admin-' . $script, 'h5p-php-library/' . $script);
     }
-    H5P_Plugin_Admin::add_script('integration', 'public/scripts/h5p-integration.js');
     H5P_Plugin_Admin::add_style('h5p', 'h5p-php-library/styles/h5p.css');
     H5P_Plugin_Admin::add_style('admin', 'h5p-php-library/styles/h5p-admin.css');
   }

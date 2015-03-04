@@ -3,24 +3,24 @@ var H5PEditor = H5PEditor || {};
 (function ($) {
   H5PEditor.init = function () {
     H5PEditor.$ = H5P.jQuery;
-    H5PEditor.basePath = H5P.settings.editor.libraryUrl;
-    H5PEditor.fileIcon = H5P.settings.editor.fileIcon;
-    H5PEditor.ajaxPath = H5P.settings.editor.ajaxPath;
-    H5PEditor.filesPath = H5P.settings.editor.filesPath;
-    
+    H5PEditor.basePath = H5PIntegration.editor.libraryUrl;
+    H5PEditor.fileIcon = H5PIntegration.editor.fileIcon;
+    H5PEditor.ajaxPath = H5PIntegration.editor.ajaxPath;
+    H5PEditor.filesPath = H5PIntegration.editor.filesPath;
+
     // Semantics describing what copyright information can be stored for media.
-    H5PEditor.copyrightSemantics = H5P.settings.editor.copyrightSemantics;
-    
+    H5PEditor.copyrightSemantics = H5PIntegration.editor.copyrightSemantics;
+
     // Required styles and scripts for the editor
-    H5PEditor.assets = H5P.settings.editor.assets;
-    
+    H5PEditor.assets = H5PIntegration.editor.assets;
+
     // Required for assets
     H5PEditor.baseUrl = '';
-    
-    if (H5P.settings.editor.nodeVersionId !== undefined) {
-      H5PEditor.contentId = H5P.settings.editor.nodeVersionId;
+
+    if (H5PIntegration.editor.nodeVersionId !== undefined) {
+      H5PEditor.contentId = H5PIntegration.editor.nodeVersionId;
     }
-    
+
     var h5peditor;
     var $type = $('input[name="action"]');
     var $upload = $('.h5p-upload');
@@ -29,7 +29,7 @@ var H5PEditor = H5PEditor || {};
     var $library = $('input[name="library"]');
     var $params = $('input[name="parameters"]');
     var library = $library.val();
-    
+
     $type.change(function () {
       if ($type.filter(':checked').val() === 'upload') {
         $create.hide();
@@ -43,14 +43,14 @@ var H5PEditor = H5PEditor || {};
         $create.show();
       }
     });
-    
+
     if ($type.filter(':checked').val() === 'upload') {
       $type.change();
     }
     else {
       $type.filter('input[value="create"]').attr('checked', true).change();
     }
-    
+
     $('#h5p-content-form').submit(function () {
       if (h5peditor !== undefined) {
         var params = h5peditor.getParams();
@@ -60,7 +60,7 @@ var H5PEditor = H5PEditor || {};
         }
       }
     });
-    
+
     // Title label
     var $title = $('#h5p-content-form #title');
     var $label = $title.prev();
@@ -71,18 +71,18 @@ var H5PEditor = H5PEditor || {};
         $label.removeClass('screen-reader-text');
       }
     }).focus();
-    
+
     // Delete confirm
     $('.submitdelete').click(function () {
       // TODO: Translate
       return confirm('Are you sure you wish to delete this content?');
     });
-    
+
   };
-  
+
   H5PEditor.getAjaxUrl = function (action, parameters) {
-    var url = H5P.settings.editor.ajaxPath + action;
-    
+    var url = H5PIntegration.editor.ajaxPath + action;
+
     if (parameters !== undefined) {
       for (var property in parameters) {
         if (parameters.hasOwnProperty(property)) {
@@ -90,7 +90,7 @@ var H5PEditor = H5PEditor || {};
         }
       }
     }
-    
+
     return url;
   };
 
