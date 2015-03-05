@@ -103,4 +103,13 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
     }
     return $libraries;
   }
+
+  /**
+   * Implements alterLibrarySemantics
+   *
+   * Gives you a chance to alter all the library files.
+   */
+  public function alterLibraryFiles(&$files, $libraries) {
+    do_action('h5p_alter_library_files', $files, $libraries);
+  }
 }
