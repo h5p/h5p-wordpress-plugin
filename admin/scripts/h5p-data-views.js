@@ -14,7 +14,8 @@
         table: 'wp-list-table widefat fixed'
       },
       dataView.filters,
-      loaded
+      loaded,
+      dataView.order
     );
   };
 

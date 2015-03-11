@@ -624,13 +624,14 @@ class H5P_Plugin_Admin {
    * @param string $source URL for data
    * @param array $headers for the table
    */
-  public function print_data_view_settings($name, $source, $headers, $filters, $empty) {
+  public function print_data_view_settings($name, $source, $headers, $filters, $empty, $order) {
     // Add JS settings
     $data_views = array();
     $data_views[$name] = array(
       'source' => $source,
       'headers' => $headers,
       'filters' => $filters,
+      'order' => $order,
       'l10n' => array(
         'loading' => __('Loading data.', $this->plugin_slug),
         'ajaxFailed' => __('Failed to load data.', $this->plugin_slug),
@@ -685,7 +686,11 @@ class H5P_Plugin_Admin {
           'text' => __('Finished', $this->plugin_slug),
           'sortable' => TRUE
         ),
-        __('Time spent', $this->plugin_slug)
+        __('Time spent', $this->plugin_slug),
+        (object) array(
+          'by' => 4,
+          'dir' => 0
+        )
       ),
       array(true),
       __("There are no logged results for your user.", $this->plugin_slug)
