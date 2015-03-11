@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: h5p, content, interactive, video, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, shortcode, plugin, admin, images, slideshow, sharing, multisite, mobile, media, javascript, package, export, user results, download, quiz, games, memory game
 Requires at least: 3.8.1
 Tested up to: 4.1
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -100,3 +100,11 @@ YouTube integration (also requires updated libraries)
 Support for external video files
 Other minor bug fixes.
 [!] Only work with the lastest version of the content types. Find upgrades at http://h5p.org/update-all-content-types
+
+= 1.4.0 =
+Added support for external embed.
+Updated default sorting on H5P tables, making it easier to find recently modified content or new results.
+Added actions which make it easier for other plugins to alter content types.
+Added support for inputing target DOM node when initializing H5P, making it possible to "start" content loaded via AJAX.
+Removed deprecated version of font-awesome from plugin code.
+Other minor fixes and code clean up.
