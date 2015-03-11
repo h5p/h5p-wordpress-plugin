@@ -162,6 +162,7 @@ class H5PLibraryAdmin {
 
     $settings = array(
       'containerSelector' => '#h5p-admin-container',
+      'extraTableClasses' => 'wp-list-table widefat fixed',
       'l10n' => array(
         'NA' => __('N/A', $this->plugin_slug),
         'viewLibrary' => __('View library details', $this->plugin_slug),
