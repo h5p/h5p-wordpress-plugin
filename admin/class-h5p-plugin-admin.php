@@ -128,7 +128,7 @@ class H5P_Plugin_Admin {
         $cache_buster = '?ver=' . H5P_Plugin::VERSION;
 
         // Get core settings
-        $settings = $plugin->get_core_settings();
+        $integration = $plugin->get_core_settings();
         // TODO: The non-content specific settings could be apart of a combined h5p-core.js file.
 
         // Get core scripts
@@ -145,7 +145,7 @@ class H5P_Plugin_Admin {
 
         // Get content settings
         $core = $plugin->get_h5p_instance('core');
-        $contentSettings = array(
+        $integration['contents']['cid-' . $content['id']] = array(
           'library' => H5PCore::libraryToString($content['library']),
           'jsonContent' => $core->filterParameters($content),
           'fullScreen' => $content['library']['fullscreen'],
@@ -160,7 +160,7 @@ class H5P_Plugin_Admin {
         $scripts = array_merge($scripts, $core->getAssetsUrls($files['scripts']));
         $styles = array_merge($styles, $core->getAssetsUrls($files['styles']));
 
-        include_once('../h5p-php-library/embed.php');
+        include_once(plugin_dir_path(__FILE__) . '../h5p-php-library/embed.php');
         exit;
       }
     }
