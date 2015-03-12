@@ -593,6 +593,7 @@ class H5PWordPress implements H5PFrameworkInterface {
               , hc.title
               , hc.parameters AS params
               , hc.filtered
+              , hc.human_id AS humanId
               , hc.user_id
               , hc.embed_type AS embedType
               , hl.id AS libraryId
@@ -666,10 +667,21 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements setFilteredParameters().
    */
-  public function setFilteredParameters($content_id, $parameters = '') {
+  public function setFilteredParameters($content_id, $parameters = '', $humanId = '') {
     global $wpdb;
 
-    $wpdb->update($wpdb->prefix . 'h5p_contents', array('filtered' => $parameters), array('id' => $content_id), array('%s'), array('%d'));
+    $wpdb->update(
+      $wpdb->prefix . 'h5p_contents',
+      array(
+        'filtered' => $parameters,
+        'human_id' => $humanId
+      ),
+      array('id' => $content_id),
+      array(
+        '%s',
+        '%s'
+      ),
+      array('%d'));
   }
 
   /**
@@ -789,6 +801,32 @@ class H5PWordPress implements H5PFrameworkInterface {
       array('%s')
     );
   }
+
+  /**
+   * Implements generateHumanReadableContentIdentifier
+   */
+  public function generateHumanReadableContentIdentifier($content) {
+    global $wpdb;
+
+    $humanId = H5PCore::kebabize($content['title']);
+
+    $available = NULL;
+    while (!$available) {
+      if ($available === FALSE) {
+        $matches = array();
+        if (preg_match('/(.+-)([0-9]+)$/', $humanId, $matches)) {
+          $humanId = $matches[1] . (intval($matches[2]) + 1);
+        }
+        else {
+          $humanId .=  '-2';
+        }
+      }
+      $available = !$wpdb->get_var($wpdb->prepare("SELECT human_id FROM {$wpdb->prefix}h5p_contents WHERE human_id = '%s'", $humanId));
+    }
+
+    return $humanId;
+  }
+
 
   // Magic stuff not used, we do not support library development mode.
   public function lockDependencyStorage() {}
