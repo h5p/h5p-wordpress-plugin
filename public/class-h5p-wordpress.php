@@ -593,7 +593,7 @@ class H5PWordPress implements H5PFrameworkInterface {
               , hc.title
               , hc.parameters AS params
               , hc.filtered
-              , hc.human_id AS humanId
+              , hc.slug AS slug
               , hc.user_id
               , hc.embed_type AS embedType
               , hl.id AS libraryId
@@ -665,22 +665,40 @@ class H5PWordPress implements H5PFrameworkInterface {
   }
 
   /**
+   * Convert variables to fit our DB.
+   */
+  private static function camelToString($input) {
+    $input = preg_replace('/[a-z0-9]([A-Z])[a-z0-9]/', '_$1', $input);
+    return strtolower($input);
+  }
+
+  /**
    * Implements setFilteredParameters().
    */
-  public function setFilteredParameters($content_id, $parameters = '', $humanId = '') {
+  public function updateContentFields($id, $fields) {
     global $wpdb;
+
+    $processedFields = array();
+    $format = array();
+    foreach ($fields as $name => $value) {
+      if (is_int($value)) {
+        $format[] = '%d'; // Int
+      }
+      else if (is_float($value)) {
+        $format[] = '%f'; // Float
+      }
+      else {
+        $format[] = '%s'; // String
+      }
+
+      $processedFields[self::camelToString($name)] = $value;
+    }
 
     $wpdb->update(
       $wpdb->prefix . 'h5p_contents',
-      array(
-        'filtered' => $parameters,
-        'human_id' => $humanId
-      ),
-      array('id' => $content_id),
-      array(
-        '%s',
-        '%s'
-      ),
+      $processedFields,
+      array('id' => $id),
+      $format,
       array('%d'));
   }
 
@@ -803,30 +821,12 @@ class H5PWordPress implements H5PFrameworkInterface {
   }
 
   /**
-   * Implements generateHumanReadableContentIdentifier
+   * Implements isContentSlugAvailable
    */
-  public function generateHumanReadableContentIdentifier($content) {
+  public function isContentSlugAvailable($slug) {
     global $wpdb;
-
-    $humanId = H5PCore::kebabize($content['title']);
-
-    $available = NULL;
-    while (!$available) {
-      if ($available === FALSE) {
-        $matches = array();
-        if (preg_match('/(.+-)([0-9]+)$/', $humanId, $matches)) {
-          $humanId = $matches[1] . (intval($matches[2]) + 1);
-        }
-        else {
-          $humanId .=  '-2';
-        }
-      }
-      $available = !$wpdb->get_var($wpdb->prepare("SELECT human_id FROM {$wpdb->prefix}h5p_contents WHERE human_id = '%s'", $humanId));
-    }
-
-    return $humanId;
+    return !$wpdb->get_var($wpdb->prepare("SELECT slug FROM {$wpdb->prefix}h5p_contents WHERE slug = '%s'", $slug));
   }
-
 
   // Magic stuff not used, we do not support library development mode.
   public function lockDependencyStorage() {}
