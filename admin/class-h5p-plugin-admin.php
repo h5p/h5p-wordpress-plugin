@@ -686,14 +686,14 @@ class H5P_Plugin_Admin {
           'text' => __('Finished', $this->plugin_slug),
           'sortable' => TRUE
         ),
-        __('Time spent', $this->plugin_slug),
-        (object) array(
-          'by' => 4,
-          'dir' => 0
-        )
+        __('Time spent', $this->plugin_slug)
       ),
       array(true),
-      __("There are no logged results for your user.", $this->plugin_slug)
+      __("There are no logged results for your user.", $this->plugin_slug),
+      (object) array(
+        'by' => 4,
+        'dir' => 0
+      )
     );
   }
 
