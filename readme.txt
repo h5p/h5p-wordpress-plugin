@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: h5p, content, interactive, video, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, shortcode, plugin, admin, images, slideshow, sharing, multisite, mobile, media, javascript, package, export, user results, download, quiz, games, memory game
 Requires at least: 3.8.1
 Tested up to: 4.1
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -108,3 +108,6 @@ Added actions which make it easier for other plugins to alter content types.
 Added support for inputing target DOM node when initializing H5P, making it possible to "start" content loaded via AJAX.
 Removed deprecated version of font-awesome from plugin code.
 Other minor fixes and code clean up.
+
+= 1.4.1 =
+Fixed some misplaced code that causes the "my results" page to fail.
