@@ -451,8 +451,15 @@ class H5P_Plugin {
    * @return string
    */
   public function get_h5p_url() {
-    $upload_dir = wp_upload_dir();
-    return $upload_dir['baseurl'] . '/h5p';
+    static $url;
+
+    if (!$url) {
+      // Use relative URL to support both http and https.
+      $upload_dir = wp_upload_dir();
+      $url = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $upload_dir['baseurl']) . '/h5p';
+    }
+
+    return $url;
   }
 
   /**
@@ -495,7 +502,7 @@ class H5P_Plugin {
 
       $language = $this->get_language();
 
-      self::$core = new H5PCore(self::$interface, $this->get_h5p_url(), $language, get_option('h5p_export', TRUE));
+      self::$core = new H5PCore(self::$interface, $this->get_h5p_path(), $this->get_h5p_url(), $language, get_option('h5p_export', TRUE));
     }
 
     switch ($type) {
@@ -615,19 +622,20 @@ class H5P_Plugin {
    * @param array $assets
    */
   public function enqueue_assets(&$assets) {
-    $cut = $this->get_h5p_url() . '/libraries/';
+    $h5p_url = $this->get_h5p_url();
+    $cut = $h5p_url . '/libraries/';
     foreach ($assets['scripts'] as $script) {
-      $url = $script->path . $script->version;
+      $url = $h5p_url . $script->path . $script->version;
       if (!in_array($url, self::$settings['loadedJs'])) {
         self::$settings['loadedJs'][] = $url;
-        wp_enqueue_script($this->asset_handle(str_replace($cut, '', $script->path)), $script->path, array(), str_replace('?ver', '', $script->version));
+        wp_enqueue_script($this->asset_handle(str_replace($cut, '', $script->path)), $h5p_url . $script->path, array(), str_replace('?ver', '', $script->version));
       }
     }
     foreach ($assets['styles'] as $style) {
-      $url = $style->path . $style->version;
+      $url = $h5p_url . $style->path . $style->version;
       if (!in_array($url, self::$settings['loadedCss'])) {
         self::$settings['loadedCss'][] = $url;
-        wp_enqueue_style($this->asset_handle(str_replace($cut, '', $style->path)), $style->path, array(), str_replace('?ver', '', $style->version));
+        wp_enqueue_style($this->asset_handle(str_replace($cut, '', $style->path)), $h5p_url . $style->path, array(), str_replace('?ver', '', $style->version));
       }
     }
   }
