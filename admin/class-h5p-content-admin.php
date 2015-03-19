@@ -837,7 +837,7 @@ class H5PContentAdmin {
     }
 
     header('Cache-Control: no-cache');
-    header('Content-type: application/json');
+    header('Content-type: application/json; charset=utf-8');
 
     print $file->getResult();
     exit;
