@@ -726,24 +726,20 @@ class H5PContentAdmin {
       'js' => $settings['core']['scripts']
     );
 
-    // Remove integration from the equation.
-    for ($i = 0, $s = count($assets['js']); $i < $s; $i++) {
-      if (preg_match('/\/h5pintegration\.js/', $assets['js'][$i])) {
-        array_splice($assets['js'], $i, 1);
-        break;
-      }
-    }
+    // Use relative URL to support both http and https.
+    $upload_dir = plugins_url('h5p/h5p-editor-php-library');
+    $url = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $upload_dir) . '/';
 
     // Add editor styles
     foreach (H5peditor::$styles as $style) {
-      $assets['css'][] = plugins_url('h5p/h5p-editor-php-library/' . $style . $cache_buster);
+      $assets['css'][] = $url . $style . $cache_buster;
     }
 
     // Add editor JavaScript
     foreach (H5peditor::$scripts as $script) {
       // We do not want the creator of the iframe inside the iframe
       if ($script !== 'scripts/h5peditor-editor.js') {
-        $assets['js'][] = plugins_url('h5p/h5p-editor-php-library/' . $script . $cache_buster);
+        $assets['js'][] = $url . $script . $cache_buster;
       }
     }
 
