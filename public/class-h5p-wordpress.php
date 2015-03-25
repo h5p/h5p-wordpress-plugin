@@ -62,9 +62,9 @@ class H5PWordPress implements H5PFrameworkInterface {
   }
 
   /**
-   * Implements getH5PPath
+   * Helper
    */
-  public function getH5pPath() {
+  private function getH5pPath() {
     $plugin = H5P_Plugin::get_instance();
     return $plugin->get_h5p_path();
   }
