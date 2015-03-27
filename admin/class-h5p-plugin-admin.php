@@ -192,14 +192,14 @@ class H5P_Plugin_Admin {
    */
   public function admin_notices() {
     if (!get_option('h5p_minitutorial', FALSE)) {
-      // TODO: Make the user close it?
+      // TODO: We should make the user close the message. (so the user doesn't miss out on it)
       update_option('h5p_minitutorial', TRUE);
       ?>
         <div class="updated">
           <p><?php _e('Thank you for choosing H5P.', $this->plugin_slug); ?></p>
           <?php $this->print_minitutorial(); ?>
-          <p><strong><?php _e('Content type upgrades are here!'); ?></strong><br/>
-          <?php printf(__('If you\'ve just upgraded you plugin, you should install the <a href="%s" target="_blank">lastest version</a> of your content types.'), 'http://h5p.org/update-all-content-types'); ?></p>
+          <p><strong><?php _e('Content type upgrades are here!', $this->plugin_slug); ?></strong><br/>
+          <?php printf(wp_kses(__('If you\'ve just upgraded you plugin, you should install the <a href="%s" target="_blank">lastest version</a> of your content types.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('http://h5p.org/update-all-content-types')); ?></p>
         </div>
       <?php
     }
@@ -216,11 +216,11 @@ class H5P_Plugin_Admin {
       <p><?php _e('In order to take advantage of this plugin you must first select and download the H5P content types you wish to use.', $this->plugin_slug); ?><br/>
         <strong><?php _e('Here is a short guide to get you started:', $this->plugin_slug); ?></strong></p>
       <ol>
-        <li><?php printf(__('Select and download the desired content types from <a href="%s" target="_blank">H5P.org</a>.'), 'http://h5p.org/content-types-and-applications'); ?></li>
-        <li><?php printf(__('Upload the content types through the <a href="%s" target="_blank">Add new</a> page on your WordPress installation.'), admin_url('admin.php?page=h5p_new')); ?></li>
-        <li><?php printf(__('Start creating your own interactive content through the <a href="%s" target="_blank">Add new</a> page.'), admin_url('admin.php?page=h5p_new')); ?></li>
+        <li><?php printf(wp_kses(__('Select and download the desired content types from <a href="%s" target="_blank">H5P.org</a>.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('http://h5p.org/content-types-and-applications')); ?></li>
+        <li><?php printf(wp_kses(__('Upload the content types through the <a href="%s" target="_blank">Add new</a> page on your WordPress installation.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_new')); ?></li>
+        <li><?php printf(wp_kses(__('Start creating your own interactive content through the <a href="%s" target="_blank">Add new</a> page.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_new')); ?></li>
       </ol>
-      <p><?php printf(__('If you need help getting started you can file a <a href="%s" target="_blank">support request</a>, check out our <a href="%s" target="_blank">forum</a> or join our IRC channel #H5P on Freenode.'), 'https://wordpress.org/support/plugin/h5p', 'http://h5p.org/forum'); ?></p>
+      <p><?php printf(wp_kses(__('If you need help getting started you can file a <a href="%s" target="_blank">support request</a>, check out our <a href="%s" target="_blank">forum</a> or join our IRC channel #H5P on Freenode.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('http://h5p.org/forum')); ?></p>
     <?php
   }
 
