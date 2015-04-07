@@ -149,7 +149,7 @@ class H5P_Plugin_Admin {
           'library' => H5PCore::libraryToString($content['library']),
           'jsonContent' => $core->filterParameters($content),
           'fullScreen' => $content['library']['fullscreen'],
-          'exportUrl' => get_option('h5p_export', TRUE) ? $plugin->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : '',
+          'exportUrl' => get_option('h5p_export', TRUE) ? $plugin->get_h5p_url() . '/exports/' . ($content['slug'] ? $content['slug'] . '-' : '') . $content['id'] . '.h5p' : '',
           'showH5PIconInActionBar' => get_option('h5p_icon', TRUE)
         );
 
