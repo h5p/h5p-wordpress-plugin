@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.3.0';
+  const VERSION = '1.4.1';
 
   /**
    * The Unique identifier for this plugin.
@@ -743,11 +743,7 @@ class H5P_Plugin {
   public function print_settings(&$settings, $obj_name = 'H5PIntegration') {
     $json_settings = json_encode($settings);
     if ($json_settings !== FALSE) {
-      print '<script>' . $obj_name . ' = ' . $json_settings . ';';
-      if ($obj_name === 'H5PIntegration') {
-        print ' jQuery(document).ready(function () { if (H5P.init) H5P.init(); });';
-      }
-      print '</script>';
+      print '<script>' . $obj_name . ' = ' . $json_settings . ';</script>';
     }
   }
 

@@ -169,7 +169,11 @@ class H5PContentAdmin {
           admin_url('admin-ajax.php?action=h5p_contents'),
           $headers,
           array(true),
-          __("No H5P content available. You must upload or create new content.", $this->plugin_slug)
+          __("No H5P content available. You must upload or create new content.", $this->plugin_slug),
+          (object) array(
+            'by' => 3,
+            'dir' => 0
+          )
         );
         return;
 
@@ -224,7 +228,11 @@ class H5PContentAdmin {
               __('Time spent', $this->plugin_slug)
             ),
             array(true),
-            __("There are no logged results for this content.", $this->plugin_slug)
+            __("There are no logged results for this content.", $this->plugin_slug),
+            (object) array(
+              'by' => 4,
+              'dir' => 0
+            )
           );
         }
         return;
@@ -503,7 +511,11 @@ class H5PContentAdmin {
         )
       ),
       array(true),
-      __("No H5P content available. You must upload or create new content.", $this->plugin_slug)
+      __("No H5P content available. You must upload or create new content.", $this->plugin_slug),
+      (object) array(
+        'by' => 2,
+        'dir' => 0
+      )
     );
   }
 

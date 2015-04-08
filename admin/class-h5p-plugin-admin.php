@@ -128,7 +128,7 @@ class H5P_Plugin_Admin {
         $cache_buster = '?ver=' . H5P_Plugin::VERSION;
 
         // Get core settings
-        $settings = $plugin->get_core_settings();
+        $integration = $plugin->get_core_settings();
         // TODO: The non-content specific settings could be apart of a combined h5p-core.js file.
 
         // Get core scripts
@@ -145,7 +145,7 @@ class H5P_Plugin_Admin {
 
         // Get content settings
         $core = $plugin->get_h5p_instance('core');
-        $contentSettings = array(
+        $integration['contents']['cid-' . $content['id']] = array(
           'library' => H5PCore::libraryToString($content['library']),
           'jsonContent' => $core->filterParameters($content),
           'fullScreen' => $content['library']['fullscreen'],
@@ -160,7 +160,7 @@ class H5P_Plugin_Admin {
         $scripts = array_merge($scripts, $core->getAssetsUrls($files['scripts']));
         $styles = array_merge($styles, $core->getAssetsUrls($files['styles']));
 
-        include_once('../h5p-php-library/embed.php');
+        include_once(plugin_dir_path(__FILE__) . '../h5p-php-library/embed.php');
         exit;
       }
     }
@@ -624,13 +624,14 @@ class H5P_Plugin_Admin {
    * @param string $source URL for data
    * @param array $headers for the table
    */
-  public function print_data_view_settings($name, $source, $headers, $filters, $empty) {
+  public function print_data_view_settings($name, $source, $headers, $filters, $empty, $order) {
     // Add JS settings
     $data_views = array();
     $data_views[$name] = array(
       'source' => $source,
       'headers' => $headers,
       'filters' => $filters,
+      'order' => $order,
       'l10n' => array(
         'loading' => __('Loading data.', $this->plugin_slug),
         'ajaxFailed' => __('Failed to load data.', $this->plugin_slug),
@@ -688,7 +689,11 @@ class H5P_Plugin_Admin {
         __('Time spent', $this->plugin_slug)
       ),
       array(true),
-      __("There are no logged results for your user.", $this->plugin_slug)
+      __("There are no logged results for your user.", $this->plugin_slug),
+      (object) array(
+        'by' => 4,
+        'dir' => 0
+      )
     );
   }
 
