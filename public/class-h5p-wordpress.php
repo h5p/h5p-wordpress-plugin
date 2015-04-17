@@ -385,7 +385,8 @@ class H5PWordPress implements H5PFrameworkInterface {
       'parameters' => $content['params'],
       'embed_type' => 'div', // TODO: Determine from library?
       'library_id' => $content['library']['libraryId'],
-      'filtered' => ''
+      'filtered' => '',
+      'disable' => $content['disable'],
     );
     $format = array(
       '%s',
@@ -393,7 +394,8 @@ class H5PWordPress implements H5PFrameworkInterface {
       '%s',
       '%s',
       '%d',
-      '%s'
+      '%s',
+      '%d'
     );
 
     if (!isset($content['id'])) {
@@ -595,6 +597,7 @@ class H5PWordPress implements H5PFrameworkInterface {
               , hc.filtered
               , hc.user_id
               , hc.embed_type AS embedType
+              , hc.disable
               , hl.id AS libraryId
               , hl.name AS libraryName
               , hl.major_version AS libraryMajorVersion
@@ -645,6 +648,9 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements getOption().
    */
   public function getOption($name, $default = FALSE) {
+    if ($name === 'site_uuid') {
+      $name = 'h5p_site_uuid'; // Make up for old core bug
+    }
     return get_option('h5p_' . $name, $default);
   }
 
@@ -653,6 +659,9 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements setOption().
    */
   public function setOption($name, $value) {
+    if ($name === 'site_uuid') {
+      $name = 'h5p_site_uuid'; // Make up for old core bug
+    }
     $name = 'h5p_' . $name; // Always prefix to avoid conflicts
     $var = $this->getOption($name);
     if ($var === FALSE) {

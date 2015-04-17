@@ -76,11 +76,14 @@ function _h5p_uninstall() {
 
   // Remove settings
   delete_option('h5p_version');
+  delete_option('h5p_frame');
   delete_option('h5p_export');
+  delete_option('h5p_embed');
+  delete_option('h5p_copyright');
   delete_option('h5p_icon');
-  delete_option('h5p_library_updates');
   delete_option('h5p_track_user');
   delete_option('h5p_minitutorial');
+  delete_option('h5p_library_updates');
 
   // Clean out file dirs.
   $upload_dir = wp_upload_dir();

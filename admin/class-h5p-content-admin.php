@@ -115,7 +115,7 @@ class H5PContentAdmin {
    * @return boolean
    */
   private function current_user_can_view_content_results($content) {
-    if (get_option('h5p_track_user', TRUE) !== '1') {
+    if (!get_option('h5p_track_user', TRUE)) {
       return FALSE;
     }
 
@@ -154,7 +154,7 @@ class H5PContentAdmin {
             'sortable' => TRUE
           )
         );
-        if (get_option('h5p_track_user', TRUE) === '1') {
+        if (get_option('h5p_track_user', TRUE)) {
           $headers[] = (object) array(
             'class' => 'h5p-results-link'
           );
@@ -297,6 +297,7 @@ class H5PContentAdmin {
         // Create new content if none exists
         $content = ($this->content === NULL ? array() : $this->content);
         $content['title'] = $this->get_input_title();
+        $content['disable'] = $this->get_disabled_content_features();
 
         // Handle file upload
         $plugin_admin = H5P_Plugin_Admin::get_instance();
@@ -334,6 +335,7 @@ class H5PContentAdmin {
 
     include_once('views/new-content.php');
     $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
+    H5P_Plugin_Admin::add_script('disable', 'h5p-php-library/js/disable.js');
   }
 
   /**
@@ -401,6 +403,9 @@ class H5PContentAdmin {
       return FALSE;
     }
 
+    // Set disabled features
+    $content['disable'] = $this->get_disabled_content_features();
+
     // Save new content
     $content['id'] = $core->saveContent($content);
 
@@ -416,6 +421,20 @@ class H5PContentAdmin {
     // Move images and find all content dependencies
     $editor->processParameters($content['id'], $content['library'], $params, $oldLibrary, $oldParams);
     return $content['id'];
+  }
+
+  /**
+   * Extract disabled content features from input post.
+   *
+   * @since 1.2.0
+   * @return int
+   */
+  private function get_disabled_content_features() {
+    return H5PCore::getDisable(array(
+      'frame' => filter_input(INPUT_POST, 'frame', FILTER_VALIDATE_BOOLEAN),
+      'download' => filter_input(INPUT_POST, 'download', FILTER_VALIDATE_BOOLEAN),
+      'copyright' => filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN),
+    ));
   }
 
   /**

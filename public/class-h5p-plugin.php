@@ -163,6 +163,7 @@ class H5P_Plugin {
       parameters LONGTEXT NOT NULL,
       filtered LONGTEXT NOT NULL,
       embed_type VARCHAR(127) NOT NULL,
+      disable INT UNSIGNED NOT NULL DEFAULT 0,
       content_type VARCHAR(127) NULL,
       author VARCHAR(127) NULL,
       license VARCHAR(7) NULL,
@@ -236,7 +237,10 @@ class H5P_Plugin {
     ) {$charset};");
 
     // Add default setting options
+    add_option('h5p_frame', TRUE);
     add_option('h5p_export', TRUE);
+    add_option('h5p_embed', TRUE);
+    add_option('h5p_copyright', TRUE);
     add_option('h5p_icon', TRUE);
     add_option('h5p_track_user', TRUE);
     add_option('h5p_library_updates', TRUE);
@@ -584,6 +588,8 @@ class H5P_Plugin {
     if (!isset(self::$settings['contents'][$cid])) {
       $core = $this->get_h5p_instance('core');
 
+      $content['disable'] |= $core->getGlobalDisable();
+
       // Add JavaScript settings for this content
       self::$settings['contents'][$cid] = array(
         'library' => H5PCore::libraryToString($content['library']),
@@ -592,7 +598,8 @@ class H5P_Plugin {
         'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : '',
         'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
         'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '"></script>',
-        'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id'])
+        'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
+        'disable' => $content['disable']
       );
 
       // Get assets for this content

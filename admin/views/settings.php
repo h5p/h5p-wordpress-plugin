@@ -17,28 +17,44 @@
     </div>
   <?php endif; ?>
   <form method="post">
-    <h3><?php esc_html_e('Action bar', $this->plugin_slug); ?></h3>
     <table class="form-table">
       <tbody>
         <tr valign="top">
-          <th scope="row">Export</th>
-          <td>
-            <input name="h5p_export" id="h5p-export" type="checkbox" value="true"<?php if ($export): ?> checked="checked"<?php endif; ?>/>
-            <label for="h5p-export">Show a link to download the H5P below each content</label>
+          <th scope="row"><?php _e("Action bar", $this->plugin_slug); ?></th>
+          <td class="h5p-action-bar-settings">
+            <div>
+              <label>
+                <input name="frame" type="checkbox" value="true"<?php if ($frame): ?> checked="checked"<?php endif; ?>/>
+                <?php _e("Display action bar and frame", $this->plugin_slug); ?>
+              </label>
+            </div>
+            <div>
+              <label>
+                <input name="download" type="checkbox" value="true"<?php if ($download): ?> checked="checked"<?php endif; ?>/>
+                <?php _e("Download button", $this->plugin_slug); ?>
+              </label>
+            </div>
+            <div>
+              <label>
+                <input name="copyright" type="checkbox" value="true"<?php if ($copyright): ?> checked="checked"<?php endif; ?>/>
+                <?php _e("Copyright button", $this->plugin_slug); ?>
+              </label>
+            </div>
+            <div>
+              <label>
+                <input name="about" type="checkbox" value="true"<?php if ($about): ?> checked="checked"<?php endif; ?>/>
+                <?php _e("About H5P button", $this->plugin_slug); ?>
+              </label>
+            </div>
           </td>
         </tr>
         <tr valign="top">
-          <th scope="row">H5P Icon</th>
+          <th scope="row"><?php _e("User Tracking", $this->plugin_slug); ?></th>
           <td>
-            <input name="h5p_icon" id="h5p-icon" type="checkbox" value="true"<?php if ($icon): ?> checked="checked"<?php endif; ?>/>
-            <label for="h5p-icon">Show a H5P icon below each content</label>
-          </td>
-        </tr>
-        <tr valign="top">
-          <th scope="row">H5P User Tracking</th>
-          <td>
-            <input name="h5p_track_user" id="h5p-track-user" type="checkbox" value="true"<?php if ($track_user): ?> checked="checked"<?php endif; ?>/>
-            <label for="h5p-track-user">Log results for signed in users</label>
+            <label>
+              <input name="track_user" type="checkbox" value="true"<?php if ($track_user): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Log results for signed in users", $this->plugin_slug); ?>
+            </label>
           </td>
         </tr>
         <tr valign="top">

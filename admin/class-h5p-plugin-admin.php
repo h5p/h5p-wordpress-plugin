@@ -260,7 +260,7 @@ class H5P_Plugin_Admin {
     // Process form data when upload H5Ps without content.
     add_action('load-' . $libraries_page, array($this->library, 'process_libraries'));
 
-    if (get_option('h5p_track_user', TRUE) === '1') {
+    if (get_option('h5p_track_user', TRUE)) {
       $my_results = __('My Results', $this->plugin_slug);
       add_submenu_page($this->plugin_slug, $my_results, $my_results, 'view_h5p_results', $this->plugin_slug . '_results', array($this, 'display_results_page'));
     }
@@ -277,28 +277,39 @@ class H5P_Plugin_Admin {
   public function display_settings_page() {
     $save = filter_input(INPUT_POST, 'save_these_settings');
     if ($save !== NULL) {
+      // Get input and store settings
       check_admin_referer('h5p_settings', 'save_these_settings'); // Verify form
 
-      $export = filter_input(INPUT_POST, 'h5p_export', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_export', $export ? TRUE : FALSE);
+      // Action bar
+      $frame = filter_input(INPUT_POST, 'frame', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_frame', $frame);
 
-      $icon = filter_input(INPUT_POST, 'h5p_icon', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_icon', $icon ? TRUE : FALSE);
+      $download = filter_input(INPUT_POST, 'download', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_export', $download);
 
-      $track_user = filter_input(INPUT_POST, 'h5p_track_user', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_track_user', $track_user ? TRUE : FALSE);
+      $copyright = filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_copyright', $copyright);
+
+      $about = filter_input(INPUT_POST, 'about', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_icon', $about);
+
+      $track_user = filter_input(INPUT_POST, 'track_user', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_track_user', $track_user);
 
       $library_updates = filter_input(INPUT_POST, 'library_updates', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_library_updates', $track_user);
     }
     else {
-      $export = get_option('h5p_export', TRUE);
-      $icon = get_option('h5p_icon', TRUE);
+      $frame = get_option('h5p_frame', TRUE);
+      $download = get_option('h5p_export', TRUE);
+      $copyright = get_option('h5p_copyright', TRUE);
+      $about = get_option('h5p_icon', TRUE);
       $track_user = get_option('h5p_track_user', TRUE);
       $library_updates = get_option('h5p_library_updates', TRUE);
     }
 
     include_once('views/settings.php');
+    H5P_Plugin_Admin::add_script('disable', 'h5p-php-library/js/disable.js');
   }
 
   /**

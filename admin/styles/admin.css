@@ -17,8 +17,9 @@
   float: right;
   margin-right: -300px;
   width: 280px;
+  clear: right;
 }
-#h5p-content-form #minor-publishing {
+#h5p-content-form #minor-publishing, #h5p-content-form .h5p-action-bar-settings {
   line-height: 175%;
   padding: 12px;
 }
@@ -96,4 +97,7 @@
 .h5p-disable-file-check .h5p-warning {
   font-size: 0.875em;
   margin-top: 0.5em;
+}
+.h5p-action-bar-settings > div {
+  margin-bottom: 0.5em;
 }

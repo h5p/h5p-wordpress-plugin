@@ -56,6 +56,28 @@
           <input type="submit" name="submit" value="<?php esc_html_e($this->content === NULL ? 'Create' : 'Update', $this->plugin_slug) ?>" class="button button-primary button-large"/>
         </div>
       </div>
+      <?php if (get_option('h5p_frame', TRUE)): ?>
+        <div class="postbox">
+          <div class="h5p-action-bar-settings">
+            <label>
+              <input name="frame" type="checkbox" value="true"<?php if (!($this->content['disable'] & H5P_Plugin::DISABLE_FRAME)): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Display action bar and frame", $this->plugin_slug); ?>
+            </label>
+            <?php if (get_option('h5p_export', TRUE)): ?>
+              <label>
+                <input name="download" type="checkbox" value="true"<?php if (!($this->content['disable'] & H5P_Plugin::DISABLE_DOWNLOAD)): ?> checked="checked"<?php endif; ?>/>
+                <?php _e("Download button", $this->plugin_slug); ?>
+              </label>
+            <?php endif; ?>
+            <?php if (get_option('h5p_copyright', TRUE)): ?>
+              <label>
+                <input name="copyright" type="checkbox" value="true"<?php if (!($this->content['disable'] & H5P_Plugin::DISABLE_COPYRIGHT)): ?> checked="checked"<?php endif; ?>/>
+                <?php _e("Copyright button", $this->plugin_slug); ?>
+              </label>
+            <?php endif; ?>
+          </div>
+        </div>
+      <?php endif; ?>
     </form>
   <?php endif; ?>
 </div>
