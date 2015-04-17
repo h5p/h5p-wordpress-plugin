@@ -660,9 +660,9 @@ class H5P_Plugin {
     $current_user = wp_get_current_user();
 
     return array(
-      'basePath' => '/',
+      'baseUrl' => get_site_url(),
       'url' => $this->get_h5p_url(),
-      'postUserStatistics' => (get_option('h5p_track_user', TRUE) === '1'),
+      'postUserStatistics' => (get_option('h5p_track_user', TRUE) === '1') && $current_user->ID,
       'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
       'user' => array(
         'name' => $current_user->display_name,
@@ -716,16 +716,20 @@ class H5P_Plugin {
     self::$settings['loadedCss'] = array();
     $cache_buster = '?ver=' . self::VERSION;
 
+    // Use relative URL to support both http and https.
+    $upload_dir = plugins_url('h5p/h5p-php-library');
+    $url = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $upload_dir) . '/';
+
     // Add core stylesheets
     foreach (H5PCore::$styles as $style) {
-      $style_url = plugins_url('h5p/h5p-php-library/' . $style);
+      $style_url = $url . $style;
       self::$settings['core']['styles'][] = $style_url . $cache_buster;
       wp_enqueue_style($this->asset_handle('core-' . $style), $style_url, array(), self::VERSION);
     }
 
     // Add core JavaScript
     foreach (H5PCore::$scripts as $script) {
-      $script_url = plugins_url('h5p/h5p-php-library/' . $script);
+      $script_url = $url . $script;
       self::$settings['core']['scripts'][] = $script_url . $cache_buster;
       wp_enqueue_script($this->asset_handle('core-' . $script), $script_url, array(), self::VERSION);
     }
