@@ -432,12 +432,15 @@ class H5PLibraryAdmin {
         'errorData' => __('Could not load data for library %lib.', $this->plugin_slug),
         'errorContent' => __('Could not upgrade content %id:', $this->plugin_slug),
         'errorScript' => __('Could not load upgrades script for %lib.', $this->plugin_slug),
+        'errorParamsBroken' => __('Parameters are broken.', $this->plugin_slug),
         'done' => sprintf(__('You have successfully upgraded %s.', $this->plugin_slug), $contents_plural) . ($return ? '<br/><a href="' . $return . '">' . __('Return', $this->plugin_slug) . '</a>' : ''),
         'library' => array(
           'name' => $library->name,
           'version' => $library->major_version . '.' . $library->minor_version,
         ),
         'libraryBaseUrl' => admin_url('admin-ajax.php?action=h5p_content_upgrade_library&library='),
+        'scriptBaseUrl' => plugins_url('h5p/h5p-php-library/js'),
+        'buster' => '?ver=' . H5P_Plugin::VERSION,
         'versions' => $upgrades,
         'contents' => $contents,
         'buttonLabel' => __('Upgrade', $this->plugin_slug),
@@ -448,7 +451,8 @@ class H5PLibraryAdmin {
     );
 
     $this->add_admin_assets();
-    H5P_Plugin_Admin::add_script('library-list', 'h5p-php-library/js/h5p-content-upgrade.js');
+    H5P_Plugin_Admin::add_script('version', 'h5p-php-library/js/h5p-version.js');
+    H5P_Plugin_Admin::add_script('content-upgrade', 'h5p-php-library/js/h5p-content-upgrade.js');
 
     return $settings;
   }
@@ -598,7 +602,7 @@ class H5PLibraryAdmin {
           "SELECT id, parameters
             FROM {$wpdb->prefix}h5p_contents
             WHERE library_id = %d
-            LIMIT 10",
+            LIMIT 40",
           $library_id
       ));
       foreach ($contents as $content) {
