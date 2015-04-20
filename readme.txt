@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: h5p, content, interactive, video, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, shortcode, plugin, admin, images, slideshow, sharing, multisite, mobile, media, javascript, package, export, user results, download, quiz, games, memory game
 Requires at least: 3.8.1
 Tested up to: 4.1
-Stable tag: 1.4.1
+Stable tag: 1.5.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -69,7 +69,7 @@ Added user results tracking and views for H5Ps. Can be disabled through settings
 Re-adding capabilities. Now adds to roles which have the default WP capabilities. Should fix issues for users which has changed the default roles.
 Updated views for viewing all content and inserting H5P into posts or pages. These are now paginated and can be filtered and sorted as needed.
 Added the ability to restrict creation of certain content types through the libraries administration UI.
-Implemented function which will fetch meta data updates for content types(libraries) from H5P.org. This can be disabled throught the settings interface. Currently it will only display links for tutorials when creating content, but in the future it might fetch information about new versions and upgrades.
+Implemented function which will fetch meta data updates for content types(libraries) from H5P.org. This can be disabled through the settings interface. Currently it will only display links for tutorials when creating content, but in the future it might fetch information about new versions and upgrades.
 Other minor bug fixes and improvements.
 
 = 1.2.1 =
@@ -81,7 +81,7 @@ Fixed pagination translation.
 Fixed support for multi-site setups(network).
 Fixed issue when repacking h5p files after dependencies have changed, old libraries was still in the pack.
 Added missing string to translation.
-Fixed code causing php notices.
+Fixed code causing PHP notices.
 Added H5P_DEV option. Can be set in wp-config to always override libraries when "new" ones are uploaded.
 
 = 1.3.0 =
@@ -99,7 +99,7 @@ Support for external video sources and using video URLs from YouTube. [!]
 YouTube integration (also requires updated libraries)
 Support for external video files
 Other minor bug fixes.
-[!] Only work with the lastest version of the content types. Find upgrades at http://h5p.org/update-all-content-types
+[!] Only work with the latest version of the content types. Find upgrades at http://h5p.org/update-all-content-types
 
 = 1.4.0 =
 Added support for external embed.
@@ -111,3 +111,10 @@ Other minor fixes and code clean up.
 
 = 1.4.1 =
 Fixed some misplaced code that causes the "my results" page to fail.
+
+= 1.5.0 =
+Added support for configuring the frame and buttons around H5Ps.
+Increased the performance of the upgrade process.
+Improved internal URL system, it's no longer required to have allow_url_fopen enabled in PHP.
+Made it possible to store the current state of content pr user. This allows logged in users to resume exercises where they left off.
+Improved xAPI support.

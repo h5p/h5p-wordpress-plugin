@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.4.1';
+  const VERSION = '1.5.0';
 
   /**
    * The Unique identifier for this plugin.
@@ -180,6 +180,19 @@ class H5P_Plugin {
       weight SMALLINT UNSIGNED NOT NULL DEFAULT 0,
       drop_css TINYINT UNSIGNED NOT NULL,
       PRIMARY KEY  (content_id,library_id,dependency_type)
+    ) {$charset};");
+
+    // Keep track of data/state when users use content (contents >-< users)
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_contents_user_data (
+      content_id INT UNSIGNED NOT NULL,
+      user_id INT UNSIGNED NOT NULL,
+      sub_content_id INT UNSIGNED NOT NULL,
+      data_id VARCHAR(127) NOT NULL,
+      data LONGTEXT NOT NULL,
+      preload TINYINT UNSIGNED NOT NULL DEFAULT 0,
+      invalidate TINYINT UNSIGNED NOT NULL DEFAULT 0,
+      updated_at TIMESTAMP NOT NULL DEFAULT 0,
+      PRIMARY KEY  (content_id,user_id,sub_content_id,data_id)
     ) {$charset};");
 
     // Keep track of results (contents >-< users)
@@ -577,6 +590,8 @@ class H5P_Plugin {
    * @return string Embed code
    */
   public function add_assets($content, $no_cache = FALSE) {
+    global $wpdb;
+
     // Add core assets
     $this->add_core_assets();
 
@@ -588,7 +603,28 @@ class H5P_Plugin {
     if (!isset(self::$settings['contents'][$cid])) {
       $core = $this->get_h5p_instance('core');
 
+      // Add global disable settings
       $content['disable'] |= $core->getGlobalDisable();
+
+      // Get preloaded user data for the current user
+      $current_user = wp_get_current_user();
+      if ($current_user->ID) {
+        $results = $wpdb->get_results($wpdb->prepare(
+          "SELECT hcud.sub_content_id,
+                  hcud.data_id,
+                  hcud.data
+            FROM {$wpdb->prefix}h5p_contents_user_data hcud
+            WHERE user_id = %d
+            AND content_id = %d
+            AND preload = 1",
+          $current_user->ID, $content['id']
+        ));
+
+        $content_user_data = array();
+        foreach ($results as $result) {
+          $content_user_data[$result->sub_content_id][$result->data_id] = $result->data;
+        }
+      }
 
       // Add JavaScript settings for this content
       self::$settings['contents'][$cid] = array(
@@ -601,6 +637,10 @@ class H5P_Plugin {
         'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
         'disable' => $content['disable']
       );
+
+      if (isset($content_user_data)) {
+        self::$settings['contents'][$cid]['contentUserData'] = $content_user_data;
+      }
 
       // Get assets for this content
       $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
@@ -671,6 +711,10 @@ class H5P_Plugin {
       'url' => $this->get_h5p_url(),
       'postUserStatistics' => (get_option('h5p_track_user', TRUE) === '1') && $current_user->ID,
       'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
+      'ajax' => array(
+        'contentUserData' => admin_url('admin-ajax.php?action=h5p_contents_user_data&content_id=:contentId&data_type=:dataType&sub_content_id=:subContentId')
+      ),
+      'saveFreq' => 3,
       'user' => array(
         'name' => $current_user->display_name,
         'mail' => $current_user->user_email

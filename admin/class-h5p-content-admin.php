@@ -340,6 +340,7 @@ class H5PContentAdmin {
 
   /**
    * Remove h5p export file.
+   * TODO: Perhaps this should be handled by core?
    *
    * @since 1.1.0
    * @param int $content_id
@@ -430,11 +431,13 @@ class H5PContentAdmin {
    * @return int
    */
   private function get_disabled_content_features() {
-    return H5PCore::getDisable(array(
+    $set = array(
       'frame' => filter_input(INPUT_POST, 'frame', FILTER_VALIDATE_BOOLEAN),
       'download' => filter_input(INPUT_POST, 'download', FILTER_VALIDATE_BOOLEAN),
       'copyright' => filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN),
-    ));
+    );
+
+    return H5PCore::getDisable($set);
   }
 
   /**

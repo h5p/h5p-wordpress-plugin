@@ -69,6 +69,7 @@ function _h5p_uninstall() {
   // Drop tables
   $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents");
   $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents_libraries");
+  $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents_user_data");
   $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_results");
   $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries");
   $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_libraries");

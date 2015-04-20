@@ -454,8 +454,15 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function deleteContentData($id) {
     global $wpdb;
 
+    // Remove content data and library usage
     $wpdb->delete($wpdb->prefix . 'h5p_contents', array('id' => $id), array('%d'));
     $this->deleteLibraryUsage($id);
+
+    // Remove user scores/results
+    $wpdb->delete($wpdb->prefix . 'h5p_results', array('content_id' => $id), array('%d'));
+
+    // Remove contents user/usage data
+    $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data', array('content_id' => $id), array('%d'));
   }
 
   /**
@@ -796,6 +803,28 @@ class H5PWordPress implements H5PFrameworkInterface {
       array('name' => $library_name),
       array('%s'),
       array('%s')
+    );
+  }
+
+  /**
+   * Implements resetContentUserData
+   */
+  public function resetContentUserData($contentId) {
+    global $wpdb;
+
+    // Reset user datas for this content
+    $wpdb->update(
+      $wpdb->prefix . 'h5p_contents_user_data',
+      array(
+        'updated_at' => current_time('mysql', 1),
+        'data' => 'RESET'
+      ),
+      array(
+        'content_id' => $contentId,
+        'invalidate' => 1
+      ),
+      array('%s', '%s'),
+      array('%d', '%d')
     );
   }
 

@@ -86,6 +86,9 @@ class H5P_Plugin_Admin {
     add_action('wp_ajax_h5p_content_upgrade_library', array($this->library, 'ajax_upgrade_library'));
     add_action('wp_ajax_h5p_content_upgrade_progress', array($this->library, 'ajax_upgrade_progress'));
 
+    // AJAX for handling content usage datas
+    add_action('wp_ajax_h5p_contents_user_data', array($this, 'ajax_contents_user_data'));
+
     // AJAX for logging results
     add_action('wp_ajax_h5p_setFinished', array($this, 'ajax_results'));
 
@@ -107,6 +110,9 @@ class H5P_Plugin_Admin {
     // Embed
     add_action('wp_ajax_h5p_embed', array($this, 'embed'));
     add_action('wp_ajax_nopriv_h5p_embed', array($this, 'embed'));
+
+    // Remove user data and results
+    add_action('deleted_user', array($this, 'deleted_user'));
   }
 
   /**
@@ -791,4 +797,130 @@ class H5P_Plugin_Admin {
     );
 
   }
+
+  /**
+   * Handle user results reported by the H5P content.
+   *
+   * @since 1.5.0
+   */
+  public function ajax_contents_user_data() {
+    global $wpdb;
+
+    $content_id = filter_input(INPUT_GET, 'content_id');
+    $data_id = filter_input(INPUT_GET, 'data_type');
+    $sub_content_id = filter_input(INPUT_GET, 'sub_content_id');
+    $current_user = wp_get_current_user();
+
+    if ($content_id === NULL ||
+        $data_id === NULL ||
+        $sub_content_id === NULL ||
+        !$current_user->ID) {
+      return; // Missing parameters
+    }
+
+    $response = (object) array(
+      'success' => TRUE
+    );
+
+    $data = filter_input(INPUT_POST, 'data');
+    $preload = filter_input(INPUT_POST, 'preload');
+    $invalidate = filter_input(INPUT_POST, 'invalidate');
+    if ($data !== NULL && $preload !== NULL && $invalidate !== NULL) {
+      if ($data === '0') {
+        // Remove data
+        $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data',
+          array(
+            'content_id' => $content_id,
+            'data_id' => $data_id,
+            'user_id' => $current_user->ID,
+            'sub_content_id' => $sub_content_id
+          ),
+          array('%d', '%s', '%d', '%d'));
+      }
+      else {
+        // Wash values to ensure 0 or 1.
+        $preload = ($preload === '0' ? 0 : 1);
+        $invalidate = ($invalidate === '0' ? 0 : 1);
+
+        // Determine if we should update or insert
+        $update = $wpdb->get_var($wpdb->prepare(
+          "SELECT content_id
+           FROM {$wpdb->prefix}h5p_contents_user_data
+           WHERE content_id = %d
+             AND user_id = %d
+             AND data_id = %s
+             AND sub_content_id = %d",
+            $content_id, $current_user->ID, $data_id, $sub_content_id
+        ));
+
+        if ($update === NULL) {
+          // Insert new data
+          $wpdb->insert($wpdb->prefix . 'h5p_contents_user_data',
+            array(
+              'user_id' => $current_user->ID,
+              'content_id' => $content_id,
+              'sub_content_id' => $sub_content_id,
+              'data_id' => $data_id,
+              'data' => $data,
+              'preload' => $preload,
+              'invalidate' => $invalidate,
+              'updated_at' => current_time('mysql', 1)
+            ),
+            array('%d', '%d', '%d', '%s', '%s', '%d', '%d', '%s')
+          );
+        }
+        else {
+          // Update old data
+          $wpdb->update($wpdb->prefix . 'h5p_contents_user_data',
+            array(
+              'data' => $data,
+              'preload' => $preload,
+              'invalidate' => $invalidate,
+              'updated_at' => current_time('mysql', 1)
+            ),
+            array(
+              'user_id' => $current_user->ID,
+              'content_id' => $content_id,
+              'data_id' => $data_id,
+              'sub_content_id' => $sub_content_id
+            ),
+            array('%s', '%d', '%d', '%s'),
+            array('%d', '%d', '%s', '%d')
+          );
+        }
+      }
+    }
+    else {
+      // Fetch data
+      $response->data = $wpdb->get_var($wpdb->prepare(
+        "SELECT hcud.data
+         FROM {$wpdb->prefix}h5p_contents_user_data hcud
+         WHERE user_id = %d
+           AND content_id = %d
+           AND data_id = %s
+           AND sub_content_id %d",
+        $current_user->ID, $content_id, $data_id, $sub_content_id
+      ));
+    }
+
+    header('Cache-Control: no-cache');
+    header('Content-type: application/json; charset=utf-8');
+    print json_encode($response);
+    exit;
+  }
+
+  /**
+   * Remove user data and results when user is removed.
+   *
+   * @since 1.5.0
+   */
+  public function deleted_user($id) {
+
+    // Remove user scores/results
+    $wpdb->delete($wpdb->prefix . 'h5p_results', array('user_id' => $id), array('%d'));
+
+    // Remove contents user/usage data
+    $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data', array('user_id' => $id), array('%d'));
+  }
+
 }
