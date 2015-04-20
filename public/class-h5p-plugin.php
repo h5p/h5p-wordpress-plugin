@@ -258,6 +258,8 @@ class H5P_Plugin {
     add_option('h5p_track_user', TRUE);
     add_option('h5p_library_updates', TRUE);
     add_option('h5p_minitutorial', FALSE);
+    add_option('h5p_save_content_state', FALSE);
+    add_option('h5p_save_content_frequency', 30);
   }
 
   /**
@@ -608,7 +610,7 @@ class H5P_Plugin {
 
       // Get preloaded user data for the current user
       $current_user = wp_get_current_user();
-      if ($current_user->ID) {
+      if (get_option('h5p_save_content_state', FALSE) && $current_user->ID) {
         $results = $wpdb->get_results($wpdb->prepare(
           "SELECT hcud.sub_content_id,
                   hcud.data_id,
@@ -714,7 +716,7 @@ class H5P_Plugin {
       'ajax' => array(
         'contentUserData' => admin_url('admin-ajax.php?action=h5p_contents_user_data&content_id=:contentId&data_type=:dataType&sub_content_id=:subContentId')
       ),
-      'saveFreq' => 3,
+      'saveFreq' => get_option('h5p_save_content_state', FALSE) ? get_option('h5p_save_content_frequency', 30) : FALSE,
       'user' => array(
         'name' => $current_user->display_name,
         'mail' => $current_user->user_email
@@ -742,7 +744,9 @@ class H5P_Plugin {
           'downloadDescription' => __('Download this content as a H5P file.', $this->plugin_slug),
           'copyrightsDescription' => __('View copyright information for this content.', $this->plugin_slug),
           'embedDescription' => __('View the embed code for this content.', $this->plugin_slug),
-          'h5pDescription' => __('Visit H5P.org to check out more cool content.', $this->plugin_slug)
+          'h5pDescription' => __('Visit H5P.org to check out more cool content.', $this->plugin_slug),
+          'contentChanged' => __('This content has changed since you last used it.', $this->plugin_slug),
+          'startingOver' => __("You'll be starting over.", $this->plugin_slug)
         )
       )
     );

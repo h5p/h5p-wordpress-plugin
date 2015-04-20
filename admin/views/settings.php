@@ -66,6 +66,19 @@
             </label>
           </td>
         </tr>
+        <tr valign="top">
+          <th scope="row"><?php _e("Save content state", $this->plugin_slug); ?></th>
+          <td>
+            <label>
+              <input name="save_content_state" type="checkbox" value="true"<?php if ($save_content_state): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Allow logged-in users to resume tasks", $this->plugin_slug); ?>
+            </label>
+            <p class="h5p-auto-save-freq">
+              <label for="h5p-freq"><?php _e("Auto-save frequency (in seconds)", $this->plugin_slug); ?></label>
+              <input id="h5p-freq" name="save_content_frequency" type="text" value="<?php print $save_content_frequency ?>"/>
+            </p>
+          </td>
+        </tr>
       </tbody>
     </table>
     <?php wp_nonce_field('h5p_settings', 'save_these_settings'); ?>

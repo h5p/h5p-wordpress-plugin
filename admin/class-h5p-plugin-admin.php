@@ -304,6 +304,12 @@ class H5P_Plugin_Admin {
 
       $library_updates = filter_input(INPUT_POST, 'library_updates', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_library_updates', $track_user);
+
+      $save_content_state = filter_input(INPUT_POST, 'save_content_state', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_save_content_state', $save_content_state);
+
+      $save_content_frequency = filter_input(INPUT_POST, 'save_content_frequency', FILTER_VALIDATE_INT);
+      update_option('h5p_save_content_frequency', $save_content_frequency);
     }
     else {
       $frame = get_option('h5p_frame', TRUE);
@@ -312,6 +318,8 @@ class H5P_Plugin_Admin {
       $about = get_option('h5p_icon', TRUE);
       $track_user = get_option('h5p_track_user', TRUE);
       $library_updates = get_option('h5p_library_updates', TRUE);
+      $save_content_state = get_option('h5p_save_content_state', FALSE);
+      $save_content_frequency = get_option('h5p_save_content_frequency', 30);
     }
 
     include_once('views/settings.php');

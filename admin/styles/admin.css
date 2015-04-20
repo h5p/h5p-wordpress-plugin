@@ -101,3 +101,12 @@
 .h5p-action-bar-settings > div {
   margin-bottom: 0.5em;
 }
+.h5p-auto-save-freq {
+  padding-top: 0.5em;
+}
+.h5p-auto-save-freq label {
+  display: block;
+}
+.h5p-auto-save-freq label:after {
+  content: ":";
+}
