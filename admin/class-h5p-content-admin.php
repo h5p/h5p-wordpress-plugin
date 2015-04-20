@@ -434,6 +434,7 @@ class H5PContentAdmin {
     $set = array(
       'frame' => filter_input(INPUT_POST, 'frame', FILTER_VALIDATE_BOOLEAN),
       'download' => filter_input(INPUT_POST, 'download', FILTER_VALIDATE_BOOLEAN),
+      'embed' => filter_input(INPUT_POST, 'embed', FILTER_VALIDATE_BOOLEAN),
       'copyright' => filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN),
     );
 

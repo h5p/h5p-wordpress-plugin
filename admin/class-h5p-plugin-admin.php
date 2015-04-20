@@ -150,14 +150,8 @@ class H5P_Plugin_Admin {
         }
 
         // Get content settings
+        $integration['contents']['cid-' . $content['id']] = $plugin->get_content_settings($content);
         $core = $plugin->get_h5p_instance('core');
-        $integration['contents']['cid-' . $content['id']] = array(
-          'library' => H5PCore::libraryToString($content['library']),
-          'jsonContent' => $core->filterParameters($content),
-          'fullScreen' => $content['library']['fullscreen'],
-          'exportUrl' => get_option('h5p_export', TRUE) ? $plugin->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : '',
-          'showH5PIconInActionBar' => get_option('h5p_icon', TRUE)
-        );
 
         // Get content assets
         $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
@@ -293,6 +287,9 @@ class H5P_Plugin_Admin {
       $download = filter_input(INPUT_POST, 'download', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_export', $download);
 
+      $embed = filter_input(INPUT_POST, 'embed', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_embed', $embed);
+
       $copyright = filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_copyright', $copyright);
 
@@ -314,6 +311,7 @@ class H5P_Plugin_Admin {
     else {
       $frame = get_option('h5p_frame', TRUE);
       $download = get_option('h5p_export', TRUE);
+      $embed = get_option('h5p_embed', TRUE);
       $copyright = get_option('h5p_copyright', TRUE);
       $about = get_option('h5p_icon', TRUE);
       $track_user = get_option('h5p_track_user', TRUE);

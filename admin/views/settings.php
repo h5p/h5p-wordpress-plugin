@@ -36,6 +36,12 @@
             </div>
             <div>
               <label>
+                <input name="embed" type="checkbox" value="true"<?php if ($embed): ?> checked="checked"<?php endif; ?>/>
+                <?php _e("Embed button", $this->plugin_slug); ?>
+              </label>
+            </div>
+            <div>
+              <label>
                 <input name="copyright" type="checkbox" value="true"<?php if ($copyright): ?> checked="checked"<?php endif; ?>/>
                 <?php _e("Copyright button", $this->plugin_slug); ?>
               </label>

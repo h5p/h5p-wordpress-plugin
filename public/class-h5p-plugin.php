@@ -584,6 +584,57 @@ class H5P_Plugin {
   }
 
   /**
+   * Get settings for given content
+   *
+   * @since 1.5.0
+   * @param array $content
+   * @return array
+   */
+  public function get_content_settings($content) {
+    global $wpdb;
+    $core = $this->get_h5p_instance('core');
+
+    // Add global disable settings
+    $content['disable'] |= $core->getGlobalDisable();
+
+    // Add JavaScript settings for this content
+    $settings = array(
+      'library' => H5PCore::libraryToString($content['library']),
+      'jsonContent' => $core->filterParameters($content),
+      'fullScreen' => $content['library']['fullscreen'],
+      'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : '',
+      'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
+      'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '"></script>',
+      'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
+      'disable' => $content['disable']
+    );
+
+    // Get preloaded user data for the current user
+    $current_user = wp_get_current_user();
+    if (get_option('h5p_save_content_state', FALSE) && $current_user->ID) {
+      $results = $wpdb->get_results($wpdb->prepare(
+        "SELECT hcud.sub_content_id,
+                hcud.data_id,
+                hcud.data
+          FROM {$wpdb->prefix}h5p_contents_user_data hcud
+          WHERE user_id = %d
+          AND content_id = %d
+          AND preload = 1",
+        $current_user->ID, $content['id']
+      ));
+
+      if ($results) {
+        $settings['contentUserData'] = array();
+        foreach ($results as $result) {
+          $settings['contentUserData'][$result->sub_content_id][$result->data_id] = $result->data;
+        }
+      }
+    }
+
+    return $settings;
+  }
+
+  /**
    * Include settings and assets for the given content.
    *
    * @since 1.0.0
@@ -592,8 +643,6 @@ class H5P_Plugin {
    * @return string Embed code
    */
   public function add_assets($content, $no_cache = FALSE) {
-    global $wpdb;
-
     // Add core assets
     $this->add_core_assets();
 
@@ -603,46 +652,8 @@ class H5P_Plugin {
     // Make sure content isn't added twice
     $cid = 'cid-' . $content['id'];
     if (!isset(self::$settings['contents'][$cid])) {
+      self::$settings['contents'][$cid] = $this->get_content_settings($content);
       $core = $this->get_h5p_instance('core');
-
-      // Add global disable settings
-      $content['disable'] |= $core->getGlobalDisable();
-
-      // Get preloaded user data for the current user
-      $current_user = wp_get_current_user();
-      if (get_option('h5p_save_content_state', FALSE) && $current_user->ID) {
-        $results = $wpdb->get_results($wpdb->prepare(
-          "SELECT hcud.sub_content_id,
-                  hcud.data_id,
-                  hcud.data
-            FROM {$wpdb->prefix}h5p_contents_user_data hcud
-            WHERE user_id = %d
-            AND content_id = %d
-            AND preload = 1",
-          $current_user->ID, $content['id']
-        ));
-
-        $content_user_data = array();
-        foreach ($results as $result) {
-          $content_user_data[$result->sub_content_id][$result->data_id] = $result->data;
-        }
-      }
-
-      // Add JavaScript settings for this content
-      self::$settings['contents'][$cid] = array(
-        'library' => H5PCore::libraryToString($content['library']),
-        'jsonContent' => $core->filterParameters($content),
-        'fullScreen' => $content['library']['fullscreen'],
-        'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : '',
-        'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
-        'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '"></script>',
-        'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
-        'disable' => $content['disable']
-      );
-
-      if (isset($content_user_data)) {
-        self::$settings['contents'][$cid]['contentUserData'] = $content_user_data;
-      }
 
       // Get assets for this content
       $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');

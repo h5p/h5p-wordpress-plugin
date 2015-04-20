@@ -69,6 +69,12 @@
                 <?php _e("Download button", $this->plugin_slug); ?>
               </label>
             <?php endif; ?>
+            <?php if (get_option('h5p_embed', TRUE)): ?>
+              <label>
+                <input name="embed" type="checkbox" value="true"<?php if (!($this->content['disable'] & H5PCore::DISABLE_EMBED)): ?> checked="checked"<?php endif; ?>/>
+                <?php _e("Embed button", $this->plugin_slug); ?>
+              </label>
+            <?php endif; ?>
             <?php if (get_option('h5p_copyright', TRUE)): ?>
               <label>
                 <input name="copyright" type="checkbox" value="true"<?php if (!($this->content['disable'] & H5PCore::DISABLE_COPYRIGHT)): ?> checked="checked"<?php endif; ?>/>
