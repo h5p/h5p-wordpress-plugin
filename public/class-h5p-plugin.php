@@ -467,18 +467,23 @@ class H5P_Plugin {
    * Get the URL for the H5P files folder.
    *
    * @since 1.0.0
+   * @param $absolute Optional.
    * @return string
    */
-  public function get_h5p_url() {
+  public function get_h5p_url($absolute = FALSE) {
     static $url;
 
     if (!$url) {
-      // Use relative URL to support both http and https.
       $upload_dir = wp_upload_dir();
-      $url = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $upload_dir['baseurl']) . '/h5p';
+
+      // Absolute urls are used to enqueue assets.
+      $url = array('abs' => $upload_dir['baseurl'] . '/h5p');
+
+      // Relative URLs are used to support both http and https in iframes.
+      $url['rel'] = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $url['abs']);
     }
 
-    return $url;
+    return $absolute ? $url['abs'] : $url['rel'];
   }
 
   /**
@@ -682,20 +687,20 @@ class H5P_Plugin {
    * @param array $assets
    */
   public function enqueue_assets(&$assets) {
-    $h5p_url = $this->get_h5p_url();
-    $cut = $h5p_url . '/libraries/';
+    $abs_url = $this->get_h5p_url(TRUE);
+    $rel_url = $this->get_h5p_url();
     foreach ($assets['scripts'] as $script) {
-      $url = $h5p_url . $script->path . $script->version;
+      $url = $rel_url . $script->path . $script->version;
       if (!in_array($url, self::$settings['loadedJs'])) {
         self::$settings['loadedJs'][] = $url;
-        wp_enqueue_script($this->asset_handle(str_replace($cut, '', $script->path)), $h5p_url . $script->path, array(), str_replace('?ver', '', $script->version));
+        wp_enqueue_script($this->asset_handle(trim($script->path, '/')), $abs_url . $script->path, array(), str_replace('?ver', '', $script->version));
       }
     }
     foreach ($assets['styles'] as $style) {
-      $url = $h5p_url . $style->path . $style->version;
+      $url = $rel_url . $style->path . $style->version;
       if (!in_array($url, self::$settings['loadedCss'])) {
         self::$settings['loadedCss'][] = $url;
-        wp_enqueue_style($this->asset_handle(str_replace($cut, '', $style->path)), $h5p_url . $style->path, array(), str_replace('?ver', '', $style->version));
+        wp_enqueue_style($this->asset_handle(trim($style->path, '/')), $abs_url . $style->path, array(), str_replace('?ver', '', $style->version));
       }
     }
   }
@@ -708,7 +713,7 @@ class H5P_Plugin {
    * @return string
    */
   public function asset_handle($path) {
-    return $this->plugin_slug . '-' . preg_replace(array('/\.[^.]*$/', '/[^a-z0-9]/i'), array('', '-'), $path);
+    return $this->plugin_slug . '-' . preg_replace(array('/\.[^.]*$/', '/[^a-z0-9]/i'), array('', '-'), strtolower($path));
   }
 
   /**
@@ -783,21 +788,19 @@ class H5P_Plugin {
     $cache_buster = '?ver=' . self::VERSION;
 
     // Use relative URL to support both http and https.
-    $upload_dir = plugins_url('h5p/h5p-php-library');
-    $url = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $upload_dir) . '/';
+    $lib_url = plugins_url('h5p/h5p-php-library') . '/';
+    $rel_path = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $lib_url);
 
     // Add core stylesheets
     foreach (H5PCore::$styles as $style) {
-      $style_url = $url . $style;
-      self::$settings['core']['styles'][] = $style_url . $cache_buster;
-      wp_enqueue_style($this->asset_handle('core-' . $style), $style_url, array(), self::VERSION);
+      self::$settings['core']['styles'][] = $rel_path . $style . $cache_buster;
+      wp_enqueue_style($this->asset_handle('core-' . $style), $lib_url . $style, array(), self::VERSION);
     }
 
     // Add core JavaScript
     foreach (H5PCore::$scripts as $script) {
-      $script_url = $url . $script;
-      self::$settings['core']['scripts'][] = $script_url . $cache_buster;
-      wp_enqueue_script($this->asset_handle('core-' . $script), $script_url, array(), self::VERSION);
+      self::$settings['core']['scripts'][] = $rel_path . $script . $cache_buster;
+      wp_enqueue_script($this->asset_handle('core-' . $script), $lib_url . $script, array(), self::VERSION);
     }
   }
 
