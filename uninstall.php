@@ -86,6 +86,7 @@ function _h5p_uninstall() {
   delete_option('h5p_minitutorial');
   delete_option('h5p_library_updates');
   delete_option('h5p_save_content_state');
+  delete_option('h5p_save_content_frequency');
 
   // Clean out file dirs.
   $upload_dir = wp_upload_dir();
