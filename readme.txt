@@ -118,3 +118,5 @@ Increased the performance of the upgrade process.
 Improved internal URL system, it's no longer required to have allow_url_fopen enabled in PHP.
 Made it possible to store the current state of content pr user. This allows logged in users to resume exercises where they left off.
 Improved xAPI support.
+Italian language support. Thanks to community member yeu for contributing.
+Other minor adjustments and fixes.
