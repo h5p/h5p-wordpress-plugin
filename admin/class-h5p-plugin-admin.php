@@ -904,9 +904,13 @@ class H5P_Plugin_Admin {
          WHERE user_id = %d
            AND content_id = %d
            AND data_id = %s
-           AND sub_content_id %d",
+           AND sub_content_id = %d",
         $current_user->ID, $content_id, $data_id, $sub_content_id
       ));
+
+      if ($response->data === NULL) {
+        unset($response->data);
+      }
     }
 
     header('Cache-Control: no-cache');
