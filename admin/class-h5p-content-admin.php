@@ -294,6 +294,8 @@ class H5PContentAdmin {
         $result = $this->handle_content_creation($this->content);
       }
       elseif (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
+        $plugin->get_h5p_instance('core'); // Make sure core is loaded
+
         // Create new content if none exists
         $content = ($this->content === NULL ? array() : $this->content);
         $content['title'] = $this->get_input_title();
