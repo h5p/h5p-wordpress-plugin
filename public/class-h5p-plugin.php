@@ -280,7 +280,7 @@ class H5P_Plugin {
    */
   public static function check_for_updates() {
     $current_version = get_option('h5p_version');
-    if (false && $current_version === self::VERSION) {
+    if ($current_version === self::VERSION) {
       return; // Same version as before
     }
 
