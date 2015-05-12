@@ -575,8 +575,8 @@ class H5PContentAdmin {
       $query_args[] = $filters[0];
     }
 
-    // Order results by the select column and direction
-    $order = $admin->get_order_by($sort_by, $sort_dir, array(
+    // Map order by field num to field name.
+    $orderFields = array(
       (object) array(
         'name' => 'hc.title',
         'reverse' => TRUE
@@ -584,14 +584,21 @@ class H5PContentAdmin {
       (object) array(
         'name' => 'hl.title',
         'reverse' => TRUE
-      ),
-      'hc.created_at',
-      'hc.updated_at',
-      (object) array(
+      )
+    );
+    if (!$insert) {
+      $orderFields[] = 'hc.created_at';
+    }
+    $orderFields[] = 'hc.updated_at';
+    if (!$insert) {
+      $orderFields[] = (object) array(
         'name' => 'u.display_name',
         'reverse' => TRUE
-      ),
-    ));
+      );
+    }
+
+    // Order results by the select column and direction
+    $order = $admin->get_order_by($sort_by, $sort_dir, $orderFields);
 
     // Get contents from database
     $results = $wpdb->get_results($wpdb->prepare(
