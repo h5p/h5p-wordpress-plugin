@@ -848,7 +848,7 @@ class H5P_Plugin {
     $plugin = H5P_Plugin::get_instance();
 
     $h5p_path = $plugin->get_h5p_path();
-    $editor_path = $path . DIRECTORY_SEPARATOR . 'editor';
+    $editor_path = $h5p_path . DIRECTORY_SEPARATOR . 'editor';
     if (!is_dir($h5p_path) || !is_dir($editor_path)) {
       return;
     }
