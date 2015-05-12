@@ -110,3 +110,14 @@
 .h5p-auto-save-freq label:after {
   content: ":";
 }
+
+@media screen and (max-width: 782px) {
+  .wrap h2 {
+    margin-bottom: 0.25em;
+  }
+  .h5p-iframe-wrapper,
+  .h5p-content {
+    margin-right: -12px;
+    margin-left: -10px;
+  }
+}
