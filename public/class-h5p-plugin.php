@@ -176,7 +176,7 @@ class H5P_Plugin {
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_contents_libraries (
       content_id INT UNSIGNED NOT NULL,
       library_id INT UNSIGNED NOT NULL,
-      dependency_type VARCHAR(255) NOT NULL,
+      dependency_type VARCHAR(31) NOT NULL,
       weight SMALLINT UNSIGNED NOT NULL DEFAULT 0,
       drop_css TINYINT UNSIGNED NOT NULL,
       PRIMARY KEY  (content_id,library_id,dependency_type)
@@ -214,7 +214,7 @@ class H5P_Plugin {
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
       created_at TIMESTAMP NOT NULL,
       updated_at TIMESTAMP NOT NULL,
-      name VARCHAR(255) NOT NULL,
+      name VARCHAR(127) NOT NULL,
       title VARCHAR(255) NOT NULL,
       major_version INT UNSIGNED NOT NULL,
       minor_version INT UNSIGNED NOT NULL,
@@ -237,14 +237,14 @@ class H5P_Plugin {
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries_libraries (
       library_id INT UNSIGNED NOT NULL,
       required_library_id INT UNSIGNED NOT NULL,
-      dependency_type VARCHAR(255) NOT NULL,
+      dependency_type VARCHAR(31) NOT NULL,
       PRIMARY KEY  (library_id,required_library_id)
     ) {$charset};");
 
     // Keep track of h5p library translations
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries_languages (
       library_id INT UNSIGNED NOT NULL,
-      language_code VARCHAR(255) NOT NULL,
+      language_code VARCHAR(31) NOT NULL,
       translation TEXT NOT NULL,
       PRIMARY KEY  (library_id,language_code)
     ) {$charset};");
