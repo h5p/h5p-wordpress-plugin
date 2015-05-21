@@ -3,8 +3,8 @@ Contributors: icc0rz, fnoks, falcon28
 Donate link: http://h5p.org
 Tags: h5p, content, interactive, video, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, shortcode, plugin, admin, images, slideshow, sharing, multisite, mobile, media, javascript, package, export, user results, download, quiz, games, memory game
 Requires at least: 3.8.1
-Tested up to: 4.1
-Stable tag: 1.5.0
+Tested up to: 4.2.2
+Stable tag: 1.5.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -120,3 +120,12 @@ Made it possible to store the current state of content pr user. This allows logg
 Improved xAPI support.
 Italian language support. Thanks to community member yeu for contributing.
 Other minor adjustments and fixes.
+
+= 1.5.1 =
+Fixed support for hosting services that limit unique key lengths to 767 bytes.
+Added support for additional font styling if the content types allows it.
+Don't show copyright button if there is no copyright.
+Try to generate generic copyrights if the content type doesn't have custom copyrights.
+Fixed JS error on results and content list pages that doesn't contain tables.
+Fixed wrong sorting on insert H5P media pop-up.
+Other minor bug fixes and adjustments.
