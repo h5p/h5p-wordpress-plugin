@@ -294,12 +294,12 @@ class H5PContentAdmin {
         $result = $this->handle_content_creation($this->content);
       }
       elseif (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
-        $plugin->get_h5p_instance('core'); // Make sure core is loaded
+        $core = $plugin->get_h5p_instance('core'); // Make sure core is loaded
 
         // Create new content if none exists
-        $content = ($this->content === NULL ? array() : $this->content);
+        $content = ($this->content === NULL ? array('disable' => H5PCore::DISABLE_NONE) : $this->content);
         $content['title'] = $this->get_input_title();
-        $content['disable'] = $this->get_disabled_content_features();
+        $this->get_disabled_content_features($core, $content);
 
         // Handle file upload
         $plugin_admin = H5P_Plugin_Admin::get_instance();
@@ -369,7 +369,9 @@ class H5PContentAdmin {
       $oldParams = json_decode($content['params']);
     }
     else {
-      $content = array();
+      $content = array(
+        'disable' => H5PCore::DISABLE_NONE
+      );
     }
 
     $plugin = H5P_Plugin::get_instance();
@@ -407,7 +409,7 @@ class H5PContentAdmin {
     }
 
     // Set disabled features
-    $content['disable'] = $this->get_disabled_content_features();
+    $this->get_disabled_content_features($core, $content);
 
     // Save new content
     $content['id'] = $core->saveContent($content);
@@ -430,17 +432,18 @@ class H5PContentAdmin {
    * Extract disabled content features from input post.
    *
    * @since 1.2.0
+   * @param H5PCore $core
+   * @param int $current
    * @return int
    */
-  private function get_disabled_content_features() {
+  private function get_disabled_content_features($core, &$content) {
     $set = array(
       'frame' => filter_input(INPUT_POST, 'frame', FILTER_VALIDATE_BOOLEAN),
       'download' => filter_input(INPUT_POST, 'download', FILTER_VALIDATE_BOOLEAN),
       'embed' => filter_input(INPUT_POST, 'embed', FILTER_VALIDATE_BOOLEAN),
       'copyright' => filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN),
     );
-
-    return H5PCore::getDisable($set);
+    $content['disable'] = $core->getDisable($set, $content['disable']);
   }
 
   /**
