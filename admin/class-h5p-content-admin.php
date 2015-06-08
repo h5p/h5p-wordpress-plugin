@@ -287,6 +287,7 @@ class H5PContentAdmin {
     $action = filter_input(INPUT_POST, 'action', FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/^(upload|create)$/')));
     if ($action) {
       check_admin_referer('h5p_content', 'yes_sir_will_do'); // Verify form
+      $core = $plugin->get_h5p_instance('core'); // Make sure core is loaded
 
       $result = FALSE;
       if ($action === 'create') {
@@ -294,8 +295,6 @@ class H5PContentAdmin {
         $result = $this->handle_content_creation($this->content);
       }
       elseif (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
-        $core = $plugin->get_h5p_instance('core'); // Make sure core is loaded
-
         // Create new content if none exists
         $content = ($this->content === NULL ? array('disable' => H5PCore::DISABLE_NONE) : $this->content);
         $content['title'] = $this->get_input_title();
@@ -361,6 +360,9 @@ class H5PContentAdmin {
    * @return mixed
    */
   private function handle_content_creation($content) {
+    $plugin = H5P_Plugin::get_instance();
+    $core = $plugin->get_h5p_instance('core');
+
     // Keep track of the old library and params
     $oldLibrary = NULL;
     $oldParams = NULL;
@@ -373,9 +375,6 @@ class H5PContentAdmin {
         'disable' => H5PCore::DISABLE_NONE
       );
     }
-
-    $plugin = H5P_Plugin::get_instance();
-    $core = $plugin->get_h5p_instance('core');
 
     // Get library
     $content['library'] = $core->libraryFromString($this->get_input('library'));
