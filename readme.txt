@@ -131,5 +131,11 @@ Fixed wrong sorting on insert H5P media pop-up.
 Other minor bug fixes and adjustments.
 
 = 1.5.2 =
-Fixed bug where editor dependencies aren't ordered by weight.
+Added italian language support to the editor, and update plugin translation. (big thanks to yeu for both of theses!)
+Fixed editor list bugs. One where you can't order list items downwards.
+Fixed so that libraries are loaded according to weight in the editor.
+Improved the external event dispatcher. Now the this arg should be correct.
+Keep the contents disable settings when re-saving after global options have changed. (More consistent and reliable)
 Fixed issue where the about H5P button disappears from content.
+Minor improvement to content output filtering
+
