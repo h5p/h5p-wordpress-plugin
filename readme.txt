@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: h5p, content, interactive, video, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, shortcode, plugin, admin, images, slideshow, sharing, multisite, mobile, media, javascript, package, export, user results, download, quiz, games, memory game
 Requires at least: 3.8.1
 Tested up to: 4.2.2
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -129,3 +129,13 @@ Try to generate generic copyrights if the content type doesn't have custom copyr
 Fixed JS error on results and content list pages that doesn't contain tables.
 Fixed wrong sorting on insert H5P media pop-up.
 Other minor bug fixes and adjustments.
+
+= 1.5.2 =
+Added italian language support to the editor, and update plugin translation. (big thanks to yeu for both of theses!)
+Fixed editor list bugs. One where you can't order list items downwards.
+Fixed so that libraries are loaded according to weight in the editor.
+Improved the external event dispatcher. Now the this arg should be correct.
+Keep the contents disable settings when re-saving after global options have changed. (More consistent and reliable)
+Fixed issue where the about H5P button disappears from content.
+Minor improvement to content output filtering
+
