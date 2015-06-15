@@ -602,6 +602,7 @@ class H5PWordPress implements H5PFrameworkInterface {
               , hc.title
               , hc.parameters AS params
               , hc.filtered
+              , hc.slug AS slug
               , hc.user_id
               , hc.embed_type AS embedType
               , hc.disable
@@ -680,12 +681,41 @@ class H5PWordPress implements H5PFrameworkInterface {
   }
 
   /**
+   * Convert variables to fit our DB.
+   */
+  private static function camelToString($input) {
+    $input = preg_replace('/[a-z0-9]([A-Z])[a-z0-9]/', '_$1', $input);
+    return strtolower($input);
+  }
+
+  /**
    * Implements setFilteredParameters().
    */
-  public function setFilteredParameters($content_id, $parameters = '') {
+  public function updateContentFields($id, $fields) {
     global $wpdb;
 
-    $wpdb->update($wpdb->prefix . 'h5p_contents', array('filtered' => $parameters), array('id' => $content_id), array('%s'), array('%d'));
+    $processedFields = array();
+    $format = array();
+    foreach ($fields as $name => $value) {
+      if (is_int($value)) {
+        $format[] = '%d'; // Int
+      }
+      else if (is_float($value)) {
+        $format[] = '%f'; // Float
+      }
+      else {
+        $format[] = '%s'; // String
+      }
+
+      $processedFields[self::camelToString($name)] = $value;
+    }
+
+    $wpdb->update(
+      $wpdb->prefix . 'h5p_contents',
+      $processedFields,
+      array('id' => $id),
+      $format,
+      array('%d'));
   }
 
   /**
@@ -826,6 +856,14 @@ class H5PWordPress implements H5PFrameworkInterface {
       array('%s', '%s'),
       array('%d', '%d')
     );
+  }
+
+  /**
+   * Implements isContentSlugAvailable
+   */
+  public function isContentSlugAvailable($slug) {
+    global $wpdb;
+    return !$wpdb->get_var($wpdb->prepare("SELECT slug FROM {$wpdb->prefix}h5p_contents WHERE slug = '%s'", $slug));
   }
 
   // Magic stuff not used, we do not support library development mode.

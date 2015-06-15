@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.5.0';
+  const VERSION = '1.5.2';
 
   /**
    * The Unique identifier for this plugin.
@@ -162,6 +162,7 @@ class H5P_Plugin {
       library_id INT UNSIGNED NOT NULL,
       parameters LONGTEXT NOT NULL,
       filtered LONGTEXT NOT NULL,
+      slug VARCHAR(127) NOT NULL,
       embed_type VARCHAR(127) NOT NULL,
       disable INT UNSIGNED NOT NULL DEFAULT 0,
       content_type VARCHAR(127) NULL,
@@ -176,7 +177,7 @@ class H5P_Plugin {
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_contents_libraries (
       content_id INT UNSIGNED NOT NULL,
       library_id INT UNSIGNED NOT NULL,
-      dependency_type VARCHAR(255) NOT NULL,
+      dependency_type VARCHAR(31) NOT NULL,
       weight SMALLINT UNSIGNED NOT NULL DEFAULT 0,
       drop_css TINYINT UNSIGNED NOT NULL,
       PRIMARY KEY  (content_id,library_id,dependency_type)
@@ -214,7 +215,7 @@ class H5P_Plugin {
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
       created_at TIMESTAMP NOT NULL,
       updated_at TIMESTAMP NOT NULL,
-      name VARCHAR(255) NOT NULL,
+      name VARCHAR(127) NOT NULL,
       title VARCHAR(255) NOT NULL,
       major_version INT UNSIGNED NOT NULL,
       minor_version INT UNSIGNED NOT NULL,
@@ -237,14 +238,14 @@ class H5P_Plugin {
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries_libraries (
       library_id INT UNSIGNED NOT NULL,
       required_library_id INT UNSIGNED NOT NULL,
-      dependency_type VARCHAR(255) NOT NULL,
+      dependency_type VARCHAR(31) NOT NULL,
       PRIMARY KEY  (library_id,required_library_id)
     ) {$charset};");
 
     // Keep track of h5p library translations
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries_languages (
       library_id INT UNSIGNED NOT NULL,
-      language_code VARCHAR(255) NOT NULL,
+      language_code VARCHAR(31) NOT NULL,
       translation TEXT NOT NULL,
       PRIMARY KEY  (library_id,language_code)
     ) {$charset};");
@@ -607,7 +608,7 @@ class H5P_Plugin {
       'library' => H5PCore::libraryToString($content['library']),
       'jsonContent' => $core->filterParameters($content),
       'fullScreen' => $content['library']['fullscreen'],
-      'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . $content['id'] . '.h5p' : '',
+      'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . ($content['slug'] ? $content['slug'] . '-' : '') . $content['id'] . '.h5p' : '',
       'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
       'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '"></script>',
       'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
@@ -848,7 +849,7 @@ class H5P_Plugin {
     $plugin = H5P_Plugin::get_instance();
 
     $h5p_path = $plugin->get_h5p_path();
-    $editor_path = $path . DIRECTORY_SEPARATOR . 'editor';
+    $editor_path = $h5p_path . DIRECTORY_SEPARATOR . 'editor';
     if (!is_dir($h5p_path) || !is_dir($editor_path)) {
       return;
     }
