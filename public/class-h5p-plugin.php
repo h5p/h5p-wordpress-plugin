@@ -725,7 +725,7 @@ class H5P_Plugin {
   public function get_core_settings() {
     $current_user = wp_get_current_user();
 
-    return array(
+    $settings = array(
       'baseUrl' => get_site_url(),
       'url' => $this->get_h5p_url(),
       'postUserStatistics' => (get_option('h5p_track_user', TRUE) === '1') && $current_user->ID,
@@ -734,10 +734,7 @@ class H5P_Plugin {
         'contentUserData' => admin_url('admin-ajax.php?action=h5p_contents_user_data&content_id=:contentId&data_type=:dataType&sub_content_id=:subContentId')
       ),
       'saveFreq' => get_option('h5p_save_content_state', FALSE) ? get_option('h5p_save_content_frequency', 30) : FALSE,
-      'user' => array(
-        'name' => $current_user->display_name,
-        'mail' => $current_user->user_email
-      ),
+      'siteUrl' => get_site_url(),
       'l10n' => array(
         'H5P' => array(
           'fullscreen' => __('Fullscreen', $this->plugin_slug),
@@ -767,6 +764,15 @@ class H5P_Plugin {
         )
       )
     );
+
+    if ($current_user->ID) {
+      $settings['user'] = array(
+        'name' => $current_user->display_name,
+        'mail' => $current_user->user_email
+      );
+    }
+    
+    return $settings;
   }
 
   /**
