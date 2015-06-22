@@ -1,5 +1,3 @@
-var H5PEditor = H5PEditor || {};
-
 (function ($) {
   H5PEditor.init = function () {
     H5PEditor.$ = H5P.jQuery;
@@ -74,8 +72,7 @@ var H5PEditor = H5PEditor || {};
 
     // Delete confirm
     $('.submitdelete').click(function () {
-      // TODO: Translate
-      return confirm('Are you sure you wish to delete this content?');
+      return confirm(H5PIntegration.editor.deleteMessage);
     });
 
   };

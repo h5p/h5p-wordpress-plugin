@@ -821,7 +821,8 @@ class H5PContentAdmin {
       'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
       'libraryUrl' => plugin_dir_url('h5p/h5p-editor-php-library/h5peditor.class.php'),
       'copyrightSemantics' => H5PContentValidator::getCopyrightSemantics(),
-      'assets' => $assets
+      'assets' => $assets,
+      'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug)
     );
 
     if ($id !== NULL) {
