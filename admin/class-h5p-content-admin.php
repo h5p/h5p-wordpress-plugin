@@ -327,7 +327,15 @@ class H5PContentAdmin {
     $title = $this->get_input('title', $contentExists ? $this->content['title'] : '');
     $library = $this->get_input('library', $contentExists ? H5PCore::libraryToString($this->content['library']) : 0);
     $parameters = $this->get_input('parameters', $contentExists ? $core->filterParameters($this->content) : '{}');
-    $upload = (filter_input(INPUT_POST, 'action') === 'upload');
+
+    // Determine upload or create
+    if (!$contentExists && !$this->has_libraries()) {
+      $upload = TRUE;
+    }
+    else {
+      $upload = (filter_input(INPUT_POST, 'action') === 'upload');
+    }
+
 
     // Filter/escape parameters, double escape that is...
     $safe_text = wp_check_invalid_utf8($parameters);
@@ -337,6 +345,19 @@ class H5PContentAdmin {
     include_once('views/new-content.php');
     $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
     H5P_Plugin_Admin::add_script('disable', 'h5p-php-library/js/disable.js');
+  }
+
+  /**
+   * Check to see if the installation has any libraries.
+   *
+   * @since 1.5.2
+   * @global \wpdb $wpdb
+   * @return bool
+   */
+  private function has_libraries() {
+    global $wpdb;
+
+    return $wpdb->get_var("SELECT id FROM {$wpdb->prefix}h5p_libraries WHERE runnable = 1 LIMIT 1") !== NULL;
   }
 
   /**
