@@ -612,7 +612,12 @@ class H5P_Plugin {
       'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
       'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '"></script>',
       'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
-      'disable' => $content['disable']
+      'disable' => $content['disable'],
+      'contentUserData' => array(
+        0 => array(
+          'state' => '{}'
+        )
+      )
     );
 
     // Get preloaded user data for the current user
@@ -630,7 +635,6 @@ class H5P_Plugin {
       ));
 
       if ($results) {
-        $settings['contentUserData'] = array();
         foreach ($results as $result) {
           $settings['contentUserData'][$result->sub_content_id][$result->data_id] = $result->data;
         }
@@ -771,7 +775,7 @@ class H5P_Plugin {
         'mail' => $current_user->user_email
       );
     }
-    
+
     return $settings;
   }
 
