@@ -370,6 +370,9 @@ class H5PContentAdmin {
   private function delete_export($content) {
     $plugin = H5P_Plugin::get_instance();
     $export = $plugin->get_h5p_instance('export');
+    if (!isset($content['slug'])) {
+      $content['slug'] = '';
+    }
     $export->deleteExport($content);
   }
 
