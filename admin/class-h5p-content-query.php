@@ -40,7 +40,17 @@ class H5PContentQuery {
   private $fields, $join, $where, $where_args, $order_by, $limit, $limit_args;
 
   /**
-   * Confluctor
+   * Constructor
+   *
+   * @since 1.5.3
+   * @param array $fields List of fields to return.
+   *   Valid values are: id, title, content_type, created_at, updated_at, user_id, user_name
+   * @param int $offset Skip this many rows.
+   * @param int $limit Max number of rows to return.
+   * @param string $order_by Field to order content by.
+   * @param bool $reverse_order Reverses the ordering.
+   * @param array $filters
+   *   Must be defined like so: array(array('field', 'Cool Content', 'LIKE'))
    */
   public function __construct($fields, $offset = NULL, $limit = NULL, $order_by = NULL, $reverse_order = NULL, $filters = NULL) {
     global $wpdb;
