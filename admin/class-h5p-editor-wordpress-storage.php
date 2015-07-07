@@ -110,6 +110,7 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
    * Gives you a chance to alter all the library files.
    */
   public function alterLibraryFiles(&$files, $libraries) {
-    $this->alter_assets($files, $libraries, 'editor');
+    $plugin = H5P_Plugin::get_instance();
+    $plugin->alter_assets($files, $libraries, 'editor');
   }
 }
