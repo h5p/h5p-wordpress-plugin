@@ -124,12 +124,16 @@ class H5P_Plugin_Admin {
     // Allow other sites to embed
     header_remove('X-Frame-Options');
 
+    // Check to see if embed URL always should be available
+    $always_available = (defined('H5P_EMBED_URL_ALWAYS_AVAILABLE') && H5P_EMBED_URL_ALWAYS_AVAILABLE);
+
     // Find content
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-    if ($id !== NULL) {
+    if ($id !== NULL && (get_option('h5p_embed', TRUE) || $always_available)) {
       $plugin = H5P_Plugin::get_instance();
       $content = $plugin->get_content($id);
-      if (!is_string($content)) {
+      $embed_disabled = $content['disable'] & H5PCore::DISABLE_EMBED;
+      if (!is_string($content) && (!$embed_disabled || $always_available)) {
         $lang = $plugin->get_language();
         $cache_buster = '?ver=' . H5P_Plugin::VERSION;
 
