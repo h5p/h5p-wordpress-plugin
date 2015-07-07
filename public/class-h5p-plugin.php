@@ -603,10 +603,32 @@ class H5P_Plugin {
     // Add global disable settings
     $content['disable'] |= $core->getGlobalDisable();
 
+    $safe_parameters = $core->filterParameters($content);
+    if (has_action('h5p_alter_filtered_parameters')) {
+      // Parse the JSON parameters
+      $decoded_parameters = json_decode($safe_parameters);
+
+      /**
+       * Allows you to alter the H5P content parameters after they have been
+       * filtered. This hook only fires before view.
+       *
+       * @since 1.5.3
+       *
+       * @param object &$parameters
+       * @param string $libraryName
+       * @param int $libraryMajorVersion
+       * @param int $libraryMinorVersion
+       */
+      do_action_ref_array('h5p_alter_filtered_parameters', array(&$decoded_parameters, $content['library']['name'], $content['library']['majorVersion'], $content['library']['minorVersion']));
+
+      // Stringify the JSON parameters
+      $safe_parameters = json_encode($decoded_parameters);
+    }
+
     // Add JavaScript settings for this content
     $settings = array(
       'library' => H5PCore::libraryToString($content['library']),
-      'jsonContent' => $core->filterParameters($content),
+      'jsonContent' => $safe_parameters,
       'fullScreen' => $content['library']['fullscreen'],
       'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . ($content['slug'] ? $content['slug'] . '-' : '') . $content['id'] . '.h5p' : '',
       'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
@@ -668,6 +690,7 @@ class H5P_Plugin {
       // Get assets for this content
       $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
       $files = $core->getDependenciesFiles($preloaded_dependencies);
+      $this->alter_assets($files, $preloaded_dependencies, $embed);
 
       if ($embed === 'div') {
         $this->enqueue_assets($files);
@@ -684,6 +707,54 @@ class H5P_Plugin {
     else {
       return '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no"></iframe></div>';
     }
+  }
+
+  /**
+   * Finds the assets for the dependencies and allows other plugins to change
+   * them and add their own.
+   *
+   * @since 1.5.3
+   * @param array $dependencies
+   * @param array $files scripts & styles
+   * @param string $embed type
+   */
+  public function alter_assets(&$files, &$dependencies, $embed) {
+    if (!has_action('h5p_alter_library_scripts') && !has_action('h5p_alter_library_styles')) {
+      return;
+    }
+
+    // Refactor dependency list
+    $libraries = array();
+    foreach ($dependencies as $dependency) {
+      $libraries[$dependency['machineName']] = array(
+        'majorVersion' => $dependency['majorVersion'],
+        'minorVersion' => $dependency['minorVersion']
+      );
+    }
+
+    /**
+      * Allows you to alter which JavaScripts are loaded for H5P. This is
+      * useful for adding your own custom scripts or replacing existing once.
+     *
+     * @since 1.5.3
+     *
+     * @param array &$scripts List of JavaScripts to be included.
+     * @param array $libraries The list of libraries that has the scripts.
+     * @param string $embed_type Possible values are: div, iframe, external, editor.
+     */
+    do_action_ref_array('h5p_alter_library_scripts', array(&$files['scripts'], $libraries, $embed));
+
+    /**
+     * Allows you to alter which stylesheets are loaded for H5P. This is
+     * useful for adding your own custom stylesheets or replacing existing once.
+     *
+     * @since 1.5.3
+     *
+     * @param array &$styles List of stylesheets to be included.
+     * @param array $libraries The list of libraries that has the styles.
+     * @param string $embed_type Possible values are: div, iframe, external, editor.
+     */
+    do_action_ref_array('h5p_alter_library_styles', array(&$files['styles'], $libraries, $embed));
   }
 
   /**

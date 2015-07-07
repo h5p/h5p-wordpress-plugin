@@ -156,6 +156,7 @@ class H5P_Plugin_Admin {
         // Get content assets
         $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
         $files = $core->getDependenciesFiles($preloaded_dependencies);
+        $this->alter_assets($files, $preloaded_dependencies, 'external');
 
         $scripts = array_merge($scripts, $core->getAssetsUrls($files['scripts']));
         $styles = array_merge($styles, $core->getAssetsUrls($files['styles']));

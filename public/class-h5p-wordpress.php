@@ -587,7 +587,18 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements alterLibrarySemantics
    */
   public function alterLibrarySemantics(&$semantics, $name, $majorVersion, $minorVersion) {
-    do_action('h5p_alter_library_semantics', $semantics, $name, $majorVersion, $minorVersion);
+    /**
+     * Allows you to alter the H5P library semantics, i.e. changing how the
+     * editor looks and how content parameters are filtered.
+     *
+     * @since 1.5.3
+     *
+     * @param object &$semantics
+     * @param string $libraryName
+     * @param int $libraryMajorVersion
+     * @param int $libraryMinorVersion
+     */
+    do_action_ref_array('h5p_alter_library_semantics', array(&$semantics, $name, $majorVersion, $minorVersion));
   }
 
   /**
