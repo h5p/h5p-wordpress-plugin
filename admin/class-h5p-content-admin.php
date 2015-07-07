@@ -594,57 +594,22 @@ class H5PContentAdmin {
     list($offset, $limit, $sort_by, $sort_dir, $filters) = $admin->get_data_view_input();
 
     // Add filters to data query
-    $where = '';
-    $query_args = array();
+    $conditions = array();
     if (isset($filters[0])) {
-      $where = "WHERE hc.title LIKE '%%%s%%'";
-      $query_args[] = $filters[0];
+      $conditions[] = array('title', $filters[0], 'LIKE');
     }
 
-    // Map order by field num to field name.
-    $orderFields = array(
-      (object) array(
-        'name' => 'hc.title',
-        'reverse' => TRUE
-      ),
-      (object) array(
-        'name' => 'hl.title',
-        'reverse' => TRUE
-      )
-    );
-    if (!$insert) {
-      $orderFields[] = 'hc.created_at';
+    // Different fields for insert
+    if ($insert) {
+      $fields = array('id', 'title', 'content_type', 'updated_at');
     }
-    $orderFields[] = 'hc.updated_at';
-    if (!$insert) {
-      $orderFields[] = (object) array(
-        'name' => 'u.display_name',
-        'reverse' => TRUE
-      );
+    else {
+      $fields = array('id', 'title', 'content_type', 'created_at', 'updated_at', 'user_name', 'user_id');
     }
 
-    // Order results by the select column and direction
-    $order = $admin->get_order_by($sort_by, $sort_dir, $orderFields);
-
-    // Get contents from database
-    $results = $wpdb->get_results($wpdb->prepare(
-      "SELECT hc.id,
-              hc.title,
-              hl.title AS content_type,
-              hc.created_at,
-              hc.updated_at,
-              u.ID AS user_id,
-              u.display_name AS user_name
-        FROM {$wpdb->prefix}h5p_contents hc
-        LEFT JOIN {$wpdb->prefix}h5p_libraries hl
-        ON hl.id = hc.library_id
-        LEFT JOIN {$wpdb->base_prefix}users u
-        ON hc.user_id = u.ID
-        {$where}
-        {$order}
-        LIMIT %d, %d",
-      array_merge($query_args, array($offset, $limit))
-    ));
+    // Create new content query
+    $content_query = new H5PContentQuery($fields, $offset, $limit, $fields[$sort_by + 1], $sort_dir, $conditions);
+    $results = $content_query->get_rows();
 
     // Make data more readable for humans
     $rows = array();
@@ -652,21 +617,11 @@ class H5PContentAdmin {
       $rows[] = ($insert ? $this->get_contents_insert_row($result) : $this->get_contents_row($result));
     }
 
-    // Find total number of contents
-    $num_query = "SELECT COUNT(hc.id)
-                  FROM {$wpdb->prefix}h5p_contents hc
-                  {$where}";
-
-    if (count($query_args)) {
-      $num_query = $wpdb->prepare($num_query, $query_args);
-    }
-    $num = (int) $wpdb->get_var($num_query);
-
     // Print results
     header('Cache-Control: no-cache');
     header('Content-type: application/json');
     print json_encode(array(
-      'num' => $num,
+      'num' => $content_query->get_total(),
       'rows' => $rows
     ));
     exit;

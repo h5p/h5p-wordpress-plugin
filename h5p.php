@@ -40,6 +40,7 @@ add_action('plugins_loaded', array('H5P_Plugin', 'get_instance'));
 if (is_admin()) {
   require_once(plugin_dir_path( __FILE__ ) . 'admin/class-h5p-plugin-admin.php');
   require_once(plugin_dir_path( __FILE__ ) . 'admin/class-h5p-content-admin.php');
+  require_once(plugin_dir_path( __FILE__ ) . 'admin/class-h5p-content-query.php');
   require_once(plugin_dir_path( __FILE__ ) . 'admin/class-h5p-library-admin.php');
   add_action('plugins_loaded', array('H5P_Plugin_Admin', 'get_instance'));
 }
