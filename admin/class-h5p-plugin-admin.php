@@ -124,49 +124,68 @@ class H5P_Plugin_Admin {
     // Allow other sites to embed
     header_remove('X-Frame-Options');
 
-    // Check to see if embed URL always should be available
-    $always_available = (defined('H5P_EMBED_URL_ALWAYS_AVAILABLE') && H5P_EMBED_URL_ALWAYS_AVAILABLE);
-
     // Find content
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-    if ($id !== NULL && (get_option('h5p_embed', TRUE) || $always_available)) {
+    if ($id !== NULL) {
       $plugin = H5P_Plugin::get_instance();
       $content = $plugin->get_content($id);
-      $embed_disabled = $content['disable'] & H5PCore::DISABLE_EMBED;
-      if (!is_string($content) && (!$embed_disabled || $always_available)) {
-        $lang = $plugin->get_language();
-        $cache_buster = '?ver=' . H5P_Plugin::VERSION;
+      if (!is_string($content)) {
 
-        // Get core settings
-        $integration = $plugin->get_core_settings();
-        // TODO: The non-content specific settings could be apart of a combined h5p-core.js file.
+        // Everyone is allowed to embed, set through settings
+        $embed_allowed = (get_option('h5p_embed', TRUE) && !($content['disable'] & H5PCore::DISABLE_EMBED));
 
-        // Get core scripts
-        $scripts = array();
-        foreach (H5PCore::$scripts as $script) {
-          $scripts[] = plugins_url('h5p/h5p-php-library/' . $script) . $cache_buster;
+        /**
+         * Allows other plugins to change the access permission for the
+         * embedded iframe's content.
+         *
+         * @since 1.5.3
+         *
+         * @param bool $access
+         * @param int $content_id
+         * @return bool New access permission
+         */
+        $embed_allowed = apply_filters('h5p_embed_access', $embed_allowed, $id);
+
+        if (!$embed_allowed) {
+          // Check to see if embed URL always should be available
+          $embed_allowed = (defined('H5P_EMBED_URL_ALWAYS_AVAILABLE') && H5P_EMBED_URL_ALWAYS_AVAILABLE);
         }
 
-        // Get core styles
-        $styles = array();
-        foreach (H5PCore::$styles as $style) {
-          $styles[] = plugins_url('h5p/h5p-php-library/' . $style) . $cache_buster;
+        if ($embed_allowed) {
+          $lang = $plugin->get_language();
+          $cache_buster = '?ver=' . H5P_Plugin::VERSION;
+
+          // Get core settings
+          $integration = $plugin->get_core_settings();
+          // TODO: The non-content specific settings could be apart of a combined h5p-core.js file.
+
+          // Get core scripts
+          $scripts = array();
+          foreach (H5PCore::$scripts as $script) {
+            $scripts[] = plugins_url('h5p/h5p-php-library/' . $script) . $cache_buster;
+          }
+
+          // Get core styles
+          $styles = array();
+          foreach (H5PCore::$styles as $style) {
+            $styles[] = plugins_url('h5p/h5p-php-library/' . $style) . $cache_buster;
+          }
+
+          // Get content settings
+          $integration['contents']['cid-' . $content['id']] = $plugin->get_content_settings($content);
+          $core = $plugin->get_h5p_instance('core');
+
+          // Get content assets
+          $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
+          $files = $core->getDependenciesFiles($preloaded_dependencies);
+          $plugin->alter_assets($files, $preloaded_dependencies, 'external');
+
+          $scripts = array_merge($scripts, $core->getAssetsUrls($files['scripts']));
+          $styles = array_merge($styles, $core->getAssetsUrls($files['styles']));
+
+          include_once(plugin_dir_path(__FILE__) . '../h5p-php-library/embed.php');
+          exit;
         }
-
-        // Get content settings
-        $integration['contents']['cid-' . $content['id']] = $plugin->get_content_settings($content);
-        $core = $plugin->get_h5p_instance('core');
-
-        // Get content assets
-        $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
-        $files = $core->getDependenciesFiles($preloaded_dependencies);
-        $plugin->alter_assets($files, $preloaded_dependencies, 'external');
-
-        $scripts = array_merge($scripts, $core->getAssetsUrls($files['scripts']));
-        $styles = array_merge($styles, $core->getAssetsUrls($files['styles']));
-
-        include_once(plugin_dir_path(__FILE__) . '../h5p-php-library/embed.php');
-        exit;
       }
     }
 
