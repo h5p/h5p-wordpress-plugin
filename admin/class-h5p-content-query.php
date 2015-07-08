@@ -61,8 +61,7 @@ class H5PContentQuery {
       'u' => " LEFT JOIN {$wpdb->base_prefix}users u ON hc.user_id = u.ID"
     );
 
-
-    $join = array();
+    $this->join = array();
 
     // Start adding fields
     $this->fields = '';
@@ -71,30 +70,21 @@ class H5PContentQuery {
         throw new Exception('Invalid field: ' . $field);
       }
 
-      $valid_field = $this->valid_fields[$field];
+      $valid_field = $this->get_valid_field($field);
       $table = $valid_field[0];
 
-      if ($table !== 'hc' && !isset($this->valid_joins[$table])) {
-        throw new Exception('Invalid table: ' . $table);
-      }
+      // Add join
+      $this->add_join($table);
 
       // Add valid fields
       if ($this->fields) {
         $this->fields .= ', ';
       }
       $this->fields .= $table . '.' . $valid_field[1] . ' AS ' . $field;
-
-      if ($table !== 'hc' && !isset($join[$table])) {
-        // Add join
-        $join[$table] = $this->valid_joins[$table];
-      }
     }
     if (!$this->fields) {
       throw new Exception('No fields specified.');
     }
-
-    // Add joins
-    $this->join = join('', $join);
 
     // Add filters to data query
     $this->where = '';
@@ -102,35 +92,45 @@ class H5PContentQuery {
 
     if ($filters !== NULL) {
       foreach ($filters as $filter) {
-        if (!isset($this->valid_fields[$filter[0]]) || !isset($filter[1])) {
-          continue; // Skip invalid fields
+        if (!isset($filter[0]) || !isset($filter[1])) {
+          throw new Exception('Missing filter options.');
         }
-        $field = $this->valid_fields[$filter[0]];
+
+        $field = $this->get_valid_field($filter[0]);
+
+        // Add join
+        $this->add_join($field[0]);
+
+        // Add where
         $this->where .= ($this->where ? ' AND ' : ' WHERE ') . $field[0] . '.' . $field[1];
         $this->where_args[] = $filter[1];
 
         // Check if operator is valid, if not use the first valid one.
-        if (!isset($filter[2])) {
-          $operator = '=';
-        }
-        $operator = (isset($filter[2]) ? isset($filter[2]) : '=');
-        if (!isset($this->valid_operators[$filter[2]])) {
+        $operator = (isset($filter[2]) ? $filter[2] : '=');
+        if (!isset($this->valid_operators[$operator])) {
           throw new Exception('Invalid operator: '. $operator);
         }
-        $this->where .= $this->valid_operators[$filter[2]];
+        $this->where .= $this->valid_operators[$operator];
       }
     }
 
     // Sort by
     $this->order_by = '';
-    if ($order_by !== NULL && isset($this->valid_fields[$order_by])) {
-      $field = $this->valid_fields[$order_by];
+    if ($order_by !== NULL) {
+      $field = $this->get_valid_field($order_by);
+
+      // Add join
+      $this->add_join($field[0]);
+
       $dir = ($reverse_order ? TRUE : FALSE);
       if (isset($field[2])) {
         $dir = !$dir; // Reverse ordering of text fields
       }
       $this->order_by .= " ORDER BY {$field[0]}.{$field[1]} " . ($dir ? 'ASC' : 'DESC');
     }
+
+    // Add joins
+    $this->join = join('', $this->join);
 
     // Limit
     $this->limit = '';
@@ -146,6 +146,45 @@ class H5PContentQuery {
       $this->limit .= ' %d';
       $this->limit_args[] = $limit;
     }
+  }
+
+  /**
+   * Makes it easier to validate a field while processing fields.
+   *
+   * @since 1.5.3
+   * @param string $field
+   * @return array
+   */
+  private function get_valid_field($field) {
+    if (!isset($this->valid_fields[$field])) {
+      throw new Exception('Invalid field: ' . $field);
+    }
+
+    return $this->valid_fields[$field];
+  }
+
+  /**
+   * Makes it easier to add valid joins while processing fields.
+   *
+   * @since 1.5.3
+   * @param string $table
+   */
+  private function add_join($table) {
+    if ($table === 'hc' || !is_array($this->join)) {
+      return; // Do not join base table.
+    }
+
+    if (isset($this->join[$table])) {
+      return; // Only add if missing
+    }
+
+    // Check if table is valid
+    if (!isset($this->valid_joins[$table])) {
+      throw new Exception('Invalid table: ' . $table);
+    }
+
+    // Add join
+    $this->join[$table] = $this->valid_joins[$table];
   }
 
   /**
