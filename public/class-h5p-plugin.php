@@ -376,9 +376,14 @@ class H5P_Plugin {
     global $wpdb;
     $wpdb->hide_errors();
 
-    $wpdb->query("ALTER TABLE `{$wpdb->prefix}{$table}` DROP INDEX `{$index}`");
+    if ($wpdb->query("SHOW INDEX FROM `{$wpdb->prefix}{$table}` WHERE Key_name = '{$index}'")) {
+      $wpdb->query("ALTER TABLE `{$wpdb->prefix}{$table}` DROP INDEX `{$index}`");
+    }
+
     for ($i = 0; $i < 5; $i++) {
-      $wpdb->query("ALTER TABLE `{$wpdb->prefix}{$table}` DROP INDEX `{$index}_$i`");
+      if ($wpdb->query("SHOW INDEX FROM `{$wpdb->prefix}{$table}` WHERE Key_name = '{$index}_$i'")) {
+        $wpdb->query("ALTER TABLE `{$wpdb->prefix}{$table}` DROP INDEX `{$index}_$i`");
+      }
     }
 
     $wpdb->show_errors();
