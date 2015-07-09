@@ -284,6 +284,22 @@ class H5PLibraryAdmin {
       return;
     }
 
+    if ($post && isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error']) {
+      $phpFileUploadErrors = array(
+        1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
+        2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+        3 => 'The uploaded file was only partially uploaded',
+        4 => 'No file was uploaded',
+        6 => 'Missing a temporary folder',
+        7 => 'Failed to write file to disk.',
+        8 => 'A PHP extension stopped the file upload.',
+      );
+
+      $errorMessage = $phpFileUploadErrors[$_FILES['h5p_file']['error']];
+      H5P_Plugin_Admin::set_error(__($errorMessage, $this->plugin_slug));
+      return;
+    }
+
     $task = filter_input(INPUT_GET, 'task');
     if ($task === 'delete') {
       $library = $this->get_library();
