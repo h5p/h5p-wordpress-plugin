@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: h5p, content, interactive, video, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, shortcode, plugin, admin, images, slideshow, sharing, multisite, mobile, media, javascript, package, export, user results, download, quiz, games, memory game
 Requires at least: 3.8.1
 Tested up to: 4.2.2
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -139,3 +139,10 @@ Keep the contents disable settings when re-saving after global options have chan
 Fixed issue where the about H5P button disappears from content.
 Minor improvement to content output filtering
 
+= 1.5.3 =
+Imporved error handling when uploading H5P libraries, courtesy of community user limikael.
+Created separate class for querying H5P content in case other plugins wish to use it.
+Updated hooks for altering semantics, parameters, scripts and styles. See http://h5p.org/wordpress-customization for more information.
+Fixed actor for xAPI events.
+Upload is selected by default if there's no content.
+Other minor bug fixes and adjustments.
