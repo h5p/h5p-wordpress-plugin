@@ -47,9 +47,9 @@ class H5PContentQuery {
    *   Valid values are: id, title, content_type, created_at, updated_at, user_id, user_name
    * @param int $offset Skip this many rows.
    * @param int $limit Max number of rows to return.
-   * @param string $order_by Field to order content by.
-   * @param bool $reverse_order Reverses the ordering.
-   * @param array $filters
+   * @param string $order_by Field to order content by.
+   * @param bool $reverse_order Reverses the ordering.
+   * @param array $filters
    *   Must be defined like so: array(array('field', 'Cool Content', 'LIKE'))
    */
   public function __construct($fields, $offset = NULL, $limit = NULL, $order_by = NULL, $reverse_order = NULL, $filters = NULL) {
