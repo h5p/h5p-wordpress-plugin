@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: H5P\n"
 "POT-Creation-Date: 2015-03-11 09:52+0100\n"
-"PO-Revision-Date: 2015-09-23 14:11+0100\n"
+"PO-Revision-Date: 2015-09-24 11:52+0100\n"
 "Last-Translator: ste yeu\n"
 "Language-Team: Raul Martinez <raulmartinez911@hotmail.com>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.7.4\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
 "esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
@@ -382,7 +382,7 @@ msgstr "Impossible cargar el script de actualización para %lib."
 
 #: admin/class-h5p-library-admin.php:451
 msgid "Parameters are broken."
-msgstr ""
+msgstr "Los parámetros están rotos."
 
 #: admin/class-h5p-library-admin.php:452
 #, php-format
@@ -518,7 +518,7 @@ msgstr "Editar"
 
 #: admin/class-h5p-content-admin.php:783
 msgid "Are you sure you wish to delete this content?"
-msgstr ""
+msgstr "¿Estás seguro de que quieres borrar este contenido?"
 
 #: admin/views/content-results.php:15
 #, php-format
@@ -569,19 +569,19 @@ msgstr "Crear"
 
 #: admin/views/new-content.php:64 admin/views/settings.php:28
 msgid "Display action bar and frame"
-msgstr ""
+msgstr "Mostrar barra de acción y marco"
 
 #: admin/views/new-content.php:69 admin/views/settings.php:34
 msgid "Download button"
-msgstr ""
+msgstr "Botón de descarga"
 
 #: admin/views/new-content.php:75 admin/views/settings.php:40
 msgid "Embed button"
-msgstr ""
+msgstr "Botón de incrustado"
 
 #: admin/views/new-content.php:81 admin/views/settings.php:46
 msgid "Copyright button"
-msgstr ""
+msgstr "Botón de copyright"
 
 #: admin/views/contents.php:14
 msgid "Add new"
@@ -606,15 +606,15 @@ msgstr "Barra de acción"
 
 #: admin/views/settings.php:52
 msgid "About H5P button"
-msgstr ""
+msgstr "Botón acerca de H5P"
 
 #: admin/views/settings.php:58
 msgid "User Tracking"
-msgstr ""
+msgstr "Seguimiento del usuario"
 
 #: admin/views/settings.php:62
 msgid "Log results for signed in users"
-msgstr ""
+msgstr "Guardar resultados para usuarios identificados"
 
 #: admin/views/settings.php:67
 msgid "Library updates"
@@ -627,15 +627,15 @@ msgstr ""
 
 #: admin/views/settings.php:76
 msgid "Save content state"
-msgstr ""
+msgstr "Grabar estado del contenido"
 
 #: admin/views/settings.php:80
 msgid "Allow logged-in users to resume tasks"
-msgstr ""
+msgstr "Permitir a usuarios identificados continuar tareas"
 
 #: admin/views/settings.php:83
 msgid "Auto-save frequency (in seconds)"
-msgstr ""
+msgstr "Frecuencia de autoguardado (en segundos)"
 
 #: admin/views/library-delete.php:16
 msgid "Are you sure you wish to delete this H5P library?"
@@ -664,19 +664,19 @@ msgstr "Instalado"
 
 #: h5p-php-library/h5p.classes.php:645
 msgid "Unable to write to the content directory."
-msgstr ""
+msgstr "No se puede escribir en el directorio del contenido."
 
 #: h5p-php-library/h5p.classes.php:649
 msgid "Unable to write to the libraries directory."
-msgstr ""
+msgstr "No se puede escribir en el directorio de las librerías."
 
 #: h5p-php-library/h5p.classes.php:655
 msgid "Your PHP version does not support ZipArchive."
-msgstr ""
+msgstr "Tu versión de PHP no soporta ZipArchive."
 
 #: h5p-php-library/h5p.classes.php:664
 msgid "Unable to write to the temporary directory."
-msgstr ""
+msgstr "No se puede escribir en el directorio temporal."
 
 #: h5p-php-library/h5p.classes.php:675
 msgid ""
@@ -776,6 +776,8 @@ msgid ""
 "The library \"%libraryName\" requires H5P %requiredVersion, but only H5P "
 "%coreApi is installed."
 msgstr ""
+"La librería  \"%libraryName\" requiere la versión %requiredVersion de H5P, "
+"pero solamente está instalada la API %coreApi de H5P."
 
 #: h5p-php-library/h5p.classes.php:1094
 msgid "Invalid data provided for %property in %library. Boolean expected."
@@ -815,7 +817,7 @@ msgstr "Actualizadas %old librerías H5P."
 
 #: h5p-php-library/h5p.classes.php:1502
 msgid "Unable to write to the exports directory."
-msgstr ""
+msgstr "No se puede escribir en el directorio de exportaciones."
 
 #: h5p-php-library/h5p.classes.php:2045
 msgid "Missing dependency @dep required by @lib."
@@ -823,7 +825,7 @@ msgstr "No se encuentra la dependencia @dep requerida por @lib."
 
 #: h5p-php-library/h5p.classes.php:2107 h5p-php-library/h5p.classes.php:2113
 msgid "Unable to copy file tree."
-msgstr ""
+msgstr "No se puede copiar el árbol de ficheros."
 
 #: h5p-php-library/h5p.classes.php:2653
 msgid ""
@@ -951,19 +953,19 @@ msgstr "Visita H5P.org para obtener más información."
 
 #: public/class-h5p-plugin.php:843
 msgid "This content has changed since you last used it."
-msgstr ""
+msgstr "Este contenido ha cambiado desde la última vez que lo utilizaste."
 
 #: public/class-h5p-plugin.php:844
 msgid "You'll be starting over."
-msgstr ""
+msgstr "Vas a empezar de nuevo."
 
 #: public/class-h5p-wordpress.php:557
 msgid "Invalid json in semantics for %library"
 msgstr "Fichero semantics.JSON no válido en %library"
 
 msgid ""
-"Allows you to upload, create, share and use rich interactive content on "
-"your WordPress site."
+"Allows you to upload, create, share and use rich interactive content on your "
+"WordPress site."
 msgstr ""
-"Te permite subir, crear, compartir y usar contenido interactivo "
-"enriquecido en tu sitio de WordPress."
+"Te permite subir, crear, compartir y usar contenido interactivo enriquecido "
+"en tu sitio de WordPress."
