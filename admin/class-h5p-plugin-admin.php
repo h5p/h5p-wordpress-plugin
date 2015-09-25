@@ -949,6 +949,7 @@ class H5P_Plugin_Admin {
    * @since 1.5.0
    */
   public function deleted_user($id) {
+    global $wpdb;
 
     // Remove user scores/results
     $wpdb->delete($wpdb->prefix . 'h5p_results', array('user_id' => $id), array('%d'));
