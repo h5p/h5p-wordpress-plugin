@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: h5p, content, interactive, video, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, shortcode, plugin, admin, images, slideshow, sharing, multisite, mobile, media, javascript, package, export, user results, download, quiz, games, memory game
 Requires at least: 3.8.1
 Tested up to: 4.2.2
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -146,3 +146,17 @@ Updated hooks for altering semantics, parameters, scripts and styles. See http:/
 Fixed actor for xAPI events.
 Upload is selected by default if there's no content.
 Other minor bug fixes and adjustments.
+
+= 1.5.4 =
+Added base class for content types.
+Added duration, scaled and details about content type to xAPI.
+Added html class when content is framed.
+Minor improvements for some UI strings to allow translation.
+Removed all utf-8 nbsp in the code.
+Fixed .off() wasn't working for the event dispatcher.
+Added text-align support to wysiwyg.
+Improved iframe communication, use parent instead of top.
+Minor improvements to fullscreen and embed.
+Added Spanish translations.
+Added French translations.
+Minor bugfixes and improvements to the editor.
