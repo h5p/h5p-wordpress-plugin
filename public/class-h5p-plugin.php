@@ -485,6 +485,12 @@ class H5P_Plugin {
       // Absolute urls are used to enqueue assets.
       $url = array('abs' => $upload_dir['baseurl'] . '/h5p');
 
+      // Check for HTTPS
+      if (is_ssl() && substr($url['abs'], 0, 5) !== 'https') {
+        // Update protocol
+        $url['abs'] = 'https' . substr($url['abs'], 4);
+      }
+
       // Relative URLs are used to support both http and https in iframes.
       $url['rel'] = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $url['abs']);
     }
