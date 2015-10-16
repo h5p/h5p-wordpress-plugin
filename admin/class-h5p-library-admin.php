@@ -172,7 +172,7 @@ class H5PLibraryAdmin {
     );
 
     // Find out which version of libraries that should be upgraded
-    $minVersions = $core->getMinimumVersionsSupported(plugins_url('h5p/h5p-php-library/library-support.json'));
+    $minVersions = $core->getMinimumVersionsSupported(plugin_dir_path( __FILE__ ) . '../h5p-php-library/library-support.json');
     $needsUpgrade = '';
 
     // Add settings for each library
