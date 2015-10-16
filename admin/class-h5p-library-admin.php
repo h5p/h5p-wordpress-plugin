@@ -253,7 +253,7 @@ class H5PLibraryAdmin {
           <ul id="h5p-outdated">' . $needsUpgrade . '</ul>
           <p>'. __('To upgrade all the installed libraries, do the following:', $this->plugin_slug) . '</p>
           <ol>
-            <li>'. sprintf(__('Download %s.', $this->plugin_slug), '<a href="http://h5p.org/sites/default/files/upgrades.h5p">upgrades.h5p</a>') . '</li>
+            <li>'. sprintf(__('Download the H5P file from the %s page.', $this->plugin_slug), '<a href="https://h5p.org/update-all-content-types">Upgrade All Content Types</a>') . '</li>
             <li>'. sprintf(__('Select the downloaded <em> %s</em> file in the form below.', $this->plugin_slug), 'upgrades.h5p') . '</li>
             <li>'. __('Check off "Only update existing libraries" and click the <em>Upload</em> button.', $this->plugin_slug) . '</li>
           </ol> </p>'
