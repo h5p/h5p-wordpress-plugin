@@ -264,6 +264,11 @@ class H5PLibraryAdmin {
     $this->add_admin_assets();
     H5P_Plugin_Admin::add_script('library-list', 'h5p-php-library/js/h5p-library-list.js');
 
+    // Updates
+    $update_available = get_option('h5p_update_available', 0);
+    $current_update = get_option('h5p_current_update', 0);
+    $updates_available = ($update_available !== 0 && $current_update !== 0 && $current_update < $update_available ? 1 : 0);
+
     H5P_Plugin_Admin::print_messages();
     include_once('views/libraries.php');
     $plugin->print_settings($settings, 'H5PAdminIntegration');
@@ -276,6 +281,8 @@ class H5PLibraryAdmin {
    */
   public function process_libraries() {
     $post = ($_SERVER['REQUEST_METHOD'] === 'POST');
+
+    // TODO: Insert update support here
 
     if ($post && isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
       check_admin_referer('h5p_library', 'lets_upgrade_that'); // Verify form

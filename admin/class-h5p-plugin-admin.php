@@ -215,6 +215,20 @@ class H5P_Plugin_Admin {
    * @since 1.3.0
    */
   public function admin_notices() {
+    global $wpdb;
+
+    // Handle library updates
+    $update_available = get_option('h5p_update_available', 0);
+    if ($update_available !== 0) {
+      $current_update = get_option('h5p_current_update', 0);
+      if ($current_update === 0 && $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}h5p_libraries") === '0') {
+        // Automatically download and install all libraries
+        self::download_h5p_libraries();
+      }
+    }
+
+    // TODO: Update mini-tutorial since we now automatically install the content types?
+
     if (!get_option('h5p_minitutorial', FALSE)) {
       // TODO: We should make the user close the message. (so the user doesn't miss out on it)
       update_option('h5p_minitutorial', TRUE);
@@ -249,6 +263,58 @@ class H5P_Plugin_Admin {
   }
 
   /**
+   * Download and install all the H5P content types.
+   *
+   * @since 1.5.5
+   * @param boolean $update_only
+   */
+  public static function download_h5p_libraries($update_only = FALSE) {
+    $url = get_option('h5p_update_available_path', NULL);
+    if (!$url) {
+      return; // No path to available updates
+    }
+
+    // Get instances
+    $plugin = H5P_Plugin::get_instance();
+    $interface = $plugin->get_h5p_instance('interface');
+    $validator = $plugin->get_h5p_instance('validator');
+    $storage = $plugin->get_h5p_instance('storage');
+
+    // Download file
+    $_FILES['h5p_file'] = array('name' => 'install.h5p');
+    $path = $interface->getUploadedH5pPath();
+    $response = wp_safe_remote_get($url, array(
+      'stream' => TRUE,
+      'filename' => $path
+    ));
+
+    if (is_wp_error($response)) {
+      // Print errors
+      foreach ($response->errors as $error) {
+        $interface->setErrorMessage(__('Unable to download H5P content types.', $plugin->plugin_slug));
+        $interface->setErrorMessage(implode('<br/>', $error));
+      }
+    }
+    elseif (wp_remote_retrieve_response_code($response) != 200) {
+      // Print errors
+      $interface->setErrorMessage(__('Unable to download H5P content types.', $plugin->plugin_slug));
+      $interface->setErrorMessage('HTTP ' . wp_remote_retrieve_response_code($response));
+    }
+    else {
+      // Install
+      if ($validator->isValidPackage(TRUE, FALSE)) {
+        $storage->savePackage(NULL, NULL, TRUE, FALSE);
+        update_option('h5p_current_update', get_option('h5p_update_available', 0));
+      }
+      else {
+        @unlink($path);
+      }
+    }
+
+    H5P_Plugin_Admin::print_messages();
+  }
+
+  /**
    * Register and enqueue admin-specific style sheet.
    *
    * @since 1.0.0
@@ -278,7 +344,11 @@ class H5P_Plugin_Admin {
     // Process form data when saving H5Ps.
     add_action('load-' . $contents_page, array($this->content, 'process_new_content'));
 
-    $libraries = __('Libraries', $this->plugin_slug);
+    $update_available = get_option('h5p_update_available', 0);
+    $current_update = get_option('h5p_current_update', 0);
+    $updates_available = ($update_available !== 0 && $current_update !== 0 && $current_update < $update_available ? 1 : 0);
+    $title = sprintf(_n('%s new update is available!', '%s new updates are available!', $updates_available, $this->plugin_slug), $updates_available);
+    $libraries = sprintf(__('Libraries %s'), "<span class='update-plugins count-{$updates_available}' title='{$title}'><span class='update-count'>" . number_format_i18n($updates_available) . "</span></span>");
     $libraries_page = add_submenu_page($this->plugin_slug, $libraries, $libraries, 'manage_h5p_libraries', $this->plugin_slug . '_libraries', array($this->library, 'display_libraries_page'));
 
     // Process form data when upload H5Ps without content.

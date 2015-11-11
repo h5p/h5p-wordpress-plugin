@@ -131,6 +131,10 @@ class H5P_Plugin {
    * @param boolean $network_wide
    */
   public static function activate($network_wide) {
+    // Check for library updates
+    $plugin = self::get_instance();
+    $plugin->get_library_updates();
+
     // Check to see if the plugin has been updated to a newer version
     self::check_for_updates();
 
