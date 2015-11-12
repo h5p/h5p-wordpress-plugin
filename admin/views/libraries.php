@@ -14,14 +14,18 @@
   <h2><?php print esc_html(get_admin_page_title()); ?></h2>
   <?php if ($updates_available): ?>
     <form method="post" enctype="multipart/form-data">
-      <h3 class="h5p-admin-header"><?php esc_html_e('Update', $this->plugin_slug); ?></h3>
+      <h3 class="h5p-admin-header"><?php esc_html_e('Update All Libraries', $this->plugin_slug); ?></h3>
       <div class="h5p postbox">
         <div class="h5p-text-holder" id="h5p-download-update">
           <p><?php print esc_html_e('There are updates available for your H5P content types.', $this->plugin_slug) ?></p>
           <p><?php printf(wp_kses(__('You can read about why it\'s important to update and the benefits from doing so on the <a href="%s" target="_blank">Why Update H5P</a> page.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/why-update')); ?>
           <br/><?php print esc_html_e('The page also list the different changelogs, where you can read about the new features introduced and the issues that have been fixed.', $this->plugin_slug) ?></p>
-          <p><?php printf(wp_kses(__('The version you\'re running is from <strong>%s</strong>.', $this->plugin_slug), array('strong' => array(), 'em' => array())), date('Y-m-d', $current_update)); ?>
-          <br/><?php printf(wp_kses(__('The most recent version was released on <strong>%s</strong>.', $this->plugin_slug), array('strong' => array(), 'em' => array())), date('Y-m-d', $update_available)); ?>
+          <p>
+            <?php if ($current_update > 1): ?>
+              <?php printf(wp_kses(__('The version you\'re running is from <strong>%s</strong>.', $this->plugin_slug), array('strong' => array(), 'em' => array())), date('Y-m-d', $current_update)); ?><br/>
+            <?php endif; ?>
+            <?php printf(wp_kses(__('The most recent version was released on <strong>%s</strong>.', $this->plugin_slug), array('strong' => array(), 'em' => array())), date('Y-m-d', $update_available)); ?>
+          </p>
           <p><?php print esc_html_e('You can use the button below to automatically download and update all of your content types.', $this->plugin_slug) ?></p>
           <?php wp_nonce_field('h5p_update', 'download_update'); ?>
         </div>
@@ -31,7 +35,7 @@
       </div>
     </form>
   <?php endif; ?>
-  <h3 class="h5p-admin-header"><?php esc_html_e('Upload', $this->plugin_slug); ?></h3>
+  <h3 class="h5p-admin-header"><?php esc_html_e('Upload Libraries', $this->plugin_slug); ?></h3>
   <form method="post" enctype="multipart/form-data" id="h5p-library-form">
     <div class="h5p postbox">
       <div class="h5p-text-holder">
@@ -52,6 +56,6 @@
       </div>
     </div>
   </form>
-  <h3 class="h5p-admin-header"><?php esc_html_e('Installed', $this->plugin_slug); ?></h3>
+  <h3 class="h5p-admin-header"><?php esc_html_e('Installed Libraries', $this->plugin_slug); ?></h3>
   <div id="h5p-admin-container"><?php esc_html_e('Waiting for JavaScript.', $this->plugin_slug); ?></div>
 </div>

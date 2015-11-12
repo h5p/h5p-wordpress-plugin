@@ -131,12 +131,12 @@ class H5P_Plugin {
    * @param boolean $network_wide
    */
   public static function activate($network_wide) {
+    // Check to see if the plugin has been updated to a newer version
+    self::check_for_updates();
+
     // Check for library updates
     $plugin = self::get_instance();
     $plugin->get_library_updates();
-
-    // Check to see if the plugin has been updated to a newer version
-    self::check_for_updates();
 
     // Cleaning rutine
     wp_schedule_event(time(), 'daily', 'h5p_daily_cleanup');
@@ -262,7 +262,6 @@ class H5P_Plugin {
     add_option('h5p_icon', TRUE);
     add_option('h5p_track_user', TRUE);
     add_option('h5p_library_updates', TRUE);
-    add_option('h5p_minitutorial', FALSE);
     add_option('h5p_save_content_state', FALSE);
     add_option('h5p_save_content_frequency', 30);
   }
