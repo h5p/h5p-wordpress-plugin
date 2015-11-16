@@ -1,34 +1,30 @@
-﻿=== H5P ===
+﻿=== Interactive Content – H5P ===
 Contributors: icc0rz, fnoks, falcon28
 Donate link: http://h5p.org
-Tags: h5p, content, interactive, video, interactive content, interactive video, presentation, html5, modern web, education, free, responsive, custom, fill in the blanks, multiple choice, multichoice, drag and drop, shortcode, plugin, admin, images, slideshow, sharing, multisite, mobile, media, javascript, package, export, user results, download, quiz, games, memory game
+Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.2.2
 Stable tag: 1.5.4
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
-H5P is a WordPress plugin for creating and sharing rich HTML5 content in your browser.
+Create and add rich content to your website for free. Some examples of what you get with H5P are Interactive Video, Quizzes, Collage and Timeline.
 
 == Description ==
 
-H5P makes it easy to create and share HTML5 content and applications. H5P empowers creatives to create rich
-and interactive web experiences in Wordpress more efficiently.
+One of the great benefits with using H5P is that it gives you access to lots of different [interactive content types](https://h5p.org/content-types-and-applications "Examples and Downloads").
 
-With the H5P plugin you may create interactive videos, interactive presentations, quizzes, image hotspots
-and many other types of interactive HTML5 content. Content may be created using the built in authoring
-tool or by uploading H5P files containing content others have created.
-The content may be inserted into multiple posts and pages using shortcodes, like this `[h5p id="1"]`.
+Another great benefit with H5P is that it allows you to easily share and reuse content. To use content created with H5P, you simply insert a shortcode `[h5p Id="1"]` where you wish for the content to appear. To reuse content, you just download the H5P you would like to edit and make your changes – e.g. translate to a new language or adjust it to a new situation.
 
-Whenever you get a new H5P library this enables you to start creating rich content of a new type using this library,
-i.e. if you download [Interactive Video](http://h5p.org/interactive-video) and upload in your WordPress, you may create
-your own interactive videos.
+H5P is:
+* open source
+* free to use
+* HTML5
+* responsive
 
-If you think you've found a bug related to this plugin, report it [here](https://github.com/h5p/h5p-wordpress-plugin/issues "GitHub Issue Tracker").
-Content bugs are reported to their respective issue trackers.
+The H5P community is actively contributing to improve H5P. Updates and new features are continuously made available on the community portal [H5P.org](https://h5p.org "H5P").
 
-Content is King!
-
+View our [setup for WordPress](https://h5p.org/documentation/setup/wordpress "Setup H5P for WordPress") to get information on how to get started with H5P.
 
 == Installation ==
 
