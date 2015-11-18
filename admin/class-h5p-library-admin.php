@@ -264,6 +264,11 @@ class H5PLibraryAdmin {
     $this->add_admin_assets();
     H5P_Plugin_Admin::add_script('library-list', 'h5p-php-library/js/h5p-library-list.js');
 
+    // Updates
+    $update_available = get_option('h5p_update_available', 0);
+    $current_update = get_option('h5p_current_update', 0);
+    $updates_available = ($update_available !== 0 && $current_update !== 0 && $current_update < $update_available ? 1 : 0);
+
     H5P_Plugin_Admin::print_messages();
     include_once('views/libraries.php');
     $plugin->print_settings($settings, 'H5PAdminIntegration');
@@ -277,27 +282,40 @@ class H5PLibraryAdmin {
   public function process_libraries() {
     $post = ($_SERVER['REQUEST_METHOD'] === 'POST');
 
-    if ($post && isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
-      check_admin_referer('h5p_library', 'lets_upgrade_that'); // Verify form
-      $plugin_admin = H5P_Plugin_Admin::get_instance();
-      $plugin_admin->handle_upload(NULL, filter_input(INPUT_POST, 'h5p_upgrade_only') ? TRUE : FALSE);
-      return;
-    }
+    if ($post) {
+      // A form as has been submitted
 
-    if ($post && isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error']) {
-      $phpFileUploadErrors = array(
-        1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
-        2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
-        3 => 'The uploaded file was only partially uploaded',
-        4 => 'No file was uploaded',
-        6 => 'Missing a temporary folder',
-        7 => 'Failed to write file to disk.',
-        8 => 'A PHP extension stopped the file upload.',
-      );
+      if (isset($_FILES['h5p_file'])) {
+        // If file upload, we're uploading libraries
 
-      $errorMessage = $phpFileUploadErrors[$_FILES['h5p_file']['error']];
-      H5P_Plugin_Admin::set_error(__($errorMessage, $this->plugin_slug));
-      return;
+        if ($_FILES['h5p_file']['error'] === 0) {
+          // No upload errors, try to install package
+          check_admin_referer('h5p_library', 'lets_upgrade_that'); // Verify form
+          $plugin_admin = H5P_Plugin_Admin::get_instance();
+          $plugin_admin->handle_upload(NULL, filter_input(INPUT_POST, 'h5p_upgrade_only') ? TRUE : FALSE);
+        }
+        else {
+          $phpFileUploadErrors = array(
+            1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
+            2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+            3 => 'The uploaded file was only partially uploaded',
+            4 => 'No file was uploaded',
+            6 => 'Missing a temporary folder',
+            7 => 'Failed to write file to disk.',
+            8 => 'A PHP extension stopped the file upload.',
+          );
+
+          $errorMessage = $phpFileUploadErrors[$_FILES['h5p_file']['error']];
+          H5P_Plugin_Admin::set_error(__($errorMessage, $this->plugin_slug));
+        }
+        return;
+      }
+      else {
+        // No files, we must be trying to auto download & update
+
+        check_admin_referer('h5p_update', 'download_update'); // Verify form
+        H5P_Plugin_Admin::download_h5p_libraries(TRUE);
+      }
     }
 
     $task = filter_input(INPUT_GET, 'task');

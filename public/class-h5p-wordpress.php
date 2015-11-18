@@ -680,8 +680,8 @@ class H5PWordPress implements H5PFrameworkInterface {
     if ($name === 'site_uuid') {
       $name = 'h5p_site_uuid'; // Make up for old core bug
     }
-    $name = 'h5p_' . $name; // Always prefix to avoid conflicts
     $var = $this->getOption($name);
+    $name = 'h5p_' . $name; // Always prefix to avoid conflicts
     if ($var === FALSE) {
       add_option($name, $value);
     }
