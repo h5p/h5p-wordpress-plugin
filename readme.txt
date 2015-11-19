@@ -17,10 +17,11 @@ One of the great benefits with using H5P is that it gives you access to lots of 
 Another great benefit with H5P is that it allows you to easily share and reuse content. To use content created with H5P, you simply insert a shortcode `[h5p Id="1"]` where you wish for the content to appear. To reuse content, you just download the H5P you would like to edit and make your changes – e.g. translate to a new language or adjust it to a new situation.
 
 H5P is:
-* open source
-* free to use
+
+* Open Source
+* Free to Use
 * HTML5
-* responsive
+* Responsive
 
 The H5P community is actively contributing to improve H5P. Updates and new features are continuously made available on the community portal [H5P.org](https://h5p.org "H5P").
 
