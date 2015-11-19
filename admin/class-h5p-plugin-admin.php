@@ -578,6 +578,9 @@ class H5P_Plugin_Admin {
       'finished' => filter_input(INPUT_POST, 'finished', FILTER_VALIDATE_INT),
       'time' => filter_input(INPUT_POST, 'time', FILTER_VALIDATE_INT)
     );
+    if ($data['time'] === NULL) {
+      $data['time'] = 0;
+    }
     $format = array(
       '%d',
       '%d',
