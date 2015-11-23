@@ -769,6 +769,7 @@ class H5PContentAdmin {
     H5P_Plugin_Admin::add_script('language', $language_script);
 
     // Add JavaScript settings
+    $content_validator = $plugin->get_h5p_instance('contentvalidator');
     $settings['editor'] = array(
       'filesPath' => $plugin->get_h5p_url() . '/editor',
       'fileIcon' => array(
@@ -778,7 +779,7 @@ class H5PContentAdmin {
       ),
       'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
       'libraryUrl' => plugin_dir_url('h5p/h5p-editor-php-library/h5peditor.class.php'),
-      'copyrightSemantics' => H5PContentValidator::getCopyrightSemantics(),
+      'copyrightSemantics' => $content_validator->getCopyrightSemantics(),
       'assets' => $assets,
       'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug)
     );
