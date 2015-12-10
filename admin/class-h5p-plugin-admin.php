@@ -303,8 +303,8 @@ class H5P_Plugin_Admin {
     }
     else {
       // Install
-      if ($validator->isValidPackage(TRUE, FALSE)) {
-        $storage->savePackage(NULL, NULL, TRUE, FALSE);
+      if ($validator->isValidPackage(TRUE, $update_only)) {
+        $storage->savePackage(NULL, NULL, TRUE, $update_only);
         update_option('h5p_current_update', get_option('h5p_update_available', 0));
         return true;
       }
