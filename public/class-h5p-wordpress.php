@@ -89,13 +89,8 @@ class H5PWordPress implements H5PFrameworkInterface {
     static $path;
 
     if (is_null($path)) {
-      // Try upload dir first since some multi-hosted envs doesn't allow writing to sys tmp dir.
-      $path = ini_get('upload_tmp_dir');
-      if (!$path) {
-        // Some systems doesn't set set the upload dir, so try this
-        $path = sys_get_temp_dir();
-      }
-
+      $path = $this->getH5pPath() . '/temp';
+      H5PCore::dirReady($path); // Make sure dir exists!
       $path .= '/' . $_FILES['h5p_file']['name'];
     }
 
