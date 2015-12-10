@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.4
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -157,3 +157,16 @@ Minor improvements to fullscreen and embed.
 Added Spanish translations.
 Added French translations.
 Minor bugfixes and improvements to the editor.
+
+= 1.5.5 =
+Added auto-install of basic content types.
+Added notification when updates are available.
+Use different temporary folder to avoid issues on certain hosts.
+Made copyright fields translatable.
+Added workaround for bug when changing library in Chrome on Windows.
+Improved semi-fullscreen for iPad devices.
+Avoid warning message when allow_url_fopen=0.
+Updated various text strings and translations.
+Improved editor design and fixed minor bugs in the editor.
+Prepared for copy and paste support in the editor.
+Smarter resize script when embedding. Less flickering.
