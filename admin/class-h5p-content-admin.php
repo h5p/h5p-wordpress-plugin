@@ -448,6 +448,19 @@ class H5PContentAdmin {
 
     // Move images and find all content dependencies
     $editor->processParameters($content['id'], $content['library'], $params, $oldLibrary, $oldParams);
+
+    $json_a = json_decode($content['params'], true);
+    $files  = $json_a['interactiveVideo']['video']['files'];
+
+    foreach($files as $file) {
+      $path = $file['path'];
+      if (strpos($path, 'srt') !== false) {
+        $pathArray = explode("/" , $path);
+        $filename = $pathArray[1];
+        $core->processSRT($filename, $content['id']);
+      }
+    }
+    
     return $content['id'];
   }
 
