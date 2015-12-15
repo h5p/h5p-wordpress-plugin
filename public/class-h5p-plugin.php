@@ -593,6 +593,25 @@ class H5P_Plugin {
    * @return string
    */
   public function shortcode($atts) {
+    global $wpdb;
+    if (isset($atts['slug'])) {
+      $q=$wpdb->prepare(
+        "SELECT  id ".
+        "FROM    {$wpdb->prefix}h5p_contents ".
+        "WHERE   slug=%s",
+        $atts['slug']
+      );
+      $row=$wpdb->get_row($q,ARRAY_A);
+
+      if ($wpdb->last_error)
+        return sprintf(__('Database error: %s.', $this->plugin_slug), $wpdb->last_error);
+
+      if (!isset($row['id']))
+        return sprintf(__('Cannot find H5P content with slug: %s.', $this->plugin_slug), $atts['slug']);
+
+      $atts['id']=$row['id'];
+    }
+
     $id = isset($atts['id']) ? intval($atts['id']) : NULL;
     $content = $this->get_content($id);
     if (is_string($content)) {

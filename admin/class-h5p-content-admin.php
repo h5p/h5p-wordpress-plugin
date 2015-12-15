@@ -601,7 +601,7 @@ class H5PContentAdmin {
 
     // Different fields for insert
     if ($insert) {
-      $fields = array('id', 'title', 'content_type', 'updated_at');
+      $fields = array('id', 'title', 'content_type', 'updated_at', 'slug');
     }
     else {
       $fields = array('id', 'title', 'content_type', 'created_at', 'updated_at', 'user_name', 'user_id');
@@ -642,7 +642,7 @@ class H5PContentAdmin {
       esc_html($result->title),
       esc_html($result->content_type),
       date($datetimeformat, strtotime($result->updated_at) + $offset),
-      '<button class="button h5p-insert" data-id="' . $result->id . '">' . __('Insert', $this->plugin_slug) . '</button>'
+      '<button class="button h5p-insert" data-id="' . $result->id . '" data-slug="' . $result->slug . '">' . __('Insert', $this->plugin_slug) . '</button>'
     );
   }
 
