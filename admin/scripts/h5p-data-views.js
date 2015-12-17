@@ -37,11 +37,29 @@
           // Data loaded
           $wrapper.find('.h5p-insert').click(function () {
             // Inserting content
-            send_to_editor('[h5p id="' + $(this).data('id') + '"]');
+            if ($('#insert-h5p-as').val()=='slug') {
+              send_to_editor('[h5p slug="' + $(this).data('slug') + '"]');
+            }
+            else {
+              send_to_editor('[h5p id="' + $(this).data('id') + '"]');
+            }
+
             $wrapper.detach();
             $('#TB_window').removeClass('h5p-insertion');
             tb_remove();
           });
+
+          // Append insert method selection
+          if (!$('#insert-h5p-as').length) {
+            var methodHtml=
+              '<div class="h5p-insert-method-holder">'+
+              '<select id="insert-h5p-as">'+
+              '<option value="id">Insert using id</option>'+
+              '<option value="slug">Insert using slug</option>'+
+              '</select>'+
+              '</div>';
+            $('#h5p-insert-content').append(methodHtml);
+          }
         });
       }
       else {

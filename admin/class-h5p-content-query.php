@@ -31,6 +31,7 @@ class H5PContentQuery {
     'id' => array('hc', 'id'),
     'title' => array('hc', 'title', TRUE),
     'content_type' => array('hl', 'title', TRUE),
+    'slug' => array('hc', 'slug', TRUE),
     'created_at' => array('hc', 'created_at'),
     'updated_at' => array('hc', 'updated_at'),
     'user_id' => array('u', 'ID'),
