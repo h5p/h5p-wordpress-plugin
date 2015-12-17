@@ -603,11 +603,13 @@ class H5P_Plugin {
       );
       $row=$wpdb->get_row($q,ARRAY_A);
 
-      if ($wpdb->last_error)
+      if ($wpdb->last_error) {
         return sprintf(__('Database error: %s.', $this->plugin_slug), $wpdb->last_error);
+      }
 
-      if (!isset($row['id']))
+      if (!isset($row['id'])) {
         return sprintf(__('Cannot find H5P content with slug: %s.', $this->plugin_slug), $atts['slug']);
+      }
 
       $atts['id']=$row['id'];
     }

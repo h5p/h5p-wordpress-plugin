@@ -37,11 +37,12 @@
           // Data loaded
           $wrapper.find('.h5p-insert').click(function () {
             // Inserting content
-            if ($('#insert-h5p-as').val()=='slug')
+            if ($('#insert-h5p-as').val()=='slug') {
               send_to_editor('[h5p slug="' + $(this).data('slug') + '"]');
-
-            else
+            }
+            else {
               send_to_editor('[h5p id="' + $(this).data('id') + '"]');
+            }
 
             $wrapper.detach();
             $('#TB_window').removeClass('h5p-insertion');
@@ -51,7 +52,7 @@
           // Append insert method selection
           if (!$('#insert-h5p-as').length) {
             var methodHtml=
-              '<div style="position: absolute; top: 0; right: 0; margin: 0.5em">'+
+              '<div class="h5p-insert-method-holder">'+
               '<select id="insert-h5p-as">'+
               '<option value="id">Insert using id</option>'+
               '<option value="slug">Insert using slug</option>'+
