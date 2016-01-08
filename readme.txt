@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.4
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -170,3 +170,9 @@ Updated various text strings and translations.
 Improved editor design and fixed minor bugs in the editor.
 Prepared for copy and paste support in the editor.
 Smarter resize script when embedding. Less flickering.
+
+= 1.5.6 =
+Improved saving of current content state when leaving the page.
+Fixed issues with external embed resizing script.
+Improved pasting of text in text editor/WYSIWYG.
+Fixed bug in video upload editor widget.
