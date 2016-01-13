@@ -819,7 +819,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function fetchExternalData($url) {
     $data = wp_remote_get($url);
-    if ($data['response']['code'] === 200) {
+    if (!is_wp_error($data) && $data['response']['code'] === 200) {
       return $data['body'];
     }
 
