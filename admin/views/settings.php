@@ -101,7 +101,7 @@
               <input type="radio" name="insert_method" value="slug"
                 <?php if ($insert_method == "slug"): ?>checked="checked"<?php endif; ?>
               />
-              <?php _e("Reference content by slug", $this->plugin_slug); ?></th>
+              <?php _e("Reference content by <a href='https://en.wikipedia.org/wiki/Semantic_URL#Slug' target='_blank'>slug</a>", $this->plugin_slug); ?></th>
             </p>
           </td>
         </tr>
