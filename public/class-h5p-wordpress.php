@@ -100,16 +100,34 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements getLibraryId
    */
-  public function getLibraryId($name, $majorVersion, $minorVersion) {
+  public function getLibraryId($name, $majorVersion = NULL, $minorVersion = NULL) {
     global $wpdb;
 
+    // Look for specific library
+    $sql_where = 'WHERE name = %s';
+    $sql_args = array($name);
+
+    if ($majorVersion !== NULL) {
+      // Look for major version
+      $sql_where .= ' AND major_version = %d';
+      $sql_args[] = $majorVersion;
+      if ($minorVersion !== NULL) {
+        // Look for minor version
+        $sql_where .= ' AND minor_version = %d';
+        $sql_args[] = $minorVersion;
+      }
+    }
+
+    // Get the lastest version which matches the input parameters
     $id = $wpdb->get_var($wpdb->prepare(
         "SELECT id
         FROM {$wpdb->prefix}h5p_libraries
-        WHERE name = %s
-        AND major_version = %d
-        AND minor_version = %d",
-        $name, $majorVersion, $minorVersion)
+        {$sql_where}
+        ORDER BY major_version DESC,
+                 minor_version DESC,
+                 patch_version DESC
+        LIMIT 1",
+        $sql_args)
     );
 
     return $id === NULL ? FALSE : $id;
