@@ -304,7 +304,7 @@ class H5P_Plugin_Admin {
     else {
       // Install
       if ($validator->isValidPackage(TRUE, $update_only)) {
-        $storage->savePackage(NULL, NULL, TRUE, $update_only);
+        $storage->savePackage(NULL, NULL, TRUE);
         update_option('h5p_current_update', get_option('h5p_update_available', 0));
         return true;
       }
@@ -472,7 +472,7 @@ class H5P_Plugin_Admin {
         $interface->deleteLibraryUsage($content['id']);
       }
       $storage = $plugin->get_h5p_instance('storage');
-      $storage->savePackage($content, NULL, $skipContent, $only_upgrade);
+      $storage->savePackage($content, NULL, $skipContent);
       return $storage->contentId;
     }
 
