@@ -314,7 +314,18 @@ class H5PLibraryAdmin {
         // No files, we must be trying to auto download & update
 
         check_admin_referer('h5p_update', 'download_update'); // Verify form
-        H5P_Plugin_Admin::download_h5p_libraries(TRUE);
+        if (!H5P_Plugin_Admin::download_h5p_libraries(TRUE)) {
+          // Ignore update if it failed, user must manually update.
+          update_option('h5p_current_update', get_option('h5p_update_available', 0));
+          H5P_Plugin_Admin::set_error(
+              vsprintf(
+                wp_kses(
+                  __('Unfortunately, we were unable to update your installed content types. You must manually download the update from <a href="%s" target="_blank">H5P.org</a>, and then upload it through the <em>Upload Libraries</em> section. If you need futher assistance, please file a <a href="%s" target="_blank">support request</a> or check out our <a href="%s" target="_blank">forum</a>.', $this->plugin_slug),
+                  array('a' => array('href' => array(), 'target' => array()), 'em' => array())
+                ),
+                array(esc_url('https://h5p.org/update-all-content-types'), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum'))  
+              ));
+        }
       }
     }
 
