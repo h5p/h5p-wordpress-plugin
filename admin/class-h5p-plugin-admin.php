@@ -403,6 +403,9 @@ class H5P_Plugin_Admin {
 
       $save_content_frequency = filter_input(INPUT_POST, 'save_content_frequency', FILTER_VALIDATE_INT);
       update_option('h5p_save_content_frequency', $save_content_frequency);
+
+      $insert_method = filter_input(INPUT_POST, 'insert_method', FILTER_SANITIZE_SPECIAL_CHARS);
+      update_option('h5p_insert_method', $insert_method);
     }
     else {
       $frame = get_option('h5p_frame', TRUE);
@@ -414,6 +417,7 @@ class H5P_Plugin_Admin {
       $library_updates = get_option('h5p_library_updates', TRUE);
       $save_content_state = get_option('h5p_save_content_state', FALSE);
       $save_content_frequency = get_option('h5p_save_content_frequency', 30);
+      $insert_method = get_option('h5p_insert_method', 'id');
     }
 
     include_once('views/settings.php');
