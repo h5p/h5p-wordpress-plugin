@@ -818,11 +818,13 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements fetchExternalData
    */
   public function fetchExternalData($url) {
-    $data = wp_remote_get($url);
-    if ($data['response']['code'] === 200) {
-      return $data['body'];
+    $response = wp_remote_get( $url );
+    if(is_array($response) && array_key_exists('body', $response))
+    {
+            $data = json_decode( $response['body'], true );
+            return $data;
     }
-
+    
     return NULL;
   }
 
