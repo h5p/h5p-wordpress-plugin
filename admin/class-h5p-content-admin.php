@@ -274,8 +274,8 @@ class H5PContentAdmin {
       if ($delete) {
         if (wp_verify_nonce($delete, 'deleting_h5p_content')) {
           $core = $plugin->get_h5p_instance('core');
-          $core->h5pF->deleteContentData($this->content['id']);
-          $this->delete_export($this->content);
+          $storage = $plugin->get_h5p_instance('storage');
+          $storage->deletePackage($this->content);
           wp_safe_redirect(admin_url('admin.php?page=h5p'));
           return;
         }
@@ -307,7 +307,6 @@ class H5PContentAdmin {
 
       if ($result) {
         $content['id'] = $result;
-        $this->delete_export($content);
         wp_safe_redirect(admin_url('admin.php?page=h5p&task=show&id=' . $result));
       }
     }
@@ -359,21 +358,6 @@ class H5PContentAdmin {
     global $wpdb;
 
     return $wpdb->get_var("SELECT id FROM {$wpdb->prefix}h5p_libraries WHERE runnable = 1 LIMIT 1") !== NULL;
-  }
-
-  /**
-   * Remove h5p export file.
-   *
-   * @since 1.1.0
-   * @param array $content
-   */
-  private function delete_export($content) {
-    $plugin = H5P_Plugin::get_instance();
-    $export = $plugin->get_h5p_instance('export');
-    if (!isset($content['slug'])) {
-      $content['slug'] = '';
-    }
-    $export->deleteExport($content);
   }
 
   /**
