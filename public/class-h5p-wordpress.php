@@ -76,7 +76,9 @@ class H5PWordPress implements H5PFrameworkInterface {
     static $dir;
 
     if (is_null($dir)) {
-      $dir = $this->getH5pPath() . '/temp/' . uniqid('h5p-');
+      $plugin = H5P_Plugin::get_instance();
+      $core = $plugin->get_h5p_instance('core');
+      $dir = $core->fs->getTmpPath();
     }
 
     return $dir;
@@ -89,9 +91,9 @@ class H5PWordPress implements H5PFrameworkInterface {
     static $path;
 
     if (is_null($path)) {
-      $path = $this->getH5pPath() . '/temp';
-      H5PCore::dirReady($path); // Make sure dir exists!
-      $path .= '/' . $_FILES['h5p_file']['name'];
+      $plugin = H5P_Plugin::get_instance();
+      $core = $plugin->get_h5p_instance('core');
+      $path = $core->fs->getTmpPath() . '.h5p';
     }
 
     return $path;
@@ -892,4 +894,52 @@ class H5PWordPress implements H5PFrameworkInterface {
   // Magic stuff not used, we do not support library development mode.
   public function lockDependencyStorage() {}
   public function unlockDependencyStorage() {}
+
+  /**
+   * Implements saveCachedAssets
+   */
+  public function saveCachedAssets($key, $libraries) {
+    global $wpdb;
+
+    foreach ($libraries as $library) {
+      // TODO: Avoid errors if they already exists...
+      $wpdb->insert(
+          "{$wpdb->prefix}h5p_libraries_cachedassets",
+          array(
+            'library_id' => isset($library['id']) ? $library['id'] : $library['libraryId'],
+            'hash' => $key
+          ),
+          array(
+            '%d',
+            '%s'
+          ));
+    }
+  }
+
+  /**
+   * Implements deleteCachedAssets
+   */
+  public function deleteCachedAssets($library_id) {
+    global $wpdb;
+
+    // Get all the keys so we can remove the files
+    $results = $wpdb->get_results($wpdb->prepare("
+        SELECT hash
+          FROM {$wpdb->prefix}h5p_libraries_cachedassets
+         WHERE library_id = %d
+        ", $library_id));
+
+    // Remove all invalid keys
+    $hashes = array();
+    foreach ($results as $key) {
+      $hashes[] = $key->hash;
+
+      $wpdb->delete(
+          "{$wpdb->prefix}h5p_libraries_cachedassets",
+          array('hash' => $key->hash),
+          array('%s'));
+    }
+
+    return $hashes;
+  }
 }

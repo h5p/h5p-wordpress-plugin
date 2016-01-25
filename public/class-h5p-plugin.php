@@ -254,6 +254,12 @@ class H5P_Plugin {
       PRIMARY KEY  (library_id,language_code)
     ) {$charset};");
 
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries_cachedassets (
+      library_id INT UNSIGNED NOT NULL,
+      hash VARCHAR(64) NOT NULL,
+      PRIMARY KEY  (library_id,hash)
+    ) {$charset};");
+
     // Add default setting options
     add_option('h5p_frame', TRUE);
     add_option('h5p_export', TRUE);
@@ -533,6 +539,8 @@ class H5P_Plugin {
   public function get_h5p_instance($type) {
     if (self::$interface === null) {
       $path = plugin_dir_path(__FILE__);
+      include_once($path . '../h5p-php-library/h5p-file-storage.interface.php');
+      include_once($path . '../h5p-php-library/h5p-default-storage.class.php');
       include_once($path . '../h5p-php-library/h5p.classes.php');
       include_once($path . '../h5p-php-library/h5p-development.class.php');
       include_once($path . 'class-h5p-wordpress.php');
@@ -542,6 +550,7 @@ class H5P_Plugin {
       $language = $this->get_language();
 
       self::$core = new H5PCore(self::$interface, $this->get_h5p_path(), $this->get_h5p_url(), $language, get_option('h5p_export', TRUE));
+      self::$core->aggregateAssets = !(defined('H5P_DISABLE_AGGREGATION') && H5P_DISABLE_AGGREGATION === false);
     }
 
     switch ($type) {
