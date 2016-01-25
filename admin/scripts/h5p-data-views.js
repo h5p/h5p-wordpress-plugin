@@ -24,7 +24,7 @@
    */
   var insertionDataView = function (id) {
     var $wrapper;
-    $('#add-h5p').click(function () {
+    var $add = $('#add-h5p').click(function () {
       // Open ThickBox
       tb_show($(this).attr('title'), '#TB_inline?inlineId=h5p-nope');
       $('#TB_window').addClass('h5p-insertion');
@@ -37,7 +37,7 @@
           // Data loaded
           $wrapper.find('.h5p-insert').click(function () {
             // Inserting content
-            if (H5P_INSERT_METHOD == 'slug') {
+            if ($add.data('method') === 'slug') {
               send_to_editor('[h5p slug="' + $(this).data('slug') + '"]');
             }
             else {
