@@ -85,6 +85,26 @@
             </p>
           </td>
         </tr>
+        <tr valign="top">
+          <th scope="row"><?php _e("Add content method", $this->plugin_slug); ?></th>
+          <td>
+            <p>
+              <?php _e('When adding H5P content to posts and pages using the "Add H5P" button:', $this->plugin_slug); ?>
+            </p>
+            <p>
+              <input type="radio" name="insert_method" value="id"
+                <?php if ($insert_method == "id"): ?>checked="checked"<?php endif; ?>
+              />
+              <?php _e("Reference content by id", $this->plugin_slug); ?></th>
+            </p>
+            <p>
+              <input type="radio" name="insert_method" value="slug"
+                <?php if ($insert_method == "slug"): ?>checked="checked"<?php endif; ?>
+              />
+              <?php _e("Reference content by <a href='https://en.wikipedia.org/wiki/Semantic_URL#Slug' target='_blank'>slug</a>", $this->plugin_slug); ?></th>
+            </p>
+          </td>
+        </tr>
       </tbody>
     </table>
     <?php wp_nonce_field('h5p_settings', 'save_these_settings'); ?>

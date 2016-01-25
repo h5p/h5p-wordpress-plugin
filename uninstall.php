@@ -90,6 +90,7 @@ function _h5p_uninstall() {
   delete_option('h5p_update_available');
   delete_option('h5p_current_update');
   delete_option('h5p_update_available_path');
+  delete_option('h5p_insert_method');
 
   // Clean out file dirs.
   $upload_dir = wp_upload_dir();

@@ -526,7 +526,20 @@ class H5PContentAdmin {
    */
   public function add_insert_button() {
     $this->insertButton = TRUE;
-    return '<a href="#" id="add-h5p" class="button" title="' . __('Insert H5P Content', $this->plugin_slug) . '">' . __('Add H5P', $this->plugin_slug) . '</a>';
+
+    $insert_method = get_option('h5p_insert_method', 'id');
+
+    $button_content = "";
+
+    $button_content .= 
+      '<script>H5P_INSERT_METHOD="' . $insert_method . '"</script>';
+
+    $button_content .=
+      '<a href="#" id="add-h5p" class="button" title="' . __('Insert H5P Content', $this->plugin_slug) . '">' . 
+      __('Add H5P', $this->plugin_slug) . 
+      '</a>';
+
+    return $button_content;
   }
 
   /**
