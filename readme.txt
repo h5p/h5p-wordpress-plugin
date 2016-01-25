@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.4
-Stable tag: 1.5.6
+Stable tag: 1.5.7
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -176,3 +176,9 @@ Improved saving of current content state when leaving the page.
 Fixed issues with external embed resizing script.
 Improved pasting of text in text editor/WYSIWYG.
 Fixed bug in video upload editor widget.
+
+= 1.5.7 =
+Handle WP errors when fetching updates.
+Altered the "update only" feature to update minor and major versions as well, not just patch versions.
+Increase update download timeout to 28 seconds.
+Encourage manual update if auto update fails.

@@ -281,19 +281,30 @@ class H5P_Plugin_Admin {
     $validator = $plugin->get_h5p_instance('validator');
     $storage = $plugin->get_h5p_instance('storage');
 
+    // Will try to download in 28 seconds, we shouldn't hold the UI or the PHP
+    // thread for any longer. Will have to manually update if server is to slow.
+    $phptimeout = ini_get('max_execution_time');
+    if ($phptimeout < 30) {
+      @set_time_limit(30);
+    }
+
     // Download file
     $_FILES['h5p_file'] = array('name' => 'install.h5p');
     $path = $interface->getUploadedH5pPath();
     $response = wp_safe_remote_get($url, array(
       'stream' => TRUE,
-      'filename' => $path
+      'filename' => $path,
+      'timeout' => 28
     ));
 
     if (is_wp_error($response)) {
       // Print errors
-      foreach ($response->errors as $error) {
-        $interface->setErrorMessage(__('Unable to download H5P content types.', $plugin->get_plugin_slug()));
-        $interface->setErrorMessage(implode('<br/>', $error));
+      $interface->setErrorMessage(__('Unable to download H5P content types.', $plugin->get_plugin_slug()));
+
+      $error_codes = $response->get_error_codes();
+      foreach ($error_codes as $error_code) {
+        $errors = $response->get_error_messages($error_code);
+        $interface->setErrorMessage(implode('<br/>', $errors));
       }
     }
     elseif (wp_remote_retrieve_response_code($response) != 200) {
@@ -304,7 +315,7 @@ class H5P_Plugin_Admin {
     else {
       // Install
       if ($validator->isValidPackage(TRUE, $update_only)) {
-        $storage->savePackage(NULL, NULL, TRUE, $update_only);
+        $storage->savePackage(NULL, NULL, TRUE);
         update_option('h5p_current_update', get_option('h5p_update_available', 0));
         return true;
       }
@@ -476,7 +487,7 @@ class H5P_Plugin_Admin {
         $interface->deleteLibraryUsage($content['id']);
       }
       $storage = $plugin->get_h5p_instance('storage');
-      $storage->savePackage($content, NULL, $skipContent, $only_upgrade);
+      $storage->savePackage($content, NULL, $skipContent);
       return $storage->contentId;
     }
 
