@@ -336,7 +336,6 @@ class H5PContentAdmin {
       $upload = (filter_input(INPUT_POST, 'action') === 'upload');
     }
 
-
     // Filter/escape parameters, double escape that is...
     $safe_text = wp_check_invalid_utf8($parameters);
     $safe_text = _wp_specialchars($safe_text, ENT_QUOTES, false, true);
