@@ -184,6 +184,13 @@ class H5P_Plugin_Admin {
           $styles = array_merge($styles, $core->getAssetsUrls($files['styles']));
 
           include_once(plugin_dir_path(__FILE__) . '../h5p-php-library/embed.php');
+
+          // Log embed view
+          new H5P_Event('content', 'embed',
+              $content['id'],
+              $content['title'],
+              $content['library']['name'],
+              $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']);
           exit;
         }
       }
@@ -429,6 +436,8 @@ class H5P_Plugin_Admin {
 
     include_once('views/settings.php');
     H5P_Plugin_Admin::add_script('disable', 'h5p-php-library/js/disable.js');
+
+    new H5P_Event('settings');
   }
 
   /**
@@ -612,6 +621,10 @@ class H5P_Plugin_Admin {
       // Update existing results
       $wpdb->update($table, $data, array('id' => $result_id), $format, array('%d'));
     }
+
+    // Log view
+    new H5P_Event('results', 'set',
+        $content_id); // Load and log library info? 
   }
 
   /**
@@ -828,6 +841,9 @@ class H5P_Plugin_Admin {
         'dir' => 0
       )
     );
+
+    // Log visit to this page
+    new H5P_Event('results');
   }
 
   /**

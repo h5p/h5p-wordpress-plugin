@@ -323,7 +323,7 @@ class H5PLibraryAdmin {
                   __('Unfortunately, we were unable to update your installed content types. You must manually download the update from <a href="%s" target="_blank">H5P.org</a>, and then upload it through the <em>Upload Libraries</em> section. If you need futher assistance, please file a <a href="%s" target="_blank">support request</a> or check out our <a href="%s" target="_blank">forum</a>.', $this->plugin_slug),
                   array('a' => array('href' => array(), 'target' => array()), 'em' => array())
                 ),
-                array(esc_url('https://h5p.org/update-all-content-types'), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum'))  
+                array(esc_url('https://h5p.org/update-all-content-types'), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum'))
               ));
         }
       }
@@ -631,6 +631,11 @@ class H5PLibraryAdmin {
               '%d'
             )
         );
+
+        // Log content upgrade successful
+        new H5P_Event('content', 'upgrade',
+            $id, NULL,
+            $to_library->name, $to_library->major_version . '.' . $to_library->minor_version);
       }
     }
 

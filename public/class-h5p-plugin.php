@@ -254,6 +254,18 @@ class H5P_Plugin {
       PRIMARY KEY  (library_id,language_code)
     ) {$charset};");
 
+    // Keep track of logged h5p events
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_events (
+      id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      user_id INT UNSIGNED NOT NULL,
+      created_at INT UNSIGNED NOT NULL,
+      content_id INT UNSIGNED NOT NULL,
+      content_title VARCHAR(255) NOT NULL,
+      library_name VARCHAR(127) NOT NULL,
+      library_version VARCHAR(31) NOT NULL,
+      PRIMARY KEY  (id)
+    ) {$charset};");
+
     // Add default setting options
     add_option('h5p_frame', TRUE);
     add_option('h5p_export', TRUE);
@@ -599,6 +611,13 @@ class H5P_Plugin {
       // Return error message if the user has the correct cap
       return current_user_can('edit_h5p_contents') ? $content : NULL;
     }
+
+    // Log view
+    new H5P_Event('content', 'shortcode',
+        $content['id'],
+        $content['title'],
+        $content['library']['name'],
+        $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']);
 
     return $this->add_assets($content);
   }

@@ -290,6 +290,12 @@ class H5PWordPress implements H5PFrameworkInterface {
       $this->deleteLibraryDependencies($library['libraryId']);
     }
 
+    // Log library successfully installed/upgraded
+    new H5P_Event('library', ($new ? 'create' : 'update'),
+        NULL, NULL,
+        $library['machineName'], $library['majorVersion'] . '.' . $library['minorVersion']);
+
+    // Update languages
     $wpdb->delete(
         $wpdb->prefix . 'h5p_libraries_languages',
         array('library_id' => $library['libraryId']),

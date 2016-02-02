@@ -188,6 +188,13 @@ class H5PContentAdmin {
           $embed_code = $plugin->add_assets($this->content);
           include_once('views/show-content.php');
           H5P_Plugin::get_instance()->add_settings();
+
+          // Log view
+          new H5P_Event('content', NULL,
+              $this->content['id'],
+              $this->content['title'],
+              $this->content['library']['name'],
+              $this->content['library']['majorVersion'] . '.' . $this->content['library']['minorVersion']);
         }
         return;
 
@@ -234,6 +241,13 @@ class H5PContentAdmin {
               'dir' => 0
             )
           );
+
+          // Log content result view
+          new H5P_Event('results', 'content',
+              $this->content['id'],
+              $this->content['title'],
+              $this->content['library']['name'],
+              $this->content['library']['majorVersion'] . '.' . $this->content['library']['minorVersion']);
         }
         return;
     }
@@ -276,6 +290,14 @@ class H5PContentAdmin {
           $core = $plugin->get_h5p_instance('core');
           $core->h5pF->deleteContentData($this->content['id']);
           $this->delete_export($this->content);
+
+          // Log content delete
+          new H5P_Event('content', 'delete',
+              $this->content['id'],
+              $this->content['title'],
+              $this->content['library']['name'],
+              $this->content['library']['majorVersion'] . '.' . $this->content['library']['minorVersion']);
+
           wp_safe_redirect(admin_url('admin.php?page=h5p'));
           return;
         }
@@ -303,6 +325,15 @@ class H5PContentAdmin {
         // Handle file upload
         $plugin_admin = H5P_Plugin_Admin::get_instance();
         $result = $plugin_admin->handle_upload($content);
+
+        if ($result) {
+          // Upload successful, log
+          new H5P_Event('content', ($this->content === NULL ? 'create' : 'update') . ' upload',
+              $result,
+              $content['title'],
+              $content['library']['name'],
+              $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']);
+        }
       }
 
       if ($result) {
@@ -346,6 +377,18 @@ class H5PContentAdmin {
     include_once('views/new-content.php');
     $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
     H5P_Plugin_Admin::add_script('disable', 'h5p-php-library/js/disable.js');
+
+    // Log editor opened
+    if ($contentExists) {
+      new H5P_Event('content', 'edit',
+          $this->content['id'],
+          $this->content['title'],
+          $this->content['library']['name'],
+          $this->content['library']['majorVersion'] . '.' . $this->content['library']['minorVersion']);
+    }
+    else {
+      new H5P_Event('content', 'new');
+    }
   }
 
   /**
@@ -448,6 +491,14 @@ class H5PContentAdmin {
 
     // Move images and find all content dependencies
     $editor->processParameters($content['id'], $content['library'], $params, $oldLibrary, $oldParams);
+
+    // Log content create
+    new H5P_Event('content', $oldParams === NULL ? 'create' : 'update',
+        $content['id'],
+        $content['title'],
+        $content['library']['name'],
+        $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']);
+
     return $content['id'];
   }
 
@@ -809,6 +860,11 @@ class H5PContentAdmin {
     if ($name) {
       $plugin = H5P_Plugin::get_instance();
       print $editor->getLibraryData($name, $major_version, $minor_version, $plugin->get_language(), $plugin->get_h5p_path());
+
+      // Log library load
+      new H5P_Event('library', NULL,
+          NULL, NULL,
+          $name, $major_version . '.' . $minor_version);
     }
     else {
       print $editor->getLibraries();
