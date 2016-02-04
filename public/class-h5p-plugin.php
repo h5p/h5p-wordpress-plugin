@@ -919,8 +919,14 @@ class H5P_Plugin {
    * @param array $settings
    */
   public function print_settings(&$settings, $obj_name = 'H5PIntegration') {
+    static $printed;
+    if (!empty($printed[$obj_name])) {
+      return; // Avoid re-printing settings
+    }
+
     $json_settings = json_encode($settings);
     if ($json_settings !== FALSE) {
+      $printed[$obj_name] = TRUE;
       print '<script>' . $obj_name . ' = ' . $json_settings . ';</script>';
     }
   }
