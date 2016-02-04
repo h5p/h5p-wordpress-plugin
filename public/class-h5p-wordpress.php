@@ -908,6 +908,28 @@ class H5PWordPress implements H5PFrameworkInterface {
     return !$wpdb->get_var($wpdb->prepare("SELECT slug FROM {$wpdb->prefix}h5p_contents WHERE slug = '%s'", $slug));
   }
 
+  /**
+   * Implements getLibraryContentCount
+   */
+  public function getLibraryContentCount() {
+    global $wpdb;
+    $count = array();
+
+    // Find number of content per library
+    $results = $wpdb->get_results("
+        SELECT l.name, l.major_version, l.minor_version, count(*) AS count
+          FROM {$wpdb->prefix}h5p_contents c, {$wpdb->prefix}h5p_libraries l
+         WHERE c.library_id = l.id
+      GROUP BY l.name, l.major_version, l.minor_version
+        ");
+
+    // Extract results
+    foreach($results as $library) {
+      $count[$library->name . ' ' . $library->major_version . '.' . $library->minor_version] = $library->count;
+    }
+    return $count;
+  }
+
   // Magic stuff not used, we do not support library development mode.
   public function lockDependencyStorage() {}
   public function unlockDependencyStorage() {}
