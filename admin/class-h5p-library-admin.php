@@ -634,7 +634,7 @@ class H5PLibraryAdmin {
 
         // Log content upgrade successful
         new H5P_Event('content', 'upgrade',
-            $id, NULL,
+            $id, $wpdb->get_var($wpdb->prepare("SELECT title FROM {$wpdb->prefix}h5p_contents WHERE id = %d", $id)),
             $to_library->name, $to_library->major_version . '.' . $to_library->minor_version);
       }
     }

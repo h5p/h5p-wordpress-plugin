@@ -622,9 +622,18 @@ class H5P_Plugin_Admin {
       $wpdb->update($table, $data, array('id' => $result_id), $format, array('%d'));
     }
 
+    // Get content info for log
+    $content = $wpdb->get_row($wpdb->prepare("
+        SELECT c.title, l.name, l.major_version, l.minor_version
+          FROM {$wpdb->prefix}h5p_contents c
+          JOIN {$wpdb->prefix}h5p_libraries l ON l.id = c.library_id
+         WHERE c.id = %d
+        ", $content_id));
+
     // Log view
     new H5P_Event('results', 'set',
-        $content_id); // Load and log library info? 
+        $content_id, $content->title,
+        $content->name, $content->major_version . '.' . $content->minor_version);
   }
 
   /**

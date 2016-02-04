@@ -320,20 +320,12 @@ class H5PContentAdmin {
         // Create new content if none exists
         $content = ($this->content === NULL ? array('disable' => H5PCore::DISABLE_NONE) : $this->content);
         $content['title'] = $this->get_input_title();
+        $content['uploaded'] = true;
         $this->get_disabled_content_features($core, $content);
 
         // Handle file upload
         $plugin_admin = H5P_Plugin_Admin::get_instance();
         $result = $plugin_admin->handle_upload($content);
-
-        if ($result) {
-          // Upload successful, log
-          new H5P_Event('content', ($this->content === NULL ? 'create' : 'update') . ' upload',
-              $result,
-              $content['title'],
-              $content['library']['name'],
-              $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']);
-        }
       }
 
       if ($result) {
@@ -491,14 +483,6 @@ class H5PContentAdmin {
 
     // Move images and find all content dependencies
     $editor->processParameters($content['id'], $content['library'], $params, $oldLibrary, $oldParams);
-
-    // Log content create
-    new H5P_Event('content', $oldParams === NULL ? 'create' : 'update',
-        $content['id'],
-        $content['title'],
-        $content['library']['name'],
-        $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']);
-
     return $content['id'];
   }
 

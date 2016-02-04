@@ -32,11 +32,21 @@ class H5P_Event extends H5PEventBase {
    * Store the event.
    */
   protected function save() {
-    // TODO: Filter the log messages we wish to save
-
-    // Save
+    global $wpdb;
 
     // Debug
-    print 'Saving event. (' . $this->type . ', ' . $this->sub_type . ' — ' . $this->user . ' — ' . $this->content_id . ', ' . $this->content_title  . ' — ' . $this->library_name . ', ' . $this->library_version . ' — ' . $this->time . ')';
+    //print 'Saving event. (' . $this->type . ', ' . $this->sub_type . ' — ' . $this->user . ' — ' . $this->content_id . ', ' . $this->content_title  . ' — ' . $this->library_name . ', ' . $this->library_version . ' — ' . $this->time . ')';
+
+    // Get data in array format without NULL values
+    list($data, $format) = $this->toArray();
+
+    // Add user
+    $data['user_id'] = $this->user;
+    $format[] = '%d';
+
+    // Insert into DB
+    $wpdb->insert("{$wpdb->prefix}h5p_events", $data, $format);
+    $this->id = $wpdb->insert_id;
+    return $this->id;
   }
 }

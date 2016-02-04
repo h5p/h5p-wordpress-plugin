@@ -91,6 +91,9 @@ class H5P_Plugin {
     // Check for library updates
     add_action('h5p_daily_cleanup', array($this, 'get_library_updates'));
 
+    // Remove old log messages
+    add_action('h5p_daily_cleanup', array($this, 'remove_old_log_events'));
+
     // Always check if the plugin has been updated to a newer version
     add_action('init', array('H5P_Plugin', 'check_for_updates'), 1);
 
@@ -259,6 +262,8 @@ class H5P_Plugin {
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
       user_id INT UNSIGNED NOT NULL,
       created_at INT UNSIGNED NOT NULL,
+      type VARCHAR(63) NOT NULL,
+      sub_type VARCHAR(63) NOT NULL,
       content_id INT UNSIGNED NOT NULL,
       content_title VARCHAR(255) NOT NULL,
       library_name VARCHAR(127) NOT NULL,
@@ -996,5 +1001,21 @@ class H5P_Plugin {
   public function get_library_updates() {
     $core = $this->get_h5p_instance('core');
     $core->fetchLibrariesMetadata();
+  }
+
+  /**
+   * Remove any log messages older than the set limit.
+   *
+   * @since 1.6
+   */
+  public function remove_old_log_events() {
+    global $wpdb;
+
+    $older_than = (time() - H5PEventBase::$log_time);
+
+    $wpdb->query($wpdb->prepare("
+        DELETE FROM {$wpdb->prefix}h5p_events
+		          WHERE created_at < %d
+        ", $older_than));
   }
 }

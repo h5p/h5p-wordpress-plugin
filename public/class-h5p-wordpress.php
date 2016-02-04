@@ -423,13 +423,26 @@ class H5PWordPress implements H5PFrameworkInterface {
       $data['user_id'] = get_current_user_id();
       $format[] = '%d';
       $wpdb->insert($table, $data, $format);
-      return $wpdb->insert_id;
+      $content['id'] = $wpdb->insert_id;
+      $event_type = 'create';
     }
     else {
       // Update existing content
       $wpdb->update($table, $data, array('id' => $content['id']), $format, array('%d'));
-      return $content['id'];
+      $event_type = 'update';
     }
+
+    // Log content create/update/upload
+    if (!empty($content['uploaded'])) {
+      $event_type .= ' upload';
+    }
+    new H5P_Event('content', $event_type,
+        $content['id'],
+        $content['title'],
+        $content['library']['machineName'],
+        $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']);
+
+    return $content['id'];
   }
 
   /**
