@@ -917,7 +917,7 @@ class H5PWordPress implements H5PFrameworkInterface {
 
     // Find number of content per library
     $results = $wpdb->get_results("
-        SELECT l.name, l.major_version, l.minor_version, count(*) AS count
+        SELECT l.name, l.major_version, l.minor_version, COUNT(*) AS count
           FROM {$wpdb->prefix}h5p_contents c, {$wpdb->prefix}h5p_libraries l
          WHERE c.library_id = l.id
       GROUP BY l.name, l.major_version, l.minor_version
@@ -927,6 +927,31 @@ class H5PWordPress implements H5PFrameworkInterface {
     foreach($results as $library) {
       $count[$library->name . ' ' . $library->major_version . '.' . $library->minor_version] = $library->count;
     }
+    return $count;
+  }
+
+  /**
+   * Implements getLibraryStats
+   */
+  public function getLibraryStats($type, $sub_type = '') {
+    global $wpdb;
+    $count = array();
+
+    $results = $wpdb->get_results($wpdb->prepare("
+        SELECT library_name AS name,
+               library_version AS version,
+               COUNT(*) AS num
+          FROM {$wpdb->prefix}h5p_events
+         WHERE type = %s
+           AND sub_type = %s
+      GROUP BY library_name, library_version
+        ", $type, $sub_type));
+
+    // Extract results
+    foreach($results as $library) {
+      $count[$library->name . ' ' . $library->version] = $library->num;
+    }
+
     return $count;
   }
 
