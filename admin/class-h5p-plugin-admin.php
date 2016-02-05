@@ -74,6 +74,7 @@ class H5P_Plugin_Admin {
     add_action('media_buttons_context', array($this->content, 'add_insert_button'));
     add_action('admin_footer', array($this->content, 'print_insert_content_scripts'));
     add_action('wp_ajax_h5p_insert_content', array($this->content, 'ajax_insert_content'));
+    add_action('wp_ajax_h5p_inserted', array($this->content, 'ajax_inserted'));
 
     // Editor ajax
     add_action('wp_ajax_h5p_libraries', array($this->content, 'ajax_libraries'));

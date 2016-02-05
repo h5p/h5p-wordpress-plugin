@@ -606,6 +606,33 @@ class H5PContentAdmin {
   }
 
   /**
+   * Log when content is inserted
+   *
+   * @since 1.6.0
+   */
+  public function ajax_inserted() {
+    global $wpdb;
+
+    $content_id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+    if (!$content_id) {
+      return;
+    }
+
+    // Get content info for log
+    $content = $wpdb->get_row($wpdb->prepare("
+        SELECT c.title, l.name, l.major_version, l.minor_version
+          FROM {$wpdb->prefix}h5p_contents c
+          JOIN {$wpdb->prefix}h5p_libraries l ON l.id = c.library_id
+         WHERE c.id = %d
+        ", $content_id));
+
+    // Log view
+    new H5P_Event('content', 'shortcode insert',
+        $content_id, $content->title,
+        $content->name, $content->major_version . '.' . $content->minor_version);
+  }
+
+  /**
    * List content to choose from when inserting H5Ps.
    *
    * @since 1.2.0
