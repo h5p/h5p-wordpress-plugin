@@ -854,10 +854,24 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements fetchExternalData
    */
-  public function fetchExternalData($url) {
-    $data = wp_remote_get($url);
-    if (!is_wp_error($data) && $data['response']['code'] === 200) {
-      return $data['body'];
+  public function fetchExternalData($url, $data = NULL) {
+    if ($data !== NULL) {
+      // Post
+      $response = wp_remote_post($url, array('body' => $data));
+    }
+    else {
+      // Get
+      $response = wp_remote_get($url);
+    }
+
+    if (is_wp_error($response)) {
+      //$error_message = $response->get_error_message();
+    }
+    elseif ($response['response']['code'] === 200) {
+      return $response['body'];
+    }
+    else {
+
     }
 
     return NULL;
