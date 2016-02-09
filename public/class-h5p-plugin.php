@@ -142,7 +142,7 @@ class H5P_Plugin {
     $plugin->get_library_updates();
 
     // Cleaning rutine
-    wp_schedule_event(time(), 'daily', 'h5p_daily_cleanup');
+    wp_schedule_event(time() + (3600 * 24), 'daily', 'h5p_daily_cleanup');
   }
 
   /**

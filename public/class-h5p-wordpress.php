@@ -973,6 +973,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements getNumAuthors
    */
   public function getNumAuthors() {
+    global $wpdb;
     return $wpdb->get_var("
         SELECT COUNT(DISTINCT user_id)
           FROM {$wpdb->prefix}h5p_contents
