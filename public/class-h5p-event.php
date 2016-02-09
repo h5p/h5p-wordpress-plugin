@@ -34,9 +34,6 @@ class H5P_Event extends H5PEventBase {
   protected function save() {
     global $wpdb;
 
-    // Debug
-    //print 'Saving event. (' . $this->type . ', ' . $this->sub_type . ' — ' . $this->user . ' — ' . $this->content_id . ', ' . $this->content_title  . ' — ' . $this->library_name . ', ' . $this->library_version . ' — ' . $this->time . ')';
-
     // Get data in array format without NULL values
     list($data, $format) = $this->toArray();
 
