@@ -969,6 +969,16 @@ class H5PWordPress implements H5PFrameworkInterface {
     return $count;
   }
 
+  /**
+   * Implements getNumAuthors
+   */
+  public function getNumAuthors() {
+    return $wpdb->get_var("
+        SELECT COUNT(DISTINCT user_id)
+          FROM {$wpdb->prefix}h5p_contents
+    ");
+  }
+
   // Magic stuff not used, we do not support library development mode.
   public function lockDependencyStorage() {}
   public function unlockDependencyStorage() {}
