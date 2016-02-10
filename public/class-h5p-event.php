@@ -46,4 +46,40 @@ class H5P_Event extends H5PEventBase {
     $this->id = $wpdb->insert_id;
     return $this->id;
   }
+
+  /**
+   * Count number of events.
+   */
+  protected function count() {
+    global $wpdb;
+
+    $type = $this->type . ' ' . $this->sub_type;
+    $current_num = $wpdb->get_var($wpdb->prepare(
+        "SELECT num
+           FROM {$wpdb->prefix}h5p_counters
+          WHERE type = '%s'
+            AND library_name = '%s'
+            AND library_version = '%s'
+        ", $type, $this->library_name, $this->library_version));
+
+    if ($current_num === NULL) {
+      // Insert
+      $wpdb->insert("{$wpdb->prefix}h5p_counters", array(
+        'type' => $type,
+        'library_name' => $this->library_name,
+        'library_version' => $this->library_version,
+        'num' => 1
+      ), array('%s','%s','%s','%d'));
+    }
+    else {
+      // Update num+1
+      $wpdb->query($wpdb->prepare(
+          "UPDATE {$wpdb->prefix}h5p_counters
+              SET num = num + 1
+            WHERE type = '%s'
+              AND library_name = '%s'
+              AND library_version = '%s'
+      		", $type, $this->library_name, $this->library_version));
+    }
+  }
 }

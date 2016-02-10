@@ -271,6 +271,15 @@ class H5P_Plugin {
       PRIMARY KEY  (id)
     ) {$charset};");
 
+    // A set of global counters to keep track of H5P usage
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_counters (
+      type VARCHAR(63) NOT NULL,
+      library_name VARCHAR(127) NOT NULL,
+      library_version VARCHAR(31) NOT NULL,
+      num INT UNSIGNED NOT NULL,
+      PRIMARY KEY  (type,library_name,library_version)
+    ) {$charset};");
+
     // Add default setting options
     add_option('h5p_frame', TRUE);
     add_option('h5p_export', TRUE);
