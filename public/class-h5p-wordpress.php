@@ -947,19 +947,17 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements getLibraryStats
    */
-  public function getLibraryStats($type, $sub_type = '') {
+  public function getLibraryStats($type) {
     global $wpdb;
     $count = array();
 
     $results = $wpdb->get_results($wpdb->prepare("
         SELECT library_name AS name,
                library_version AS version,
-               COUNT(*) AS num
-          FROM {$wpdb->prefix}h5p_events
+               num
+          FROM {$wpdb->prefix}h5p_counters
          WHERE type = %s
-           AND sub_type = %s
-      GROUP BY library_name, library_version
-        ", $type, $sub_type));
+        ", $type));
 
     // Extract results
     foreach($results as $library) {
