@@ -243,7 +243,7 @@ class H5P_Plugin_Admin {
     if ($update_available != 0) {
       $current_update = get_option('h5p_current_update', 0);
       if ($current_update == 0) {
-        $fetching_msg = '<p>' . sprintf(wp_kses(__('By default, H5P is set up to automatically fetch update information and contribute anonymous usage data to aid the development of H5P. You can disable this behaviour through the <a href="%s">Settings</a> page.', $this->plugin_slug), array('a' => array('href' => array()))), admin_url('options-general.php?page=h5p_settings')) . '</p>';
+        $fetching_msg = '<p>' . sprintf(wp_kses(__('By default, H5P is set up to automatically fetch information regarding Content Type updates from H5P.org. When doing so, H5P will also contribute anonymous usage data to aid the development of H5P. This behaviour can be altered through the <a href="%s">Settings</a> page.', $this->plugin_slug), array('a' => array('href' => array()))), admin_url('options-general.php?page=h5p_settings')) . '</p>';
         $help_msg = '<p>' . sprintf(wp_kses(__('If you need any help you can always file a <a href="%s" target="_blank">support request</a>, check out our <a href="%s" target="_blank">forum</a> or join our IRC channel #H5P on Freenode.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum')) . '</p>';
 
         if ($wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}h5p_libraries") === '0') {

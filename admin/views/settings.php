@@ -24,7 +24,7 @@
           <td>
             <label>
               <input name="library_updates" type="checkbox" value="true"<?php if ($library_updates): ?> checked="checked"<?php endif; ?>/>
-              <?php _e("I wish to help contribute to the development of H5P by submitting anonymous usage data", $this->plugin_slug); ?>
+              <?php _e("I wish to aid in the development of H5P by contributing anonymous usage data", $this->plugin_slug); ?>
             </label>
             <p class="h5p-setting-desc">
               <?php _e("Disabling this option will prevent your site from fetching the newest H5P updates.", $this->plugin_slug); ?><br/>
