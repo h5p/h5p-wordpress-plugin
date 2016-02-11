@@ -94,7 +94,8 @@
 .h5p-disable-file-check {
   margin-top: 0.5em;
 }
-.h5p-disable-file-check .h5p-warning {
+.h5p-disable-file-check .h5p-warning,
+.form-table td .h5p-setting-desc {
   font-size: 0.875em;
   margin-top: 0.5em;
 }
