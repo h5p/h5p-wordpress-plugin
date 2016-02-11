@@ -41,7 +41,8 @@
         </div>
         <div class="h5p-create"><div class="h5p-editor"><?php esc_html_e('Waiting for javascript...', $this->plugin_slug); ?></div></div>
       </div>
-      <div class="postbox">
+      <div class="postbox h5p-sidebar">
+        <h2><?php esc_html_e('Actions', $this->plugin_slug); ?></h2>
         <div id="minor-publishing">
           <label><input type="radio" name="action" value="upload"<?php if ($upload): print ' checked="checked"'; endif; ?>/><?php esc_html_e('Upload', $this->plugin_slug); ?></label>
           <label><input type="radio" name="action" value="create"/><?php esc_html_e('Create', $this->plugin_slug); ?></label>
@@ -57,8 +58,10 @@
         </div>
       </div>
       <?php if (get_option('h5p_frame', TRUE)): ?>
-        <div class="postbox">
-          <div class="h5p-action-bar-settings">
+        <div class="postbox h5p-sidebar">
+          <div role="button" class="h5p-toggle" tabindex="0" aria-expanded="true" aria-label="<?php esc_html_e('Toggle panel', $this->plugin_slug); ?>"></div>
+          <h2><?php esc_html_e('Display Options', $this->plugin_slug); ?></h2>
+          <div class="h5p-action-bar-settings h5p-panel">
             <label>
               <input name="frame" type="checkbox" value="true"<?php if (!($this->content['disable'] & H5PCore::DISABLE_FRAME)): ?> checked="checked"<?php endif; ?>/>
               <?php _e("Display action bar and frame", $this->plugin_slug); ?>
