@@ -823,6 +823,10 @@ class H5P_Plugin {
       'ajax' => array(
         'contentUserData' => admin_url('admin-ajax.php?action=h5p_contents_user_data&content_id=:contentId&data_type=:dataType&sub_content_id=:subContentId')
       ),
+      'tokens' => array(
+        'result' => wp_create_nonce('h5p_result'),
+        'contentUserData' => wp_create_nonce('h5p_contentuserdata')
+      ),
       'saveFreq' => get_option('h5p_save_content_state', FALSE) ? get_option('h5p_save_content_frequency', 30) : FALSE,
       'siteUrl' => get_site_url(),
       'l10n' => array(

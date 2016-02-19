@@ -565,10 +565,14 @@ class H5P_Plugin_Admin {
    */
   public function ajax_results() {
     global $wpdb;
+    $token_key = 'h5p_result';
 
     $content_id = filter_input(INPUT_POST, 'contentId', FILTER_VALIDATE_INT);
     if (!$content_id) {
-      return;
+      self::print_json_result($token_key, 'Invalid content');
+    }
+    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), $token_key)) {
+      self::print_json_result($token_key, 'Invalid security token');
     }
 
     $user_id = get_current_user_id();
@@ -612,6 +616,32 @@ class H5P_Plugin_Admin {
       // Update existing results
       $wpdb->update($table, $data, array('id' => $result_id), $format, array('%d'));
     }
+
+    // Success
+    self::print_json_result($token_key);
+  }
+
+  /**
+   * Print JSON result for AJAX request.
+   * Auto include new security token.
+   *
+   * @since 1.6.0
+   * @param $type
+   * @param $error Optional. Something went wrong
+   */
+  public static function print_json_result($type, $error = NULL) {
+    $result = array(
+      'token' => wp_create_nonce($type),
+      'success' => ($error === NULL)
+    );
+    if ($error !== NULL) {
+      $result['error'] = $error;
+    }
+
+    header('Cache-Control: no-cache');
+    header('Content-type: application/json; charset=utf-8');
+    print json_encode($result);
+    exit;
   }
 
   /**
@@ -1005,6 +1035,8 @@ class H5P_Plugin_Admin {
           );
         }
       }
+      // Inserted, updated or deleted. Give new key
+      self::print_json_result('h5p_contentuserdata');
     }
     else {
       // Fetch data
