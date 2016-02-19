@@ -35,7 +35,8 @@ class H5P_Event extends H5PEventBase {
     global $wpdb;
 
     // Get data in array format without NULL values
-    list($data, $format) = $this->toArray();
+    $data = $this->getDataArray();
+    $format = $this->getFormatArray();
 
     // Add user
     $data['user_id'] = $this->user;
@@ -50,7 +51,7 @@ class H5P_Event extends H5PEventBase {
   /**
    * Count number of events.
    */
-  protected function count() {
+  protected function saveStats() {
     global $wpdb;
 
     $type = $this->type . ' ' . $this->sub_type;
