@@ -1076,4 +1076,24 @@ class H5P_Plugin_Admin {
     $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data', array('user_id' => $id), array('%d'));
   }
 
+  /**
+   * Makes it easier to print response when AJAX request fails.
+   * Will exit after printing error.
+   *
+   * @param string $message
+   * @since 1.6.0
+   */
+  public static function ajax_error($message = NULL) {
+    header('Cache-Control: no-cache');
+    header('Content-type: application/json; charset=utf-8');
+
+    $response = array(
+      'success' => FALSE
+    );
+    if ($message !== NULL) {
+      $response['message'] = $message;
+    }
+    print json_encode($response);
+    exit;
+  }
 }
