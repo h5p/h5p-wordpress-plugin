@@ -782,7 +782,7 @@ class H5PContentAdmin {
       'copyrightSemantics' => $content_validator->getCopyrightSemantics(),
       'assets' => $assets,
       'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug),
-      'uploadToken' => wp_create_nonce('h5p-editor-upload')
+      'uploadToken' => wp_create_nonce('h5p_editor_upload')
     );
 
     if ($id !== NULL) {
@@ -827,7 +827,7 @@ class H5PContentAdmin {
     $plugin = H5P_Plugin::get_instance();
     $files_directory = $plugin->get_h5p_path();
 
-    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING), 'h5p-editor-upload')) {
+    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING), 'h5p_editor_upload')) {
       H5P_Plugin_Admin::ajax_error(__('Invalid security token. Please reload the editor.', $this->plugin_slug));
     }
 

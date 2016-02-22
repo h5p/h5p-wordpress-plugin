@@ -565,14 +565,13 @@ class H5P_Plugin_Admin {
    */
   public function ajax_results() {
     global $wpdb;
-    $token_key = 'h5p_result';
 
     $content_id = filter_input(INPUT_POST, 'contentId', FILTER_VALIDATE_INT);
     if (!$content_id) {
-      self::print_json_result($token_key, 'Invalid content');
+      self::ajax_error(__('Invalid content', $this->plugin_slug));
     }
-    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), $token_key)) {
-      self::print_json_result($token_key, 'Invalid security token');
+    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_result')) {
+      self::ajax_error(__('Invalid security token', $this->plugin_slug));
     }
 
     $user_id = get_current_user_id();
@@ -618,30 +617,7 @@ class H5P_Plugin_Admin {
     }
 
     // Success
-    self::print_json_result($token_key);
-  }
-
-  /**
-   * Print JSON result for AJAX request.
-   * Auto include new security token.
-   *
-   * @since 1.6.0
-   * @param $type
-   * @param $error Optional. Something went wrong
-   */
-  public static function print_json_result($type, $error = NULL) {
-    $result = array(
-      'token' => wp_create_nonce($type),
-      'success' => ($error === NULL)
-    );
-    if ($error !== NULL) {
-      $result['error'] = $error;
-    }
-
-    header('Cache-Control: no-cache');
-    header('Content-type: application/json; charset=utf-8');
-    print json_encode($result);
-    exit;
+    self::ajax_success();
   }
 
   /**
@@ -972,6 +948,10 @@ class H5P_Plugin_Admin {
     $preload = filter_input(INPUT_POST, 'preload');
     $invalidate = filter_input(INPUT_POST, 'invalidate');
     if ($data !== NULL && $preload !== NULL && $invalidate !== NULL) {
+      if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_contentuserdata')) {
+        self::ajax_error(__('Invalid security token', $this->plugin_slug));
+      }
+
       if ($data === '0') {
         // Remove data
         $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data',
@@ -1035,8 +1015,9 @@ class H5P_Plugin_Admin {
           );
         }
       }
-      // Inserted, updated or deleted. Give new key
-      self::print_json_result('h5p_contentuserdata');
+
+      // Inserted, updated or deleted
+      self::ajax_success();
     }
     else {
       // Fetch data
@@ -1074,6 +1055,27 @@ class H5P_Plugin_Admin {
 
     // Remove contents user/usage data
     $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data', array('user_id' => $id), array('%d'));
+  }
+
+  /**
+   * Makes it easier to print response when AJAX request succeeds.
+   * Will exit after printing.
+   *
+   * @param mixed $data
+   * @since 1.6.0
+   */
+  public static function ajax_success($data = NULL) {
+    header('Cache-Control: no-cache');
+    header('Content-type: application/json; charset=utf-8');
+
+    $response = array(
+      'success' => TRUE
+    );
+    if ($message !== NULL) {
+      $response['data'] = $data;
+    }
+    print json_encode($response);
+    exit;
   }
 
   /**
