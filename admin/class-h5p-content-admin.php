@@ -696,12 +696,6 @@ class H5PContentAdmin {
    */
   private function get_h5peditor_instance() {
     if (self::$h5peditor === null) {
-      $path = plugin_dir_path(__FILE__);
-      include_once($path . '../h5p-editor-php-library/h5peditor.class.php');
-      include_once($path . '../h5p-editor-php-library/h5peditor-file.class.php');
-      include_once($path . '../h5p-editor-php-library/h5peditor-storage.interface.php');
-      include_once($path . 'class-h5p-editor-wordpress-storage.php');
-
       $upload_dir = wp_upload_dir();
       $plugin = H5P_Plugin::get_instance();
       self::$h5peditor = new H5peditor(

@@ -532,15 +532,8 @@ class H5P_Plugin {
    */
   public function get_h5p_instance($type) {
     if (self::$interface === null) {
-      $path = plugin_dir_path(__FILE__);
-      include_once($path . '../h5p-php-library/h5p.classes.php');
-      include_once($path . '../h5p-php-library/h5p-development.class.php');
-      include_once($path . 'class-h5p-wordpress.php');
-
       self::$interface = new H5PWordPress();
-
       $language = $this->get_language();
-
       self::$core = new H5PCore(self::$interface, $this->get_h5p_path(), $this->get_h5p_url(), $language, get_option('h5p_export', TRUE));
     }
 
