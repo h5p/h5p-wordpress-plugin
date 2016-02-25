@@ -822,7 +822,8 @@ class H5PContentAdmin {
     $files_directory = $plugin->get_h5p_path();
 
     if (!wp_verify_nonce(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING), 'h5p_editor_upload')) {
-      H5P_Plugin_Admin::ajax_error(__('Invalid security token. Please reload the editor.', $this->plugin_slug));
+      H5PCore::ajaxError(__('Invalid security token. Please reload the editor.', $this->plugin_slug));
+      exit;
     }
 
     $contentId = filter_input(INPUT_POST, 'contentId', FILTER_SANITIZE_NUMBER_INT);
@@ -838,7 +839,8 @@ class H5PContentAdmin {
     $file = new H5peditorFile($interface, $files_directory);
 
     if (!$file->isLoaded()) {
-      H5P_Plugin_Admin::ajax_error(__('File not found on server. Check file upload settings.', $this->plugin_slug));
+      H5PCore::ajaxError(__('File not found on server. Check file upload settings.', $this->plugin_slug));
+      exit;
     }
 
     if ($file->validate() && $file->copy()) {

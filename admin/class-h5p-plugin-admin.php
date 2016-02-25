@@ -568,10 +568,12 @@ class H5P_Plugin_Admin {
 
     $content_id = filter_input(INPUT_POST, 'contentId', FILTER_VALIDATE_INT);
     if (!$content_id) {
-      self::ajax_error(__('Invalid content', $this->plugin_slug));
+      H5PCore::ajaxError(__('Invalid content', $this->plugin_slug));
+      exit;
     }
     if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_result')) {
-      self::ajax_error(__('Invalid security token', $this->plugin_slug));
+      H5PCore::ajaxError(__('Invalid security token', $this->plugin_slug));
+      exit;
     }
 
     $user_id = get_current_user_id();
@@ -617,7 +619,8 @@ class H5P_Plugin_Admin {
     }
 
     // Success
-    self::ajax_success();
+    H5PCore::ajaxSuccess();
+    exit;
   }
 
   /**
@@ -949,7 +952,8 @@ class H5P_Plugin_Admin {
     $invalidate = filter_input(INPUT_POST, 'invalidate');
     if ($data !== NULL && $preload !== NULL && $invalidate !== NULL) {
       if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_contentuserdata')) {
-        self::ajax_error(__('Invalid security token', $this->plugin_slug));
+        H5PCore::ajaxError(__('Invalid security token', $this->plugin_slug));
+        exit;
       }
 
       if ($data === '0') {
@@ -1017,7 +1021,8 @@ class H5P_Plugin_Admin {
       }
 
       // Inserted, updated or deleted
-      self::ajax_success();
+      H5PCore::ajaxSuccess();
+      exit;
     }
     else {
       // Fetch data
@@ -1055,47 +1060,5 @@ class H5P_Plugin_Admin {
 
     // Remove contents user/usage data
     $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data', array('user_id' => $id), array('%d'));
-  }
-
-  /**
-   * Makes it easier to print response when AJAX request succeeds.
-   * Will exit after printing.
-   *
-   * @param mixed $data
-   * @since 1.6.0
-   */
-  public static function ajax_success($data = NULL) {
-    header('Cache-Control: no-cache');
-    header('Content-type: application/json; charset=utf-8');
-
-    $response = array(
-      'success' => TRUE
-    );
-    if ($message !== NULL) {
-      $response['data'] = $data;
-    }
-    print json_encode($response);
-    exit;
-  }
-
-  /**
-   * Makes it easier to print response when AJAX request fails.
-   * Will exit after printing error.
-   *
-   * @param string $message
-   * @since 1.6.0
-   */
-  public static function ajax_error($message = NULL) {
-    header('Cache-Control: no-cache');
-    header('Content-type: application/json; charset=utf-8');
-
-    $response = array(
-      'success' => FALSE
-    );
-    if ($message !== NULL) {
-      $response['message'] = $message;
-    }
-    print json_encode($response);
-    exit;
   }
 }
