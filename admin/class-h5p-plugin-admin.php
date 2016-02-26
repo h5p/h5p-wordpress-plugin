@@ -244,7 +244,7 @@ class H5P_Plugin_Admin {
       $current_update = get_option('h5p_current_update', 0);
       if ($current_update == 0) {
         $fetching_msg = '<p>' . sprintf(wp_kses(__('By default, H5P is set up to automatically fetch information regarding Content Type updates from H5P.org. When doing so, H5P will also contribute anonymous usage data to aid the development of H5P. This behaviour can be altered through the <a href="%s">Settings</a> page.', $this->plugin_slug), array('a' => array('href' => array()))), admin_url('options-general.php?page=h5p_settings')) . '</p>';
-        $help_msg = '<p>' . sprintf(wp_kses(__('If you need any help you can always file a <a href="%s" target="_blank">support request</a>, check out our <a href="%s" target="_blank">forum</a> or join our IRC channel #H5P on Freenode.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum')) . '</p>';
+        $help_msg = '<p>' . sprintf(wp_kses(__('If you need any help you can always file a <a href="%s" target="_blank">Support Request</a>, check out our <a href="%s" target="_blank">Forum</a> or join the conversation in the <a href="%s" target="_blank">H5P Community Chat</a>.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum'), esc_url('https://gitter.im/h5p/CommunityChat')) . '</p>';
 
         if ($wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}h5p_libraries") === '0') {
           // Automatically download and install all libraries
@@ -255,7 +255,7 @@ class H5P_Plugin_Admin {
             ?>
               <div class="updated">
                 <p><?php _e('Thank you for choosing H5P.', $this->plugin_slug); ?></p>
-                <p><?php printf(wp_kses(__('Unfortunately, we were unable to automatically install the default content types. You must manually download the content types you wish to use from the <a href="%s" target="_blank">Examples and Downloads</a> page, and then upload them through the <a href="%s">libraries</a> page.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications'), admin_url('admin.php?page=h5p_libraries')); ?></p>
+                <p><?php printf(wp_kses(__('Unfortunately, we were unable to automatically install the default content types. You must manually download the content types you wish to use from the <a href="%s" target="_blank">Examples and Downloads</a> page, and then upload them through the <a href="%s">Libraries</a> page.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications'), admin_url('admin.php?page=h5p_libraries')); ?></p>
                 <?php print $fetching_msg . $help_msg; ?>
               </div>
             <?php
@@ -277,7 +277,7 @@ class H5P_Plugin_Admin {
           ?>
             <div class="updated">
               <p><?php _e('Thank you for staying up to date with H5P.', $this->plugin_slug); ?></p>
-              <p><?php printf(wp_kses(__('You should head over to the <a href="%s">libraries</a> page and update your content types to the latest version.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_libraries')); ?></p>
+              <p><?php printf(wp_kses(__('You should head over to the <a href="%s">Libraries</a> page and update your content types to the latest version.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_libraries')); ?></p>
               <p><?php printf(wp_kses(__('Check out our <a href="%s" target="_blank">Examples and Downloads</a> page for inspiration.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications')); ?><br/>
               <?php print $fetching_msg . $help_msg; ?>
             </div>
