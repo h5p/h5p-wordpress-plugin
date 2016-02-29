@@ -72,8 +72,7 @@ class H5PContentAdmin {
     $edit = ($page === 'h5p_new');
     if (($show || $edit) && $id !== NULL) {
       if ($this->content === NULL) {
-        $plugin = H5P_Plugin::get_instance();
-        $this->content = $plugin->get_content($id);
+        $this->load_content($id);
       }
 
       if (!is_string($this->content)) {
@@ -85,6 +84,33 @@ class H5PContentAdmin {
     }
 
     return $admin_title;
+  }
+
+  /**
+   * Will load and set the content variable.
+   * Also loads tags related to content.
+   *
+   * @since 1.6.0
+   * @param int $id
+   */
+  private function load_content($id) {
+    global $wpdb;
+    $plugin = H5P_Plugin::get_instance();
+
+    $this->content = $plugin->get_content($id);
+    if (!is_string($this->content)) {
+      $tags = $wpdb->get_results($wpdb->prepare(
+          "SELECT t.name
+             FROM {$wpdb->prefix}h5p_contents_tags ct
+             JOIN {$wpdb->prefix}h5p_tags t ON ct.tag_id = t.id
+            WHERE ct.content_id = %d",
+          $id
+      ));
+      $this->content['tags'] = '';
+      foreach ($tags as $tag) {
+        $this->content['tags'] .= ($this->content['tags'] !== '' ? ', ' : '') . $tag->name;
+      }
+    }
   }
 
   /**
@@ -139,7 +165,18 @@ class H5PContentAdmin {
           ),
           (object) array(
             'text' => __('Content type', $this->plugin_slug),
-            'sortable' => TRUE
+            'sortable' => TRUE,
+            'facet' => TRUE
+          ),
+          (object) array(
+            'text' => __('Author', $this->plugin_slug),
+            'sortable' => TRUE,
+            'facet' => TRUE
+          ),
+          (object) array(
+            'text' => __('Tags', $this->plugin_slug),
+            'sortable' => FALSE,
+            'facet' => TRUE
           ),
           (object) array(
             'text' => __('Created', $this->plugin_slug),
@@ -150,7 +187,7 @@ class H5PContentAdmin {
             'sortable' => TRUE
           ),
           (object) array(
-            'text' => __('Author', $this->plugin_slug),
+            'text' => __('ID', $this->plugin_slug),
             'sortable' => TRUE
           )
         );
@@ -171,7 +208,7 @@ class H5PContentAdmin {
           array(true),
           __("No H5P content available. You must upload or create new content.", $this->plugin_slug),
           (object) array(
-            'by' => 3,
+            'by' => 5,
             'dir' => 0
           )
         );
@@ -253,7 +290,7 @@ class H5PContentAdmin {
     // Check if we have any content or errors loading content
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
     if ($id) {
-      $this->content = $plugin->get_content($id);
+      $this->load_content($id);
       if (is_string($this->content)) {
         H5P_Plugin_Admin::set_error($this->content);
         $this->content = NULL;
@@ -307,10 +344,54 @@ class H5PContentAdmin {
 
       if ($result) {
         $content['id'] = $result;
+        $this->set_content_tags($content['id'], filter_input(INPUT_POST, 'tags'));
         $this->delete_export($content);
         wp_safe_redirect(admin_url('admin.php?page=h5p&task=show&id=' . $result));
       }
     }
+  }
+
+  /**
+   *
+   */
+  private function set_content_tags($content_id, $tags) {
+    global $wpdb;
+    $tag_ids = array();
+
+    // Create array and trim input
+    $tags = explode(',', $tags);
+    foreach ($tags as $tag) {
+      $tag = trim($tag);
+
+      // Find out if tag exists and is linked to content
+      $exists = $wpdb->get_row($wpdb->prepare(
+          "SELECT t.id, ct.content_id
+             FROM {$wpdb->prefix}h5p_tags t
+        LEFT JOIN {$wpdb->prefix}h5p_contents_tags ct ON ct.content_id = %d AND ct.tag_id = t.id
+            WHERE t.name = %s",
+          $content_id, $tag
+      ));
+
+      if (empty($exists)) {
+        // Create tag
+        $exists = array('name' => $tag);
+        $wpdb->insert("{$wpdb->prefix}h5p_tags", $exists, array('%s'));
+        $exists = (object) $exists;
+        $exists->id = $wpdb->insert_id;
+      }
+      $tag_ids[] = $exists->id;
+
+      if (empty($exists->content_id)) {
+        // Connect to content
+        $wpdb->insert("{$wpdb->prefix}h5p_contents_tags", array('content_id' => $content_id, 'tag_id' => $exists->id), array('%d', '%d'));
+      }
+    }
+
+    // Remove tags that are not connected to content (old tags)
+    $wpdb->query("DELETE FROM {$wpdb->prefix}h5p_contents_tags WHERE content_id = {$content_id} AND tag_id NOT IN (". implode(',', $tag_ids) .")");
+
+    // Maintain tags table by remove unused tags
+    $wpdb->query("DELETE t.* FROM {$wpdb->prefix}h5p_tags t LEFT JOIN {$wpdb->prefix}h5p_contents_tags ct ON t.id = ct.tag_id WHERE ct.content_id IS NULL");
   }
 
   /**
@@ -336,7 +417,6 @@ class H5PContentAdmin {
     else {
       $upload = (filter_input(INPUT_POST, 'action') === 'upload');
     }
-
 
     // Filter/escape parameters, double escape that is...
     $safe_text = wp_check_invalid_utf8($parameters);
@@ -593,24 +673,36 @@ class H5PContentAdmin {
 
     // Load input vars.
     $admin = H5P_Plugin_Admin::get_instance();
-    list($offset, $limit, $sort_by, $sort_dir, $filters) = $admin->get_data_view_input();
-
-    // Add filters to data query
-    $conditions = array();
-    if (isset($filters[0])) {
-      $conditions[] = array('title', $filters[0], 'LIKE');
-    }
+    list($offset, $limit, $sort_by, $sort_dir, $filters, $facets) = $admin->get_data_view_input();
 
     // Different fields for insert
     if ($insert) {
       $fields = array('id', 'title', 'content_type', 'updated_at');
     }
     else {
-      $fields = array('id', 'title', 'content_type', 'created_at', 'updated_at', 'user_name', 'user_id');
+      $fields = array('title', 'content_type', 'user_name', 'tags', 'created_at', 'updated_at', 'id', 'user_id', 'content_type_id');
+    }
+
+    // Add filters to data query
+    $conditions = array();
+    if (isset($filters[0])) {
+      $conditions[] = array('title', $filters[0], 'LIKE');
+    }
+    if ($facets !== NULL) {
+      $facetmap = array(
+        'content_type' => 'content_type_id',
+        'user_name' => 'user_id',
+        'tags' => 'tags'
+      );
+      foreach ($facets as $field => $values) {
+        if (isset($facetmap[$fields[$field]])) {
+          $conditions[] = array($facetmap[$fields[$field]], implode(',', $values), 'IN');
+        }
+      }
     }
 
     // Create new content query
-    $content_query = new H5PContentQuery($fields, $offset, $limit, $fields[$sort_by + 1], $sort_dir, $conditions);
+    $content_query = new H5PContentQuery($fields, $offset, $limit, $fields[$sort_by], $sort_dir, $conditions);
     $results = $content_query->get_rows();
 
     // Make data more readable for humans
@@ -659,12 +751,33 @@ class H5PContentAdmin {
     $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
     $offset = get_option('gmt_offset') * 3600;
 
+    // Tags come in CSV format, create Array instead
+    $tags = array();
+    $csvtags = explode(';', $result->tags);
+    foreach ($csvtags as $csvtag) {
+      if ($csvtag !== '') {
+        $tag = explode(',', $csvtag);
+        $tags[] = array(
+          'id' => $tag[0],
+          'title' => esc_html($tag[1])
+        );
+      }
+    }
+
     $row = array(
       '<a href="' . admin_url('admin.php?page=h5p&task=show&id=' . $result->id) . '">' . esc_html($result->title) . '</a>',
-      esc_html($result->content_type),
+      array(
+        'id' => $result->content_type_id,
+        'title' => esc_html($result->content_type)
+      ),
+      array(
+        'id' => $result->user_id,
+        'title' => esc_html($result->user_name)
+      ),
+      $tags,
       date($datetimeformat, strtotime($result->created_at) + $offset),
       date($datetimeformat, strtotime($result->updated_at) + $offset),
-      esc_html($result->user_name)
+      $result->id
     );
 
     $content = array('user_id' => $result->user_id);

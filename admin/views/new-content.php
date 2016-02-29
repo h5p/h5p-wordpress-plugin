@@ -87,6 +87,13 @@
           </div>
         </div>
       <?php endif; ?>
+      <div class="postbox h5p-sidebar">
+        <div role="button" class="h5p-toggle" tabindex="0" aria-expanded="true" aria-label="<?php esc_html_e('Toggle panel', $this->plugin_slug); ?>"></div>
+        <h2><?php esc_html_e('Tags', $this->plugin_slug); ?></h2>
+        <div class="h5p-panel">
+          <textarea rows="2" name="tags" class="h5p-tags"><?php print esc_html($this->content['tags']); ?></textarea>
+        </div>
+      </div>
     </form>
   <?php endif; ?>
 </div>

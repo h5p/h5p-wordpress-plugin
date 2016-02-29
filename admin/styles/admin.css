@@ -67,6 +67,9 @@
 .h5p-sidebar.h5p-closed .h5p-toggle:before {
   content: "\f140";
 }
+.h5p-sidebar .h5p-tags {
+  width: 100%;
+}
 #h5p-content-form #minor-publishing,
 .h5p-sidebar .h5p-panel {
   line-height: 175%;

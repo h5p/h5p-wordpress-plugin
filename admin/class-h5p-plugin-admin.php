@@ -771,9 +771,10 @@ class H5P_Plugin_Admin {
         'noData' => __("There's no data available that matches your criteria.", $this->plugin_slug),
         'currentPage' => __('Page $current of $total', $this->plugin_slug),
         'nextPage' => __('Next page', $this->plugin_slug),
-        'previousPage' =>__('Previous page', $this->plugin_slug),
-        'search' =>__('Search', $this->plugin_slug),
-        'empty' => $empty
+        'previousPage' => __('Previous page', $this->plugin_slug),
+        'search' => __('Search', $this->plugin_slug),
+        'remove' => __('Remove', $this->plugin_slug),
+        'empty' => $empty,
       )
     );
     $plugin = H5P_Plugin::get_instance();
@@ -782,6 +783,7 @@ class H5P_Plugin_Admin {
 
     // Add JS
     H5P_Plugin_Admin::add_script('jquery', 'h5p-php-library/js/jquery.js');
+    H5P_Plugin_Admin::add_script('event-dispatcher', 'h5p-php-library/js/h5p-event-dispatcher.js');
     H5P_Plugin_Admin::add_script('utils', 'h5p-php-library/js/h5p-utils.js');
     H5P_Plugin_Admin::add_script('data-view', 'h5p-php-library/js/h5p-data-view.js');
     H5P_Plugin_Admin::add_script('data-views', 'admin/scripts/h5p-data-views.js');
@@ -897,6 +899,7 @@ class H5P_Plugin_Admin {
     $sortBy = filter_input(INPUT_GET, 'sortBy', FILTER_SANITIZE_NUMBER_INT);
     $sortDir = filter_input(INPUT_GET, 'sortDir', FILTER_SANITIZE_NUMBER_INT);
     $filters = filter_input(INPUT_GET, 'filters', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+    $facets = filter_input(INPUT_GET, 'facets', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
     $limit = (!$limit ? 20 : (int) $limit);
     if ($limit > 100) {
@@ -909,7 +912,8 @@ class H5P_Plugin_Admin {
       $limit,
       (!$sortBy ? 0 : (int) $sortBy),
       (!$sortDir ? 0 : (int) $sortDir),
-      $filters
+      $filters,
+      $facets
     );
 
   }
