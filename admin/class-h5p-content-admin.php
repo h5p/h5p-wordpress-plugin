@@ -358,6 +358,9 @@ class H5PContentAdmin {
     $tags = explode(',', $tags);
     foreach ($tags as $tag) {
       $tag = trim($tag);
+      if ($tag === '') {
+        continue;
+      }
 
       // Find out if tag exists and is linked to content
       $exists = $wpdb->get_row($wpdb->prepare(
