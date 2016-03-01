@@ -307,6 +307,7 @@ class H5PContentAdmin {
       if ($delete) {
         if (wp_verify_nonce($delete, 'deleting_h5p_content')) {
           $core = $plugin->get_h5p_instance('core');
+          $this->set_content_tags($this->content['id']);
           $core->h5pF->deleteContentData($this->content['id']);
           $this->delete_export($this->content);
           wp_safe_redirect(admin_url('admin.php?page=h5p'));
@@ -348,9 +349,13 @@ class H5PContentAdmin {
   }
 
   /**
+   * Save tags for given content.
+   * Removes unused tags.
    *
+   * @param int $content_id
+   * @param string $tags
    */
-  private function set_content_tags($content_id, $tags) {
+  private function set_content_tags($content_id, $tags = '') {
     global $wpdb;
     $tag_ids = array();
 
@@ -387,7 +392,8 @@ class H5PContentAdmin {
     }
 
     // Remove tags that are not connected to content (old tags)
-    $wpdb->query("DELETE FROM {$wpdb->prefix}h5p_contents_tags WHERE content_id = {$content_id} AND tag_id NOT IN (". implode(',', $tag_ids) .")");
+    $and_where = empty($tag_ids) ? '' : " AND tag_id NOT IN (". implode(',', $tag_ids) .")";
+    $wpdb->query("DELETE FROM {$wpdb->prefix}h5p_contents_tags WHERE content_id = {$content_id}{$and_where}");
 
     // Maintain tags table by remove unused tags
     $wpdb->query("DELETE t.* FROM {$wpdb->prefix}h5p_tags t LEFT JOIN {$wpdb->prefix}h5p_contents_tags ct ON t.id = ct.tag_id WHERE ct.content_id IS NULL");
