@@ -179,10 +179,6 @@ class H5PContentAdmin {
             'facet' => TRUE
           ),
           (object) array(
-            'text' => __('Created', $this->plugin_slug),
-            'sortable' => TRUE
-          ),
-          (object) array(
             'text' => __('Last modified', $this->plugin_slug),
             'sortable' => TRUE
           ),
@@ -208,7 +204,7 @@ class H5PContentAdmin {
           array(true),
           __("No H5P content available. You must upload or create new content.", $this->plugin_slug),
           (object) array(
-            'by' => 5,
+            'by' => 4,
             'dir' => 0
           )
         );
@@ -633,7 +629,13 @@ class H5PContentAdmin {
         ),
         (object) array(
           'text' => __('Content type', $this->plugin_slug),
-          'sortable' => TRUE
+          'sortable' => TRUE,
+          'facet' => TRUE
+        ),
+        (object) array(
+          'text' => __('Tags', $this->plugin_slug),
+          'sortable' => FALSE,
+          'facet' => TRUE
         ),
         (object) array(
           'text' => __('Last modified', $this->plugin_slug),
@@ -646,7 +648,7 @@ class H5PContentAdmin {
       array(true),
       __("No H5P content available. You must upload or create new content.", $this->plugin_slug),
       (object) array(
-        'by' => 2,
+        'by' => 3,
         'dir' => 0
       )
     );
@@ -677,10 +679,10 @@ class H5PContentAdmin {
 
     // Different fields for insert
     if ($insert) {
-      $fields = array('id', 'title', 'content_type', 'updated_at');
+      $fields = array('title', 'content_type', 'tags', 'updated_at', 'id', 'content_type_id');
     }
     else {
-      $fields = array('title', 'content_type', 'user_name', 'tags', 'created_at', 'updated_at', 'id', 'user_id', 'content_type_id');
+      $fields = array('title', 'content_type', 'user_name', 'tags', 'updated_at', 'id', 'user_id', 'content_type_id');
     }
 
     // Add filters to data query
@@ -722,6 +724,58 @@ class H5PContentAdmin {
   }
 
   /**
+   * Format time for use in content lists.
+   *
+   * @since 1.6.0
+   * @param int $timestamp
+   * @return string
+   */
+  private function format_time($timestamp) {
+    // Get timezone offset
+    $offset = get_option('gmt_offset') * 3600;
+
+    // Format time
+    $time = strtotime($timestamp);
+    $current_time = current_time('timestamp');
+    $human_time = human_time_diff($time + $offset, $current_time) . ' ' . __('ago', $this->plugin_slug);
+
+    if ($current_time > $time + DAY_IN_SECONDS) {
+      // Over a day old, swap human time for formatted time
+      $formatted_time = $human_time;
+      $human_time = date('Y/m/d', $time + $offset);
+    }
+    else {
+      $formatted_time = date(get_option('time_format'), $time + $offset);
+    }
+
+    $iso_time = date('c', $time);
+    return "<time datetime=\"{$iso_time}\" title=\"{$formatted_time}\">{$human_time}</time>";
+  }
+
+  /**
+   * Format tags for use in content lists.
+   *
+   * @since 1.6.0
+   * @param string $tags
+   * @return array With tag objects
+   */
+  private function format_tags($tags) {
+    // Tags come in CSV format, create Array instead
+    $result = array();
+    $csvtags = explode(';', $tags);
+    foreach ($csvtags as $csvtag) {
+      if ($csvtag !== '') {
+        $tag = explode(',', $csvtag);
+        $result[] = array(
+          'id' => $tag[0],
+          'title' => esc_html($tag[1])
+        );
+      }
+    }
+    return $result;
+  }
+
+  /**
    * Get row for insert table with all values escaped and ready for view.
    *
    * @since 1.2.0
@@ -729,13 +783,14 @@ class H5PContentAdmin {
    * @return array
    */
   private function get_contents_insert_row($result) {
-    $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
-    $offset = get_option('gmt_offset') * 3600;
-
     return array(
       esc_html($result->title),
-      esc_html($result->content_type),
-      date($datetimeformat, strtotime($result->updated_at) + $offset),
+      array(
+        'id' => $result->content_type_id,
+        'title' => esc_html($result->content_type)
+      ),
+      $this->format_tags($result->tags),
+      $this->format_time($result->updated_at),
       '<button class="button h5p-insert" data-id="' . $result->id . '">' . __('Insert', $this->plugin_slug) . '</button>'
     );
   }
@@ -748,22 +803,6 @@ class H5PContentAdmin {
    * @return array
    */
   private function get_contents_row($result) {
-    $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
-    $offset = get_option('gmt_offset') * 3600;
-
-    // Tags come in CSV format, create Array instead
-    $tags = array();
-    $csvtags = explode(';', $result->tags);
-    foreach ($csvtags as $csvtag) {
-      if ($csvtag !== '') {
-        $tag = explode(',', $csvtag);
-        $tags[] = array(
-          'id' => $tag[0],
-          'title' => esc_html($tag[1])
-        );
-      }
-    }
-
     $row = array(
       '<a href="' . admin_url('admin.php?page=h5p&task=show&id=' . $result->id) . '">' . esc_html($result->title) . '</a>',
       array(
@@ -774,9 +813,8 @@ class H5PContentAdmin {
         'id' => $result->user_id,
         'title' => esc_html($result->user_name)
       ),
-      $tags,
-      date($datetimeformat, strtotime($result->created_at) + $offset),
-      date($datetimeformat, strtotime($result->updated_at) + $offset),
+      $this->format_tags($result->tags),
+      $this->format_time($result->updated_at),
       $result->id
     );
 

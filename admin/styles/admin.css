@@ -64,6 +64,9 @@
 .h5p-sidebar.h5p-closed .h5p-panel {
   display: none;
 }
+.h5p-sidebar .h5p-panel .howto {
+  margin: 0.5em 0 0 0;
+}
 .h5p-sidebar.h5p-closed .h5p-toggle:before {
   content: "\f140";
 }
@@ -138,7 +141,10 @@
   border-right: 0;
 }
 .h5p-insertion input[type="text"] {
-  margin: 0.5em;
+  margin-left: 0.5em;
+}
+.h5p-insertion .h5p-facet-wrapper {
+  margin-top: 0.5em;
 }
 .h5p-insertion td:nth-child(6) {
   text-align: right;
