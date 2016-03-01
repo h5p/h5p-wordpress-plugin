@@ -705,9 +705,9 @@ class H5PContentAdmin {
         'user_name' => 'user_id',
         'tags' => 'tags'
       );
-      foreach ($facets as $field => $values) {
+      foreach ($facets as $field => $value) {
         if (isset($facetmap[$fields[$field]])) {
-          $conditions[] = array($facetmap[$fields[$field]], implode(',', $values), 'IN');
+          $conditions[] = array($facetmap[$fields[$field]], $value, '=');
         }
       }
     }
