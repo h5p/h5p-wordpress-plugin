@@ -238,53 +238,79 @@ class H5P_Plugin_Admin {
   public function admin_notices() {
     global $wpdb;
 
+    // Gather all messages before printing
+    $messages = array();
+
+    // Some messages used multiple places
+    $staying_msg = __('Thank you for staying up to date with H5P.', $this->plugin_slug);
+    $updates_msg = sprintf(wp_kses(__('You should head over to the <a href="%s">Libraries</a> page and update your content types to the latest version.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_libraries'));
+    $fetching_msg = sprintf(wp_kses(__('By default, H5P is set up to automatically fetch information regarding Content Type updates from H5P.org. When doing so, H5P will also contribute anonymous usage data to aid the development of H5P. This behaviour can be altered through the <a href="%s">Settings</a> page.', $this->plugin_slug), array('a' => array('href' => array()))), admin_url('options-general.php?page=h5p_settings'));
+    $help_msg = sprintf(wp_kses(__('If you need any help you can always file a <a href="%s" target="_blank">Support Request</a>, check out our <a href="%s" target="_blank">Forum</a> or join the conversation in the <a href="%s" target="_blank">H5P Community Chat</a>.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum'), esc_url('https://gitter.im/h5p/CommunityChat'));
+
     // Handle library updates
     $update_available = get_option('h5p_update_available', 0);
-    if ($update_available != 0) {
-      $current_update = get_option('h5p_current_update', 0);
-      if ($current_update == 0) {
-        $fetching_msg = '<p>' . sprintf(wp_kses(__('By default, H5P is set up to automatically fetch information regarding Content Type updates from H5P.org. When doing so, H5P will also contribute anonymous usage data to aid the development of H5P. This behaviour can be altered through the <a href="%s">Settings</a> page.', $this->plugin_slug), array('a' => array('href' => array()))), admin_url('options-general.php?page=h5p_settings')) . '</p>';
-        $help_msg = '<p>' . sprintf(wp_kses(__('If you need any help you can always file a <a href="%s" target="_blank">Support Request</a>, check out our <a href="%s" target="_blank">Forum</a> or join the conversation in the <a href="%s" target="_blank">H5P Community Chat</a>.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum'), esc_url('https://gitter.im/h5p/CommunityChat')) . '</p>';
+    $current_update = get_option('h5p_current_update', 0);
+    if ($update_available != 0 && $current_update == 0) {
+      // A new update is available and no version of the H5P Content Types
+      // is currently installed.
+      $inspiration_msg = sprintf(wp_kses(__('Check out our <a href="%s" target="_blank">Examples and Downloads</a> page for inspiration.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications'));
 
-        if ($wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}h5p_libraries") === '0') {
-          // Automatically download and install all libraries
-          if (!self::download_h5p_libraries()) {
-            // Prevent trying again automatically. The user will have to press
-            // the download & update button on the libraries page.
-            update_option('h5p_current_update', 1);
-            ?>
-              <div class="updated">
-                <p><?php _e('Thank you for choosing H5P.', $this->plugin_slug); ?></p>
-                <p><?php printf(wp_kses(__('Unfortunately, we were unable to automatically install the default content types. You must manually download the content types you wish to use from the <a href="%s" target="_blank">Examples and Downloads</a> page, and then upload them through the <a href="%s">Libraries</a> page.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications'), admin_url('admin.php?page=h5p_libraries')); ?></p>
-                <?php print $fetching_msg . $help_msg; ?>
-              </div>
-            <?php
-          }
-          else {
-            ?>
-              <div class="updated">
-                <p><?php _e('Thank you for choosing H5P.', $this->plugin_slug); ?></p>
-                <p><?php printf(wp_kses(__('We\'ve automatically installed the default content types for your convenience. You can now <a href="%s">start creating</a> your own interactive content!', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_new')); ?></p>
-                <p><?php printf(wp_kses(__('Check out our <a href="%s" target="_blank">Examples and Downloads</a> page for inspiration.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications')); ?><br/>
-                <?php print $fetching_msg . $help_msg; ?>
-              </div>
-            <?php
-          }
-          self::print_messages();
+      // Check to see if content types might be installed any way
+      if ($wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}h5p_libraries") === '0') {
+        // No content types, automatically download and install the latest release
+        $messages[] = __('Thank you for choosing H5P.', $this->plugin_slug);
+        if (!self::download_h5p_libraries()) {
+          // Prevent trying again automatically. The user will have to press
+          // the download & update button on the libraries page.
+          update_option('h5p_current_update', 1);
+          $messages[] = sprintf(wp_kses(__('Unfortunately, we were unable to automatically install the default content types. You must manually download the content types you wish to use from the <a href="%s" target="_blank">Examples and Downloads</a> page, and then upload them through the <a href="%s">Libraries</a> page.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications'), admin_url('admin.php?page=h5p_libraries'));
         }
         else {
-          update_option('h5p_current_update', 1);
-          ?>
-            <div class="updated">
-              <p><?php _e('Thank you for staying up to date with H5P.', $this->plugin_slug); ?></p>
-              <p><?php printf(wp_kses(__('You should head over to the <a href="%s">Libraries</a> page and update your content types to the latest version.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_libraries')); ?></p>
-              <p><?php printf(wp_kses(__('Check out our <a href="%s" target="_blank">Examples and Downloads</a> page for inspiration.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications')); ?><br/>
-              <?php print $fetching_msg . $help_msg; ?>
-            </div>
-          <?php
+          $messages[] = sprintf(wp_kses(__('We\'ve automatically installed the default content types for your convenience. You can now <a href="%s">start creating</a> your own interactive content!', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_new'));
+          $messages[] = $inspiration_msg;
         }
       }
+      else {
+        update_option('h5p_current_update', 1);
+
+        $messages[] = $staying_msg;
+        $messages[] = $updates_msg;
+        $messages[] = $inspiration_msg;
+      }
+      $messages[] = $fetching_msg;
+      $messages[] = $help_msg;
+      update_option('h5p_last_info_print', H5P_Plugin::VERSION);
     }
+
+    // Always print a message after
+    $last_print = get_option('h5p_last_info_print', 0);
+    if (empty($messages) && $last_print !== H5P_Plugin::VERSION) {
+      // Looks like we've just updated, always thank the user for updating.
+      $messages[] = $staying_msg;
+      if ($update_available > $current_update) {
+        // User should update content types
+        $messages[] = $updates_msg;
+      }
+      if ($last_print == 0) {
+        // Notify user about anonymous data tracking
+        $messages[] = $fetching_msg;
+      }
+      // Always offer help
+      $messages[] = $help_msg;
+      update_option('h5p_last_info_print', H5P_Plugin::VERSION);
+    }
+
+    if (!empty($messages)) {
+      // Print all messages
+      ?><div class="updated"><?php
+      foreach ($messages as $message) {
+        ?><p><?php print $message; ?></p><?php
+      }
+      ?></div><?php
+    }
+
+    // Print any other messages
+    self::print_messages();
   }
 
   /**
