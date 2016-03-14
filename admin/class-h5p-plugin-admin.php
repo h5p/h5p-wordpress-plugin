@@ -307,10 +307,10 @@ class H5P_Plugin_Admin {
         ?><p><?php print $message; ?></p><?php
       }
       ?></div><?php
-    }
 
-    // Print any other messages
-    self::print_messages();
+      // Print any other messages
+      self::print_messages();
+    }
   }
 
   /**
