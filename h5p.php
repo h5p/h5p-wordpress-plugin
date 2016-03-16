@@ -47,7 +47,8 @@ function h5p_autoloader($class) {
       'H5PStorage' => 'h5p-php-library/h5p.classes.php',
       'H5PExport' => 'h5p-php-library/h5p.classes.php',
       'H5PDevelopment' => 'h5p-php-library/h5p-development.class.php',
-      'H5PFileStorage' => 'h5p-php-library/h5p-file-storage.interface.php'
+      'H5PFileStorage' => 'h5p-php-library/h5p-file-storage.interface.php',
+      'H5PDefaultStorage' => 'h5p-php-library/h5p-default-storage.class.php',
 
       // Editor
       'H5peditor' => 'h5p-editor-php-library/h5peditor.class.php',
@@ -66,13 +67,6 @@ function h5p_autoloader($class) {
       'H5PEditorWordPressStorage' => 'admin/class-h5p-editor-wordpress-storage.php',
     );
   }
-
-  $path = plugin_dir_path(__FILE__);
-  include_once($path . '../h5p-php-library/h5p-file-storage.interface.php');
-  include_once($path . '../h5p-php-library/h5p-default-storage.class.php');
-  include_once($path . '../h5p-php-library/h5p.classes.php');
-  include_once($path . '../h5p-php-library/h5p-development.class.php');
-  include_once($path . 'class-h5p-wordpress.php');
 
   if (isset($classmap[$class])) {
     require_once plugin_dir_path(__FILE__) . $classmap[$class];
