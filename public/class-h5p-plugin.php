@@ -538,17 +538,8 @@ class H5P_Plugin {
    */
   public function get_h5p_instance($type) {
     if (self::$interface === null) {
-      $path = plugin_dir_path(__FILE__);
-      include_once($path . '../h5p-php-library/h5p-file-storage.interface.php');
-      include_once($path . '../h5p-php-library/h5p-default-storage.class.php');
-      include_once($path . '../h5p-php-library/h5p.classes.php');
-      include_once($path . '../h5p-php-library/h5p-development.class.php');
-      include_once($path . 'class-h5p-wordpress.php');
-
       self::$interface = new H5PWordPress();
-
       $language = $this->get_language();
-
       self::$core = new H5PCore(self::$interface, $this->get_h5p_path(), $this->get_h5p_url(), $language, get_option('h5p_export', TRUE));
       self::$core->aggregateAssets = !(defined('H5P_DISABLE_AGGREGATION') && H5P_DISABLE_AGGREGATION === true);
     }
@@ -853,6 +844,10 @@ class H5P_Plugin {
       'ajax' => array(
         'setFinished' => admin_url('admin-ajax.php?action=h5p_setFinished'),
         'contentUserData' => admin_url('admin-ajax.php?action=h5p_contents_user_data&content_id=:contentId&data_type=:dataType&sub_content_id=:subContentId')
+      ),
+      'tokens' => array(
+        'result' => wp_create_nonce('h5p_result'),
+        'contentUserData' => wp_create_nonce('h5p_contentuserdata')
       ),
       'saveFreq' => get_option('h5p_save_content_state', FALSE) ? get_option('h5p_save_content_frequency', 30) : FALSE,
       'siteUrl' => get_site_url(),

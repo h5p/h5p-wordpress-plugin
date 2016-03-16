@@ -572,7 +572,12 @@ class H5P_Plugin_Admin {
 
     $content_id = filter_input(INPUT_POST, 'contentId', FILTER_VALIDATE_INT);
     if (!$content_id) {
-      return;
+      H5PCore::ajaxError(__('Invalid content', $this->plugin_slug));
+      exit;
+    }
+    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_result')) {
+      H5PCore::ajaxError(__('Invalid security token', $this->plugin_slug));
+      exit;
     }
 
     $user_id = get_current_user_id();
@@ -616,6 +621,10 @@ class H5P_Plugin_Admin {
       // Update existing results
       $wpdb->update($table, $data, array('id' => $result_id), $format, array('%d'));
     }
+
+    // Success
+    H5PCore::ajaxSuccess();
+    exit;
   }
 
   /**
@@ -946,6 +955,11 @@ class H5P_Plugin_Admin {
     $preload = filter_input(INPUT_POST, 'preload');
     $invalidate = filter_input(INPUT_POST, 'invalidate');
     if ($data !== NULL && $preload !== NULL && $invalidate !== NULL) {
+      if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_contentuserdata')) {
+        H5PCore::ajaxError(__('Invalid security token', $this->plugin_slug));
+        exit;
+      }
+
       if ($data === '0') {
         // Remove data
         $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data',
@@ -1009,6 +1023,10 @@ class H5P_Plugin_Admin {
           );
         }
       }
+
+      // Inserted, updated or deleted
+      H5PCore::ajaxSuccess();
+      exit;
     }
     else {
       // Fetch data
@@ -1047,5 +1065,4 @@ class H5P_Plugin_Admin {
     // Remove contents user/usage data
     $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data', array('user_id' => $id), array('%d'));
   }
-
 }

@@ -281,6 +281,7 @@ class H5PLibraryAdmin {
    */
   public function process_libraries() {
     $post = ($_SERVER['REQUEST_METHOD'] === 'POST');
+    $task = filter_input(INPUT_GET, 'task');
 
     if ($post) {
       // A form as has been submitted
@@ -310,7 +311,7 @@ class H5PLibraryAdmin {
         }
         return;
       }
-      else {
+      elseif ($task === NULL) {
         // No files, we must be trying to auto download & update
 
         check_admin_referer('h5p_update', 'download_update'); // Verify form
@@ -323,13 +324,12 @@ class H5PLibraryAdmin {
                   __('Unfortunately, we were unable to update your installed content types. You must manually download the update from <a href="%s" target="_blank">H5P.org</a>, and then upload it through the <em>Upload Libraries</em> section. If you need futher assistance, please file a <a href="%s" target="_blank">support request</a> or check out our <a href="%s" target="_blank">forum</a>.', $this->plugin_slug),
                   array('a' => array('href' => array(), 'target' => array()), 'em' => array())
                 ),
-                array(esc_url('https://h5p.org/update-all-content-types'), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum'))  
+                array(esc_url('https://h5p.org/update-all-content-types'), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum'))
               ));
         }
       }
     }
 
-    $task = filter_input(INPUT_GET, 'task');
     if ($task === 'delete') {
       $library = $this->get_library();
       if (!$library) {

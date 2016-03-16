@@ -686,12 +686,6 @@ class H5PContentAdmin {
    */
   private function get_h5peditor_instance() {
     if (self::$h5peditor === null) {
-      $path = plugin_dir_path(__FILE__);
-      include_once($path . '../h5p-editor-php-library/h5peditor.class.php');
-      include_once($path . '../h5p-editor-php-library/h5peditor-file.class.php');
-      include_once($path . '../h5p-editor-php-library/h5peditor-storage.interface.php');
-      include_once($path . 'class-h5p-editor-wordpress-storage.php');
-
       $upload_dir = wp_upload_dir();
       $plugin = H5P_Plugin::get_instance();
       self::$h5peditor = new H5peditor(
@@ -771,7 +765,8 @@ class H5PContentAdmin {
       'libraryUrl' => plugin_dir_url('h5p/h5p-editor-php-library/h5peditor.class.php'),
       'copyrightSemantics' => $content_validator->getCopyrightSemantics(),
       'assets' => $assets,
-      'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug)
+      'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug),
+      'uploadToken' => wp_create_nonce('h5p_editor_upload')
     );
 
     if ($id !== NULL) {
@@ -816,6 +811,11 @@ class H5PContentAdmin {
     $plugin = H5P_Plugin::get_instance();
     $files_directory = $plugin->get_h5p_path();
 
+    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING), 'h5p_editor_upload')) {
+      H5PCore::ajaxError(__('Invalid security token. Please reload the editor.', $this->plugin_slug));
+      exit;
+    }
+
     $contentId = filter_input(INPUT_POST, 'contentId', FILTER_SANITIZE_NUMBER_INT);
     if ($contentId) {
       $files_directory .=  '/content/' . $contentId;
@@ -829,6 +829,7 @@ class H5PContentAdmin {
     $file = new H5peditorFile($interface, $files_directory);
 
     if (!$file->isLoaded()) {
+      H5PCore::ajaxError(__('File not found on server. Check file upload settings.', $this->plugin_slug));
       exit;
     }
 
