@@ -28,7 +28,8 @@
             </label>
             <p class="h5p-setting-desc">
               <?php _e("Disabling this option will prevent your site from fetching the newest H5P updates.", $this->plugin_slug); ?><br/>
-              <?php _e("You will have to manually download the Content Type updates from H5P.org and then upload them to your site.", $this->plugin_slug); ?>
+              <?php _e("You will have to manually download the Content Type updates from H5P.org and then upload them to your site.", $this->plugin_slug); ?><br/>
+              <?php printf(wp_kses(__('You can read more about <a href="%s" target="_blank">which data is collected</a> on h5p.org.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), 'https://h5p.org/tracking-the-usage-of-h5p'); ?>
             </p>
           </td>
         </tr>
