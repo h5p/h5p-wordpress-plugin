@@ -109,7 +109,7 @@
                 <input type="radio" name="insert_method" value="slug"
                   <?php if ($insert_method == "slug"): ?>checked="checked"<?php endif; ?>
                 />
-                <?php _e("Reference content by <a href='https://en.wikipedia.org/wiki/Semantic_URL#Slug' target='_blank'>slug</a>", $this->plugin_slug); ?></th>
+                <?php printf(wp_kses(__('Reference content by <a href="%s" target="_blank">slug</a>', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), 'https://en.wikipedia.org/wiki/Semantic_URL#Slug'); ?></th>
               </label>
             </div>
           </td>
