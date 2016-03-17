@@ -91,6 +91,12 @@
 .h5p-insertion td:nth-child(6) {
   text-align: right;
 }
+.h5p-insert-method-holder {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.5em;
+}
 .h5p-disable-file-check {
   margin-top: 0.5em;
 }

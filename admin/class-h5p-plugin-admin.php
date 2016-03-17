@@ -74,7 +74,7 @@ class H5P_Plugin_Admin {
     add_filter('plugin_action_links_h5p/h5p.php', array($this, 'add_settings_link'));
 
     // Custom media button for inserting H5Ps.
-    add_action('media_buttons_context', array($this->content, 'add_insert_button'));
+    add_action('media_buttons_context', array($this->content, 'add_insert_button')); // TODO: Deprecated. Use media_buttons instead!
     add_action('admin_footer', array($this->content, 'print_insert_content_scripts'));
     add_action('wp_ajax_h5p_insert_content', array($this->content, 'ajax_insert_content'));
     add_action('wp_ajax_h5p_inserted', array($this->content, 'ajax_inserted'));
@@ -464,6 +464,9 @@ class H5P_Plugin_Admin {
 
       $save_content_frequency = filter_input(INPUT_POST, 'save_content_frequency', FILTER_VALIDATE_INT);
       update_option('h5p_save_content_frequency', $save_content_frequency);
+
+      $insert_method = filter_input(INPUT_POST, 'insert_method', FILTER_SANITIZE_SPECIAL_CHARS);
+      update_option('h5p_insert_method', $insert_method);
     }
     else {
       $frame = get_option('h5p_frame', TRUE);
@@ -475,6 +478,7 @@ class H5P_Plugin_Admin {
       $library_updates = get_option('h5p_library_updates', TRUE);
       $save_content_state = get_option('h5p_save_content_state', FALSE);
       $save_content_frequency = get_option('h5p_save_content_frequency', 30);
+      $insert_method = get_option('h5p_insert_method', 'id');
     }
 
     include_once('views/settings.php');
@@ -620,7 +624,12 @@ class H5P_Plugin_Admin {
 
     $content_id = filter_input(INPUT_POST, 'contentId', FILTER_VALIDATE_INT);
     if (!$content_id) {
-      return;
+      H5PCore::ajaxError(__('Invalid content', $this->plugin_slug));
+      exit;
+    }
+    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_result')) {
+      H5PCore::ajaxError(__('Invalid security token', $this->plugin_slug));
+      exit;
     }
 
     $user_id = get_current_user_id();
@@ -677,6 +686,10 @@ class H5P_Plugin_Admin {
     new H5P_Event('results', 'set',
         $content_id, $content->title,
         $content->name, $content->major_version . '.' . $content->minor_version);
+
+    // Success
+    H5PCore::ajaxSuccess();
+    exit;
   }
 
   /**
@@ -1010,6 +1023,11 @@ class H5P_Plugin_Admin {
     $preload = filter_input(INPUT_POST, 'preload');
     $invalidate = filter_input(INPUT_POST, 'invalidate');
     if ($data !== NULL && $preload !== NULL && $invalidate !== NULL) {
+      if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_contentuserdata')) {
+        H5PCore::ajaxError(__('Invalid security token', $this->plugin_slug));
+        exit;
+      }
+
       if ($data === '0') {
         // Remove data
         $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data',
@@ -1073,6 +1091,10 @@ class H5P_Plugin_Admin {
           );
         }
       }
+
+      // Inserted, updated or deleted
+      H5PCore::ajaxSuccess();
+      exit;
     }
     else {
       // Fetch data
@@ -1111,5 +1133,4 @@ class H5P_Plugin_Admin {
     // Remove contents user/usage data
     $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data', array('user_id' => $id), array('%d'));
   }
-
 }

@@ -281,6 +281,7 @@ class H5PLibraryAdmin {
    */
   public function process_libraries() {
     $post = ($_SERVER['REQUEST_METHOD'] === 'POST');
+    $task = filter_input(INPUT_GET, 'task');
 
     if ($post) {
       // A form as has been submitted
@@ -310,7 +311,7 @@ class H5PLibraryAdmin {
         }
         return;
       }
-      else {
+      elseif ($task === NULL) {
         // No files, we must be trying to auto download & update
 
         check_admin_referer('h5p_update', 'download_update'); // Verify form
@@ -329,7 +330,6 @@ class H5PLibraryAdmin {
       }
     }
 
-    $task = filter_input(INPUT_GET, 'task');
     if ($task === 'delete') {
       $library = $this->get_library();
       if (!$library) {

@@ -280,6 +280,12 @@ class H5P_Plugin {
       PRIMARY KEY  (type,library_name,library_version)
     ) {$charset};");
 
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries_cachedassets (
+      library_id INT UNSIGNED NOT NULL,
+      hash VARCHAR(64) NOT NULL,
+      PRIMARY KEY  (library_id,hash)
+    ) {$charset};");
+
     // Add default setting options
     add_option('h5p_frame', TRUE);
     add_option('h5p_export', TRUE);
@@ -558,16 +564,10 @@ class H5P_Plugin {
    */
   public function get_h5p_instance($type) {
     if (self::$interface === null) {
-      $path = plugin_dir_path(__FILE__);
-      include_once($path . '../h5p-php-library/h5p.classes.php');
-      include_once($path . '../h5p-php-library/h5p-development.class.php');
-      include_once($path . 'class-h5p-wordpress.php');
-
       self::$interface = new H5PWordPress();
-
       $language = $this->get_language();
-
       self::$core = new H5PCore(self::$interface, $this->get_h5p_path(), $this->get_h5p_url(), $language, get_option('h5p_export', TRUE));
+      self::$core->aggregateAssets = !(defined('H5P_DISABLE_AGGREGATION') && H5P_DISABLE_AGGREGATION === true);
     }
 
     switch ($type) {
@@ -619,6 +619,27 @@ class H5P_Plugin {
    * @return string
    */
   public function shortcode($atts) {
+    global $wpdb;
+    if (isset($atts['slug'])) {
+      $q=$wpdb->prepare(
+        "SELECT  id ".
+        "FROM    {$wpdb->prefix}h5p_contents ".
+        "WHERE   slug=%s",
+        $atts['slug']
+      );
+      $row=$wpdb->get_row($q,ARRAY_A);
+
+      if ($wpdb->last_error) {
+        return sprintf(__('Database error: %s.', $this->plugin_slug), $wpdb->last_error);
+      }
+
+      if (!isset($row['id'])) {
+        return sprintf(__('Cannot find H5P content with slug: %s.', $this->plugin_slug), $atts['slug']);
+      }
+
+      $atts['id']=$row['id'];
+    }
+
     $id = isset($atts['id']) ? intval($atts['id']) : NULL;
     $content = $this->get_content($id);
     if (is_string($content)) {
@@ -854,7 +875,12 @@ class H5P_Plugin {
       'postUserStatistics' => (get_option('h5p_track_user', TRUE) === '1') && $current_user->ID,
       'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
       'ajax' => array(
+        'setFinished' => admin_url('admin-ajax.php?action=h5p_setFinished'),
         'contentUserData' => admin_url('admin-ajax.php?action=h5p_contents_user_data&content_id=:contentId&data_type=:dataType&sub_content_id=:subContentId')
+      ),
+      'tokens' => array(
+        'result' => wp_create_nonce('h5p_result'),
+        'contentUserData' => wp_create_nonce('h5p_contentuserdata')
       ),
       'saveFreq' => get_option('h5p_save_content_state', FALSE) ? get_option('h5p_save_content_frequency', 30) : FALSE,
       'siteUrl' => get_site_url(),
