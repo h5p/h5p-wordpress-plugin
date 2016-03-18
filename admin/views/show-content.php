@@ -38,7 +38,11 @@
     <div class="postbox h5p-sidebar">
       <h2><?php esc_html_e('Tags', $this->plugin_slug); ?></h2>
       <div class="h5p-action-bar-settings h5p-panel">
-        <p><?php print esc_html($this->content['tags']); ?></p>
+        <?php if (empty($this->content['tags'])): ?>
+          <p style="font-style: italic;"><?php esc_html_e('No tags', $this->plugin_slug); ?></p>
+        <?php else: ?>
+          <p><?php print esc_html($this->content['tags']); ?></p>
+        <?php endif; ?>
       </div>
     </div>
   </div>
