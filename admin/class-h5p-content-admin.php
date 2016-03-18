@@ -306,10 +306,9 @@ class H5PContentAdmin {
       $delete = filter_input(INPUT_GET, 'delete');
       if ($delete) {
         if (wp_verify_nonce($delete, 'deleting_h5p_content')) {
-          $core = $plugin->get_h5p_instance('core');
           $this->set_content_tags($this->content['id']);
-          $core->h5pF->deleteContentData($this->content['id']);
-          $this->delete_export($this->content);
+          $storage = $plugin->get_h5p_instance('storage');
+          $storage->deletePackage($this->content);
           wp_safe_redirect(admin_url('admin.php?page=h5p'));
           return;
         }
@@ -341,8 +340,11 @@ class H5PContentAdmin {
 
       if ($result) {
         $content['id'] = $result;
+<<<<<<< HEAD
         $this->set_content_tags($content['id'], filter_input(INPUT_POST, 'tags'));
         $this->delete_export($content);
+=======
+>>>>>>> master
         wp_safe_redirect(admin_url('admin.php?page=h5p&task=show&id=' . $result));
       }
     }
@@ -446,21 +448,6 @@ class H5PContentAdmin {
     global $wpdb;
 
     return $wpdb->get_var("SELECT id FROM {$wpdb->prefix}h5p_libraries WHERE runnable = 1 LIMIT 1") !== NULL;
-  }
-
-  /**
-   * Remove h5p export file.
-   *
-   * @since 1.1.0
-   * @param array $content
-   */
-  private function delete_export($content) {
-    $plugin = H5P_Plugin::get_instance();
-    $export = $plugin->get_h5p_instance('export');
-    if (!isset($content['slug'])) {
-      $content['slug'] = '';
-    }
-    $export->deleteExport($content);
   }
 
   /**
@@ -613,7 +600,14 @@ class H5PContentAdmin {
    */
   public function add_insert_button() {
     $this->insertButton = TRUE;
-    return '<a href="#" id="add-h5p" class="button" title="' . __('Insert H5P Content', $this->plugin_slug) . '">' . __('Add H5P', $this->plugin_slug) . '</a>';
+
+    $insert_method = get_option('h5p_insert_method', 'id');
+    $button_content =
+      '<a href="#" id="add-h5p" class="button" title="' . __('Insert H5P Content', $this->plugin_slug) . '" data-method="' . $insert_method . '">' .
+      __('Add H5P', $this->plugin_slug) .
+      '</a>';
+
+    return $button_content;
   }
 
   /**
@@ -699,6 +693,7 @@ class H5PContentAdmin {
     if (isset($filters[0])) {
       $conditions[] = array('title', $filters[0], 'LIKE');
     }
+<<<<<<< HEAD
     if ($facets !== NULL) {
       $facetmap = array(
         'content_type' => 'content_type_id',
@@ -710,6 +705,15 @@ class H5PContentAdmin {
           $conditions[] = array($facetmap[$fields[$field]], $value, '=');
         }
       }
+=======
+
+    // Different fields for insert
+    if ($insert) {
+      $fields = array('id', 'title', 'content_type', 'updated_at', 'slug');
+    }
+    else {
+      $fields = array('id', 'title', 'content_type', 'created_at', 'updated_at', 'user_name', 'user_id');
+>>>>>>> master
     }
 
     // Create new content query
@@ -794,6 +798,7 @@ class H5PContentAdmin {
   private function get_contents_insert_row($result) {
     return array(
       esc_html($result->title),
+<<<<<<< HEAD
       array(
         'id' => $result->content_type_id,
         'title' => esc_html($result->content_type)
@@ -801,6 +806,11 @@ class H5PContentAdmin {
       $this->format_tags($result->tags),
       $this->format_time($result->updated_at),
       '<button class="button h5p-insert" data-id="' . $result->id . '">' . __('Insert', $this->plugin_slug) . '</button>'
+=======
+      esc_html($result->content_type),
+      date($datetimeformat, strtotime($result->updated_at) + $offset),
+      '<button class="button h5p-insert" data-id="' . $result->id . '" data-slug="' . $result->slug . '">' . __('Insert', $this->plugin_slug) . '</button>'
+>>>>>>> master
     );
   }
 
@@ -858,12 +868,6 @@ class H5PContentAdmin {
    */
   private function get_h5peditor_instance() {
     if (self::$h5peditor === null) {
-      $path = plugin_dir_path(__FILE__);
-      include_once($path . '../h5p-editor-php-library/h5peditor.class.php');
-      include_once($path . '../h5p-editor-php-library/h5peditor-file.class.php');
-      include_once($path . '../h5p-editor-php-library/h5peditor-storage.interface.php');
-      include_once($path . 'class-h5p-editor-wordpress-storage.php');
-
       $upload_dir = wp_upload_dir();
       $plugin = H5P_Plugin::get_instance();
       self::$h5peditor = new H5peditor(
@@ -943,7 +947,8 @@ class H5PContentAdmin {
       'libraryUrl' => plugin_dir_url('h5p/h5p-editor-php-library/h5peditor.class.php'),
       'copyrightSemantics' => $content_validator->getCopyrightSemantics(),
       'assets' => $assets,
-      'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug)
+      'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug),
+      'uploadToken' => wp_create_nonce('h5p_editor_upload')
     );
 
     if ($id !== NULL) {
@@ -988,6 +993,11 @@ class H5PContentAdmin {
     $plugin = H5P_Plugin::get_instance();
     $files_directory = $plugin->get_h5p_path();
 
+    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING), 'h5p_editor_upload')) {
+      H5PCore::ajaxError(__('Invalid security token. Please reload the editor.', $this->plugin_slug));
+      exit;
+    }
+
     $contentId = filter_input(INPUT_POST, 'contentId', FILTER_SANITIZE_NUMBER_INT);
     if ($contentId) {
       $files_directory .=  '/content/' . $contentId;
@@ -1001,6 +1011,7 @@ class H5PContentAdmin {
     $file = new H5peditorFile($interface, $files_directory);
 
     if (!$file->isLoaded()) {
+      H5PCore::ajaxError(__('File not found on server. Check file upload settings.', $this->plugin_slug));
       exit;
     }
 
