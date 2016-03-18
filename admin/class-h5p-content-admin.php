@@ -340,11 +340,7 @@ class H5PContentAdmin {
 
       if ($result) {
         $content['id'] = $result;
-<<<<<<< HEAD
         $this->set_content_tags($content['id'], filter_input(INPUT_POST, 'tags'));
-        $this->delete_export($content);
-=======
->>>>>>> master
         wp_safe_redirect(admin_url('admin.php?page=h5p&task=show&id=' . $result));
       }
     }
@@ -682,7 +678,7 @@ class H5PContentAdmin {
 
     // Different fields for insert
     if ($insert) {
-      $fields = array('title', 'content_type', 'tags', 'updated_at', 'id', 'content_type_id');
+      $fields = array('title', 'content_type', 'tags', 'updated_at', 'id', 'content_type_id', 'slug');
     }
     else {
       $fields = array('title', 'content_type', 'user_name', 'tags', 'updated_at', 'id', 'user_id', 'content_type_id');
@@ -693,7 +689,7 @@ class H5PContentAdmin {
     if (isset($filters[0])) {
       $conditions[] = array('title', $filters[0], 'LIKE');
     }
-<<<<<<< HEAD
+
     if ($facets !== NULL) {
       $facetmap = array(
         'content_type' => 'content_type_id',
@@ -705,15 +701,6 @@ class H5PContentAdmin {
           $conditions[] = array($facetmap[$fields[$field]], $value, '=');
         }
       }
-=======
-
-    // Different fields for insert
-    if ($insert) {
-      $fields = array('id', 'title', 'content_type', 'updated_at', 'slug');
-    }
-    else {
-      $fields = array('id', 'title', 'content_type', 'created_at', 'updated_at', 'user_name', 'user_id');
->>>>>>> master
     }
 
     // Create new content query
@@ -798,19 +785,13 @@ class H5PContentAdmin {
   private function get_contents_insert_row($result) {
     return array(
       esc_html($result->title),
-<<<<<<< HEAD
       array(
         'id' => $result->content_type_id,
         'title' => esc_html($result->content_type)
       ),
       $this->format_tags($result->tags),
       $this->format_time($result->updated_at),
-      '<button class="button h5p-insert" data-id="' . $result->id . '">' . __('Insert', $this->plugin_slug) . '</button>'
-=======
-      esc_html($result->content_type),
-      date($datetimeformat, strtotime($result->updated_at) + $offset),
       '<button class="button h5p-insert" data-id="' . $result->id . '" data-slug="' . $result->slug . '">' . __('Insert', $this->plugin_slug) . '</button>'
->>>>>>> master
     );
   }
 
