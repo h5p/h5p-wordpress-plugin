@@ -203,6 +203,20 @@ class H5P_Plugin {
       PRIMARY KEY  (content_id,user_id,sub_content_id,data_id)
     ) {$charset};");
 
+    // Create a relation between tags and content
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_contents_tags (
+      content_id INT UNSIGNED NOT NULL,
+      tag_id INT UNSIGNED NOT NULL,
+      PRIMARY KEY  (content_id, tag_id)
+    ) {$charset};");
+
+    // Keep track of tags
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_tags (
+      id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      name VARCHAR(31) NOT NULL,
+      PRIMARY KEY  (id)
+    ) {$charset};");
+
     // Keep track of results (contents >-< users)
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_results (
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,

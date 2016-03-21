@@ -22,6 +22,28 @@
   </h2>
   <?php print H5P_Plugin_Admin::print_messages(); ?>
   <div class="h5p-wp-admin-wrapper">
-    <?php print $embed_code; ?>
+    <div class="h5p-content-wrap">
+      <?php print $embed_code; ?>
+    </div>
+    <?php if (current_user_can('edit_h5p_contents')): ?>
+      <div class="postbox h5p-sidebar">
+        <h2><?php esc_html_e('Shortcode', $this->plugin_slug); ?></h2>
+        <div class="h5p-action-bar-settings h5p-panel">
+          <p><?php esc_html_e("What's next?", $this->plugin_slug); ?></p>
+          <p><?php esc_html_e('You can use the following shortcode to insert this interactive content into posts, pages, widgets, templates and etc.', $this->plugin_slug); ?></p>
+          <code>[h5p id="<?php print $this->content['id'] ?>"]</code>
+        </div>
+      </div>
+    <?php endif; ?>
+    <div class="postbox h5p-sidebar">
+      <h2><?php esc_html_e('Tags', $this->plugin_slug); ?></h2>
+      <div class="h5p-action-bar-settings h5p-panel">
+        <?php if (empty($this->content['tags'])): ?>
+          <p style="font-style: italic;"><?php esc_html_e('No tags', $this->plugin_slug); ?></p>
+        <?php else: ?>
+          <p><?php print esc_html($this->content['tags']); ?></p>
+        <?php endif; ?>
+      </div>
+    </div>
   </div>
 </div>

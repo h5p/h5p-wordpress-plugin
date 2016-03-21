@@ -23,19 +23,22 @@ class H5PContentQuery {
   // Valid filter operators
   private $valid_operators = array(
     '=' => " = '%s'",
-    'LIKE' => " LIKE '%%%s%%'"
+    'LIKE' => " LIKE '%%%s%%'",
+    'IN' => " IN (%s)"
   );
 
   // Valid fields and their true database names
   private $valid_fields = array(
     'id' => array('hc', 'id'),
     'title' => array('hc', 'title', TRUE),
+    'content_type_id' => array('hl', 'id'),
     'content_type' => array('hl', 'title', TRUE),
     'slug' => array('hc', 'slug', TRUE),
     'created_at' => array('hc', 'created_at'),
     'updated_at' => array('hc', 'updated_at'),
     'user_id' => array('u', 'ID'),
-    'user_name' => array('u', 'display_name', TRUE)
+    'user_name' => array('u', 'display_name', TRUE),
+    'tags' =>  array('t', 'GROUP_CONCAT(DISTINCT CONCAT(t.id,\',\',t.name) ORDER BY t.id SEPARATOR \';\')')
   );
 
   private $fields, $join, $where, $where_args, $order_by, $limit, $limit_args;
@@ -59,7 +62,10 @@ class H5PContentQuery {
     $this->base_table = "{$wpdb->prefix}h5p_contents hc";
     $this->valid_joins = array(
       'hl' => " LEFT JOIN {$wpdb->prefix}h5p_libraries hl ON hl.id = hc.library_id",
-      'u' => " LEFT JOIN {$wpdb->base_prefix}users u ON hc.user_id = u.ID"
+      'u' => " LEFT JOIN {$wpdb->base_prefix}users u ON hc.user_id = u.ID",
+      't' => " LEFT JOIN {$wpdb->base_prefix}h5p_contents_tags ct ON ct.content_id = hc.id
+               LEFT JOIN {$wpdb->base_prefix}h5p_tags t ON ct.tag_id = t.id
+               LEFT JOIN {$wpdb->base_prefix}h5p_contents_tags ct2 ON ct2.content_id = hc.id"
     );
 
     $this->join = array();
@@ -67,10 +73,6 @@ class H5PContentQuery {
     // Start adding fields
     $this->fields = '';
     foreach ($fields as $field) {
-      if (!isset($this->valid_fields[$field])) {
-        throw new Exception('Invalid field: ' . $field);
-      }
-
       $valid_field = $this->get_valid_field($field);
       $table = $valid_field[0];
 
@@ -81,7 +83,10 @@ class H5PContentQuery {
       if ($this->fields) {
         $this->fields .= ', ';
       }
-      $this->fields .= $table . '.' . $valid_field[1] . ' AS ' . $field;
+      if ($table !== 't') {
+        $this->fields .= $table . '.';
+      }
+      $this->fields .= $valid_field[1] . ' AS ' . $field;
     }
     if (!$this->fields) {
       throw new Exception('No fields specified.');
@@ -103,7 +108,7 @@ class H5PContentQuery {
         $this->add_join($field[0]);
 
         // Add where
-        $this->where .= ($this->where ? ' AND ' : ' WHERE ') . $field[0] . '.' . $field[1];
+        $this->where .= ($this->where ? ' AND ' : ' WHERE ') . ($field[0] === 't' ? 'ct2.tag_id' : $field[0] . '.' . $field[1]);
         $this->where_args[] = $filter[1];
 
         // Check if operator is valid, if not use the first valid one.
@@ -201,6 +206,7 @@ class H5PContentQuery {
       FROM {$this->base_table}
       {$this->join}
       {$this->where}
+      GROUP BY hc.id
       {$this->order_by}
       {$this->limit}";
     $args = array_merge($this->where_args, $this->limit_args);
@@ -209,6 +215,7 @@ class H5PContentQuery {
       // We need to prep if we have args
       $query = $wpdb->prepare($query, $args);
     }
+
     return $wpdb->get_results($query);
   }
 
@@ -223,7 +230,9 @@ class H5PContentQuery {
 
     $query = "SELECT COUNT(hc.id)
       FROM {$this->base_table}
-      {$this->where}";
+      {$this->join}
+      {$this->where}
+      GROUP BY hc.id";
 
     if (!empty($this->where_args)) {
       // We need to prep if we have args
