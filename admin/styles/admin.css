@@ -7,19 +7,74 @@
   text-decoration: none;
 }
 .h5p-wp-admin-wrapper {
+  margin-right: 300px;
+}
+.h5p-wp-admin-wrapper .h5p-content-wrap {
+  float: left;
+  width: 100%;
+  margin-bottom: 20px;
   max-width: 960px;
 }
 #h5p-content-form {
   padding-top: 10px;
   margin-right: 300px;
 }
-#h5p-content-form .postbox {
+.h5p-sidebar {
   float: right;
-  margin-right: -300px;
   width: 280px;
   clear: right;
+  margin-right: -300px;
 }
-#h5p-content-form #minor-publishing, #h5p-content-form .h5p-action-bar-settings {
+.h5p-sidebar h2 {
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  padding: 8px 12px;
+  margin: 0;
+  line-height: 1.4;
+}
+.h5p-sidebar p:first-child{
+  margin-top: 0;
+}
+.h5p-sidebar .h5p-toggle {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  text-align: center;
+}
+.h5p-sidebar .h5p-toggle:before {
+  color: #a0a5aa;
+  content: "\f142";
+  font: 400 20px/1 dashicons;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-decoration: none!important;
+  line-height: 36px;
+}
+.h5p-sidebar .h5p-toggle:hover:before,
+.h5p-sidebar .h5p-toggle:focus:before {
+  color: #7d858c;
+}
+.h5p-sidebar .h5p-toggle:active:before {
+  color: #656b72;
+}
+.h5p-sidebar.h5p-closed .h5p-panel {
+  display: none;
+}
+.h5p-sidebar .h5p-panel .howto {
+  margin: 0.5em 0 0 0;
+}
+.h5p-sidebar.h5p-closed .h5p-toggle:before {
+  content: "\f140";
+}
+.h5p-sidebar .h5p-tags {
+  width: 100%;
+}
+#h5p-content-form #minor-publishing,
+.h5p-sidebar .h5p-panel {
   line-height: 175%;
   padding: 12px;
 }
@@ -86,15 +141,25 @@
   border-right: 0;
 }
 .h5p-insertion input[type="text"] {
-  margin: 0.5em;
+  margin-left: 0.5em;
+}
+.h5p-insertion .h5p-facet-wrapper {
+  margin-top: 0.5em;
 }
 .h5p-insertion td:nth-child(6) {
   text-align: right;
 }
+.h5p-insert-method-holder {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.5em;
+}
 .h5p-disable-file-check {
   margin-top: 0.5em;
 }
-.h5p-disable-file-check .h5p-warning {
+.h5p-disable-file-check .h5p-warning,
+.form-table td .h5p-setting-desc {
   font-size: 0.875em;
   margin-top: 0.5em;
 }
@@ -144,5 +209,15 @@
   .h5p-content {
     margin-right: -12px;
     margin-left: -10px;
+  }
+}
+@media screen and (max-width: 960px) {
+  #h5p-content-form,
+  .h5p-wp-admin-wrapper {
+    margin-right: 0;
+  }
+  .h5p-sidebar {
+    width: 100%;
+    margin-right: 0;
   }
 }

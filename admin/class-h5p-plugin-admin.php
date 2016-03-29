@@ -70,10 +70,14 @@ class H5P_Plugin_Admin {
     // Allow altering of page titles for different page actions.
     add_filter('admin_title', array($this, 'alter_title'), 10, 2);
 
+    // Add settings link to plugin page
+    add_filter('plugin_action_links_h5p/h5p.php', array($this, 'add_settings_link'));
+
     // Custom media button for inserting H5Ps.
-    add_action('media_buttons_context', array($this->content, 'add_insert_button'));
+    add_action('media_buttons_context', array($this->content, 'add_insert_button')); // TODO: Deprecated. Use media_buttons instead!
     add_action('admin_footer', array($this->content, 'print_insert_content_scripts'));
     add_action('wp_ajax_h5p_insert_content', array($this->content, 'ajax_insert_content'));
+    add_action('wp_ajax_h5p_inserted', array($this->content, 'ajax_inserted'));
 
     // Editor ajax
     add_action('wp_ajax_h5p_libraries', array($this->content, 'ajax_libraries'));
@@ -113,6 +117,16 @@ class H5P_Plugin_Admin {
 
     // Remove user data and results
     add_action('deleted_user', array($this, 'deleted_user'));
+  }
+
+  /**
+   * Add settings link to plugin overview page
+   *
+   * @since 1.6.0
+   */
+  function add_settings_link($links) {
+    $links[] = '<a href="' . admin_url('options-general.php?page=h5p_settings') . '">Settings</a>';
+    return $links;
   }
 
   /**
@@ -184,6 +198,13 @@ class H5P_Plugin_Admin {
           $styles = array_merge($styles, $core->getAssetsUrls($files['styles']));
 
           include_once(plugin_dir_path(__FILE__) . '../h5p-php-library/embed.php');
+
+          // Log embed view
+          new H5P_Event('content', 'embed',
+              $content['id'],
+              $content['title'],
+              $content['library']['name'],
+              $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']);
           exit;
         }
       }
@@ -217,49 +238,78 @@ class H5P_Plugin_Admin {
   public function admin_notices() {
     global $wpdb;
 
+    // Gather all messages before printing
+    $messages = array();
+
+    // Some messages used multiple places
+    $staying_msg = __('Thank you for staying up to date with H5P.', $this->plugin_slug);
+    $updates_msg = sprintf(wp_kses(__('You should head over to the <a href="%s">Libraries</a> page and update your content types to the latest version.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_libraries'));
+    $fetching_msg = sprintf(wp_kses(__('By default, H5P is set up to automatically fetch information regarding Content Type updates from H5P.org. When doing so, H5P will also contribute anonymous usage data to aid the development of H5P. This behaviour can be altered through the <a href="%s">Settings</a> page.', $this->plugin_slug), array('a' => array('href' => array()))), admin_url('options-general.php?page=h5p_settings'));
+    $help_msg = sprintf(wp_kses(__('If you need any help you can always file a <a href="%s" target="_blank">Support Request</a>, check out our <a href="%s" target="_blank">Forum</a> or join the conversation in the <a href="%s" target="_blank">H5P Community Chat</a>.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum'), esc_url('https://gitter.im/h5p/CommunityChat'));
+
     // Handle library updates
     $update_available = get_option('h5p_update_available', 0);
-    if ($update_available != 0) {
-      $current_update = get_option('h5p_current_update', 0);
-      if ($current_update == 0) {
-        if ($wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}h5p_libraries") === '0') {
-          // Automatically download and install all libraries
-          if (!self::download_h5p_libraries()) {
-            // Prevent trying again automatically. The user will have to press
-            // the download & update button on the libraries page.
-            update_option('h5p_current_update', 1);
-            ?>
-              <div class="updated">
-                <p><?php _e('Thank you for choosing H5P.', $this->plugin_slug); ?></p>
-                <p><?php printf(wp_kses(__('Unfortunately, we were unable to automatically install the default content types. You must manually download the content types you wish to use from the <a href="%s" target="_blank">Examples and Downloads</a> page, and then upload them through the <a href="%s">libraries</a> page.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications'), admin_url('admin.php?page=h5p_libraries')); ?></p>
-                <p><?php printf(wp_kses(__('If you need any help you can always file a <a href="%s" target="_blank">support request</a>, check out our <a href="%s" target="_blank">forum</a> or join our IRC channel #H5P on Freenode.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum')); ?></p>
-              </div>
-            <?php
-          }
-          else {
-            ?>
-              <div class="updated">
-                <p><?php _e('Thank you for choosing H5P.', $this->plugin_slug); ?></p>
-                <p><?php printf(wp_kses(__('We\'ve automatically installed the default content types for your convenience. You can now <a href="%s">start creating</a> your own interactive content!', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_new')); ?></p>
-                <p><?php printf(wp_kses(__('Check out our <a href="%s" target="_blank">Examples and Downloads</a> page for inspiration.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications')); ?><br/>
-                <?php printf(wp_kses(__('If you need any help you can always file a <a href="%s" target="_blank">support request</a>, check out our <a href="%s" target="_blank">forum</a> or join our IRC channel #H5P on Freenode.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum')); ?></p>
-              </div>
-            <?php
-          }
-          self::print_messages();
+    $current_update = get_option('h5p_current_update', 0);
+    if ($update_available != 0 && $current_update == 0) {
+      // A new update is available and no version of the H5P Content Types
+      // is currently installed.
+      $inspiration_msg = sprintf(wp_kses(__('Check out our <a href="%s" target="_blank">Examples and Downloads</a> page for inspiration.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications'));
+
+      // Check to see if content types might be installed any way
+      if ($wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}h5p_libraries") === '0') {
+        // No content types, automatically download and install the latest release
+        $messages[] = __('Thank you for choosing H5P.', $this->plugin_slug);
+        if (!self::download_h5p_libraries()) {
+          // Prevent trying again automatically. The user will have to press
+          // the download & update button on the libraries page.
+          update_option('h5p_current_update', 1);
+          $messages[] = sprintf(wp_kses(__('Unfortunately, we were unable to automatically install the default content types. You must manually download the content types you wish to use from the <a href="%s" target="_blank">Examples and Downloads</a> page, and then upload them through the <a href="%s">Libraries</a> page.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications'), admin_url('admin.php?page=h5p_libraries'));
         }
         else {
-          update_option('h5p_current_update', 1);
-          ?>
-            <div class="updated">
-              <p><?php _e('Thank you for staying up to date with H5P.', $this->plugin_slug); ?></p>
-              <p><?php printf(wp_kses(__('You should head over to the <a href="%s">libraries</a> page and update your content types to the latest version.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_libraries')); ?></p>
-              <p><?php printf(wp_kses(__('Check out our <a href="%s" target="_blank">Examples and Downloads</a> page for inspiration.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications')); ?><br/>
-              <?php printf(wp_kses(__('If you need any help you can always file a <a href="%s" target="_blank">support request</a>, check out our <a href="%s" target="_blank">forum</a> or join our IRC channel #H5P on Freenode.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum')); ?></p>
-            </div>
-          <?php
+          $messages[] = sprintf(wp_kses(__('We\'ve automatically installed the default content types for your convenience. You can now <a href="%s">start creating</a> your own interactive content!', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_new'));
+          $messages[] = $inspiration_msg;
         }
       }
+      else {
+        update_option('h5p_current_update', 1);
+
+        $messages[] = $staying_msg;
+        $messages[] = $updates_msg;
+        $messages[] = $inspiration_msg;
+      }
+      $messages[] = $fetching_msg;
+      $messages[] = $help_msg;
+      update_option('h5p_last_info_print', H5P_Plugin::VERSION);
+    }
+
+    // Always print a message after
+    $last_print = get_option('h5p_last_info_print', 0);
+    if (empty($messages) && $last_print !== H5P_Plugin::VERSION) {
+      // Looks like we've just updated, always thank the user for updating.
+      $messages[] = $staying_msg;
+      if ($update_available > $current_update) {
+        // User should update content types
+        $messages[] = $updates_msg;
+      }
+      if ($last_print == 0) {
+        // Notify user about anonymous data tracking
+        $messages[] = $fetching_msg;
+      }
+      // Always offer help
+      $messages[] = $help_msg;
+      update_option('h5p_last_info_print', H5P_Plugin::VERSION);
+    }
+
+    if (!empty($messages)) {
+      // Print all messages
+      ?><div class="updated"><?php
+      foreach ($messages as $message) {
+        ?><p><?php print $message; ?></p><?php
+      }
+      ?></div><?php
+
+      // Print any other messages
+      self::print_messages();
     }
   }
 
@@ -414,6 +464,9 @@ class H5P_Plugin_Admin {
 
       $save_content_frequency = filter_input(INPUT_POST, 'save_content_frequency', FILTER_VALIDATE_INT);
       update_option('h5p_save_content_frequency', $save_content_frequency);
+
+      $insert_method = filter_input(INPUT_POST, 'insert_method', FILTER_SANITIZE_SPECIAL_CHARS);
+      update_option('h5p_insert_method', $insert_method);
     }
     else {
       $frame = get_option('h5p_frame', TRUE);
@@ -425,10 +478,13 @@ class H5P_Plugin_Admin {
       $library_updates = get_option('h5p_library_updates', TRUE);
       $save_content_state = get_option('h5p_save_content_state', FALSE);
       $save_content_frequency = get_option('h5p_save_content_frequency', 30);
+      $insert_method = get_option('h5p_insert_method', 'id');
     }
 
     include_once('views/settings.php');
     H5P_Plugin_Admin::add_script('disable', 'h5p-php-library/js/disable.js');
+
+    new H5P_Event('settings');
   }
 
   /**
@@ -568,7 +624,12 @@ class H5P_Plugin_Admin {
 
     $content_id = filter_input(INPUT_POST, 'contentId', FILTER_VALIDATE_INT);
     if (!$content_id) {
-      return;
+      H5PCore::ajaxError(__('Invalid content', $this->plugin_slug));
+      exit;
+    }
+    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_result')) {
+      H5PCore::ajaxError(__('Invalid security token', $this->plugin_slug));
+      exit;
     }
 
     $user_id = get_current_user_id();
@@ -612,6 +673,23 @@ class H5P_Plugin_Admin {
       // Update existing results
       $wpdb->update($table, $data, array('id' => $result_id), $format, array('%d'));
     }
+
+    // Get content info for log
+    $content = $wpdb->get_row($wpdb->prepare("
+        SELECT c.title, l.name, l.major_version, l.minor_version
+          FROM {$wpdb->prefix}h5p_contents c
+          JOIN {$wpdb->prefix}h5p_libraries l ON l.id = c.library_id
+         WHERE c.id = %d
+        ", $content_id));
+
+    // Log view
+    new H5P_Event('results', 'set',
+        $content_id, $content->title,
+        $content->name, $content->major_version . '.' . $content->minor_version);
+
+    // Success
+    H5PCore::ajaxSuccess();
+    exit;
   }
 
   /**
@@ -771,9 +849,10 @@ class H5P_Plugin_Admin {
         'noData' => __("There's no data available that matches your criteria.", $this->plugin_slug),
         'currentPage' => __('Page $current of $total', $this->plugin_slug),
         'nextPage' => __('Next page', $this->plugin_slug),
-        'previousPage' =>__('Previous page', $this->plugin_slug),
-        'search' =>__('Search', $this->plugin_slug),
-        'empty' => $empty
+        'previousPage' => __('Previous page', $this->plugin_slug),
+        'search' => __('Search', $this->plugin_slug),
+        'remove' => __('Remove', $this->plugin_slug),
+        'empty' => $empty,
       )
     );
     $plugin = H5P_Plugin::get_instance();
@@ -782,6 +861,7 @@ class H5P_Plugin_Admin {
 
     // Add JS
     H5P_Plugin_Admin::add_script('jquery', 'h5p-php-library/js/jquery.js');
+    H5P_Plugin_Admin::add_script('event-dispatcher', 'h5p-php-library/js/h5p-event-dispatcher.js');
     H5P_Plugin_Admin::add_script('utils', 'h5p-php-library/js/h5p-utils.js');
     H5P_Plugin_Admin::add_script('data-view', 'h5p-php-library/js/h5p-data-view.js');
     H5P_Plugin_Admin::add_script('data-views', 'admin/scripts/h5p-data-views.js');
@@ -828,6 +908,9 @@ class H5P_Plugin_Admin {
         'dir' => 0
       )
     );
+
+    // Log visit to this page
+    new H5P_Event('results');
   }
 
   /**
@@ -897,6 +980,7 @@ class H5P_Plugin_Admin {
     $sortBy = filter_input(INPUT_GET, 'sortBy', FILTER_SANITIZE_NUMBER_INT);
     $sortDir = filter_input(INPUT_GET, 'sortDir', FILTER_SANITIZE_NUMBER_INT);
     $filters = filter_input(INPUT_GET, 'filters', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+    $facets = filter_input(INPUT_GET, 'facets', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
     $limit = (!$limit ? 20 : (int) $limit);
     if ($limit > 100) {
@@ -909,7 +993,8 @@ class H5P_Plugin_Admin {
       $limit,
       (!$sortBy ? 0 : (int) $sortBy),
       (!$sortDir ? 0 : (int) $sortDir),
-      $filters
+      $filters,
+      $facets
     );
 
   }
@@ -942,6 +1027,11 @@ class H5P_Plugin_Admin {
     $preload = filter_input(INPUT_POST, 'preload');
     $invalidate = filter_input(INPUT_POST, 'invalidate');
     if ($data !== NULL && $preload !== NULL && $invalidate !== NULL) {
+      if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_contentuserdata')) {
+        H5PCore::ajaxError(__('Invalid security token', $this->plugin_slug));
+        exit;
+      }
+
       if ($data === '0') {
         // Remove data
         $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data',
@@ -1005,6 +1095,10 @@ class H5P_Plugin_Admin {
           );
         }
       }
+
+      // Inserted, updated or deleted
+      H5PCore::ajaxSuccess();
+      exit;
     }
     else {
       // Fetch data
@@ -1043,5 +1137,4 @@ class H5P_Plugin_Admin {
     // Remove contents user/usage data
     $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data', array('user_id' => $id), array('%d'));
   }
-
 }

@@ -24,7 +24,7 @@
    */
   var insertionDataView = function (id) {
     var $wrapper;
-    $('#add-h5p').click(function () {
+    var $add = $('#add-h5p').click(function () {
       // Open ThickBox
       tb_show($(this).attr('title'), '#TB_inline?inlineId=h5p-nope');
       $('#TB_window').addClass('h5p-insertion');
@@ -33,14 +33,23 @@
         // Create new data view
         $wrapper = $('<div id="h5p-insert-content"/>').appendTo('#TB_ajaxContent');
 
+        var reportUrl = H5PIntegration.dataViews[id].source.replace('h5p_insert_content', 'h5p_inserted');
         createDataView(H5PIntegration.dataViews[id], $wrapper.get(0), function () {
           // Data loaded
           $wrapper.find('.h5p-insert').click(function () {
             // Inserting content
-            send_to_editor('[h5p id="' + $(this).data('id') + '"]');
+            var contentId = $(this).data('id');
+            if ($add.data('method') === 'slug') {
+              send_to_editor('[h5p slug="' + $(this).data('slug') + '"]');
+            }
+            else {
+              send_to_editor('[h5p id="' + contentId + '"]');
+            }
+
             $wrapper.detach();
             $('#TB_window').removeClass('h5p-insertion');
             tb_remove();
+            $.post(reportUrl, {id: contentId});
           });
         });
       }

@@ -91,6 +91,9 @@ class H5P_Plugin {
     // Check for library updates
     add_action('h5p_daily_cleanup', array($this, 'get_library_updates'));
 
+    // Remove old log messages
+    add_action('h5p_daily_cleanup', array($this, 'remove_old_log_events'));
+
     // Always check if the plugin has been updated to a newer version
     add_action('init', array('H5P_Plugin', 'check_for_updates'), 1);
 
@@ -139,7 +142,7 @@ class H5P_Plugin {
     $plugin->get_library_updates();
 
     // Cleaning rutine
-    wp_schedule_event(time(), 'daily', 'h5p_daily_cleanup');
+    wp_schedule_event(time() + (3600 * 24), 'daily', 'h5p_daily_cleanup');
   }
 
   /**
@@ -200,6 +203,20 @@ class H5P_Plugin {
       PRIMARY KEY  (content_id,user_id,sub_content_id,data_id)
     ) {$charset};");
 
+    // Create a relation between tags and content
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_contents_tags (
+      content_id INT UNSIGNED NOT NULL,
+      tag_id INT UNSIGNED NOT NULL,
+      PRIMARY KEY  (content_id, tag_id)
+    ) {$charset};");
+
+    // Keep track of tags
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_tags (
+      id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      name VARCHAR(31) NOT NULL,
+      PRIMARY KEY  (id)
+    ) {$charset};");
+
     // Keep track of results (contents >-< users)
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_results (
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -252,6 +269,35 @@ class H5P_Plugin {
       language_code VARCHAR(31) NOT NULL,
       translation TEXT NOT NULL,
       PRIMARY KEY  (library_id,language_code)
+    ) {$charset};");
+
+    // Keep track of logged h5p events
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_events (
+      id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      user_id INT UNSIGNED NOT NULL,
+      created_at INT UNSIGNED NOT NULL,
+      type VARCHAR(63) NOT NULL,
+      sub_type VARCHAR(63) NOT NULL,
+      content_id INT UNSIGNED NOT NULL,
+      content_title VARCHAR(255) NOT NULL,
+      library_name VARCHAR(127) NOT NULL,
+      library_version VARCHAR(31) NOT NULL,
+      PRIMARY KEY  (id)
+    ) {$charset};");
+
+    // A set of global counters to keep track of H5P usage
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_counters (
+      type VARCHAR(63) NOT NULL,
+      library_name VARCHAR(127) NOT NULL,
+      library_version VARCHAR(31) NOT NULL,
+      num INT UNSIGNED NOT NULL,
+      PRIMARY KEY  (type,library_name,library_version)
+    ) {$charset};");
+
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries_cachedassets (
+      library_id INT UNSIGNED NOT NULL,
+      hash VARCHAR(64) NOT NULL,
+      PRIMARY KEY  (library_id,hash)
     ) {$charset};");
 
     // Add default setting options
@@ -532,16 +578,10 @@ class H5P_Plugin {
    */
   public function get_h5p_instance($type) {
     if (self::$interface === null) {
-      $path = plugin_dir_path(__FILE__);
-      include_once($path . '../h5p-php-library/h5p.classes.php');
-      include_once($path . '../h5p-php-library/h5p-development.class.php');
-      include_once($path . 'class-h5p-wordpress.php');
-
       self::$interface = new H5PWordPress();
-
       $language = $this->get_language();
-
       self::$core = new H5PCore(self::$interface, $this->get_h5p_path(), $this->get_h5p_url(), $language, get_option('h5p_export', TRUE));
+      self::$core->aggregateAssets = !(defined('H5P_DISABLE_AGGREGATION') && H5P_DISABLE_AGGREGATION === true);
     }
 
     switch ($type) {
@@ -593,12 +633,40 @@ class H5P_Plugin {
    * @return string
    */
   public function shortcode($atts) {
+    global $wpdb;
+    if (isset($atts['slug'])) {
+      $q=$wpdb->prepare(
+        "SELECT  id ".
+        "FROM    {$wpdb->prefix}h5p_contents ".
+        "WHERE   slug=%s",
+        $atts['slug']
+      );
+      $row=$wpdb->get_row($q,ARRAY_A);
+
+      if ($wpdb->last_error) {
+        return sprintf(__('Database error: %s.', $this->plugin_slug), $wpdb->last_error);
+      }
+
+      if (!isset($row['id'])) {
+        return sprintf(__('Cannot find H5P content with slug: %s.', $this->plugin_slug), $atts['slug']);
+      }
+
+      $atts['id']=$row['id'];
+    }
+
     $id = isset($atts['id']) ? intval($atts['id']) : NULL;
     $content = $this->get_content($id);
     if (is_string($content)) {
       // Return error message if the user has the correct cap
       return current_user_can('edit_h5p_contents') ? $content : NULL;
     }
+
+    // Log view
+    new H5P_Event('content', 'shortcode',
+        $content['id'],
+        $content['title'],
+        $content['library']['name'],
+        $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']);
 
     return $this->add_assets($content);
   }
@@ -821,7 +889,12 @@ class H5P_Plugin {
       'postUserStatistics' => (get_option('h5p_track_user', TRUE) === '1') && $current_user->ID,
       'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
       'ajax' => array(
+        'setFinished' => admin_url('admin-ajax.php?action=h5p_setFinished'),
         'contentUserData' => admin_url('admin-ajax.php?action=h5p_contents_user_data&content_id=:contentId&data_type=:dataType&sub_content_id=:subContentId')
+      ),
+      'tokens' => array(
+        'result' => wp_create_nonce('h5p_result'),
+        'contentUserData' => wp_create_nonce('h5p_contentuserdata')
       ),
       'saveFreq' => get_option('h5p_save_content_state', FALSE) ? get_option('h5p_save_content_frequency', 30) : FALSE,
       'siteUrl' => get_site_url(),
@@ -977,5 +1050,21 @@ class H5P_Plugin {
   public function get_library_updates() {
     $core = $this->get_h5p_instance('core');
     $core->fetchLibrariesMetadata();
+  }
+
+  /**
+   * Remove any log messages older than the set limit.
+   *
+   * @since 1.6
+   */
+  public function remove_old_log_events() {
+    global $wpdb;
+
+    $older_than = (time() - H5PEventBase::$log_time);
+
+    $wpdb->query($wpdb->prepare("
+        DELETE FROM {$wpdb->prefix}h5p_events
+		          WHERE created_at < %d
+        ", $older_than));
   }
 }
