@@ -1069,7 +1069,9 @@ class H5PContentAdmin {
     }
 
     header('Cache-Control: no-cache');
-    header('Content-type: application/json; charset=utf-8');
+
+    // Must support IE, so cannot use application/json
+    header('Content-type: text/plain; charset=utf-8');
 
     print $file->getResult();
     exit;
