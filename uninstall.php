@@ -14,7 +14,7 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
   exit;
 }
 
-require_once(plugin_dir_path(__FILE__) . 'public/class-h5p-plugin.php');
+require_once plugin_dir_path(__FILE__) . 'autoloader.php';
 $plugin = H5P_Plugin::get_instance();
 $plugin->get_library_updates();
 
