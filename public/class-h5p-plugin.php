@@ -207,7 +207,7 @@ class H5P_Plugin {
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_contents_tags (
       content_id INT UNSIGNED NOT NULL,
       tag_id INT UNSIGNED NOT NULL,
-      PRIMARY KEY  (content_id, tag_id)
+      PRIMARY KEY  (content_id,tag_id)
     ) {$charset};");
 
     // Keep track of tags
