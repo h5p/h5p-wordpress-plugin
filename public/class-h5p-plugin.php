@@ -557,11 +557,12 @@ class H5P_Plugin {
     if (defined('WPLANG')) {
       $language = WPLANG;
     }
-    else {
+
+    if (empty($language)) {
       $language = get_option('WPLANG');
     }
 
-    if ($language !== '') {
+    if (!empty($language)) {
       $languageParts = explode('_', $language);
       return $languageParts[0];
     }
