@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.5
-Stable tag: 1.5.7
+Stable tag: 1.6.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -182,3 +182,19 @@ Handle WP errors when fetching updates.
 Altered the "update only" feature to update minor and major versions as well, not just patch versions.
 Increase update download timeout to 28 seconds.
 Encourage manual update if auto update fails.
+
+= 1.6.0 =
+Support for using slug instead of ID when inserting H5P content into posts, articles, etc. Thanks to Mikael Lindqvist for implementing this.
+Support for Simplified Chinese, thanks to Wen for contributing.
+Use core library when deleting content. (simplifies code)
+Improved file handling through core library. (simplifies code)
+Support for aggregating JavaScript and CSS through core library. Set H5P_DISABLE_AGGREGATION to disable.
+Implemented system for logging H5P events. No UI yet.
+Improved communications with H5P.org. Added clearer messages on how to disable.
+Added shortcode info to content pages.
+Improved AJAX requests and error handling.
+Added a simple autoloader to make coding easier.
+Added support for tagging H5P content. Makes it easier to organize.
+Improved user notification messages.
+Fixed broken library delete. (when managing libraries)
+Various bug fixes.
