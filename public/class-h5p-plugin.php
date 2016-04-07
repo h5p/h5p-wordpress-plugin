@@ -924,7 +924,11 @@ class H5P_Plugin {
           'embedDescription' => __('View the embed code for this content.', $this->plugin_slug),
           'h5pDescription' => __('Visit H5P.org to check out more cool content.', $this->plugin_slug),
           'contentChanged' => __('This content has changed since you last used it.', $this->plugin_slug),
-          'startingOver' => __("You'll be starting over.", $this->plugin_slug)
+          'startingOver' => __("You'll be starting over.", $this->plugin_slug),
+          'confirmDialogHeader' => t('Confirm action'),
+          'confirmDialogBody' => t('Please confirm that you wish to proceed. This action is not reversible.'),
+          'cancelLabel' => t('Cancel'),
+          'confirmLabel' => t('Confirm')
         )
       )
     );
