@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.5
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -198,3 +198,6 @@ Added support for tagging H5P content. Makes it easier to organize.
 Improved user notification messages.
 Fixed broken library delete. (when managing libraries)
 Various bug fixes.
+
+= 1.6.1 =
+Fixed issue with content list on multi-site installations.
