@@ -31,7 +31,7 @@ class H5PContentQuery {
   private $valid_fields = array(
     'id' => array('hc', 'id'),
     'title' => array('hc', 'title', TRUE),
-    'content_type_id' => array('hl', 'id'),
+    'content_type_id' => array('hl', 'name'),
     'content_type' => array('hl', 'title', TRUE),
     'slug' => array('hc', 'slug', TRUE),
     'created_at' => array('hc', 'created_at'),
