@@ -63,9 +63,9 @@ class H5PContentQuery {
     $this->valid_joins = array(
       'hl' => " LEFT JOIN {$wpdb->prefix}h5p_libraries hl ON hl.id = hc.library_id",
       'u' => " LEFT JOIN {$wpdb->base_prefix}users u ON hc.user_id = u.ID",
-      't' => " LEFT JOIN {$wpdb->base_prefix}h5p_contents_tags ct ON ct.content_id = hc.id
-               LEFT JOIN {$wpdb->base_prefix}h5p_tags t ON ct.tag_id = t.id
-               LEFT JOIN {$wpdb->base_prefix}h5p_contents_tags ct2 ON ct2.content_id = hc.id"
+      't' => " LEFT JOIN {$wpdb->prefix}h5p_contents_tags ct ON ct.content_id = hc.id
+               LEFT JOIN {$wpdb->prefix}h5p_tags t ON ct.tag_id = t.id
+               LEFT JOIN {$wpdb->prefix}h5p_contents_tags ct2 ON ct2.content_id = hc.id"
     );
 
     $this->join = array();
@@ -231,8 +231,7 @@ class H5PContentQuery {
     $query = "SELECT COUNT(hc.id)
       FROM {$this->base_table}
       {$this->join}
-      {$this->where}
-      GROUP BY hc.id";
+      {$this->where}";
 
     if (!empty($this->where_args)) {
       // We need to prep if we have args
