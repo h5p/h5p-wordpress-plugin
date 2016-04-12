@@ -228,7 +228,7 @@ class H5PContentQuery {
   public function get_total() {
     global $wpdb;
 
-    $query = "SELECT COUNT(hc.id)
+    $query = "SELECT COUNT(DISTINCT hc.id)
       FROM {$this->base_table}
       {$this->join}
       {$this->where}";
