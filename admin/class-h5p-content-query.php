@@ -231,8 +231,7 @@ class H5PContentQuery {
     $query = "SELECT COUNT(hc.id)
       FROM {$this->base_table}
       {$this->join}
-      {$this->where}
-      GROUP BY hc.id";
+      {$this->where}";
 
     if (!empty($this->where_args)) {
       // We need to prep if we have args
