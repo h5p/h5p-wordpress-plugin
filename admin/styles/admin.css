@@ -52,7 +52,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-decoration: none!important;
-  line-height: 36px;
+  line-height: 18px;
+  display: inline-block;
+  text-indent: -2px;
+  margin-top: 8px;
+  border-radius: 50%;
+}
+.h5p-sidebar .h5p-toggle:focus:before {
+  box-shadow: 0 0 0 1px #5b9dd9,0 0 2px 1px rgba(30,140,190,.8);
 }
 .h5p-sidebar .h5p-toggle:hover:before,
 .h5p-sidebar .h5p-toggle:focus:before {
