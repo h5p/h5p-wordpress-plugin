@@ -673,7 +673,7 @@ msgstr "Hva nå?"
 #: admin/views/show-content.php:33
 msgid ""
 "You can use the following shortcode to insert this interactive content into "
-"posts, pages, widgets, templates and etc."
+"posts, pages, widgets, templates etc."
 msgstr ""
 "Du kan bruke følgende kortkode for å sette inn dette interaktive innholdet i "
 "innlegg, sider, widgeter, maler osv."

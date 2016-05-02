@@ -30,7 +30,7 @@
         <h2><?php esc_html_e('Shortcode', $this->plugin_slug); ?></h2>
         <div class="h5p-action-bar-settings h5p-panel">
           <p><?php esc_html_e("What's next?", $this->plugin_slug); ?></p>
-          <p><?php esc_html_e('You can use the following shortcode to insert this interactive content into posts, pages, widgets, templates and etc.', $this->plugin_slug); ?></p>
+          <p><?php esc_html_e('You can use the following shortcode to insert this interactive content into posts, pages, widgets, templates etc.', $this->plugin_slug); ?></p>
           <code>[h5p id="<?php print $this->content['id'] ?>"]</code>
         </div>
       </div>
