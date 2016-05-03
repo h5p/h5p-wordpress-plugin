@@ -74,10 +74,15 @@ function _h5p_uninstall() {
   $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents");
   $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents_libraries");
   $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents_user_data");
+  $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents_tags");
+  $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_tags");
   $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_results");
   $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries");
   $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_libraries");
   $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_languages");
+  $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_cachedassets");
+  $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_counters");
+  $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_events");
 
   // Remove settings
   delete_option('h5p_version');
