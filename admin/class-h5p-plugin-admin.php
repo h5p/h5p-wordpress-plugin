@@ -456,8 +456,8 @@ class H5P_Plugin_Admin {
       $track_user = filter_input(INPUT_POST, 'track_user', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_track_user', $track_user);
 
-      $library_updates = filter_input(INPUT_POST, 'library_updates', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_ext_communication', $library_updates);
+      $ext_communication = filter_input(INPUT_POST, 'ext_communication', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_ext_communication', $ext_communication);
 
       $save_content_state = filter_input(INPUT_POST, 'save_content_state', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_save_content_state', $save_content_state);
@@ -475,7 +475,7 @@ class H5P_Plugin_Admin {
       $copyright = get_option('h5p_copyright', TRUE);
       $about = get_option('h5p_icon', TRUE);
       $track_user = get_option('h5p_track_user', TRUE);
-      $library_updates = get_option('h5p_ext_communication', TRUE);
+      $ext_communication = get_option('h5p_ext_communication', TRUE);
       $save_content_state = get_option('h5p_save_content_state', FALSE);
       $save_content_frequency = get_option('h5p_save_content_frequency', 30);
       $insert_method = get_option('h5p_insert_method', 'id');
