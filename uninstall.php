@@ -94,6 +94,7 @@ function _h5p_uninstall() {
   delete_option('h5p_track_user');
   delete_option('h5p_minitutorial');
   delete_option('h5p_library_updates');
+  delete_option('h5p_ext_communication');
   delete_option('h5p_save_content_state');
   delete_option('h5p_save_content_frequency');
   delete_option('h5p_update_available');

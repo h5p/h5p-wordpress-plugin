@@ -307,7 +307,7 @@ class H5P_Plugin {
     add_option('h5p_copyright', TRUE);
     add_option('h5p_icon', TRUE);
     add_option('h5p_track_user', TRUE);
-    add_option('h5p_library_updates', TRUE);
+    add_option('h5p_ext_communication', TRUE);
     add_option('h5p_save_content_state', FALSE);
     add_option('h5p_save_content_frequency', 30);
   }
@@ -1053,8 +1053,10 @@ class H5P_Plugin {
    * @since 1.2.0
    */
   public function get_library_updates() {
-    $core = $this->get_h5p_instance('core');
-    $core->fetchLibrariesMetadata();
+    if (get_option('h5p_ext_communication', TRUE)) {
+      $core = $this->get_h5p_instance('core');
+      $core->fetchLibrariesMetadata();
+    }
   }
 
   /**
