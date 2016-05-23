@@ -1034,13 +1034,25 @@ class H5P_Plugin {
       return;
     }
 
-    foreach (glob($editor_path . DIRECTORY_SEPARATOR . '*') as $dir) {
-      if (is_dir($dir)) {
-        foreach (glob($dir . DIRECTORY_SEPARATOR . '*') as $file) {
-          if (time() - filemtime($file) > 86400) {
-            // Not modified in over a day
-            unlink($file);
-          }
+    $dirs = glob($editor_path . DIRECTORY_SEPARATOR . '*');
+    if (empty($dirs)) {
+      return;
+    }
+
+    foreach ($dirs as $dir) {
+      if (!is_dir($dir)) {
+        continue;
+      }
+
+      $files = glob($dir . DIRECTORY_SEPARATOR . '*');
+      if (empty($files)) {
+        continue;
+      }
+      
+      foreach ($files as $file) {
+        if (time() - filemtime($file) > 86400) {
+          // Not modified in over a day
+          unlink($file);
         }
       }
     }
