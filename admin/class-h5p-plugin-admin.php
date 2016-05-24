@@ -457,6 +457,12 @@ class H5P_Plugin_Admin {
       update_option('h5p_track_user', $track_user);
 
       $ext_communication = filter_input(INPUT_POST, 'ext_communication', FILTER_VALIDATE_BOOLEAN);
+      if ($ext_communication !== (get_option('h5p_ext_communication', TRUE) ? TRUE : NULL)) {
+        // Changed, update core
+        $plugin = H5P_Plugin::get_instance();
+        $core = $plugin->get_h5p_instance('core');
+        $core->fetchLibrariesMetadata($ext_communication === NULL);
+      }
       update_option('h5p_ext_communication', $ext_communication);
 
       $save_content_state = filter_input(INPUT_POST, 'save_content_state', FILTER_VALIDATE_BOOLEAN);
