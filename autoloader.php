@@ -19,6 +19,7 @@ function h5p_autoloader($class) {
       'H5PDevelopment' => 'h5p-php-library/h5p-development.class.php',
       'H5PFileStorage' => 'h5p-php-library/h5p-file-storage.interface.php',
       'H5PDefaultStorage' => 'h5p-php-library/h5p-default-storage.class.php',
+      'H5PRequirements' => 'h5p-php-library/h5p-requirements.class.php',
 
       // Editor
       'H5peditor' => 'h5p-editor-php-library/h5peditor.class.php',

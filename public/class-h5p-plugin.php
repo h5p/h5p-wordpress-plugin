@@ -134,6 +134,24 @@ class H5P_Plugin {
    * @param boolean $network_wide
    */
   public static function activate($network_wide) {
+
+    $results = H5PRequirements::validatePrerequisites();
+
+    if (!empty($results)) {
+      $shouldDie = false;
+      echo "Prepequisites not met<br><ul>";
+      //echo "<ul><li>You need the mbstring php extension to be able to activate the H5P plugin</li></ul>";
+      foreach($results as $result) {
+        echo "<li>{$result->message}. <a target=\"_blank\" href=\"{$result->url}\">View solution</a></li>";
+        $shouldDie |= $result->mandatory;
+      }
+      echo "</ul>";
+
+      if ($shouldDie) {
+        die;
+      }
+    }
+
     // Check to see if the plugin has been updated to a newer version
     self::check_for_updates();
 
@@ -1048,7 +1066,7 @@ class H5P_Plugin {
       if (empty($files)) {
         continue;
       }
-      
+
       foreach ($files as $file) {
         if (time() - filemtime($file) > 86400) {
           // Not modified in over a day
