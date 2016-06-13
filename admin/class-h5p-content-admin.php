@@ -542,16 +542,8 @@ class H5PContentAdmin {
     // Save new content
     $content['id'] = $core->saveContent($content);
 
-    // Create content directory
-    $editor = $this->get_h5peditor_instance();
-    if (!$editor->createDirectories($content['id'])) {
-      $core->h5pF->setErrorMessage(__('Unable to create content directory.', $this->plugin_slug));
-      // Remove content.
-      $core->h5pF->deleteContentData($content['id']);
-      return FALSE;
-    }
-
     // Move images and find all content dependencies
+    $editor = $this->get_h5peditor_instance();
     $editor->processParameters($content['id'], $content['library'], $params, $oldLibrary, $oldParams);
     return $content['id'];
   }
