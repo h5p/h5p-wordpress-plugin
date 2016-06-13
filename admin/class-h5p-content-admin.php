@@ -1046,34 +1046,26 @@ class H5PContentAdmin {
       exit;
     }
 
+    // Get Content ID for upload
     $contentId = filter_input(INPUT_POST, 'contentId', FILTER_SANITIZE_NUMBER_INT);
-    if ($contentId) {
-      $files_directory .=  '/content/' . $contentId;
-    }
-    else {
-      $files_directory .= '/editor';
-    }
 
-    $editor = $this->get_h5peditor_instance();
-    $interface = $plugin->get_h5p_instance('interface');
-    $file = new H5peditorFile($interface, $files_directory);
-
+    $file = new H5peditorFile($plugin->get_h5p_instance('interface'));
     if (!$file->isLoaded()) {
       H5PCore::ajaxError(__('File not found on server. Check file upload settings.', $this->plugin_slug));
       exit;
     }
 
-    if ($file->validate() && $file->copy()) {
-      // Keep track of temporary files so they can be cleaned up later.
-      $editor->addTmpFile($file);
+    // Make sure file is valid
+    if ($file->validate()) {
+        $core = $plugin->get_h5p_instance('core');
+        // Save the valid file
+        $file_id = $core->fs->saveFile($file, $contentid);
+
+        // Keep track of temporary files so they can be cleaned up later.
+        // TODO: Add to tmpfiles table
     }
 
-    header('Cache-Control: no-cache');
-
-    // Must support IE, so cannot use application/json
-    header('Content-type: text/plain; charset=utf-8');
-
-    print $file->getResult();
+    $file->printResult();
     exit;
   }
 
