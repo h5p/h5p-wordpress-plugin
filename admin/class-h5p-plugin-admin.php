@@ -713,7 +713,7 @@ class H5P_Plugin_Admin {
       H5PCore::ajaxError(__('Invalid content', $this->plugin_slug));
       exit;
     }
-    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_result')) {
+    if (!wp_verify_nonce(filter_input(INPUT_GET, 'token'), 'h5p_result')) {
       H5PCore::ajaxError(__('Invalid security token', $this->plugin_slug));
       exit;
     }
@@ -1113,7 +1113,7 @@ class H5P_Plugin_Admin {
     $preload = filter_input(INPUT_POST, 'preload');
     $invalidate = filter_input(INPUT_POST, 'invalidate');
     if ($data !== NULL && $preload !== NULL && $invalidate !== NULL) {
-      if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_contentuserdata')) {
+      if (!wp_verify_nonce(filter_input(INPUT_GET, 'token'), 'h5p_contentuserdata')) {
         H5PCore::ajaxError(__('Invalid security token', $this->plugin_slug));
         exit;
       }
