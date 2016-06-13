@@ -954,14 +954,9 @@ class H5P_Plugin {
       'baseUrl' => get_site_url(),
       'url' => $this->get_h5p_url(),
       'postUserStatistics' => (get_option('h5p_track_user', TRUE) === '1') && $current_user->ID,
-      'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
       'ajax' => array(
-        'setFinished' => admin_url('admin-ajax.php?action=h5p_setFinished'),
-        'contentUserData' => admin_url('admin-ajax.php?action=h5p_contents_user_data&content_id=:contentId&data_type=:dataType&sub_content_id=:subContentId')
-      ),
-      'tokens' => array(
-        'result' => wp_create_nonce('h5p_result'),
-        'contentUserData' => wp_create_nonce('h5p_contentuserdata')
+        'setFinished' => admin_url('admin-ajax.php?token=' . wp_create_nonce('h5p_result') . '&action=h5p_setFinished'),
+        'contentUserData' => admin_url('admin-ajax.php?token=' . wp_create_nonce('h5p_contentuserdata') . '&action=h5p_contents_user_data&content_id=:contentId&data_type=:dataType&sub_content_id=:subContentId')
       ),
       'saveFreq' => get_option('h5p_save_content_state', FALSE) ? get_option('h5p_save_content_frequency', 30) : FALSE,
       'siteUrl' => get_site_url(),
