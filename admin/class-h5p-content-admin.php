@@ -1017,7 +1017,7 @@ class H5PContentAdmin {
 
     if ($name) {
       $plugin = H5P_Plugin::get_instance();
-      print $editor->getLibraryData($name, $major_version, $minor_version, $plugin->get_language(), $plugin->get_h5p_path());
+      print $editor->getLibraryData($name, $major_version, $minor_version, $plugin->get_language());
 
       // Log library load
       new H5P_Event('library', NULL,
@@ -1058,7 +1058,7 @@ class H5PContentAdmin {
     if ($file->validate()) {
         $core = $plugin->get_h5p_instance('core');
         // Save the valid file
-        $file_id = $core->fs->saveFile($file, $contentid);
+        $file_id = $core->fs->saveFile($file, $contentId);
 
         // Keep track of temporary files so they can be cleaned up later.
         // TODO: Add to tmpfiles table
