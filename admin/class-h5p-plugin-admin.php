@@ -250,7 +250,7 @@ class H5P_Plugin_Admin {
     // Handle library updates
     $update_available = get_option('h5p_update_available', 0);
     $current_update = get_option('h5p_current_update', 0);
-    if ($update_available != 0 && $current_update == 0) {
+    if ($current_update == 0) {
       // A new update is available and no version of the H5P Content Types
       // is currently installed.
       $inspiration_msg = sprintf(wp_kses(__('Check out our <a href="%s" target="_blank">Examples and Downloads</a> page for inspiration.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications'));
@@ -259,7 +259,7 @@ class H5P_Plugin_Admin {
       if ($wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}h5p_libraries") === '0') {
         // No content types, automatically download and install the latest release
         $messages[] = __('Thank you for choosing H5P.', $this->plugin_slug);
-        if (!self::download_h5p_libraries()) {
+        if ($update_available == 0 || !self::download_h5p_libraries()) {
           // Prevent trying again automatically. The user will have to press
           // the download & update button on the libraries page.
           update_option('h5p_current_update', 1);
@@ -456,8 +456,14 @@ class H5P_Plugin_Admin {
       $track_user = filter_input(INPUT_POST, 'track_user', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_track_user', $track_user);
 
-      $library_updates = filter_input(INPUT_POST, 'library_updates', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_library_updates', $track_user);
+      $ext_communication = filter_input(INPUT_POST, 'ext_communication', FILTER_VALIDATE_BOOLEAN);
+      if ($ext_communication !== (get_option('h5p_ext_communication', TRUE) ? TRUE : NULL)) {
+        // Changed, update core
+        $plugin = H5P_Plugin::get_instance();
+        $core = $plugin->get_h5p_instance('core');
+        $core->fetchLibrariesMetadata($ext_communication === NULL);
+      }
+      update_option('h5p_ext_communication', $ext_communication);
 
       $save_content_state = filter_input(INPUT_POST, 'save_content_state', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_save_content_state', $save_content_state);
@@ -475,7 +481,7 @@ class H5P_Plugin_Admin {
       $copyright = get_option('h5p_copyright', TRUE);
       $about = get_option('h5p_icon', TRUE);
       $track_user = get_option('h5p_track_user', TRUE);
-      $library_updates = get_option('h5p_library_updates', TRUE);
+      $ext_communication = get_option('h5p_ext_communication', TRUE);
       $save_content_state = get_option('h5p_save_content_state', FALSE);
       $save_content_frequency = get_option('h5p_save_content_frequency', 30);
       $insert_method = get_option('h5p_insert_method', 'id');

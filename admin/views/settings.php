@@ -23,7 +23,7 @@
           <th scope="row"><?php _e("External communication", $this->plugin_slug); ?></th>
           <td>
             <label>
-              <input name="library_updates" type="checkbox" value="true"<?php if ($library_updates): ?> checked="checked"<?php endif; ?>/>
+              <input name="ext_communication" type="checkbox" value="true"<?php if ($ext_communication): ?> checked="checked"<?php endif; ?>/>
               <?php _e("I wish to aid in the development of H5P by contributing anonymous usage data", $this->plugin_slug); ?>
             </label>
             <p class="h5p-setting-desc">

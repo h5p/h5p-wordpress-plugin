@@ -986,12 +986,11 @@ class H5PContentAdmin {
         'width' => 50,
         'height' => 50,
       ),
-      'ajaxPath' => admin_url('admin-ajax.php?action=h5p_'),
+      'ajaxPath' => admin_url('admin-ajax.php?token=' . wp_create_nonce('h5p_editor_ajax') . '&action=h5p_'),
       'libraryUrl' => plugin_dir_url('h5p/h5p-editor-php-library/h5peditor.class.php'),
       'copyrightSemantics' => $content_validator->getCopyrightSemantics(),
       'assets' => $assets,
-      'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug),
-      'uploadToken' => wp_create_nonce('h5p_editor_upload')
+      'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug)
     );
 
     if ($id !== NULL) {
@@ -1041,7 +1040,7 @@ class H5PContentAdmin {
     $plugin = H5P_Plugin::get_instance();
     $files_directory = $plugin->get_h5p_path();
 
-    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING), 'h5p_editor_upload')) {
+    if (!wp_verify_nonce(filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING), 'h5p_editor_ajax')) {
       H5PCore::ajaxError(__('Invalid security token. Please reload the editor.', $this->plugin_slug));
       exit;
     }
