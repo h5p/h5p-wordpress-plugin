@@ -906,9 +906,7 @@ class H5PContentAdmin {
       $plugin = H5P_Plugin::get_instance();
       self::$h5peditor = new H5peditor(
         $plugin->get_h5p_instance('core'),
-        new H5PEditorWordPressStorage(),
-        '',
-        $plugin->get_h5p_path()
+        new H5PEditorWordPressStorage()
       );
     }
 
