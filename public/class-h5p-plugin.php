@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.6.2';
+  const VERSION = '1.7.0';
 
   /**
    * The Unique identifier for this plugin.
@@ -1048,7 +1048,7 @@ class H5P_Plugin {
       if (empty($files)) {
         continue;
       }
-      
+
       foreach ($files as $file) {
         if (time() - filemtime($file) > 86400) {
           // Not modified in over a day
