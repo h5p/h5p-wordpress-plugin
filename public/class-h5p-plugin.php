@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.6.2';
+  const VERSION = '1.7.0';
 
   /**
    * The Unique identifier for this plugin.
@@ -307,7 +307,7 @@ class H5P_Plugin {
     add_option('h5p_copyright', TRUE);
     add_option('h5p_icon', TRUE);
     add_option('h5p_track_user', TRUE);
-    add_option('h5p_library_updates', TRUE);
+    add_option('h5p_ext_communication', TRUE);
     add_option('h5p_save_content_state', FALSE);
     add_option('h5p_save_content_frequency', 30);
   }
@@ -1034,13 +1034,25 @@ class H5P_Plugin {
       return;
     }
 
-    foreach (glob($editor_path . DIRECTORY_SEPARATOR . '*') as $dir) {
-      if (is_dir($dir)) {
-        foreach (glob($dir . DIRECTORY_SEPARATOR . '*') as $file) {
-          if (time() - filemtime($file) > 86400) {
-            // Not modified in over a day
-            unlink($file);
-          }
+    $dirs = glob($editor_path . DIRECTORY_SEPARATOR . '*');
+    if (empty($dirs)) {
+      return;
+    }
+
+    foreach ($dirs as $dir) {
+      if (!is_dir($dir)) {
+        continue;
+      }
+
+      $files = glob($dir . DIRECTORY_SEPARATOR . '*');
+      if (empty($files)) {
+        continue;
+      }
+
+      foreach ($files as $file) {
+        if (time() - filemtime($file) > 86400) {
+          // Not modified in over a day
+          unlink($file);
         }
       }
     }
@@ -1053,8 +1065,10 @@ class H5P_Plugin {
    * @since 1.2.0
    */
   public function get_library_updates() {
-    $core = $this->get_h5p_instance('core');
-    $core->fetchLibrariesMetadata();
+    if (get_option('h5p_ext_communication', TRUE)) {
+      $core = $this->get_h5p_instance('core');
+      $core->fetchLibrariesMetadata();
+    }
   }
 
   /**

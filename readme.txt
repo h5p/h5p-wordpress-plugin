@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.5
-Stable tag: 1.6.2
+Stable tag: 1.7.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -206,3 +206,24 @@ Fixed issue with content list on multi-site installations.
 Fixed broken pagination for H5P content list.
 Reset page number when filtering in the H5P content list.
 Removed notice when content without stylesheets are aggregated.
+
+= 1.7.0 =
+Added custom HTML confirmation dialog.
+Added German translation, thanks to herrmayr.
+Added version numbers and links to licenses.
+Added handling of several digits in the major and minor versions of libraries.
+Added highlighting of required fields in the editor.
+Enhanced action bar buttons for accessibility.
+Improved some error messages that didn't make much sense in the editor.
+Corrected typos in Core spec and readme, thanks to Marc Laporte.
+Corrected documentation in Core, thanks to Dave Richer.
+Fixed pagination widget to handle empty pages.
+Bugfix to avoid warnings on some systems when Cron cleans up tmp files.
+Joined some CSS files to reduce the number of resources that's loaded in the editor.
+Fixed number conversion before comparing versions in Content Upgrade.
+Fixed centering of CKEditor dialog in the editor.
+Fixed bug when trying to disable external communication.
+Fixed so that all the H5P tables are removed on uninstall.
+Fixed bug with messages displayed.
+Minor text string corrections.
+Minor visual enhancements.
