@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.5
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -227,3 +227,6 @@ Fixed so that all the H5P tables are removed on uninstall.
 Fixed bug with messages displayed.
 Minor text string corrections.
 Minor visual enhancements.
+
+= 1.7.1 =
+Fixed video widget in editor not printing correct error message.
