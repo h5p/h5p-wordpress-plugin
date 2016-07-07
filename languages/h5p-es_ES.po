@@ -1,70 +1,71 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: H5P\n"
-"POT-Creation-Date: 2016-01-22 23:04+0800\n"
-"PO-Revision-Date: 2016-01-23 00:18+0800\n"
+"POT-Creation-Date: 2015-03-11 09:52+0100\n"
+"PO-Revision-Date: 2015-09-24 11:52+0100\n"
+"Last-Translator: ste yeu\n"
 "Language-Team: Raul Martinez <raulmartinez911@hotmail.com>\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.7.4\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
 "esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
 "t\n"
 "X-Poedit-Basepath: ..\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"Last-Translator: \n"
-"Language: zh_CN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: h5p-editor-php-library/h5peditor-file.class.php:29
 msgid "Unable to create directory."
-msgstr "无法创建目录。"
+msgstr "No se puede crear el directorio."
 
 #: h5p-editor-php-library/h5peditor-file.class.php:93
 msgid "Unable to get field type."
-msgstr "无法获取字段类型。"
+msgstr "No se puede obtener el tipo de campo."
 
 #: h5p-editor-php-library/h5peditor-file.class.php:99
 msgid "File type isn't allowed."
-msgstr "文件类型不合法。"
+msgstr "Tipo de fichero no permitido."
 
 #: h5p-editor-php-library/h5peditor-file.class.php:106
 msgid "Invalid field type."
-msgstr "无效的字段类型"
+msgstr "Tipo de campo no válido."
 
 #: h5p-editor-php-library/h5peditor-file.class.php:116
 msgid "Invalid image file format. Use jpg, png or gif."
-msgstr "無效的圖片。可接受的格式是: JPG，GIF 和 PNG。"
+msgstr "Tipo de formato no permitido. Utiliza jpg, png o gif."
 
 #: h5p-editor-php-library/h5peditor-file.class.php:122
 msgid "File is not an image."
-msgstr "这个文件不是图片！"
+msgstr "El fichero no es una imagen."
 
 #: h5p-editor-php-library/h5peditor-file.class.php:142
 msgid "Invalid audio file format. Use mp3 or wav."
-msgstr "音频文件格式无效。使用 mp3 或 wav。"
+msgstr "Tipo de formato no permitido. Utiliza mp3 o wav."
 
 #: h5p-editor-php-library/h5peditor-file.class.php:158
 msgid "Invalid video file format. Use mp4 or webm."
-msgstr "视频文件格式无效。使用 mp4 或 webm。"
+msgstr "Tipo de formato no permitido. Utiliza mp4 o webm."
 
 #: h5p-editor-php-library/h5peditor-file.class.php:185
 msgid "Could not copy file."
-msgstr "无法复制文件"
+msgstr "No se puede copiar la imagen."
 
 #: admin/class-h5p-plugin-admin.php:193
 msgid "Content unavailable."
-msgstr "内容不可用。"
+msgstr "Contenido no disponible."
 
 #: admin/class-h5p-plugin-admin.php:223
 msgid "Thank you for choosing H5P."
-msgstr "感谢使用H5P。"
+msgstr "Gracias por elegir H5P."
 
 #: admin/class-h5p-plugin-admin.php:225
 msgid "Content type upgrades are here!"
-msgstr "内容类型升级在这里!"
+msgstr "Las actualizaciones de tipo de contenido están aquí!"
 
 #: admin/class-h5p-plugin-admin.php:226
 #, php-format
@@ -72,32 +73,38 @@ msgid ""
 "If you've just upgraded you plugin, you should install the <a href=\"%s\" "
 "target=\"_blank\">lastest version</a> of your content types."
 msgstr ""
-"如果你只是已经升级你的插件，请安装<a href=“%s” target=“_blank”>最新版本</a>的"
-"内容类型。"
+"Si has actualizado tu plugin, debes instalar <a href=\"%s\" target=\"_blank"
+"\">la última versiónn</a> de tu tipo de contenido."
 
 #: admin/class-h5p-plugin-admin.php:240
 msgid ""
 "In order to take advantage of this plugin you must first select and download "
 "the H5P content types you wish to use."
-msgstr "为了利用这个插件你必须首先选择并下载您想要使用的 H5P 内容类型。"
+msgstr ""
+"Para poder utilizar este plugin primero debes descargar el tipo de contenido "
+"H5P que quieras usar."
 
 #: admin/class-h5p-plugin-admin.php:241
 msgid "Here is a short guide to get you started:"
-msgstr "这里是简单动手指南："
+msgstr "Aquí tienes una pequeña guía para empezar:"
 
 #: admin/class-h5p-plugin-admin.php:243
 #, php-format
 msgid ""
 "Select and download the desired content types from <a href=\"%s\" target="
 "\"_blank\">H5P.org</a>."
-msgstr "选择并从<a href=“%s” target=“_blank”>H5P.org</a>下载所需的内容类型。"
+msgstr ""
+"Selecciona y descarga los tipos de contenido que desees desde <a href=\"%s\" "
+"target=\"_blank\">H5P.org</a>."
 
 #: admin/class-h5p-plugin-admin.php:244
 #, php-format
 msgid ""
 "Upload the content types through the <a href=\"%s\" target=\"_blank\">Add "
 "new</a> page on your WordPress installation."
-msgstr "通过 WordPress <a href=“%s” target=“_blank”>新增</a>页面的内容类型。"
+msgstr ""
+"Sube los tipos de contenido desde <a href=\"%s\" target=\"_blank\">Añadir "
+"nuevo</a> en la página de tu instalación de WordPress."
 
 #: admin/class-h5p-plugin-admin.php:245
 #, php-format
@@ -105,7 +112,8 @@ msgid ""
 "Start creating your own interactive content through the <a href=\"%s\" "
 "target=\"_blank\">Add new</a> page."
 msgstr ""
-"从<a href=\"%s\" target=\"_blank\">新增</a> 页面开始创造专属的交互式内容吧。"
+"Empieza creando tu contenido interactivo desde la página <a href=\"%s\" "
+"target=\"_blank\">Añadir nuevo</a>."
 
 #: admin/class-h5p-plugin-admin.php:247
 #, php-format
@@ -114,417 +122,426 @@ msgid ""
 "\"_blank\">support request</a>, check out our <a href=\"%s\" target=\"_blank"
 "\">forum</a> or join our IRC channel #H5P on Freenode."
 msgstr ""
-"如果您需要获得帮助以开始你可以文件<a href=“%s” target=“_blank”>请求帮助</"
-"a>、 查阅我们的<a href=“%s” target=“_blank”>论坛</a>或加入我们的 IRC 频道 "
-"#H5P。"
+"Si necesitas ayuda para empezar puedes pedir una <a href=\"%s\" target="
+"\"_blank\">petición de soporte</a> visitando nuestro <a href=\"%s\" target="
+"\"_blank\">forum</a>o en nuestro canal IRC #H5P desde Freenode."
 
 #: admin/class-h5p-plugin-admin.php:269 public/class-h5p-plugin.php:456
 msgid "H5P Content"
-msgstr "H5P 内容"
+msgstr "Contenido H5P"
 
 #: admin/class-h5p-plugin-admin.php:272
 msgid "All H5P Content"
-msgstr "H5P 的所有内容"
+msgstr "Todo el contenido H5P"
 
 #: admin/class-h5p-plugin-admin.php:275
 msgid "Add New"
-msgstr "创建"
+msgstr "Añadir nuevo"
 
 #: admin/class-h5p-plugin-admin.php:281
 msgid "Libraries"
-msgstr "库"
+msgstr "Librerías"
 
 #: admin/class-h5p-plugin-admin.php:288 admin/views/my-results.php:14
 msgid "My Results"
-msgstr "结果"
+msgstr "Mis resultados"
 
 #: admin/class-h5p-plugin-admin.php:683
 msgid "Loading data."
-msgstr "数据加载中…"
+msgstr "Cargando."
 
 #: admin/class-h5p-plugin-admin.php:684
 msgid "Failed to load data."
-msgstr "未能加载数据。"
+msgstr "Fallo al cargar."
 
 #: admin/class-h5p-plugin-admin.php:685
 msgid "There's no data available that matches your criteria."
-msgstr "没有可用的数据与您的条件匹配。"
+msgstr "No hay datos disponibles para estos criterios."
 
 #: admin/class-h5p-plugin-admin.php:686
 msgid "Page $current of $total"
-msgstr "@current / @total"
+msgstr "Página $current de $total"
 
 #: admin/class-h5p-plugin-admin.php:687
 msgid "Next page"
-msgstr "下一页"
+msgstr "Página siguiente"
 
 #: admin/class-h5p-plugin-admin.php:688
 msgid "Previous page"
-msgstr "上一页"
+msgstr "Página anterior"
 
 #: admin/class-h5p-plugin-admin.php:689
 msgid "Search"
-msgstr "搜索"
+msgstr "Buscar"
 
 #: admin/class-h5p-plugin-admin.php:717
 msgid "Content"
-msgstr "内容"
+msgstr "Contenido"
 
 #: admin/class-h5p-plugin-admin.php:721 admin/class-h5p-content-admin.php:213
 msgid "Score"
-msgstr "得分"
+msgstr "Nota"
 
 #: admin/class-h5p-plugin-admin.php:725 admin/class-h5p-content-admin.php:217
 msgid "Maximum Score"
-msgstr "最高分"
+msgstr "Nota máxima"
 
 #: admin/class-h5p-plugin-admin.php:729 admin/class-h5p-content-admin.php:221
 msgid "Opened"
-msgstr "已打开"
+msgstr "Abierto"
 
 #: admin/class-h5p-plugin-admin.php:733 admin/class-h5p-content-admin.php:225
 msgid "Finished"
-msgstr "已完成"
+msgstr "Finalizado"
 
 #: admin/class-h5p-plugin-admin.php:736 admin/class-h5p-content-admin.php:228
 msgid "Time spent"
-msgstr "已花费时间"
+msgstr "Tiempo invertido"
 
 #: admin/class-h5p-plugin-admin.php:739
 msgid "There are no logged results for your user."
-msgstr "你还没有上传记录。"
+msgstr "No existen resultados para tu usuario"
 
 #: admin/class-h5p-library-admin.php:62
 msgid "Delete"
-msgstr "删除"
+msgstr "Eliminar"
 
 #: admin/class-h5p-library-admin.php:65
 msgid "Content Upgrade"
-msgstr "升级内容"
+msgstr "Actualizar contenido"
 
 #: admin/class-h5p-library-admin.php:102
 #, php-format
 msgid "Cannot find library with id: %d."
-msgstr "无法找到id为%d 的内容"
+msgstr "No se puede encontrar la librería con id: %d."
 
 #: admin/class-h5p-library-admin.php:147 admin/class-h5p-content-admin.php:241
 msgid "Unknown task."
-msgstr "未知任务"
+msgstr "Tarea desconocida."
 
 #: admin/class-h5p-library-admin.php:167 admin/class-h5p-library-admin.php:387
 msgid "N/A"
-msgstr "N/A"
+msgstr "No disponible"
 
 #: admin/class-h5p-library-admin.php:168
 msgid "View library details"
-msgstr "无法查看该资料库"
+msgstr "Ver detalles de la librería"
 
 #: admin/class-h5p-library-admin.php:169
 msgid "Delete library"
-msgstr "删除库"
+msgstr "Eliminar librería"
 
 #: admin/class-h5p-library-admin.php:170
 msgid "Upgrade library content"
-msgstr "升级内容"
+msgstr "Actualizar contenido de la librería"
 
 #: admin/class-h5p-library-admin.php:227 admin/class-h5p-content-admin.php:137
 #: admin/class-h5p-content-admin.php:549 public/class-h5p-plugin.php:832
 msgid "Title"
-msgstr "标题"
+msgstr "Título"
 
 #: admin/class-h5p-library-admin.php:228
 msgid "Restricted"
-msgstr "受限"
+msgstr "Restringido"
 
 #: admin/class-h5p-library-admin.php:230
 msgid "Contents"
-msgstr "内容"
+msgstr "Contenidos"
 
 #: admin/class-h5p-library-admin.php:234
 msgid "Contents using it"
-msgstr "引用的内容"
+msgstr "Contenidos usándolo"
 
 #: admin/class-h5p-library-admin.php:238
 msgid "Libraries using it"
-msgstr "引用的库"
+msgstr "Librerías que lo utilizan"
 
 #: admin/class-h5p-library-admin.php:241
 msgid "Actions"
-msgstr "Actions"
+msgstr "Acciones"
 
 #: admin/class-h5p-library-admin.php:252
 msgid "The following libraries are outdated and should be upgraded:"
-msgstr "以下库已经过时，请升级:"
+msgstr "Las siguientes librerías deberían actualizarse a la última versión:"
 
 #: admin/class-h5p-library-admin.php:254
 msgid "To upgrade all the installed libraries, do the following:"
-msgstr "若要升级所有已安装的库，请执行以下操作:"
+msgstr "Para actualizar todas las librerías instaladas, haz lo siguiente:"
 
 #: admin/class-h5p-library-admin.php:256
 #, php-format
 msgid "Download %s."
-msgstr "下载“%s”"
+msgstr "Descarga %s."
 
 #: admin/class-h5p-library-admin.php:257
 #, php-format
 msgid "Select the downloaded <em> %s</em> file in the form below."
-msgstr "在下面的表格中选择下载的<em>%s</em>文件。"
+msgstr ""
+"Selecciona el fichero <em> %s</em> descargado en el formulario de abajo."
 
 #: admin/class-h5p-library-admin.php:258
 msgid ""
 "Check off \"Only update existing libraries\" and click the <em>Upload</em> "
 "button."
-msgstr "勾选”只更新现有库”并单击<em>上载</em>按钮。"
+msgstr ""
+"Desmarca \"Solo actualizar librerías existentes\" y clica en el botón de "
+"<em>Subir</em>."
 
 #: admin/class-h5p-library-admin.php:316
 msgid ""
 "This Library is used by content or other libraries and can therefore not be "
 "deleted."
-msgstr "此库使用的内容或其他库，因此不能被删除。"
+msgstr ""
+"Esta librería está utilizada por contenidos u otras librerías, por lo que no "
+"puede ser borrada."
 
 #: admin/class-h5p-library-admin.php:352
 msgid "No content is using this library"
-msgstr "没有任何内容使用此库"
+msgstr "Ningún contenido usa librería"
 
 #: admin/class-h5p-library-admin.php:353
 msgid "Content using this library"
-msgstr "引用的内容"
+msgstr "Contenido usando esta librería"
 
 #: admin/class-h5p-library-admin.php:354
 msgid "Elements per page"
-msgstr "每个页面元素"
+msgstr "Elementos por página"
 
 #: admin/class-h5p-library-admin.php:355
 msgid "Filter content"
-msgstr "筛选内容"
+msgstr "Filtrar contenido"
 
 #: admin/class-h5p-library-admin.php:356
 msgid "Page $x of $y"
-msgstr "$y / $x 页 "
+msgstr "Página $x de $y"
 
 #: admin/class-h5p-library-admin.php:384
 msgid "Version"
-msgstr "版本"
+msgstr "Versión"
 
 #: admin/class-h5p-library-admin.php:385 public/class-h5p-plugin.php:821
 msgid "Fullscreen"
-msgstr "全屏"
+msgstr "Pantalla completa."
 
 #: admin/class-h5p-library-admin.php:385 admin/class-h5p-library-admin.php:386
 msgid "Yes"
-msgstr "是"
+msgstr "Sí"
 
 #: admin/class-h5p-library-admin.php:385 admin/class-h5p-library-admin.php:386
 msgid "No"
-msgstr "否"
+msgstr "No"
 
 #: admin/class-h5p-library-admin.php:386
 msgid "Content library"
-msgstr "内容库"
+msgstr "Contenido de la librería"
 
 #: admin/class-h5p-library-admin.php:387
 msgid "Used by"
-msgstr "引用于"
+msgstr "Usado por"
 
 #: admin/class-h5p-library-admin.php:387 admin/class-h5p-library-admin.php:438
 #, php-format
 msgid "1 content"
 msgid_plural "%d contents"
-msgstr[0] "%d 条内容"
+msgstr[0] "1 contenido"
+msgstr[1] "%d contenidos"
 
 #: admin/class-h5p-library-admin.php:427
 msgid "There are no available upgrades for this library."
-msgstr "没有可用的升级此库。"
+msgstr "No existen actualizaciones para esta librería."
 
 #: admin/class-h5p-library-admin.php:434
 msgid "There's no content instances to upgrade."
-msgstr "没有升级的内容实例。"
+msgstr "No existen instancias para actualizar."
 
 #: admin/class-h5p-library-admin.php:445
 #, php-format
 msgid "You are about to upgrade %s. Please select upgrade version."
-msgstr "您将要升级 %s。请选择升级版本。"
+msgstr ""
+"Estás a punto de actualizar %s. Por favor, selecciona la versión de la "
+"actualización."
 
 #: admin/class-h5p-library-admin.php:446
 msgid "Upgrading to %ver..."
-msgstr "升级到 %ver版本…"
+msgstr "Actualizando a la versión %ver..."
 
 #: admin/class-h5p-library-admin.php:447
 msgid "An error occurred while processing parameters:"
-msgstr "处理参数时出现错误:"
+msgstr "Ha ocurrido un error mientras se procesaban los siguientes parámetros:"
 
 #: admin/class-h5p-library-admin.php:448
 msgid "Could not load data for library %lib."
-msgstr "无法加载库 %lib 的数据。"
+msgstr "No se puede leer de la librería %lib."
 
 #: admin/class-h5p-library-admin.php:449
 msgid "Could not upgrade content %id:"
-msgstr "无法升级内容 %id:"
+msgstr "No se puede actualizar la librería %lib."
 
 #: admin/class-h5p-library-admin.php:450
 msgid "Could not load upgrades script for %lib."
-msgstr "无法加载 %lib 的升级脚本。"
+msgstr "Impossible cargar el script de actualización para %lib."
 
 #: admin/class-h5p-library-admin.php:451
 msgid "Parameters are broken."
-msgstr "无效的参数"
+msgstr "Los parámetros están rotos."
 
 #: admin/class-h5p-library-admin.php:452
 #, php-format
 msgid "You have successfully upgraded %s."
-msgstr "您已成功升级 %s。"
+msgstr "Has actualizado con éxito %s."
 
 #: admin/class-h5p-library-admin.php:452
 msgid "Return"
-msgstr "返回"
+msgstr "Volver"
 
 #: admin/class-h5p-library-admin.php:462
 msgid "Upgrade"
-msgstr "升级内容"
+msgstr "Actualizar"
 
 #: admin/class-h5p-library-admin.php:537
 msgid ""
 "Not all content has gotten their cache rebuilt. This is required to be able "
 "to delete libraries, and to display how many contents that uses the library."
 msgstr ""
-"并不是所有的内容已经重建其缓存。这被需要能够删除库，并以显示多少使用库的内"
-"容。"
+"No se ha reconstruido el cache para todo el contenido. Esto es requerido "
+"para poder borrar librerías y para mostrar qué contenidos usan la librería."
 
 #: admin/class-h5p-library-admin.php:538
 #, php-format
 msgid "1 content need to get its cache rebuilt."
 msgid_plural "%d contents needs to get their cache rebuilt."
-msgstr[0] "%d 内容需要重建其缓存。"
+msgstr[0] "1 contenido necesita reconstruir el cache."
+msgstr[1] "%d contenidos necesitan reconstruir el cache."
 
 #: admin/class-h5p-library-admin.php:539
 msgid "Rebuild cache"
-msgstr "重建缓存"
+msgstr "Reconstruir cache"
 
 #: admin/class-h5p-library-admin.php:551
 msgid "Error, invalid security token!"
-msgstr "错误，无效的安全令牌!"
+msgstr "Error, token de seguridad inválido!"
 
 #: admin/class-h5p-library-admin.php:557 admin/class-h5p-library-admin.php:647
 msgid "Error, missing library!"
-msgstr "错误，缺少库!"
+msgstr "Error, falta la librería!"
 
 #: admin/class-h5p-library-admin.php:569 admin/class-h5p-library-admin.php:653
 msgid "Error, invalid library!"
-msgstr "无效的库。"
+msgstr "Error, librería no válida!"
 
 #: admin/class-h5p-library-admin.php:670
 msgid "Error, could not library semantics!"
-msgstr "错误，库语义无效!"
+msgstr "Error, impossibile leer semantics de la librería!"
 
 #: admin/class-h5p-content-admin.php:141 admin/class-h5p-content-admin.php:553
 msgid "Content type"
-msgstr "内容类型（Content Type）"
+msgstr "Tipo de contenido"
 
 #: admin/class-h5p-content-admin.php:145
 msgid "Created"
-msgstr "已创建"
+msgstr "Creado"
 
 #: admin/class-h5p-content-admin.php:149 admin/class-h5p-content-admin.php:557
 msgid "Last modified"
-msgstr "上次修改日期"
+msgstr "Última modificación"
 
 #: admin/class-h5p-content-admin.php:153 public/class-h5p-plugin.php:833
 msgid "Author"
-msgstr "作者"
+msgstr "Autor"
 
 #: admin/class-h5p-content-admin.php:172 admin/class-h5p-content-admin.php:565
 #: admin/views/select-content.php:31
 msgid "No H5P content available. You must upload or create new content."
-msgstr "没有可用的 H5P 内容。你必须上传或创建新的内容。"
+msgstr "No existe contenido H5P. Sube o crea nuevo contenido."
 
 #: admin/class-h5p-content-admin.php:209
 msgid "User"
-msgstr "用户"
+msgstr "Usuario"
 
 #: admin/class-h5p-content-admin.php:231
 msgid "There are no logged results for this content."
-msgstr "没有此内容的记录的结果。"
+msgstr "No hay resultados para este contenido."
 
 #: admin/class-h5p-content-admin.php:268
 msgid "You are not allowed to edit this content."
-msgstr "无权编辑此内容。"
+msgstr "No estás autorizado para visualizar este contenido."
 
 #: admin/class-h5p-content-admin.php:282
 msgid "Invalid confirmation code, not deleting."
-msgstr "无效的确认码，取消删除。"
+msgstr "Código de confirmación inválido. No se borrará."
 
 #: admin/class-h5p-content-admin.php:406
 msgid "Invalid library."
-msgstr "无效的库。"
+msgstr "Librería no válida."
 
 #: admin/class-h5p-content-admin.php:413
 msgid "No such library."
-msgstr "无此库。"
+msgstr "No es una librería."
 
 #: admin/class-h5p-content-admin.php:430
 msgid "Invalid parameters."
-msgstr "无效的参数"
+msgstr "Parámetros no válidos."
 
 #: admin/class-h5p-content-admin.php:443
 msgid "Unable to create content directory."
-msgstr "无法创建内容目录。"
+msgstr "No se puede crear el directorio del contenido."
 
 #: admin/class-h5p-content-admin.php:486 admin/class-h5p-content-admin.php:509
 #, php-format
 msgid "Missing %s."
-msgstr "缺少 %s"
+msgstr "Falta %s."
 
 #: admin/class-h5p-content-admin.php:514
 msgid "Title is too long. Must be 256 letters or shorter."
-msgstr "标题过长。必须是 256 字母或更短。"
+msgstr "Título demasiado largo. Puede contener un máximo de 256 caracteres."
 
 #: admin/class-h5p-content-admin.php:529
 msgid "Insert H5P Content"
-msgstr "插入 H5P 内容"
+msgstr "Insertar contenido H5P"
 
 #: admin/class-h5p-content-admin.php:529
 msgid "Add H5P"
-msgstr "创建"
+msgstr "Añadir H5P"
 
 #: admin/class-h5p-content-admin.php:645
 msgid "Insert"
-msgstr "插入"
+msgstr "Insertar"
 
 #: admin/class-h5p-content-admin.php:673 admin/views/new-content.php:21
 #: admin/views/show-content.php:17
 msgid "Results"
-msgstr "结果"
+msgstr "Resultados"
 
 #: admin/class-h5p-content-admin.php:682 admin/views/content-results.php:18
 #: admin/views/new-content.php:18 admin/views/show-content.php:20
 msgid "Edit"
-msgstr "编辑"
+msgstr "Editar"
 
 #: admin/class-h5p-content-admin.php:783
 msgid "Are you sure you wish to delete this content?"
-msgstr "您确定删除这些文件和数据？"
+msgstr "¿Estás seguro de que quieres borrar este contenido?"
 
 #: admin/views/content-results.php:15
 #, php-format
 msgid "Results for \"%s\""
-msgstr "“%s” 的结果"
+msgstr "Resultados para \"%s\""
 
 #: admin/views/content-results.php:16 admin/views/new-content.php:19
 msgid "View"
-msgstr "查看"
+msgstr "Ver"
 
 #: admin/views/content-results.php:22 admin/views/my-results.php:16
 #: admin/views/contents.php:16 admin/views/libraries.php:37
 msgid "Waiting for JavaScript."
-msgstr "等待Javascript。"
+msgstr "Esperando a  JavaScript."
 
 #: admin/views/new-content.php:30
 msgid "Enter title here"
-msgstr "输入标题"
+msgstr "Introduce el título"
 
 #: admin/views/new-content.php:37 admin/views/libraries.php:25
 msgid "Disable file extension check"
-msgstr "禁用扩展名校验"
+msgstr "Desactivar comprobación de extensión de fichero"
 
 #: admin/views/new-content.php:38 admin/views/libraries.php:26
 msgid ""
@@ -533,156 +550,166 @@ msgid ""
 "malicious code on your site. Please make sure you know exactly what you're "
 "uploading."
 msgstr ""
-"警告!因为它允许上传 php 文件，这可能带来安全隐患。这反过来能使它可能使攻击者"
-"在您的站点上执行恶意代码。请确保您知道到底什么您所上传。"
+"Atención! Esto puede tener implicaciones de seguridad porque permite subir "
+"ficheros php. Esto a su vez podría hacer posible para los atacantes ejecutar "
+"código malicioso en su sitio. Por favor, asegúrate de que sabes exactamente "
+"lo que estás subiendo."
 
 #: admin/views/new-content.php:42
 msgid "Waiting for javascript..."
-msgstr "等待Javascript..."
+msgstr "Esperando a JavaScript..."
 
 #: admin/views/new-content.php:46 admin/views/libraries.php:15
 #: admin/views/libraries.php:32
 msgid "Upload"
-msgstr "上传"
+msgstr "Subir"
 
 #: admin/views/new-content.php:47 admin/views/new-content.php:56
 msgid "Create"
-msgstr "创建"
+msgstr "Crear"
 
 #: admin/views/new-content.php:64 admin/views/settings.php:28
 msgid "Display action bar and frame"
-msgstr "显示操作栏和边框"
+msgstr "Mostrar barra de acción y marco"
 
 #: admin/views/new-content.php:69 admin/views/settings.php:34
 msgid "Download button"
-msgstr "下载按钮"
+msgstr "Botón de descarga"
 
 #: admin/views/new-content.php:75 admin/views/settings.php:40
 msgid "Embed button"
-msgstr "嵌入按钮"
+msgstr "Botón de incrustado"
 
 #: admin/views/new-content.php:81 admin/views/settings.php:46
 msgid "Copyright button"
-msgstr "版权的按钮"
+msgstr "Botón de copyright"
 
 #: admin/views/contents.php:14
 msgid "Add new"
-msgstr "创建"
+msgstr "Añadir nuevo"
 
 #: admin/views/library-content-upgrade.php:15
 #, php-format
 msgid "Upgrade %s %d.%d.%d content"
-msgstr "升级 %s %d.%d.%d 内容"
+msgstr "Actualizar contenido %s %d.%d.%d"
 
 #: admin/views/library-content-upgrade.php:19
 msgid "Please enable JavaScript."
-msgstr "请启用 JavaScript。"
+msgstr "Por favor, activa JavaScript."
 
 #: admin/views/settings.php:16
 msgid "Settings saved."
-msgstr "设置已保存"
+msgstr "Opciones guardadas."
 
 #: admin/views/settings.php:23
 msgid "Action bar"
-msgstr "操作栏"
+msgstr "Barra de acción"
 
 #: admin/views/settings.php:52
 msgid "About H5P button"
-msgstr "关于 H5P 按钮"
+msgstr "Botón acerca de H5P"
 
 #: admin/views/settings.php:58
 msgid "User Tracking"
-msgstr "用户跟踪"
+msgstr "Seguimiento del usuario"
 
 #: admin/views/settings.php:62
 msgid "Log results for signed in users"
-msgstr "当前用户的记录"
+msgstr "Guardar resultados para usuarios identificados"
 
 #: admin/views/settings.php:67
 msgid "Library updates"
-msgstr "库更新"
+msgstr "Actualizaciones de librerías"
 
 #: admin/views/settings.php:71
 msgid "Fetch information about updates for your H5P content types"
-msgstr "获取有关您 H5P 内容类型的更新信息"
+msgstr ""
+"Obtener información sobre actualizaciones de tus tipos de contenido H5P."
 
 #: admin/views/settings.php:76
 msgid "Save content state"
-msgstr "保存内容状态"
+msgstr "Grabar estado del contenido"
 
 #: admin/views/settings.php:80
 msgid "Allow logged-in users to resume tasks"
-msgstr "允许登录的用户恢复任务"
+msgstr "Permitir a usuarios identificados continuar tareas"
 
 #: admin/views/settings.php:83
 msgid "Auto-save frequency (in seconds)"
-msgstr "自动保存频率 (以秒为单位)"
+msgstr "Frecuencia de autoguardado (en segundos)"
 
 #: admin/views/library-delete.php:16
 msgid "Are you sure you wish to delete this H5P library?"
-msgstr "你确定你想要删除此 H5P 库?"
+msgstr "¿Estás seguro que quieres eliminar esta librería H5P?"
 
 #: admin/views/library-delete.php:18
 msgid "Do it!"
-msgstr "是的，继续！"
+msgstr "¡Hazlo!"
 
 #: admin/views/libraries.php:19
 msgid ""
 "Here you can upload new libraries or upload updates to existing libraries. "
 "Files uploaded here must be in the .h5p file format."
-msgstr "在这里你可以上传新的库或将上传更新现有的库。文件必须是.h5p 文件格式。"
+msgstr ""
+"Aquí puedes subir nuevas librerías o subir actualizaciones para las "
+"librerías existenes. Los ficheros subidos aquí deben tener el formato de "
+"fichero .h5p."
 
 #: admin/views/libraries.php:22
 msgid "Only update existing libraries"
-msgstr "只更新现有库"
+msgstr "Solo actualizar librerías existentes"
 
 #: admin/views/libraries.php:36
 msgid "Installed"
-msgstr "已安装"
+msgstr "Instalado"
 
 #: h5p-php-library/h5p.classes.php:645
 msgid "Unable to write to the content directory."
-msgstr "无法写入到内容目录。"
+msgstr "No se puede escribir en el directorio del contenido."
 
 #: h5p-php-library/h5p.classes.php:649
 msgid "Unable to write to the libraries directory."
-msgstr "无法写入到库目录。"
+msgstr "No se puede escribir en el directorio de las librerías."
 
 #: h5p-php-library/h5p.classes.php:655
 msgid "Your PHP version does not support ZipArchive."
-msgstr "你的PHP版本不支持zip压缩。"
+msgstr "Tu versión de PHP no soporta ZipArchive."
 
 #: h5p-php-library/h5p.classes.php:664
 msgid "Unable to write to the temporary directory."
-msgstr "无法写入临时目录。"
+msgstr "No se puede escribir en el directorio temporal."
 
 #: h5p-php-library/h5p.classes.php:675
 msgid ""
 "The file you uploaded is not a valid HTML5 Package (It does not have the ."
 "h5p file extension)"
-msgstr "你上传的文件不是有效的 HTML5 程序包 (扩展名不是.h5p)"
+msgstr ""
+"El fichero que has subido no es un paquete HTML5 válido (No tiene la "
+"extensión .h5p)"
 
 #: h5p-php-library/h5p.classes.php:685
 msgid ""
 "The file you uploaded is not a valid HTML5 Package (We are unable to unzip "
 "it)"
-msgstr "你上传的文件不是有效的 HTML5 程序包 (我们无法将其解压缩)"
+msgstr ""
+"El fichero que has subido no es un paquete HTML5 válido (No se puede "
+"descomprimir)"
 
 #: h5p-php-library/h5p.classes.php:711
 msgid "Could not parse the main h5p.json file"
-msgstr "无法解析主要 h5p.json 文件"
+msgstr "No se puede parsear el fichero principal h5p.json"
 
 #: h5p-php-library/h5p.classes.php:720
 msgid "The main h5p.json file is not valid"
-msgstr "无效的主 h5p.json 文件"
+msgstr "El fichero principal h5p.json no es válido"
 
 #: h5p-php-library/h5p.classes.php:735
 msgid "Invalid content folder"
-msgstr "无效的内容文件夹"
+msgstr "Directorio de contenido no válido"
 
 #: h5p-php-library/h5p.classes.php:741
 msgid "Could not find or parse the content.json file"
-msgstr "未能找到或解析 content.json 文件"
+msgstr "No se encuentra el fichero content.json"
 
 #: h5p-php-library/h5p.classes.php:773
 msgid ""
@@ -690,236 +717,256 @@ msgid ""
 "minorVersion (from library.json). (Directory: %directoryName , machineName: "
 "%machineName, majorVersion: %majorVersion, minorVersion: %minorVersion)"
 msgstr ""
-"库目录名称必须匹配机器名或计算机名版本号 majorVersion.minorVersion (从 "
-"library.json)。(目录: %directoryname、 机器名: %machinename，majorVersion: "
-"%majorversion，minorVersion: %minorversion)"
+"El nombre del directorio debe ser de la forma machineNameo machineName-"
+"majorVersion.minorVersion (de library.json). (Directorio: %directoryName , "
+"machineName: %machineName, majorVersion: %majorVersion, minorVersion: "
+"%minorVersion)"
 
 #: h5p-php-library/h5p.classes.php:791
 msgid "A valid content folder is missing"
-msgstr "合法内容文件夹未能找到。"
+msgstr "Falta un directorio de contenido válido"
 
 #: h5p-php-library/h5p.classes.php:795
 msgid "A valid main h5p.json file is missing"
-msgstr "有效的主 h5p.json 文件缺失"
+msgstr "Falta un fichero principal h5p.json válido"
 
 #: h5p-php-library/h5p.classes.php:839
 msgid "Missing required library @library"
-msgstr "缺少所需的库 @library"
+msgstr "Librería @library requerida no encontrada"
 
 #: h5p-php-library/h5p.classes.php:842
 msgid ""
 "Note that the libraries may exist in the file you uploaded, but you're not "
 "allowed to upload new libraries. Contact the site administrator about this."
-msgstr "请注意，你上传的文件可能存在不允许上传新的库。请于网站管理员联系。"
+msgstr ""
+"Ten en cuenta que las librerías pueden existir en el fichero que has subido, "
+"pero no estás autorizado a subir nuevas librerías. Contacta al administrador "
+"del sitio para esto."
 
 #: h5p-php-library/h5p.classes.php:868
 msgid "Invalid library name: %name"
-msgstr "无效的库名称: %name"
+msgstr "Nombre de librería no válido: %name"
 
 #: h5p-php-library/h5p.classes.php:873
 msgid ""
 "Could not find library.json file with valid json format for library %name"
-msgstr "库 %name 中找不到 library.json 文件与有效 json 格式的"
+msgstr ""
+"No se puede encontrar un fichero library.son válido para la librería %name"
 
 #: h5p-php-library/h5p.classes.php:882
 msgid "Invalid semantics.json file has been included in the library %name"
-msgstr "库 %name 中的 semantics.json 文件无效。"
+msgstr ""
+"Un fichero semantics.json no válido ha sido incluido en la librería %name"
 
 #: h5p-php-library/h5p.classes.php:899
 msgid "Invalid language file %file in library %library"
-msgstr "库 %library 中的 %file 语言文件无效"
+msgstr "Fichero de idioma %file no válido en la librería %library"
 
 #: h5p-php-library/h5p.classes.php:904
 msgid ""
 "Invalid language file %languageFile has been included in the library %name"
-msgstr "库 %name中的 %languageFile语言文件无效"
+msgstr ""
+"El fichero de idioma %languageFile ha sido incluido en la librería %name"
 
 #: h5p-php-library/h5p.classes.php:996
 msgid "The file \"%file\" is missing from library: \"%name\""
-msgstr "“%name”库中的文件”%file”缺失。"
+msgstr "El fichero \"%file\" falta en la librería: \"%name\""
 
 #: h5p-php-library/h5p.classes.php:1032
 msgid ""
 "The library \"%libraryName\" requires H5P %requiredVersion, but only H5P "
 "%coreApi is installed."
 msgstr ""
-"\"%libraryName\" 库需要的 H5P 版本为%requiredVersion, 而仅仅只安装了 "
-"%coreApi。"
+"La librería  \"%libraryName\" requiere la versión %requiredVersion de H5P, "
+"pero solamente está instalada la API %coreApi de H5P."
 
 #: h5p-php-library/h5p.classes.php:1094
 msgid "Invalid data provided for %property in %library. Boolean expected."
-msgstr "%library中为 %property 提供的数据无效。需要Boolean类型。"
+msgstr ""
+"Valor no válido par ala propiedad %property en %library. Se esperaba un "
+"booleano."
 
 #: h5p-php-library/h5p.classes.php:1102 h5p-php-library/h5p.classes.php:1107
 #: h5p-php-library/h5p.classes.php:1125
 msgid "Invalid data provided for %property in %library"
-msgstr "%library中为 %property 提供的数据无效"
+msgstr "Valor no válido par ala propiedad %property en %library."
 
 #: h5p-php-library/h5p.classes.php:1130
 msgid "Can't read the property %property in %library"
-msgstr "无法从%library中读取属性 %property。"
+msgstr "No se puede leer la propiedad %property en %library"
 
 #: h5p-php-library/h5p.classes.php:1159
 msgid "The required property %property is missing from %library"
-msgstr "%library中缺少必需的属性 %property。"
+msgstr "La propiedad requerida  %property no existe en %library"
 
 #: h5p-php-library/h5p.classes.php:1182
 msgid "Illegal option %option in %library"
-msgstr "%library含非法选项 %option "
+msgstr "Opción %option no válida en %library"
 
 #: h5p-php-library/h5p.classes.php:1403
 msgid "Added %new new H5P libraries and updated %old old."
-msgstr "%new 已添加； %old已更新。"
+msgstr "Añadido %new nuevas librerías y actualizadas %old."
 
 #: h5p-php-library/h5p.classes.php:1406
 msgid "Added %new new H5P libraries."
-msgstr " %new 库已添加。"
+msgstr "Añadidas %new nuevas librerías."
 
 #: h5p-php-library/h5p.classes.php:1409
 #, php-format
 msgid "Updated %old H5P libraries."
-msgstr "%old H5P 库已经更新。"
+msgstr "Actualizadas %old librerías H5P."
 
 #: h5p-php-library/h5p.classes.php:1502
 msgid "Unable to write to the exports directory."
-msgstr "无法写入到导出目录。"
+msgstr "No se puede escribir en el directorio de exportaciones."
 
 #: h5p-php-library/h5p.classes.php:2045
 msgid "Missing dependency @dep required by @lib."
-msgstr "@lib缺少依赖项 @dep。"
+msgstr "No se encuentra la dependencia @dep requerida por @lib."
 
 #: h5p-php-library/h5p.classes.php:2107 h5p-php-library/h5p.classes.php:2113
 msgid "Unable to copy file tree."
-msgstr "无法复制文件树。"
+msgstr "No se puede copiar el árbol de ficheros."
 
 #: h5p-php-library/h5p.classes.php:2653
 msgid ""
 "Provided string is not valid according to regexp in semantics. (value: "
 "\"%value\", regexp: \"%regexp\")"
-msgstr "正则表达式匹配无效。(值:”%value”，正则表达式:”%regexp”)"
+msgstr ""
+"La cadena suministrada no es válida de acuerdo con la regexp en semantics. "
+"(valor: \"%value\", regexp: \"%regexp\")"
 
 #: h5p-php-library/h5p.classes.php:2692
 #, php-format
 msgid ""
 "File \"%filename\" not allowed. Only files with the following extensions are "
 "allowed: %files-allowed."
-msgstr "文件”%filename”无效。仅支持具有下列扩展名的文件:  %files。"
+msgstr ""
+"El fichero \"%filename\" no está permitido. Solo se permiten ficheros con "
+"las extensiones siguientes: %files-allowed."
 
 #: h5p-php-library/h5p.classes.php:2766
 msgid "Invalid selected option in multiselect."
-msgstr "在多选项中选定的选项无效。"
+msgstr "La opción seleccionada en el multiselect no es válida."
 
 #: h5p-php-library/h5p.classes.php:2782
 msgid "Invalid selected option in select."
-msgstr "无效的选项。"
+msgstr "La opción seleccionada en el select no es válida."
 
 #: h5p-php-library/h5p.classes.php:2937
 msgid ""
 "H5P internal error: unknown content type \"@type\" in semantics. Removing "
 "content!"
-msgstr "H5P 内部错误: 类型为 “@type”的内容语义无法识别。建议删除!"
+msgstr ""
+"Error interno de H5P: tipo de contenido \"@type\"  en semantics no válido. "
+"¡Eliminando contenido!"
 
 #: h5p-php-library/h5p.classes.php:2977
 msgid "Library used in content is not a valid library according to semantics"
-msgstr "内容中使用的库不是一个有效的库语义"
+msgstr ""
+"La librería utilizada en el contenido no es una librería válida según "
+"semantics."
 
 #: public/class-h5p-plugin.php:564
 msgid "Missing H5P identifier."
-msgstr "H5P文件id缺失。"
+msgstr "Falta el identificador H5P."
 
 #: public/class-h5p-plugin.php:572
 #, php-format
 msgid "Cannot find H5P content with id: %d."
-msgstr "无法找到id为%d 的H5P内容"
+msgstr "No se puede encontrar el contenido H5P con id: %d."
 
 #: public/class-h5p-plugin.php:822
 msgid "Disable fullscreen"
-msgstr "禁止全屏"
+msgstr "Deshabilitar pantalla completa."
 
 #: public/class-h5p-plugin.php:823
 msgid "Download"
-msgstr "下载"
+msgstr "Descargar"
 
 #: public/class-h5p-plugin.php:824 public/class-h5p-plugin.php:830
 msgid "Rights of use"
-msgstr "使用权"
+msgstr "Condiciones de uso"
 
 #: public/class-h5p-plugin.php:825
 msgid "Embed"
-msgstr "嵌入"
+msgstr "Incrustar"
 
 #: public/class-h5p-plugin.php:826
 msgid "Size"
-msgstr "大小"
+msgstr "Medida"
 
 #: public/class-h5p-plugin.php:827
 msgid "Show advanced"
-msgstr "显示高级功能"
+msgstr "Mostrar avanzado"
 
 #: public/class-h5p-plugin.php:828
 msgid "Hide advanced"
-msgstr "隐藏高级部分"
+msgstr "Ocultar avanzado"
 
 #: public/class-h5p-plugin.php:829
 msgid ""
 "Include this script on your website if you want dynamic sizing of the "
 "embedded content:"
-msgstr "如果要动态调整大小的嵌入的内容，包含此脚本在您的网站:"
+msgstr ""
+"Incluye este script en tu sitio web si quieres que la medida sea dinámica "
+"para tu contenido incrustado:"
 
 #: public/class-h5p-plugin.php:831
 msgid "Close"
-msgstr "关闭"
+msgstr "Cerrar"
 
 #: public/class-h5p-plugin.php:834
 msgid "Year"
-msgstr "年"
+msgstr "Año"
 
 #: public/class-h5p-plugin.php:835
 msgid "Source"
-msgstr "源"
+msgstr "Origen"
 
 #: public/class-h5p-plugin.php:836
 msgid "License"
-msgstr "授权"
+msgstr "Licencia"
 
 #: public/class-h5p-plugin.php:837
 msgid "Thumbnail"
-msgstr "缩略图"
+msgstr "Miniatura"
 
 #: public/class-h5p-plugin.php:838
 msgid "No copyright information available for this content."
-msgstr "没有可用的此内容的版权信息。"
+msgstr "No existe información de copyright para este contenido."
 
 #: public/class-h5p-plugin.php:839
 msgid "Download this content as a H5P file."
-msgstr "下载H5P文件"
+msgstr "Descargar este contenido como un fichero H5P."
 
 #: public/class-h5p-plugin.php:840
 msgid "View copyright information for this content."
-msgstr "查看此内容的版权信息。"
+msgstr "Ver información de copyright para este contenido."
 
 #: public/class-h5p-plugin.php:841
 msgid "View the embed code for this content."
-msgstr "查看此内容的嵌入代码。"
+msgstr "Ver el código de incrustado para este contenido."
 
 #: public/class-h5p-plugin.php:842
 msgid "Visit H5P.org to check out more cool content."
-msgstr "访问H5P.org查看更多炫酷内容。"
+msgstr "Visita H5P.org para obtener más información."
 
 #: public/class-h5p-plugin.php:843
 msgid "This content has changed since you last used it."
-msgstr "内容已更改。"
+msgstr "Este contenido ha cambiado desde la última vez que lo utilizaste."
 
 #: public/class-h5p-plugin.php:844
 msgid "You'll be starting over."
-msgstr "即将重新开始。"
+msgstr "Vas a empezar de nuevo."
 
 #: public/class-h5p-wordpress.php:557
 msgid "Invalid json in semantics for %library"
-msgstr "json 不符合 %library 库中的语义"
+msgstr "Fichero semantics.JSON no válido en %library"
 
 msgid ""
 "Allows you to upload, create, share and use rich interactive content on your "
 "WordPress site."
 msgstr ""
-"允许您上传、 创建、 共享和使用你的 WordPress 站点上的丰富的交互式内容。"
+"Te permite subir, crear, compartir y usar contenido interactivo enriquecido "
+"en tu sitio de WordPress."
