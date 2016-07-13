@@ -238,6 +238,20 @@ class H5P_Plugin_Admin {
   public function admin_notices() {
     global $wpdb;
 
+    // Check to make sure that the correct capabilities are assigned
+    if (is_multisite()) {
+      if (get_option('h5p_multisite_capabilities', 0) !== '1') {
+        // Changed from single site to multsite, re-assign capabilities
+        H5P_Plugin::assign_capabilities();
+      }
+    }
+    else {
+      if (get_option('h5p_multisite_capabilities', 0) === '1') {
+        // Changed from multisite to single site, re-assign capabilities
+        H5P_Plugin::assign_capabilities();
+      }
+    }
+
     // Gather all messages before printing
     $messages = array();
 

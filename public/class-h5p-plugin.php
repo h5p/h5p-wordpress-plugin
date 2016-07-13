@@ -391,7 +391,7 @@ class H5P_Plugin {
     global $wpdb;
 
     // Add caps again, has not worked for everyone in 1.1.0
-    self::add_capabilities();
+    self::assign_capabilities();
 
     // Clean up duplicate indexes (due to bug in dbDelta)
     self::remove_duplicate_indexes('h5p_contents', 'id');
@@ -439,11 +439,11 @@ class H5P_Plugin {
   }
 
   /**
-   * Add capabilities to roles. "Copy" default WP caps on roles.
+   * Assign H5P capabilities to roles. "Copy" default WP caps on roles.
    *
    * @since 1.2.0
    */
-  private static function add_capabilities() {
+  public static function assign_capabilities() {
     global $wp_roles;
     if (!isset($wp_roles)) {
       $wp_roles = new WP_Roles();
@@ -453,22 +453,71 @@ class H5P_Plugin {
     foreach ($all_roles as $role_name => $role_info) {
       $role = get_role($role_name);
 
-      if (isset($role_info['capabilities']['install_plugins'])) {
-        $role->add_cap('disable_h5p_security');
+      if (is_multisite()) {
+        // Multisite, only super admin should be able to disable security checks
+        self::map_capability($role, $role_info, array('install_plugins', 'manage_network_plugins'), 'disable_h5p_security');
       }
-      if (isset($role_info['capabilities']['manage_options'])) {
-        $role->add_cap('manage_h5p_libraries');
+      else {
+        // Not multisite, regular admin can disable security checks
+        self::map_capability($role, $role_info, 'install_plugins', 'disable_h5p_security');
       }
-      if (isset($role_info['capabilities']['edit_others_pages'])) {
-        $role->add_cap('edit_others_h5p_contents');
-      }
-      if (isset($role_info['capabilities']['edit_posts'])) {
-        $role->add_cap('edit_h5p_contents');
-      }
-      if (isset($role_info['capabilities']['read'])) {
-        $role->add_cap('view_h5p_results');
+      self::map_capability($role, $role_info, 'manage_options', 'manage_h5p_libraries');
+      self::map_capability($role, $role_info, 'edit_others_pages', 'edit_others_h5p_contents');
+      self::map_capability($role, $role_info, 'edit_posts', 'edit_h5p_contents');
+      self::map_capability($role, $role_info, 'read', 'view_h5p_results');
+    }
+
+    // Keep track on how the capabilities are assigned (multisite caps or not)
+    update_option('h5p_multisite_capabilities', is_multisite() ? 1 : 0);
+  }
+
+  /**
+   * Make sure that the givn role has or hasn't the provided capability
+   * depending on existing roles.
+   *
+   * @since 1.7.2
+   * @param stdClass $role
+   * @param array $role_info
+   * @param string|array $existing_cap
+   * @param string $new_cap
+   */
+  private static function map_capability($role, $role_info, $existing_cap, $new_cap) {
+    if (isset($role_info['capabilities'][$new_cap])) {
+      // Already has new cap…
+      if (!self::has_capability($role_info, $existing_cap)) {
+        // But shouldn't have it!
+        $role->remove_cap($new_cap);
       }
     }
+    else {
+      // Doesn't have new cap…
+      if (self::has_capability($role_info, $existing_cap)) {
+        // But should have it!
+        $role->add_cap($new_cap);
+      }
+    }
+  }
+
+  /**
+   * Check that the given role has the needed capability/-ies.
+   *
+   * @since 1.7.2
+   * @param array $role_info
+   * @param string|array $capability
+   * @return bool
+   */
+  private static function has_capability($role_info, $capability) {
+    if (is_array($capability)) {
+      foreach ($capability as $cap) {
+        if (!isset($role_info['capabilities'][$cap])) {
+          return FALSE;
+        }
+      }
+    }
+    else if (!isset($role_info['capabilities'][$capability])) {
+      return FALSE;
+    }
+    return TRUE;
   }
 
   /**
