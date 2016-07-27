@@ -109,7 +109,7 @@ function _h5p_uninstall() {
   $path = $upload_dir['basedir'] . '/h5p';
 
   // Remove these regardless of their content.
-  foreach (array('tmp', 'temp', 'libraries', 'content', 'exports', 'editor') as $directory) {
+  foreach (array('tmp', 'temp', 'libraries', 'content', 'exports', 'editor', 'cachedassets') as $directory) {
     _h5p_recursive_unlink($path . '/' . $directory);
   }
 
