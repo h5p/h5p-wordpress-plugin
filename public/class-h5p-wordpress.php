@@ -820,20 +820,6 @@ class H5PWordPress implements H5PFrameworkInterface {
   }
 
   /**
-   * Implements setUnsupportedLibraries.
-   */
-  public function setUnsupportedLibraries($libraries) {
-
-  }
-
-  /**
-   * Implements getUnsupportedLibraries.
-   */
-  public function getUnsupportedLibraries() {
-
-  }
-
-  /**
    * Implements getAdminUrl.
    */
   public function getAdminUrl() {

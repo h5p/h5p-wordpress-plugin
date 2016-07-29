@@ -553,6 +553,7 @@ class H5PContentAdmin {
 
     // Move images and find all content dependencies
     $editor->processParameters($content['id'], $content['library'], $params, $oldLibrary, $oldParams);
+    //$content['params'] = json_encode($params);
     return $content['id'];
   }
 
