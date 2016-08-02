@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.6
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -230,3 +230,15 @@ Minor visual enhancements.
 
 = 1.7.1 =
 Fixed video widget in editor not printing correct error message.
+
+= 1.7.2 =
+Reassign capabilities when enabling multisite. Will revert caps when changing back to single site.
+Baked H5PEditor image styles into SCSS.
+Editor: Don't display copyright button until an image is added.
+Added Turkish translation – Thanks to hakangur at h5p.org for contributing.
+Updated French translation – Thanks to Realia at h5p.org.
+Added Polish translation for Editor – Thanks to k.kwasniewski at h5p.org and eTechnologie.
+Added l10n support for insert video widget – Also, updated texts to make them easier to understand.
+Allow hyphens in HTML tags – Thanks to andyrandom at drupal.org.
+xAPI – Avoid errors when browser cookies are disabled.
+Fixed unnecessary ajax calls.
