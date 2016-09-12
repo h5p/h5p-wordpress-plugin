@@ -1,5 +1,4 @@
 <?php
-require_once(plugin_dir_path(__FILE__) . '../h5p-php-library/h5p-event-base.class.php');
 
 /**
  * Makes it easy to track events throughout the H5P system.
