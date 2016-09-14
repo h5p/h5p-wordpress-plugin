@@ -1,0 +1,1266 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: H5P\n"
+"POT-Creation-Date: 2016-05-18 10:48+0200\n"
+"PO-Revision-Date: \n"
+"Language-Team: Joubel <contact@joubel.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.9\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
+"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"t\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Last-Translator: \n"
+"Language: bs_BA\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: h5p-editor-php-library/h5peditor-file.class.php:29
+msgid "Unable to create directory."
+msgstr "Nije moguće kreirati direktorij."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:93
+msgid "Unable to get field type."
+msgstr "Nije moguće dobiti tip polja."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:99
+msgid "File type isn't allowed."
+msgstr "Tip datoteke nije dozvoljen."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:106
+msgid "Invalid field type."
+msgstr "Neispravan tip polja."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:116
+msgid "Invalid image file format. Use jpg, png or gif."
+msgstr "Neispravan format datoteke sa slikom. Koristi jpg, png ili gif."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:122
+msgid "File is not an image."
+msgstr "Datoteka nije slika."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:142
+msgid "Invalid audio file format. Use mp3 or wav."
+msgstr "Neispravan format audio datoteke. Koristi mp3 ili wav."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:158
+msgid "Invalid video file format. Use mp4 or webm."
+msgstr "Neispravan format video datoteke. Koristi mp4 ili webm."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:185
+msgid "Could not copy file."
+msgstr "Datoteka se ne može kopirati."
+
+#: admin/class-h5p-plugin-admin.php:214
+msgid "Content unavailable."
+msgstr "Sadržaj nije dostupan."
+
+#: admin/class-h5p-plugin-admin.php:245
+msgid "Thank you for staying up to date with H5P."
+msgstr "Hvala što se informirate o H5P."
+
+#: admin/class-h5p-plugin-admin.php:246
+#, php-format
+msgid ""
+"You should head over to the <a href=\"%s\">Libraries</a> page and update "
+"your content types to the latest version."
+msgstr ""
+"Trebate ići na <a href=\"%s\">stranicu biblioteke</a> i napraviti update "
+"vašeg sadržaja na posljednju verziju."
+
+#: admin/class-h5p-plugin-admin.php:247
+#, php-format
+msgid ""
+"By default, H5P is set up to automatically fetch information regarding "
+"Content Type updates from H5P.org. When doing so, H5P will also contribute "
+"anonymous usage data to aid the development of H5P. This behaviour can be "
+"altered through the <a href=\"%s\">Settings</a> page."
+msgstr ""
+"Plugin H5P je postavljen tako da automatski dobije informacije o novim "
+"verzijama sadržaja sa stranice H5P.org . Na ovaj način će se anonimno slati "
+"podaci o korištenju plugina i tako pomoći u razvoju H5P.  Ovo može biti "
+"promjenjeno na stranici <a href=\"%s\">Podeđavanja </a>."
+
+#: admin/class-h5p-plugin-admin.php:248
+#, php-format
+msgid ""
+"If you need any help you can always file a <a href=\"%s\" target=\"_blank"
+"\">Support Request</a>, check out our <a href=\"%s\" target=\"_blank"
+"\">Forum</a> or join the conversation in the <a href=\"%s\" target=\"_blank"
+"\">H5P Community Chat</a>."
+msgstr ""
+"Ako trebate pomoć možete je uvijek tražiti podršku <a href=\"%s\" target="
+"\"_blank\"> putem formulara </a> ili posjetiti naš <a href=\"%s\" target="
+"\"_blank\">Forum</a> ili stupiti u kontakt sa nekim putem chata na H5P Chat "
+"zajednici<a href=\"%s\" target=\"_blank\"></a>."
+
+#: admin/class-h5p-plugin-admin.php:256
+#, php-format
+msgid ""
+"Check out our <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
+"page for inspiration."
+msgstr ""
+"Posjetite našu stranicu <a href=\"%s\" target=\"_blank\">Primjeri i "
+"preuzimanja</a> kao mjesto za moguću inspiraciju."
+
+#: admin/class-h5p-plugin-admin.php:261
+msgid "Thank you for choosing H5P."
+msgstr "Hvala što koristite H5P."
+
+#: admin/class-h5p-plugin-admin.php:266
+#, php-format
+msgid ""
+"Unfortunately, we were unable to automatically install the default content "
+"types. You must manually download the content types you wish to use from the "
+"<a href=\"%s\" target=\"_blank\">Examples and Downloads</a> page, and then "
+"upload them through the <a href=\"%s\">Libraries</a> page."
+msgstr ""
+"Nažalost, nismo u stanju automatski instalirati standardne tipove sadržaja. "
+"Morate manuelno napraviti download onih tipova sadržaja koje želite "
+"koristiti sa <a href=\"%s\" target=\"_blank\"> primjeri i preuzimanja </a> "
+"stranice. Nakon toga je potrebno da ih dalje uploadujete na stranici <a href="
+"\"%s\">Bibliotebe</a>."
+
+#: admin/class-h5p-plugin-admin.php:269
+#, php-format
+msgid ""
+"We've automatically installed the default content types for your "
+"convenience. You can now <a href=\"%s\">start creating</a> your own "
+"interactive content!"
+msgstr ""
+"Automatski smo za Vas instalirali standardne tipove sadržaja. Sada možete <a "
+"href=\"%s\">početi kreirati</a> Vaše vlastite interektivne sadržaje!"
+
+#: admin/class-h5p-plugin-admin.php:352 admin/class-h5p-plugin-admin.php:362
+msgid "Unable to download H5P content types."
+msgstr "Nije moguće preuzeti H5P tipove sadržaja."
+
+#: admin/class-h5p-plugin-admin.php:398 public/class-h5p-plugin.php:505
+msgid "H5P Content"
+msgstr "H5P sadržaj"
+
+#: admin/class-h5p-plugin-admin.php:401
+msgid "All H5P Content"
+msgstr "Svi H5P sadržaji"
+
+#: admin/class-h5p-plugin-admin.php:404
+msgid "Add New"
+msgstr "Novi"
+
+#: admin/class-h5p-plugin-admin.php:413
+#, php-format
+msgid "%s new update is available!"
+msgid_plural "%s new updates are available!"
+msgstr[0] ""
+msgstr[1] "%s new updates are available!"
+msgstr[2] ""
+
+#: admin/class-h5p-plugin-admin.php:414 admin/class-h5p-plugin-admin.php:415
+msgid "Libraries"
+msgstr "Biblioteke"
+
+#: admin/class-h5p-plugin-admin.php:421 admin/views/my-results.php:14
+msgid "My Results"
+msgstr "Moji rezultati"
+
+#: admin/class-h5p-plugin-admin.php:627
+msgid "Invalid content"
+msgstr "Neispravan sadržaj"
+
+#: admin/class-h5p-plugin-admin.php:631 admin/class-h5p-plugin-admin.php:1031
+msgid "Invalid security token"
+msgstr "Neispravan sigurnosni znak"
+
+#: admin/class-h5p-plugin-admin.php:847
+msgid "Loading data."
+msgstr "Učitavanje podataka."
+
+#: admin/class-h5p-plugin-admin.php:848
+msgid "Failed to load data."
+msgstr "Neuspješno učitavanje podataka."
+
+#: admin/class-h5p-plugin-admin.php:849
+msgid "There's no data available that matches your criteria."
+msgstr "Ne postoje podaci koji odgovaraju vašim kriterijima."
+
+#: admin/class-h5p-plugin-admin.php:850
+msgid "Page $current of $total"
+msgstr "Stranica $current od $total"
+
+#: admin/class-h5p-plugin-admin.php:851
+msgid "Next page"
+msgstr "Sljedeća stranica"
+
+#: admin/class-h5p-plugin-admin.php:852
+msgid "Previous page"
+msgstr "Prethodna stranica"
+
+#: admin/class-h5p-plugin-admin.php:853
+msgid "Search"
+msgstr "Traži"
+
+#: admin/class-h5p-plugin-admin.php:854
+msgid "Remove"
+msgstr "Ukloni"
+
+#: admin/class-h5p-plugin-admin.php:883
+msgid "Content"
+msgstr "Sadržaj"
+
+#: admin/class-h5p-plugin-admin.php:887 admin/class-h5p-content-admin.php:253
+msgid "Score"
+msgstr "Rezultat"
+
+#: admin/class-h5p-plugin-admin.php:891 admin/class-h5p-content-admin.php:257
+msgid "Maximum Score"
+msgstr "Maksimalan rezultat"
+
+#: admin/class-h5p-plugin-admin.php:895 admin/class-h5p-content-admin.php:261
+msgid "Opened"
+msgstr "Otvoreno"
+
+#: admin/class-h5p-plugin-admin.php:899 admin/class-h5p-content-admin.php:265
+msgid "Finished"
+msgstr "Završeno"
+
+#: admin/class-h5p-plugin-admin.php:902 admin/class-h5p-content-admin.php:268
+msgid "Time spent"
+msgstr "Provedeno vrijeme"
+
+#: admin/class-h5p-plugin-admin.php:905
+msgid "There are no logged results for your user."
+msgstr "Ne postoje sačuvani rezultati za vašeg korisnika."
+
+#: admin/class-h5p-library-admin.php:62
+msgid "Delete"
+msgstr "Obrisati"
+
+#: admin/class-h5p-library-admin.php:65
+msgid "Content Upgrade"
+msgstr "Sadržaj nadograditi"
+
+#: admin/class-h5p-library-admin.php:102
+#, php-format
+msgid "Cannot find library with id: %d."
+msgstr "Biblioteku sa ID %d nije moguće pronaći."
+
+#: admin/class-h5p-library-admin.php:147 admin/class-h5p-content-admin.php:288
+msgid "Unknown task."
+msgstr "Napoznat zadatak."
+
+#: admin/class-h5p-library-admin.php:167 admin/class-h5p-library-admin.php:416
+msgid "N/A"
+msgstr "Nije dostupno"
+
+#: admin/class-h5p-library-admin.php:168
+msgid "View library details"
+msgstr "Pregledaj detalje biblioteke"
+
+#: admin/class-h5p-library-admin.php:169
+msgid "Delete library"
+msgstr "Obriši biblioteku"
+
+#: admin/class-h5p-library-admin.php:170
+msgid "Upgrade library content"
+msgstr "Nadogradi sadržaj biblioteke"
+
+#: admin/class-h5p-library-admin.php:227 admin/class-h5p-content-admin.php:163
+#: admin/class-h5p-content-admin.php:661 h5p-php-library/h5p.classes.php:3579
+#: public/class-h5p-plugin.php:914
+msgid "Title"
+msgstr "Naslov"
+
+#: admin/class-h5p-library-admin.php:228
+msgid "Restricted"
+msgstr "Ograničen"
+
+#: admin/class-h5p-library-admin.php:230
+msgid "Contents"
+msgstr "Sadržaji"
+
+#: admin/class-h5p-library-admin.php:234
+msgid "Contents using it"
+msgstr "Sadržaji koji koriste"
+
+#: admin/class-h5p-library-admin.php:238
+msgid "Libraries using it"
+msgstr "Biblioteke koje koriste"
+
+#: admin/class-h5p-library-admin.php:241 admin/views/new-content.php:45
+msgid "Actions"
+msgstr "Akcije"
+
+#: admin/class-h5p-library-admin.php:252
+msgid "The following libraries are outdated and should be upgraded:"
+msgstr "Sljedeće biblioteke su zastarjele i trebaju biti nadograđene."
+
+#: admin/class-h5p-library-admin.php:254
+msgid "To upgrade all the installed libraries, do the following:"
+msgstr ""
+"Kako bi nadogradili sve instalirane biblioteke potrebno je uraditi sljedeće:"
+
+#: admin/class-h5p-library-admin.php:256
+#, php-format
+msgid "Download the H5P file from the %s page."
+msgstr "Preuzmite H5P sadrćaj sa %s stranice."
+
+#: admin/class-h5p-library-admin.php:257
+#, php-format
+msgid "Select the downloaded <em> %s</em> file in the form below."
+msgstr "Označite preuzetu <em> %s</em> datoteku u formularu ispod."
+
+#: admin/class-h5p-library-admin.php:258
+msgid ""
+"Check off \"Only update existing libraries\" and click the <em>Upload</em> "
+"button."
+msgstr ""
+"Označi \"Aktueliziraj samo postojeće biblioteke\" i klikni na dugme "
+"<em>Upload</em>."
+
+#: admin/class-h5p-library-admin.php:324
+#, php-format
+msgid ""
+"Unfortunately, we were unable to update your installed content types. You "
+"must manually download the update from <a href=\"%s\" target=\"_blank\">H5P."
+"org</a>, and then upload it through the <em>Upload Libraries</em> section. "
+"If you need futher assistance, please file a <a href=\"%s\" target=\"_blank"
+"\">support request</a> or check out our <a href=\"%s\" target=\"_blank"
+"\">forum</a>."
+msgstr ""
+"Nažalost, nismo u stanju ažurirati vaše instalirane tipove sadržaja. Morate "
+"manuelno preuzeti fajlove ažuriranja sa <a href=\"%s\" target=\"_blank\">H5P."
+"org</a> i onda ih uploadovati  u dio za <em>Uploadovane biblioteke</em>. Ako "
+"vam je potrebna dalja pomoć molimo vas da ispunite <a href=\"%s\" target="
+"\"_blank\">Zahtjev za podršku</a> ili potražiti odgovor na našem <a href=\"%s"
+"\" target=\"_blank\">forumu </a>."
+
+#: admin/class-h5p-library-admin.php:345
+msgid ""
+"This Library is used by content or other libraries and can therefore not be "
+"deleted."
+msgstr ""
+"Biblioteku koristi neki sadržaj ili sneka druga biblioteka i ne može se "
+"obrisati."
+
+#: admin/class-h5p-library-admin.php:381
+msgid "No content is using this library"
+msgstr "Ovu biblioteku ne koristi nijedan sadržaj."
+
+#: admin/class-h5p-library-admin.php:382
+msgid "Content using this library"
+msgstr "Neki sadržaj koristi ovu bibliotenu"
+
+#: admin/class-h5p-library-admin.php:383
+msgid "Elements per page"
+msgstr "Elemenata po stranici"
+
+#: admin/class-h5p-library-admin.php:384
+msgid "Filter content"
+msgstr "Filtriraj sadržaj"
+
+#: admin/class-h5p-library-admin.php:385
+msgid "Page $x of $y"
+msgstr "Stranica $x od $y"
+
+#: admin/class-h5p-library-admin.php:413
+msgid "Version"
+msgstr "Verzija"
+
+#: admin/class-h5p-library-admin.php:414 public/class-h5p-plugin.php:903
+msgid "Fullscreen"
+msgstr "Cijeli ekran"
+
+#: admin/class-h5p-library-admin.php:414 admin/class-h5p-library-admin.php:415
+msgid "Yes"
+msgstr "Da"
+
+#: admin/class-h5p-library-admin.php:414 admin/class-h5p-library-admin.php:415
+msgid "No"
+msgstr "Ne"
+
+#: admin/class-h5p-library-admin.php:415
+msgid "Content library"
+msgstr "Biblioteka sadržaja"
+
+#: admin/class-h5p-library-admin.php:416
+msgid "Used by"
+msgstr "Korištena od strane"
+
+#: admin/class-h5p-library-admin.php:416 admin/class-h5p-library-admin.php:467
+#, php-format
+msgid "1 content"
+msgid_plural "%d contents"
+msgstr[0] ""
+msgstr[1] "%d sadržaja"
+msgstr[2] ""
+
+#: admin/class-h5p-library-admin.php:456
+msgid "There are no available upgrades for this library."
+msgstr ""
+"Nema dostupnih Es gibt keine verfügbaren Upgrades für diese Bibliothek."
+
+#: admin/class-h5p-library-admin.php:463
+msgid "There's no content instances to upgrade."
+msgstr "Nema sadržaja koje treba nadograditi."
+
+#: admin/class-h5p-library-admin.php:474
+#, php-format
+msgid "You are about to upgrade %s. Please select upgrade version."
+msgstr "Nadogradićete %s. Molimo vas da odaberete verziju nadogradnje."
+
+#: admin/class-h5p-library-admin.php:475
+msgid "Upgrading to %ver..."
+msgstr "Nadogradnja  %ver završena"
+
+#: admin/class-h5p-library-admin.php:476
+msgid "An error occurred while processing parameters:"
+msgstr "Pojavila se greška tokom obrade parametara: "
+
+#: admin/class-h5p-library-admin.php:477
+msgid "Could not load data for library %lib."
+msgstr "Podaci za biblioteku %lib ne mogu se učitati."
+
+#: admin/class-h5p-library-admin.php:478
+msgid "Could not upgrade content %id:"
+msgstr "Sadržaj %id se ne može nadograditi:"
+
+#: admin/class-h5p-library-admin.php:479
+msgid "Could not load upgrades script for %lib."
+msgstr "Nadogradnja skripte  %lib se nije mogla učitati."
+
+#: admin/class-h5p-library-admin.php:480
+msgid "Parameters are broken."
+msgstr "Parametri nisu ispravni."
+
+#: admin/class-h5p-library-admin.php:481
+#, php-format
+msgid "You have successfully upgraded %s."
+msgstr "Uspješno ste nadogradili %s "
+
+#: admin/class-h5p-library-admin.php:481
+msgid "Return"
+msgstr "Povratak"
+
+#: admin/class-h5p-library-admin.php:491
+msgid "Upgrade"
+msgstr "Nadogradnja"
+
+#: admin/class-h5p-library-admin.php:566
+msgid ""
+"Not all content has gotten their cache rebuilt. This is required to be able "
+"to delete libraries, and to display how many contents that uses the library."
+msgstr ""
+"Cache kod svih sadržaja  nije iznova izgrađen. Ovo je potrebno kako bi se "
+"bilo u stanju brisati biblioteke i prikazati koliko sadržaja koristi "
+"biblioteku. "
+
+#: admin/class-h5p-library-admin.php:567
+#, php-format
+msgid "1 content need to get its cache rebuilt."
+msgid_plural "%d contents needs to get their cache rebuilt."
+msgstr[0] ""
+msgstr[1] "sadrzaj treba učitati novu cache memoriju"
+msgstr[2] ""
+
+#: admin/class-h5p-library-admin.php:568
+msgid "Rebuild cache"
+msgstr "Obnovi cache memoriju"
+
+#: admin/class-h5p-library-admin.php:580
+msgid "Error, invalid security token!"
+msgstr "Greška, nevažeći sigurnosni token. "
+
+#: admin/class-h5p-library-admin.php:586 admin/class-h5p-library-admin.php:681
+msgid "Error, missing library!"
+msgstr "Greška, nedostaje biblioteka!"
+
+#: admin/class-h5p-library-admin.php:598 admin/class-h5p-library-admin.php:687
+msgid "Error, invalid library!"
+msgstr "Greška, nevažeća biblioteka!"
+
+#: admin/class-h5p-library-admin.php:704
+msgid "Error, could not library semantics!"
+msgstr "Greška, izrazi u biblioteci nisu odgovarajući!"
+
+#: admin/class-h5p-content-admin.php:167 admin/class-h5p-content-admin.php:665
+msgid "Content type"
+msgstr "Tip sadržaja"
+
+#: admin/class-h5p-content-admin.php:172 h5p-php-library/h5p.classes.php:3586
+#: public/class-h5p-plugin.php:915
+msgid "Author"
+msgstr "Autor"
+
+#: admin/class-h5p-content-admin.php:177 admin/class-h5p-content-admin.php:670
+#: admin/views/new-content.php:92 admin/views/show-content.php:39
+msgid "Tags"
+msgstr "Tagovi"
+
+#: admin/class-h5p-content-admin.php:182 admin/class-h5p-content-admin.php:675
+msgid "Last modified"
+msgstr "Zadnji put izmjenjeno"
+
+#: admin/class-h5p-content-admin.php:186
+msgid "ID"
+msgstr "ID"
+
+#: admin/class-h5p-content-admin.php:205 admin/class-h5p-content-admin.php:683
+#: admin/views/select-content.php:31
+msgid "No H5P content available. You must upload or create new content."
+msgstr ""
+"H5P sadržaj nije dostupan. Morate uploadovati ili kreirati novi sadržaj."
+
+#: admin/class-h5p-content-admin.php:249
+msgid "User"
+msgstr "Korisnik"
+
+#: admin/class-h5p-content-admin.php:271
+msgid "There are no logged results for this content."
+msgstr "Ne postoje sačuvani rezultati za ovaj sadržaj."
+
+#: admin/class-h5p-content-admin.php:315
+msgid "You are not allowed to edit this content."
+msgstr "Nemate ovlaštenja da uređujete ovaj sadržaj."
+
+#: admin/class-h5p-content-admin.php:337
+msgid "Invalid confirmation code, not deleting."
+msgstr "Pogrešan kod za potvrđivanje, brisanje onemogućeno."
+
+#: admin/class-h5p-content-admin.php:511
+msgid "Invalid library."
+msgstr "Nevažeća biblioteka."
+
+#: admin/class-h5p-content-admin.php:518
+msgid "No such library."
+msgstr "Nema takve biblioteke."
+
+#: admin/class-h5p-content-admin.php:535
+msgid "Invalid parameters."
+msgstr "Pogrešni parametri."
+
+#: admin/class-h5p-content-admin.php:548
+msgid "Unable to create content directory."
+msgstr "Nije moguće kreirati direktorij sadržaja."
+
+#: admin/class-h5p-content-admin.php:591 admin/class-h5p-content-admin.php:614
+#, php-format
+msgid "Missing %s."
+msgstr "Nedostaje %s ."
+
+#: admin/class-h5p-content-admin.php:619
+msgid "Title is too long. Must be 256 letters or shorter."
+msgstr "Naslov je previše dug. Mora biti 256 znakova ili kraći."
+
+#: admin/class-h5p-content-admin.php:637
+msgid "Insert H5P Content"
+msgstr "Unesi H5P sadržaj"
+
+#: admin/class-h5p-content-admin.php:638
+msgid "Add H5P"
+msgstr "Dodaj H5P"
+
+#: admin/class-h5p-content-admin.php:802
+msgid "ago"
+msgstr "prije"
+
+#: admin/class-h5p-content-admin.php:856
+msgid "Insert"
+msgstr "Unijeti"
+
+#: admin/class-h5p-content-admin.php:888 admin/views/new-content.php:21
+#: admin/views/show-content.php:17
+msgid "Results"
+msgstr "Rezultati"
+
+#: admin/class-h5p-content-admin.php:897 admin/views/content-results.php:18
+#: admin/views/new-content.php:18 admin/views/show-content.php:20
+msgid "Edit"
+msgstr "Uredi"
+
+#: admin/class-h5p-content-admin.php:993
+msgid "Are you sure you wish to delete this content?"
+msgstr "Jeste li sigurni da želite obrisati ovaj sadržaj?"
+
+#: admin/class-h5p-content-admin.php:1045
+msgid "Invalid security token. Please reload the editor."
+msgstr "Nevažeći sigurnosti token. Molimo vas da ponovu učitate editor."
+
+#: admin/class-h5p-content-admin.php:1062
+msgid "File not found on server. Check file upload settings."
+msgstr ""
+"Datoteka nije pronađena na serveru. Provjerite podešavanja o uploadu "
+"datoteka na server."
+
+#: admin/views/content-results.php:15
+#, php-format
+msgid "Results for \"%s\""
+msgstr "Rezultati za \"%s\""
+
+#: admin/views/content-results.php:16 admin/views/new-content.php:19
+msgid "View"
+msgstr "Pregled"
+
+#: admin/views/content-results.php:22 admin/views/my-results.php:16
+#: admin/views/contents.php:16 admin/views/libraries.php:60
+msgid "Waiting for JavaScript."
+msgstr "Sačekajte na JavaScript."
+
+#: admin/views/new-content.php:30
+msgid "Enter title here"
+msgstr "Unesite ovdje naslov."
+
+#: admin/views/new-content.php:37 admin/views/libraries.php:48
+msgid "Disable file extension check"
+msgstr "Isključi provjeru ekstenzija na datotekama"
+
+#: admin/views/new-content.php:38 admin/views/libraries.php:49
+msgid ""
+"Warning! This may have security implications as it allows for uploading php "
+"files. That in turn could make it possible for attackers to execute "
+"malicious code on your site. Please make sure you know exactly what you're "
+"uploading."
+msgstr ""
+"Upozorenje! Ovo može imati sigurnosne posljedice jer dozvoljava upload php "
+"datoteka. To s druge strane može omogućiti Warnung! Weil PHP Dateien "
+"hochgeladen werden dürfen, hat das Auswirkungen auf die Sicherheit! Die "
+"Änderung kann Angreifern ermöglichen, bösartigen Code auf Deiner Seite "
+"auszuführen. Bitte sei dir absolut im Klaren darüber, was Du hochlädst."
+
+#: admin/views/new-content.php:42
+msgid "Waiting for javascript..."
+msgstr "Čekanje na JavaScript"
+
+#: admin/views/new-content.php:47 admin/views/libraries.php:55
+msgid "Upload"
+msgstr "Upload"
+
+#: admin/views/new-content.php:48 admin/views/new-content.php:57
+msgid "Create"
+msgstr "Napravi"
+
+#: admin/views/new-content.php:62 admin/views/new-content.php:91
+msgid "Toggle panel"
+msgstr "Panel uključi/isključi"
+
+#: admin/views/new-content.php:63
+msgid "Display Options"
+msgstr "Opcije prikaza"
+
+#: admin/views/new-content.php:67 admin/views/settings.php:42
+msgid "Display action bar and frame"
+msgstr "Prikaži okvir i traku aktivnosti"
+
+#: admin/views/new-content.php:72 admin/views/settings.php:48
+msgid "Download button"
+msgstr "Dugme za preuzimanje"
+
+#: admin/views/new-content.php:78 admin/views/settings.php:54
+msgid "Embed button"
+msgstr "Dugme za ugradnju (embed)"
+
+#: admin/views/new-content.php:84 admin/views/settings.php:60
+msgid "Copyright button"
+msgstr "Dugme za autorska prava"
+
+#: admin/views/contents.php:14
+msgid "Add new"
+msgstr "Dodaj novi"
+
+#: admin/views/show-content.php:30
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: admin/views/show-content.php:32
+msgid "What's next?"
+msgstr "Šta je sljedeće?"
+
+#: admin/views/show-content.php:33
+msgid ""
+"You can use the following shortcode to insert this interactive content into "
+"posts, pages, widgets, templates and etc."
+msgstr ""
+"Možete koristiti sljedeći shortcode kako bi ubacili ovaj interaktivni "
+"sadržaj u postove, stranice, predloške, isl."
+
+#: admin/views/show-content.php:42
+msgid "No tags"
+msgstr "Bez tagova"
+
+#: admin/views/library-content-upgrade.php:15
+#, php-format
+msgid "Upgrade %s %d.%d.%d content"
+msgstr "Nadgradnja %s %d.%d.%d sadržaja"
+
+#: admin/views/library-content-upgrade.php:19
+msgid "Please enable JavaScript."
+msgstr "Molimo vas omogućite JavaScript."
+
+#: admin/views/settings.php:16
+msgid "Settings saved."
+msgstr "Podešavanja su sačuvana."
+
+#: admin/views/settings.php:23
+msgid "External communication"
+msgstr "Vanjska komunikacija"
+
+#: admin/views/settings.php:27
+msgid ""
+"I wish to aid in the development of H5P by contributing anonymous usage data"
+msgstr ""
+"Želim pomoći u razvoju H5P dostavljajući podatke o anonimnom korištenju."
+
+#: admin/views/settings.php:30
+msgid ""
+"Disabling this option will prevent your site from fetching the newest H5P "
+"updates."
+msgstr ""
+"Isključivanjem ove opcije spriječavate vašu stranicu da preuzme novo "
+"ažuriranje."
+
+#: admin/views/settings.php:31
+msgid ""
+"You will have to manually download the Content Type updates from H5P.org and "
+"then upload them to your site."
+msgstr ""
+"Morate manualno preuzeti ažuriranje za tipove sadržaja sa H5P i onda ih "
+"uploadovati na vašu stranicu."
+
+#: admin/views/settings.php:32
+#, php-format
+msgid ""
+"You can read more about <a href=\"%s\" target=\"_blank\">which data is "
+"collected</a> on h5p.org."
+msgstr ""
+"Možete pročitati više o tome <a href=„%s“ target=„_blank“>koji se podaci "
+"sakupljaju</a>na H5P.org"
+
+#: admin/views/settings.php:37
+msgid "Action bar"
+msgstr "Traka akcije"
+
+#: admin/views/settings.php:66
+msgid "About H5P button"
+msgstr "Dugme o H5P"
+
+#: admin/views/settings.php:72
+msgid "User Results"
+msgstr "Rezultati korisnika"
+
+#: admin/views/settings.php:76
+msgid "Log results for signed in users"
+msgstr "Podaci registriranog korisnika su sačuvani."
+
+#: admin/views/settings.php:81
+msgid "Save content state"
+msgstr "Sačuvaj stanje sadržaja"
+
+#: admin/views/settings.php:85
+msgid "Allow logged-in users to resume tasks"
+msgstr "Omogući prijavljenim korisnicima da nastave sa zadacima."
+
+#: admin/views/settings.php:88
+msgid "Auto-save frequency (in seconds)"
+msgstr "Frekvencija automatskog spašavanja (u sekundama)"
+
+#: admin/views/settings.php:94
+msgid "Add content method"
+msgstr "Dodaj metod sadržaja "
+
+#: admin/views/settings.php:97
+msgid ""
+"When adding H5P content to posts and pages using the \"Add H5P\" button:"
+msgstr ""
+"Kada se dodaje H5P sadržaj u postove ili na stranice preko dugmeta \"Dodati "
+"H5P\": "
+
+#: admin/views/settings.php:104
+msgid "Reference content by id"
+msgstr "Povezani sadržaj sa ID"
+
+#: admin/views/settings.php:112
+#, php-format
+msgid "Reference content by <a href=\"%s\" target=\"_blank\">slug</a>"
+msgstr "Povezani sadržaj  sa <a href=„%s“ target=„_blank“>slug</a> verweisen"
+
+#: admin/views/library-delete.php:16
+msgid "Are you sure you wish to delete this H5P library?"
+msgstr "Jeste li sigurni da želite obrisati ovu H5P biblioteku? "
+
+#: admin/views/library-delete.php:18
+msgid "Do it!"
+msgstr "Uradite to!"
+
+#: admin/views/libraries.php:17
+msgid "Update All Libraries"
+msgstr "Ažuriraj sve biblioteke!"
+
+#: admin/views/libraries.php:20
+msgid "There are updates available for your H5P content types."
+msgstr "Dostupna su ažuriranja za vaše H5P tipove sadržaja."
+
+#: admin/views/libraries.php:21
+#, php-format
+msgid ""
+"You can read about why it's important to update and the benefits from doing "
+"so on the <a href=\"%s\" target=\"_blank\">Why Update H5P</a> page."
+msgstr ""
+"Možete čitati zašto je važno ažuriranje i kakve su njegove prednosti na  "
+"stranici<a href=„%s“ target=„_blank“>Zašto H5P ažurirati</a>."
+
+#: admin/views/libraries.php:22
+msgid ""
+"The page also list the different changelogs, where you can read about the "
+"new features introduced and the issues that have been fixed."
+msgstr ""
+"Stranica prikazuje različite prethodne izmjene gdje možete čitati o "
+"različitim izmjenama i poboljšanjima koja su prethodno realizirana."
+
+#: admin/views/libraries.php:25
+#, php-format
+msgid "The version you're running is from <strong>%s</strong>."
+msgstr "Verzija koju koristite je <strong>%s</strong>."
+
+#: admin/views/libraries.php:27
+#, php-format
+msgid "The most recent version was released on <strong>%s</strong>."
+msgstr "Najnovija verzija je objavljena <strong>%s</strong>."
+
+#: admin/views/libraries.php:29
+msgid ""
+"You can use the button below to automatically download and update all of "
+"your content types."
+msgstr ""
+"Možete koristiti dugme ispod kako bi automatski preuzeli ažuriranja za sve "
+"vaše tipove sadržaja."
+
+#: admin/views/libraries.php:33
+msgid "Download & Update"
+msgstr "Preuzimanje i ažuriranje"
+
+#: admin/views/libraries.php:38
+msgid "Upload Libraries"
+msgstr "Upload biblioteka"
+
+#: admin/views/libraries.php:42
+msgid ""
+"Here you can upload new libraries or upload updates to existing libraries. "
+"Files uploaded here must be in the .h5p file format."
+msgstr ""
+"Ovdje možete upload novih biblioteka ili ažurirati već postojeće. Datoteke "
+"koje uploadujete ovdje moraju biti u .h5p formatu."
+
+#: admin/views/libraries.php:45
+msgid "Only update existing libraries"
+msgstr "Ažuriranje samo postojećih biblioteka."
+
+#: admin/views/libraries.php:59
+msgid "Installed Libraries"
+msgstr "Instalirane biblioteke"
+
+#: h5p-php-library/h5p.classes.php:683
+msgid "Your PHP version does not support ZipArchive."
+msgstr "Vaša PHP verzija ne podržava ZIP arhiviranje."
+
+#: h5p-php-library/h5p.classes.php:696
+msgid ""
+"The file you uploaded is not a valid HTML5 Package (It does not have the ."
+"h5p file extension)"
+msgstr ""
+"Datoteka koju ste uploadovali nije ispravan HTML5 paket. (Nema .h5p "
+"ekstenziju)"
+
+#: h5p-php-library/h5p.classes.php:706
+msgid ""
+"The file you uploaded is not a valid HTML5 Package (We are unable to unzip "
+"it)"
+msgstr ""
+"Datoteka koju ste uploadovali nije ispravan HTML5 paket. (Nemožemo "
+"raspakovati ZIP)"
+
+#: h5p-php-library/h5p.classes.php:733
+msgid "Could not parse the main h5p.json file"
+msgstr "Nije moguće raščlaniti glavnu h5p.json datoteku."
+
+#: h5p-php-library/h5p.classes.php:742
+msgid "The main h5p.json file is not valid"
+msgstr "Glavna h5p.json datoteka nije ispravna"
+
+#: h5p-php-library/h5p.classes.php:757
+msgid "Invalid content folder"
+msgstr "Neispravan mapa sadržaja"
+
+#: h5p-php-library/h5p.classes.php:763
+msgid "Could not find or parse the content.json file"
+msgstr "Nije moguće pronaći ili raščlaniti content.json datoteku."
+
+#: h5p-php-library/h5p.classes.php:795
+msgid ""
+"Library directory name must match machineName or machineName-majorVersion."
+"minorVersion (from library.json). (Directory: %directoryName , machineName: "
+"%machineName, majorVersion: %majorVersion, minorVersion: %minorVersion)"
+msgstr ""
+"Naziv direktorija biblioteka mora se poklapati sa machineName ili "
+"machineName-majorVersion.minorVersion (iz library.json). (Directory: "
+"%directoryName , machineName: %machineName, majorVersion: %majorVersion, "
+"minorVersion: %minorVersion)"
+
+#: h5p-php-library/h5p.classes.php:813
+msgid "A valid content folder is missing"
+msgstr "Nedostaje ispravna mapa sadržaja"
+
+#: h5p-php-library/h5p.classes.php:817
+msgid "A valid main h5p.json file is missing"
+msgstr "Nedostaje ispravna h5p.json datoteka"
+
+#: h5p-php-library/h5p.classes.php:861
+msgid "Missing required library @library"
+msgstr "Nedostaje potrebna biblioteka @library"
+
+#: h5p-php-library/h5p.classes.php:864
+msgid ""
+"Note that the libraries may exist in the file you uploaded, but you're not "
+"allowed to upload new libraries. Contact the site administrator about this."
+msgstr ""
+"Potrebno je znati da datoteka koju ste uploadovali može sadržavati "
+"biblioteke, ali vam nije omogućeno da uploadujete nove biblioteke. "
+"Kontaktirajte administraciju stranice u vezi s ovim."
+
+#: h5p-php-library/h5p.classes.php:890
+msgid "Invalid library name: %name"
+msgstr "Neispravno ime biblioteke: %name"
+
+#: h5p-php-library/h5p.classes.php:895
+msgid ""
+"Could not find library.json file with valid json format for library %name"
+msgstr ""
+"Nije pronađena library.json datoteka sa ispravnim json formatom za %name "
+"biblioteku"
+
+#: h5p-php-library/h5p.classes.php:904
+msgid "Invalid semantics.json file has been included in the library %name"
+msgstr "Neispravna semantics.json datoteka je uključena u biblioteku %name"
+
+#: h5p-php-library/h5p.classes.php:921
+msgid "Invalid language file %file in library %library"
+msgstr "Neispravna jezička datoteka %file u biblioteci %library"
+
+#: h5p-php-library/h5p.classes.php:926
+msgid ""
+"Invalid language file %languageFile has been included in the library %name"
+msgstr ""
+"Neispravna jezička datoteka %language Datoteka je uključena u biblioteku "
+"%name"
+
+#: h5p-php-library/h5p.classes.php:1018
+msgid "The file \"%file\" is missing from library: \"%name\""
+msgstr "Datoteka „%file“ nedostaje u biblioteci: „%name“"
+
+#: h5p-php-library/h5p.classes.php:1054
+msgid ""
+"The library \"%libraryName\" requires H5P %requiredVersion, but only H5P "
+"%coreApi is installed."
+msgstr ""
+"Biblioteka „%libraryName“ zahtjeva H5P %requiredVersion, ali je samo H5P "
+"%coreApi instalirana."
+
+#: h5p-php-library/h5p.classes.php:1116
+msgid "Invalid data provided for %property in %library. Boolean expected."
+msgstr "Dati su neispravni podaci %property u %library. Očekivao se Boolean."
+
+#: h5p-php-library/h5p.classes.php:1124 h5p-php-library/h5p.classes.php:1129
+#: h5p-php-library/h5p.classes.php:1147
+msgid "Invalid data provided for %property in %library"
+msgstr "Dati su neispravni podaci %property u %library"
+
+#: h5p-php-library/h5p.classes.php:1152
+msgid "Can't read the property %property in %library"
+msgstr "Ne može se čitati vrijednost %property u %library"
+
+#: h5p-php-library/h5p.classes.php:1181
+msgid "The required property %property is missing from %library"
+msgstr "Potrebna vrijednost %property  nedostaje u biblioteci %library"
+
+#: h5p-php-library/h5p.classes.php:1204
+msgid "Illegal option %option in %library"
+msgstr "Nelegalna opcija %option u %bibliothek"
+
+#: h5p-php-library/h5p.classes.php:1431
+msgid "Added %new new H5P libraries and updated %old old."
+msgstr "Dodate su nove %new  H5P biblioteke, a postojeće %old su ažurirane."
+
+#: h5p-php-library/h5p.classes.php:1434
+msgid "Added %new new H5P libraries."
+msgstr "Dodate su nove %new  H5P biblioteke."
+
+#: h5p-php-library/h5p.classes.php:1437
+#, php-format
+msgid "Updated %old H5P libraries."
+msgstr "Ažurirane %old H5P biblioteke."
+
+#: h5p-php-library/h5p.classes.php:2119
+msgid "Missing dependency @dep required by @lib."
+msgstr "Nedostaje ovisnost @dep koju zahtjeva @lib."
+
+#: h5p-php-library/h5p.classes.php:2847
+msgid ""
+"Provided string is not valid according to regexp in semantics. (value: "
+"\"%value\", regexp: \"%regexp\")"
+msgstr ""
+"Obezbjeđeni niz nije ispravan na temelju regexp iz semantics. (Vrijednost: "
+"\"%value\", regexp: \"%regexp\")"
+
+#: h5p-php-library/h5p.classes.php:2886
+#, php-format
+msgid ""
+"File \"%filename\" not allowed. Only files with the following extensions are "
+"allowed: %files-allowed."
+msgstr ""
+"Datoteka „%filename“ nije dozvoljena. Samo datoteke sa sljedećim "
+"ekstenzijama su dozvoljene: %files-allowed."
+
+#: h5p-php-library/h5p.classes.php:2960
+msgid "Invalid selected option in multiselect."
+msgstr "Pogrešno odabrana jedna od opcija."
+
+#: h5p-php-library/h5p.classes.php:2976
+msgid "Invalid selected option in select."
+msgstr "Pogrešno odabrana opcija."
+
+#: h5p-php-library/h5p.classes.php:3137
+msgid ""
+"H5P internal error: unknown content type \"@type\" in semantics. Removing "
+"content!"
+msgstr ""
+"H5P unutrašnja greška: nepoznat tip sadržaja „@type“ u semantici. Ukloniti "
+"sadržaj!"
+
+#: h5p-php-library/h5p.classes.php:3177
+msgid "Library used in content is not a valid library according to semantics"
+msgstr "Biblioteka korištena u sadržaju nije ispravna na osnovu semantike"
+
+#: h5p-php-library/h5p.classes.php:3574
+msgid "Copyright information"
+msgstr "Informacije o autorskim pravima"
+
+#: h5p-php-library/h5p.classes.php:3593
+msgid "Year(s)"
+msgstr "Godina(e)"
+
+#: h5p-php-library/h5p.classes.php:3600 public/class-h5p-plugin.php:917
+msgid "Source"
+msgstr "Izvor"
+
+#: h5p-php-library/h5p.classes.php:3611 public/class-h5p-plugin.php:918
+msgid "License"
+msgstr "Licenca"
+
+#: h5p-php-library/h5p.classes.php:3616
+msgid "Undisclosed"
+msgstr "Nepoznato"
+
+#: h5p-php-library/h5p.classes.php:3620
+msgid "Attribution"
+msgstr "Attribution"
+
+#: h5p-php-library/h5p.classes.php:3624
+msgid "Attribution-ShareAlike"
+msgstr "Attribution-ShareAlike"
+
+#: h5p-php-library/h5p.classes.php:3628
+msgid "Attribution-NoDerivs"
+msgstr "Attribution-NoDerivs"
+
+#: h5p-php-library/h5p.classes.php:3632
+msgid "Attribution-NonCommercial"
+msgstr "Attribution-NonCommercial"
+
+#: h5p-php-library/h5p.classes.php:3636
+msgid "Attribution-NonCommercial-ShareAlike"
+msgstr "Attribution-NonCommercial-ShareAlike"
+
+#: h5p-php-library/h5p.classes.php:3640
+msgid "Attribution-NonCommercial-NoDerivs"
+msgstr "Attribution-NonCommercial-NoDerivs"
+
+#: h5p-php-library/h5p.classes.php:3644
+msgid "General Public License"
+msgstr "General Public License"
+
+#: h5p-php-library/h5p.classes.php:3648
+msgid "Public Domain"
+msgstr "Public Domain"
+
+#: h5p-php-library/h5p.classes.php:3652
+msgid "Public Domain Dedication and Licence"
+msgstr "Public Domain Dedication and Licence"
+
+#: h5p-php-library/h5p.classes.php:3656
+msgid "Public Domain Mark"
+msgstr "Public Domain Mark"
+
+#: h5p-php-library/h5p.classes.php:3660
+msgid "Copyright"
+msgstr "Autorsko pravo"
+
+#: public/class-h5p-plugin.php:613
+msgid "Missing H5P identifier."
+msgstr "Nedostaje H5P identifikator."
+
+#: public/class-h5p-plugin.php:621
+#, php-format
+msgid "Cannot find H5P content with id: %d."
+msgstr "Nije pronađen H5P sadržaj sa ID %d."
+
+#: public/class-h5p-plugin.php:647
+#, php-format
+msgid "Database error: %s."
+msgstr "Greška u bazi podataka: %s."
+
+#: public/class-h5p-plugin.php:651
+#, php-format
+msgid "Cannot find H5P content with slug: %s."
+msgstr "Nije pronađen H5P sadržaj sa nizom: %s."
+
+#: public/class-h5p-plugin.php:904
+msgid "Disable fullscreen"
+msgstr "Onemogućiti cijeli ekran (fullscreen)"
+
+#: public/class-h5p-plugin.php:905
+msgid "Download"
+msgstr "Preuzimanje"
+
+#: public/class-h5p-plugin.php:906 public/class-h5p-plugin.php:912
+msgid "Rights of use"
+msgstr "Pravo korištenja"
+
+#: public/class-h5p-plugin.php:907
+msgid "Embed"
+msgstr "Embed"
+
+#: public/class-h5p-plugin.php:908
+msgid "Size"
+msgstr "Veličina"
+
+#: public/class-h5p-plugin.php:909
+msgid "Show advanced"
+msgstr "Dodatni detalji"
+
+#: public/class-h5p-plugin.php:910
+msgid "Hide advanced"
+msgstr "Sakrij dodatne detalje"
+
+#: public/class-h5p-plugin.php:911
+msgid ""
+"Include this script on your website if you want dynamic sizing of the "
+"embedded content:"
+msgstr ""
+"Uključite ovu skriptu na vašoj webstranici ako želite dinamičnu veličinu "
+"embedovanih saržaja:"
+
+#: public/class-h5p-plugin.php:913
+msgid "Close"
+msgstr "Zatvori"
+
+#: public/class-h5p-plugin.php:916
+msgid "Year"
+msgstr "Godina"
+
+#: public/class-h5p-plugin.php:919
+msgid "Thumbnail"
+msgstr "Smanjeni prikaz"
+
+#: public/class-h5p-plugin.php:920
+msgid "No copyright information available for this content."
+msgstr "Za ovaj sadržaj nema informacija o autorskim pravima."
+
+#: public/class-h5p-plugin.php:921
+msgid "Download this content as a H5P file."
+msgstr "Preuzmite ovaj sadržaj kao H5P datoteku."
+
+#: public/class-h5p-plugin.php:922
+msgid "View copyright information for this content."
+msgstr "Prikaži informacije o autorskim pravima za ovaj sadržaj."
+
+#: public/class-h5p-plugin.php:923
+msgid "View the embed code for this content."
+msgstr "Prikaži kod za embedovanje ovog sadržaja."
+
+#: public/class-h5p-plugin.php:924
+msgid "Visit H5P.org to check out more cool content."
+msgstr "Posjetite H5P.org kako bi više saznali o dodatnim cool sadržajima!"
+
+#: public/class-h5p-plugin.php:925
+msgid "This content has changed since you last used it."
+msgstr "Ovaj sadržaj je izmijenjen od kako ste ga zadnji put koristili. "
+
+#: public/class-h5p-plugin.php:926
+msgid "You'll be starting over."
+msgstr "Ponovo ćete početi."
+
+#: public/class-h5p-wordpress.php:591
+msgid "Invalid json in semantics for %library"
+msgstr "Pogrešan json in semantici za %library"
+
+msgid ""
+"Allows you to upload, create, share and use rich interactive content on your "
+"WordPress site."
+msgstr ""
+"Dozvoljava vam da ažurirate, kreirate, dijelite i koristite bogate "
+"interaktivne sadržaje na vašoj WordPress stranici."
+
+msgid "Created"
+msgstr "Napravljeno"
+
+msgid "User Tracking"
+msgstr "Praćenje korisnika"
+
+msgid "Library updates"
+msgstr "Ažuriranje biblioteka"
+
+msgid "Fetch information about updates for your H5P content types"
+msgstr "Učitavanje informacija o ažuriranjima za vaše H5P tipove sadržaja"
+
+msgid "Unable to write to the content directory."
+msgstr "Nije moguće pisati u direktorij sadržaja."
+
+msgid "Unable to write to the libraries directory."
+msgstr "Nije moguće pisati u direktorij s bibliotekama."
+
+msgid "Unable to write to the temporary directory."
+msgstr "Nije moguće pisati u privremeni direktorij."
+
+msgid "Unable to write to the exports directory."
+msgstr "Nije moguće pisati u direktorij za izvoz."
+
+msgid "Unable to copy file tree."
+msgstr "Nije moguće kopirati stablo datoteke."
+
+msgid "Content type upgrades are here!"
+msgstr "Dostupna je nova nadogradnja sadržaja!"
+
+msgid ""
+"If you've just upgraded you plugin, you should install the <a href=\"%s\" "
+"target=\"_blank\">lastest version</a> of your content types."
+msgstr ""
+"Ako ste upravo nadogradili vaš plugin onda ste trebali instalirati <a "
+"href=„%s“ target=„_blank“>najnoviju verziju</a> vaših tipova sadržaja."
+
+msgid ""
+"In order to take advantage of this plugin you must first select and download "
+"the H5P content types you wish to use."
+msgstr ""
+"Kako bi dobili prednosti ovog plugina prvo morate odabrati i preuzeti H5P "
+"tipove sadržaja koje želite koristiti."
+
+msgid "Here is a short guide to get you started:"
+msgstr "Ovo je kratak vodič kako početi: "
+
+msgid "Download %s."
+msgstr "Preuzmi %s."
+
+msgid "Installed"
+msgstr "Instalirano"
