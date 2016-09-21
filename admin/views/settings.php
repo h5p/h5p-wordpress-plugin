@@ -114,6 +114,18 @@
             </div>
           </td>
         </tr>
+        <tr valign="top">
+          <th scope="row"><?php _e("Content Types", $this->plugin_slug); ?></th>
+          <td>
+            <label>
+              <input name="enable_lrs_content_types" type="checkbox" value="true"<?php if ($enable_lrs_content_types): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Enable LRS dependent content types", $this->plugin_slug); ?>
+            </label>
+            <p class="h5p-setting-desc">
+              <?php _e("Makes it possible to use content types that rely upon a Learning Record Store to function properly, like the Questionnaire content type.", $this->plugin_slug); ?>
+            </p>
+          </td>
+        </tr>
       </tbody>
     </table>
     <?php wp_nonce_field('h5p_settings', 'save_these_settings'); ?>
