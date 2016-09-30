@@ -1074,6 +1074,9 @@ class H5PContentAdmin {
     if ($file->validate() && $file->copy()) {
       // Keep track of temporary files so they can be cleaned up later.
       $editor->addTmpFile($file);
+
+      // Clear cached value for dirsize.
+      delete_transient('dirsize_cache');
     }
 
     header('Cache-Control: no-cache');

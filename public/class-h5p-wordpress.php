@@ -1017,4 +1017,12 @@ class H5PWordPress implements H5PFrameworkInterface {
 
     return $hashes;
   }
+
+  /**
+   * Implements afterExportCreated
+   */
+  public function afterExportCreated() {
+    // Clear cached value for dirsize.
+    delete_transient('dirsize_cache');
+  }
 }

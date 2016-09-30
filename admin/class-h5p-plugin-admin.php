@@ -381,6 +381,10 @@ class H5P_Plugin_Admin {
       if ($validator->isValidPackage(TRUE, $update_only)) {
         $storage->savePackage(NULL, NULL, TRUE);
         update_option('h5p_current_update', get_option('h5p_update_available', 0));
+
+        // Clear cached value for dirsize.
+        delete_transient('dirsize_cache');
+
         return true;
       }
       else {
@@ -559,17 +563,70 @@ class H5P_Plugin_Admin {
 
     $skipContent = ($content === NULL);
     if ($validator->isValidPackage($skipContent, $only_upgrade) && ($skipContent || $content['title'] !== NULL)) {
-      if (isset($content['id'])) {
-        $interface->deleteLibraryUsage($content['id']);
+      // Check file sizes before continuing!
+      $tmpDir = $interface->getUploadedH5pFolderPath();
+      $error = self::check_upload_sizes($tmpDir);
+      if ($error === NULL) {
+        // No file size check errors
+
+        if (isset($content['id'])) {
+          $interface->deleteLibraryUsage($content['id']);
+        }
+        $storage = $plugin->get_h5p_instance('storage');
+        $storage->savePackage($content, NULL, $skipContent);
+
+        // Clear cached value for dirsize.
+        delete_transient('dirsize_cache');
+
+        return $storage->contentId;
       }
-      $storage = $plugin->get_h5p_instance('storage');
-      $storage->savePackage($content, NULL, $skipContent);
-      return $storage->contentId;
+
+      // Didn't meet space requirements, cleanup tmp dir.
+      $interface->setErrorMessage($error);
+      H5PCore::deleteFileTree($tmpDir);
+      return FALSE;
     }
 
     // The uploaded file was not a valid H5P package
     @unlink($interface->getUploadedH5pPath());
     return FALSE;
+  }
+
+  /**
+   * Avoid breaking the upload limit with any of the files
+   *
+   * @since 1.7.3
+   * @param string $dir
+   * @return string on error, null if all is OK
+   */
+  public static function check_upload_sizes($dir) {
+    $files = scandir($dir);
+    foreach ($files as $file) {
+      $firstChar = substr($file, 0, 1);
+      if ($firstChar === '.' || $firstChar === '_') {
+        continue; // Skip hidden files (will not be save by core)
+      }
+
+      $path = ($dir . '/' . $file);
+      if (is_dir($path)) {
+        // Scan dir
+        $error = self::check_upload_sizes($path);
+        if ($error !== NULL) {
+          return $error;
+        }
+      }
+      elseif (is_file($path)) {
+        // Check file size
+        $_POST['html-upload'] = TRUE; // Small hack to get output instead of wp_die().
+        $upload = check_upload_size(array('tmp_name' => $path, 'error' => '0'));
+        $_POST['html-upload'] = FALSE;
+        if ($upload['error'] != '0') {
+          return $upload['error'];
+        }
+      }
+    }
+
+    return NULL; // All OK
   }
 
   /**
