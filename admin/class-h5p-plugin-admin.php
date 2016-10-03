@@ -563,28 +563,31 @@ class H5P_Plugin_Admin {
 
     $skipContent = ($content === NULL);
     if ($validator->isValidPackage($skipContent, $only_upgrade) && ($skipContent || $content['title'] !== NULL)) {
-      // Check file sizes before continuing!
-      $tmpDir = $interface->getUploadedH5pFolderPath();
-      $error = self::check_upload_sizes($tmpDir);
-      if ($error === NULL) {
-        // No file size check errors
 
-        if (isset($content['id'])) {
-          $interface->deleteLibraryUsage($content['id']);
+      if (function_exists('check_upload_size')) {
+        // Check file sizes before continuing!
+        $tmpDir = $interface->getUploadedH5pFolderPath();
+        $error = self::check_upload_sizes($tmpDir);
+        if ($error !== NULL) {
+          // Didn't meet space requirements, cleanup tmp dir.
+          $interface->setErrorMessage($error);
+          H5PCore::deleteFileTree($tmpDir);
+          return FALSE;
         }
-        $storage = $plugin->get_h5p_instance('storage');
-        $storage->savePackage($content, NULL, $skipContent);
-
-        // Clear cached value for dirsize.
-        delete_transient('dirsize_cache');
-
-        return $storage->contentId;
       }
 
-      // Didn't meet space requirements, cleanup tmp dir.
-      $interface->setErrorMessage($error);
-      H5PCore::deleteFileTree($tmpDir);
-      return FALSE;
+      // No file size check errors
+
+      if (isset($content['id'])) {
+        $interface->deleteLibraryUsage($content['id']);
+      }
+      $storage = $plugin->get_h5p_instance('storage');
+      $storage->savePackage($content, NULL, $skipContent);
+
+      // Clear cached value for dirsize.
+      delete_transient('dirsize_cache');
+
+      return $storage->contentId;
     }
 
     // The uploaded file was not a valid H5P package
