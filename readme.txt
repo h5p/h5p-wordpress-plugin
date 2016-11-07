@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.6
-Stable tag: 1.7.3
+Stable tag: 1.7.4
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -252,3 +252,6 @@ Added support for optional select in semantics.
 Added option for enabling LRS content types.
 Fixed text strings lacking translation support. (editor)
 Added support for the same common fields from multiple libraries in the same editor.
+
+= 1.7.4 =
+Exec ready callbacks when view is ready
