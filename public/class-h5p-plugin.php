@@ -612,7 +612,8 @@ class H5P_Plugin {
     }
 
     if (!empty($language)) {
-      return str_replace('_', '-', strtolower($language));
+      $languageParts = explode('_', $language);
+      return $languageParts[0];
     }
 
     return 'en';
@@ -1101,7 +1102,7 @@ class H5P_Plugin {
         if (time() - filemtime($file) > 86400) {
           // Not modified in over a day
           unlink($file);
-
+          
           // Clear cached value for dirsize.
           delete_transient('dirsize_cache');
         }
