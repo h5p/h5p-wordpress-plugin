@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.6
-Stable tag: 1.7.5
+Stable tag: 1.7.6
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -258,3 +258,8 @@ Exec ready callbacks when view is ready
 
 = 1.7.5 =
 Fixed backwards-compatible change in editor
+
+= 1.7.6 =
+Makes it possible for a group semantics to have a sub content id
+Adds semi full screen functionality
+Increases H5P API version to 1.10
