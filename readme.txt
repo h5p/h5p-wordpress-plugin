@@ -262,4 +262,4 @@ Fixed backwards-compatible change in editor
 = 1.7.6 =
 Makes it possible for a group semantics to have a sub content id
 Adds semi full screen functionality
-Increases H5P API version to 1.10
+Increases H5P API version to 1.11
