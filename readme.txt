@@ -261,3 +261,8 @@ Fixed backwards-compatible change in editor
 
 = 1.7.6 =
 Fixed loading of language files for content types
+
+= 1.7.7 =
+Makes it possible for a group semantics to have a sub content id
+Adds semi full screen functionality
+Increases H5P API version to 1.11
