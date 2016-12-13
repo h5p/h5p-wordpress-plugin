@@ -57,30 +57,30 @@
           <input type="submit" name="submit" value="<?php esc_html_e($this->content === NULL ? 'Create' : 'Update', $this->plugin_slug) ?>" class="button button-primary button-large"/>
         </div>
       </div>
-      <?php if (get_option('h5p_frame', TRUE)): ?>
+      <?php if (isset($display_options['frame'])): ?>
         <div class="postbox h5p-sidebar">
           <div role="button" class="h5p-toggle" tabindex="0" aria-expanded="true" aria-label="<?php esc_html_e('Toggle panel', $this->plugin_slug); ?>"></div>
           <h2><?php esc_html_e('Display Options', $this->plugin_slug); ?></h2>
           <div class="h5p-action-bar-settings h5p-panel">
             <label>
-              <input name="frame" type="checkbox" value="true"<?php if (!($this->content['disable'] & H5PCore::DISABLE_FRAME)): ?> checked="checked"<?php endif; ?>/>
+              <input name="frame" type="checkbox" value="true"<?php if ($display_options['frame']): ?> checked="checked"<?php endif; ?>/>
               <?php _e("Display action bar and frame", $this->plugin_slug); ?>
             </label>
-            <?php if (get_option('h5p_export', TRUE)): ?>
+            <?php if (isset($display_options['download'])): ?>
               <label>
-                <input name="download" type="checkbox" value="true"<?php if (!($this->content['disable'] & H5PCore::DISABLE_DOWNLOAD)): ?> checked="checked"<?php endif; ?>/>
+                <input name="download" type="checkbox" value="true"<?php if ($display_options['download']): ?> checked="checked"<?php endif; ?>/>
                 <?php _e("Download button", $this->plugin_slug); ?>
               </label>
             <?php endif; ?>
-            <?php if (get_option('h5p_embed', TRUE)): ?>
+            <?php if (isset($display_options['embed'])): ?>
               <label>
-                <input name="embed" type="checkbox" value="true"<?php if (!($this->content['disable'] & H5PCore::DISABLE_EMBED)): ?> checked="checked"<?php endif; ?>/>
+                <input name="embed" type="checkbox" value="true"<?php if ($display_options['embed']): ?> checked="checked"<?php endif; ?>/>
                 <?php _e("Embed button", $this->plugin_slug); ?>
               </label>
             <?php endif; ?>
-            <?php if (get_option('h5p_copyright', TRUE)): ?>
+            <?php if (isset($display_options['copyright'])): ?>
               <label>
-                <input name="copyright" type="checkbox" value="true"<?php if (!($this->content['disable'] & H5PCore::DISABLE_COPYRIGHT)): ?> checked="checked"<?php endif; ?>/>
+                <input name="copyright" type="checkbox" value="true"<?php if ($display_options['copyright']): ?> checked="checked"<?php endif; ?>/>
                 <?php _e("Copyright button", $this->plugin_slug); ?>
               </label>
             <?php endif; ?>

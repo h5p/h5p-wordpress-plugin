@@ -124,13 +124,8 @@ class H5PContentAdmin {
     if (current_user_can('edit_others_h5p_contents')) {
       return TRUE;
     }
-
-    $user_id = get_current_user_id();
-    if (is_array($content)) {
-      return ($user_id === (int)$content['user_id']);
-    }
-
-    return ($user_id === (int)$content->user_id);
+    $author_id = (int)(is_array($content) ? $content['user_id'] : $content->user_id);
+    return get_current_user_id() === $author_id;
   }
 
   /**
@@ -449,10 +444,12 @@ class H5PContentAdmin {
     $safe_text = _wp_specialchars($safe_text, ENT_QUOTES, false, true);
     $parameters = apply_filters('attribute_escape', $safe_text, $parameters);
 
+    $display_options = $core->getDisplayOptionsForEdit($this->content['disable']);
+
     include_once('views/new-content.php');
     $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
     H5P_Plugin_Admin::add_script('jquery', 'h5p-php-library/js/jquery.js');
-    H5P_Plugin_Admin::add_script('disable', 'h5p-php-library/js/disable.js');
+    H5P_Plugin_Admin::add_script('disable', 'h5p-php-library/js/h5p-display-options.js');
     H5P_Plugin_Admin::add_script('toggle', 'admin/scripts/h5p-toggle.js');
 
     // Log editor opened
@@ -572,7 +569,7 @@ class H5PContentAdmin {
       'embed' => filter_input(INPUT_POST, 'embed', FILTER_VALIDATE_BOOLEAN),
       'copyright' => filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN),
     );
-    $content['disable'] = $core->getDisable($set, $content['disable']);
+    $content['disable'] = $core->getDisplayOptionsAsByte($set, $content['disable']);
   }
 
   /**

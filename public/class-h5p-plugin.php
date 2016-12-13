@@ -732,9 +732,6 @@ class H5P_Plugin {
     global $wpdb;
     $core = $this->get_h5p_instance('core');
 
-    // Add global disable settings
-    $content['disable'] |= $core->getGlobalDisable();
-
     $safe_parameters = $core->filterParameters($content);
     if (has_action('h5p_alter_filtered_parameters')) {
       // Parse the JSON parameters
@@ -757,6 +754,9 @@ class H5P_Plugin {
       $safe_parameters = json_encode($decoded_parameters);
     }
 
+    // Getting author's user id
+    $author_id = (int)(is_array($content) ? $content['user_id'] : $content->user_id);
+
     // Add JavaScript settings for this content
     $settings = array(
       'library' => H5PCore::libraryToString($content['library']),
@@ -767,7 +767,7 @@ class H5P_Plugin {
       'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '" charset="UTF-8"></script>',
       'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
       'title' => $content['title'],
-      'disable' => $content['disable'],
+      'displayOptions' => $core->getDisplayOptionsForView($content['disable'], $author_id),
       'contentUserData' => array(
         0 => array(
           'state' => '{}'
