@@ -569,7 +569,7 @@ class H5PContentAdmin {
       'embed' => filter_input(INPUT_POST, 'embed', FILTER_VALIDATE_BOOLEAN),
       'copyright' => filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN),
     );
-    $content['disable'] = $core->getDisplayOptionsAsByte($set, $content['disable']);
+    $content['disable'] = $core->getStorableDisplayOptions($set, $content['disable']);
   }
 
   /**
