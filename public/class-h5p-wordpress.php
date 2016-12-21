@@ -1025,4 +1025,35 @@ class H5PWordPress implements H5PFrameworkInterface {
     // Clear cached value for dirsize.
     delete_transient('dirsize_cache');
   }
+
+  /**
+   * Check if current user can edit H5P
+   *
+   * @method currentUserCanEdit
+   * @param  int             $contentUserId
+   * @return boolean
+   */
+  private static function currentUserCanEdit ($contentUserId) {
+    if (current_user_can('edit_others_h5p_contents')) {
+      return TRUE;
+    }
+    return get_current_user_id() == $contentUserId;
+  }
+
+  /**
+   * Implements hasPermission
+   * 
+   * @method hasPermission
+   * @param  H5PPermission    $permission
+   * @param  int              $contentUserId
+   * @return boolean
+   */
+  public function hasPermission($permission, $contentUserId = NULL) {
+    switch ($permission) {
+      case H5PPermission::DOWNLOAD_H5P:
+      case H5PPermission::EMBED_H5P:
+        return self::currentUserCanEdit($contentUserId);
+    }
+    return FALSE;
+  }
 }

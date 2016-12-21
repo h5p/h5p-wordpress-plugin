@@ -173,10 +173,21 @@
 .h5p-action-bar-settings > div {
   margin-bottom: 0.5em;
 }
+.h5p-action-bar-buttons-settings {
+  margin-left: .5em;
+  padding: 0.5em;
+  border-left: 3px solid #bbb;
+  background-color: #ebebeb;
+}
+.h5p-action-bar-buttons-settings > div:not(:last-child) {
+  margin-bottom: 0.5em;
+}
 .h5p-auto-save-freq {
   padding-top: 0.5em;
 }
-.h5p-auto-save-freq label {
+.h5p-auto-save-freq label,
+.h5p-export-button label,
+.h5p-embed-button label {
   display: block;
 }
 .h5p-auto-save-freq label:after {

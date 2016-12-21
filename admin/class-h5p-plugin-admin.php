@@ -459,10 +459,10 @@ class H5P_Plugin_Admin {
       $frame = filter_input(INPUT_POST, 'frame', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_frame', $frame);
 
-      $download = filter_input(INPUT_POST, 'download', FILTER_VALIDATE_BOOLEAN);
+      $download = filter_input(INPUT_POST, 'download', FILTER_VALIDATE_INT);
       update_option('h5p_export', $download);
 
-      $embed = filter_input(INPUT_POST, 'embed', FILTER_VALIDATE_BOOLEAN);
+      $embed = filter_input(INPUT_POST, 'embed', FILTER_VALIDATE_INT);
       update_option('h5p_embed', $embed);
 
       $copyright = filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN);
@@ -509,8 +509,10 @@ class H5P_Plugin_Admin {
       $enable_lrs_content_types = get_option('h5p_enable_lrs_content_types', FALSE);
     }
 
+    H5P_Plugin::get_instance()->get_h5p_instance('core'); // Make sure core is loaded;
     include_once('views/settings.php');
-    H5P_Plugin_Admin::add_script('disable', 'h5p-php-library/js/disable.js');
+    H5P_Plugin_Admin::add_script('h5p-jquery', 'h5p-php-library/js/jquery.js');
+    H5P_Plugin_Admin::add_script('h5p-display-options', 'h5p-php-library/js/h5p-display-options.js');
 
     new H5P_Event('settings');
   }

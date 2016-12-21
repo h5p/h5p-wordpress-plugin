@@ -38,33 +38,63 @@
           <td class="h5p-action-bar-settings">
             <div>
               <label>
-                <input name="frame" type="checkbox" value="true"<?php if ($frame): ?> checked="checked"<?php endif; ?>/>
+                <input name="frame" class="h5p-visibility-toggler" data-h5p-visibility-subject-selector=".h5p-action-bar-buttons-settings" type="checkbox" value="true"<?php if ($frame): ?> checked="checked"<?php endif; ?>/>
                 <?php _e("Display action bar and frame", $this->plugin_slug); ?>
               </label>
             </div>
-            <div>
-              <label>
-                <input name="download" type="checkbox" value="true"<?php if ($download): ?> checked="checked"<?php endif; ?>/>
-                <?php _e("Download button", $this->plugin_slug); ?>
-              </label>
-            </div>
-            <div>
-              <label>
-                <input name="embed" type="checkbox" value="true"<?php if ($embed): ?> checked="checked"<?php endif; ?>/>
-                <?php _e("Embed button", $this->plugin_slug); ?>
-              </label>
-            </div>
-            <div>
-              <label>
-                <input name="copyright" type="checkbox" value="true"<?php if ($copyright): ?> checked="checked"<?php endif; ?>/>
-                <?php _e("Copyright button", $this->plugin_slug); ?>
-              </label>
-            </div>
-            <div>
-              <label>
-                <input name="about" type="checkbox" value="true"<?php if ($about): ?> checked="checked"<?php endif; ?>/>
-                <?php _e("About H5P button", $this->plugin_slug); ?>
-              </label>
+            <div class="h5p-action-bar-buttons-settings">
+              <div class="h5p-export-button">
+                <label for="export-button"><?php _e("Download button", $this->plugin_slug); ?></label>
+                <select id="export-button" name="download">
+                  <option value="<?php echo H5PDisplayOptionBehaviour::NEVER_SHOW; ?>" <?php if ($download == H5PDisplayOptionBehaviour::NEVER_SHOW): ?>selected="selected"<?php endif; ?>>
+                    <?php _e("Never show", $this->plugin_slug); ?>
+                  </option>
+                  <option value="<?php echo H5PDisplayOptionBehaviour::ALWAYS_SHOW; ?>" <?php if ($download == H5PDisplayOptionBehaviour::ALWAYS_SHOW): ?>selected="selected"<?php endif; ?>>
+                    <?php _e("Always show", $this->plugin_slug); ?>
+                  </option>
+                  <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS; ?>" <?php if ($download == H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS): ?>selected="selected"<?php endif; ?>>
+                    <?php _e("Show only if permitted through permissions", $this->plugin_slug); ?>
+                  </option>
+                  <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON; ?>" <?php if ($download == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON): ?>selected="selected"<?php endif; ?>>
+                    <?php _e("Visibility controlled by author, default is on", $this->plugin_slug); ?>
+                  </option>
+                  <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF; ?>" <?php if ($download == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF): ?>selected="selected"<?php endif; ?>>
+                    <?php _e("Visibility controlled by author, default is off", $this->plugin_slug); ?>
+                  </option>
+                </select>
+              </div>
+              <div class="h5p-embed-button">
+                <label for="embed-button"><?php _e("Embed button", $this->plugin_slug); ?></label>
+                <select id="embed-button" name="embed">
+                  <option value="<?php echo H5PDisplayOptionBehaviour::NEVER_SHOW; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::NEVER_SHOW): ?>selected="selected"<?php endif; ?>>
+                    <?php _e("Never show", $this->plugin_slug); ?>
+                  </option>
+                  <option value="<?php echo H5PDisplayOptionBehaviour::ALWAYS_SHOW; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::ALWAYS_SHOW): ?>selected="selected"<?php endif; ?>>
+                    <?php _e("Always show", $this->plugin_slug); ?>
+                  </option>
+                  <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS): ?>selected="selected"<?php endif; ?>>
+                    <?php _e("Show only if permitted through permissions", $this->plugin_slug); ?>
+                  </option>
+                  <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON): ?>selected="selected"<?php endif; ?>>
+                    <?php _e("Visibility controlled by author, default is on", $this->plugin_slug); ?>
+                  </option>
+                  <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF): ?>selected="selected"<?php endif; ?>>
+                    <?php _e("Visibility controlled by author, default is off", $this->plugin_slug); ?>
+                  </option>
+                </select>
+              </div>
+              <div>
+                <label>
+                  <input name="copyright" type="checkbox" value="true"<?php if ($copyright): ?> checked="checked"<?php endif; ?>/>
+                  <?php _e("Copyright button", $this->plugin_slug); ?>
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input name="about" type="checkbox" value="true"<?php if ($about): ?> checked="checked"<?php endif; ?>/>
+                  <?php _e("About H5P button", $this->plugin_slug); ?>
+                </label>
+              </div>
             </div>
           </td>
         </tr>
