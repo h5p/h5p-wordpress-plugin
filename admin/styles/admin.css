@@ -170,7 +170,7 @@
   font-size: 0.875em;
   margin-top: 0.5em;
 }
-.h5p-action-bar-settings > div {
+.h5p-action-bar-settings > * {
   margin-bottom: 0.5em;
 }
 .h5p-action-bar-buttons-settings {
