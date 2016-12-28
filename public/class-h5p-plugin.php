@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.7.7';
+  const VERSION = '1.7.8';
 
   /**
    * The Unique identifier for this plugin.
@@ -372,6 +372,11 @@ class H5P_Plugin {
       self::upgrade_120();
     }
 
+    // Adding editor design changes warning introduced in 1.7.8
+    if ($major < 1 || ($major === 1 && $minor < 7) || ($major === 1 && $minor === 7 && $patch < 8)) {
+      add_action('admin_notices', array('H5P_Plugin', 'update_libraries_custom_admin_notice'));
+    }
+
     // Keep track of which version of the plugin we have.
     if ($current_version === '0.0.0') {
       add_option('h5p_version', self::VERSION);
@@ -411,6 +416,18 @@ class H5P_Plugin {
       $wpdb->query("ALTER TABLE `{$wpdb->prefix}h5p_libraries_libraries` {$charset}");
       $wpdb->query("ALTER TABLE `{$wpdb->prefix}h5p_libraries_languages` {$charset}");
     }
+  }
+
+  /**
+   * Give admin a warning that content types should be updated
+   * in order to look good together with the new editor design changes
+   *
+   * @since 1.7.8
+   */
+  public static function update_libraries_custom_admin_notice() {
+    $classes = 'notice notice-warning is-dismissible';
+    $message = '<span style="font-weight: bold;">Upgrade your H5P content types!</span> Old content types will still work, but the authoring tool will look and feel much better if you <a href="https://h5p.org/update-all-content-types">upgrade the content types</a>.';
+    printf('<div class="%1$s"><p>%2$s</p></div>', $classes, $message);
   }
 
   /**
