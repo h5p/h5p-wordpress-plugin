@@ -180,6 +180,11 @@
   background: #ebebeb;
   line-height: 2em;
 }
+.h5p-sidebar .h5p-action-bar-buttons-settings {
+  padding: 0.8em 1.5em;
+  border: solid 1px #dddddd;
+  border-left-color: #1e8cbe;
+}
 .h5p-action-bar-buttons-settings > div:not(:last-child) {
   margin-bottom: 0.5em;
 }
