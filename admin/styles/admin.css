@@ -173,19 +173,7 @@
 .h5p-action-bar-settings > * {
   margin-bottom: 0.5em;
 }
-.h5p-action-bar-buttons-settings {
-  margin-top: 1em;
-  padding: 1.5em;
-  border-left: 2px solid #1e8cbe;
-  background: #ebebeb;
-  line-height: 2em;
-}
-.h5p-sidebar .h5p-action-bar-buttons-settings {
-  padding: 0.8em 1.5em;
-  border: solid 1px #dddddd;
-  border-left-color: #1e8cbe;
-}
-.h5p-action-bar-buttons-settings > div:not(:last-child) {
+.h5p-action-bar-buttons-settings > *:not(:last-child) {
   margin-bottom: 0.5em;
 }
 .h5p-auto-save-freq {
