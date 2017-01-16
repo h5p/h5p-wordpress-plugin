@@ -572,7 +572,7 @@ msgid "Create"
 msgstr "Crea"
 
 #: admin/views/new-content.php:64 admin/views/settings.php:28
-msgid "Display action bar and frame"
+msgid "Display buttons (download, embed and copyright)"
 msgstr "Visualizza barra azione e frame"
 
 #: admin/views/new-content.php:69 admin/views/settings.php:34

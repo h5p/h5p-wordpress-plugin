@@ -39,7 +39,7 @@
             <div>
               <label>
                 <input name="frame" class="h5p-visibility-toggler" data-h5p-visibility-subject-selector=".h5p-action-bar-buttons-settings" type="checkbox" value="true"<?php if ($frame): ?> checked="checked"<?php endif; ?>/>
-                <?php _e("Display action bar and frame", $this->plugin_slug); ?>
+                <?php _e("Display buttons (download, embed and copyright)", $this->plugin_slug); ?>
               </label>
             </div>
             <div class="h5p-action-bar-buttons-settings">

@@ -697,8 +697,8 @@ msgid "Display Options"
 msgstr "Visningsinnstillinger"
 
 #: admin/views/new-content.php:67 admin/views/settings.php:42
-msgid "Display action bar and frame"
-msgstr "Vis handlingslinje og ramme"
+msgid "Display buttons (download, embed and copyright)"
+msgstr "Vis knapper (last ned, embed og opphavsrett)"
 
 #: admin/views/new-content.php:72 admin/views/settings.php:48
 msgid "Download button"
