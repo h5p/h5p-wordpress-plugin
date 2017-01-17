@@ -53,7 +53,7 @@
                     <?php _e("Always show", $this->plugin_slug); ?>
                   </option>
                   <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS; ?>" <?php if ($download == H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS): ?>selected="selected"<?php endif; ?>>
-                    <?php _e("Show only if permitted through permissions", $this->plugin_slug); ?>
+                    <?php _e("Show only if user is allowed to edit H5P", $this->plugin_slug); ?>
                   </option>
                   <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON; ?>" <?php if ($download == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON): ?>selected="selected"<?php endif; ?>>
                     <?php _e("Visibility controlled by author, default is on", $this->plugin_slug); ?>
