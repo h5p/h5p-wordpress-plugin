@@ -109,7 +109,7 @@
           <td>
             <label>
               <input name="about" type="checkbox" value="true"<?php if ($about): ?> checked="checked"<?php endif; ?>/>
-              <?php _e("Controlled by author – on by default", $this->plugin_slug); ?>
+              <?php _e("Always", $this->plugin_slug); ?>
             </label>
           </td>
         </tr>
