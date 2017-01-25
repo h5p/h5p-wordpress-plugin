@@ -38,7 +38,7 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
    * @param int $fileid
    */
   public function keepFile($fileId) {
-    // TODO: Remove from tmpfiles table
+    $wpdb->delete($wpdb->prefix . 'h5p_tmpfiles', array('path' => $fileId), array('%s'));
   }
 
   /**

@@ -1059,7 +1059,9 @@ class H5PContentAdmin {
       $file_id = $core->fs->saveFile($file, $contentid);
 
       // Keep track of temporary files so they can be cleaned up later.
-      // TODO: Add to tmpfiles table
+      $wpdb->insert($wpdb->prefix . 'h5p_tmpfiles',
+          array('path' => $file_id, 'created_at' => time()),
+          array('%s', '%d'));
 
       // Clear cached value for dirsize.
       delete_transient('dirsize_cache');

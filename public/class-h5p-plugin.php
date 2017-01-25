@@ -300,6 +300,13 @@ class H5P_Plugin {
       PRIMARY KEY  (library_id,hash)
     ) {$charset};");
 
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_tmpfiles (
+      path VARCHAR(255) NOT NULL,
+      created_at INT UNSIGNED NOT NULL,
+      PRIMARY KEY  (path),
+      KEY created_at (created_at)
+    ) {$charset};");
+
     // Add default setting options
     add_option('h5p_frame', TRUE);
     add_option('h5p_export', TRUE);
@@ -1088,37 +1095,62 @@ class H5P_Plugin {
    */
   public function remove_old_tmp_files() {
     $plugin = H5P_Plugin::get_instance();
+    $older_than = time() - 86400;
 
+    $num = 0; // Number of files deleted
+
+    // Locate files not saved in over a day
+    $files = $wpdb->get_results($wpdb->prepare(
+        "SELECT path
+           FROM {$wpdb->prefix}h5p_tmpfiles
+          WHERE created at < %d",
+        $older_than)
+      );
+
+    // Delete files from file system
+    foreach ($files as $file) {
+      if (unlink($file->path)) {
+        $num++;
+      }
+    }
+
+    // Remove from tmpfiles table
+    $wpdb->query($wpdb->prepare(
+        "DELETE FROM {$wpdb->prefix}h5p_tmpfiles
+          WHERE created at < %d",
+        $older_than));
+
+    // Old way of cleaning up tmp files. Needed as a transitional fase and it doesn't really harm to have it here any way.
     $h5p_path = $plugin->get_h5p_path();
     $editor_path = $h5p_path . DIRECTORY_SEPARATOR . 'editor';
-    if (!is_dir($h5p_path) || !is_dir($editor_path)) {
-      return;
-    }
+    if (is_dir($h5p_path) && is_dir($editor_path)) {
+      $dirs = glob($editor_path . DIRECTORY_SEPARATOR . '*');
+      if (!empty($dirs)) {
+        foreach ($dirs as $dir) {
+          if (!is_dir($dir)) {
+            continue;
+          }
 
-    $dirs = glob($editor_path . DIRECTORY_SEPARATOR . '*');
-    if (empty($dirs)) {
-      return;
-    }
+          $files = glob($dir . DIRECTORY_SEPARATOR . '*');
+          if (empty($files)) {
+            continue;
+          }
 
-    foreach ($dirs as $dir) {
-      if (!is_dir($dir)) {
-        continue;
-      }
-
-      $files = glob($dir . DIRECTORY_SEPARATOR . '*');
-      if (empty($files)) {
-        continue;
-      }
-
-      foreach ($files as $file) {
-        if (time() - filemtime($file) > 86400) {
-          // Not modified in over a day
-          unlink($file);
-
-          // Clear cached value for dirsize.
-          delete_transient('dirsize_cache');
+          foreach ($files as $file) {
+            if (filemtime($file) < $older_than) {
+              // Not modified in over a day
+              if (unlink($file)) {
+                $num++;
+              }
+            }
+          }
         }
       }
+    }
+
+    if ($num) {
+      // Clear cached value for dirsize.
+      delete_transient('dirsize_cache');
     }
   }
 
