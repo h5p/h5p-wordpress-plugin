@@ -105,16 +105,17 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
       // Make sure we only display the newest version of a library.
       foreach ($libraries as $key => $existingLibrary) {
         if ($library->name === $existingLibrary->name) {
+
           // Found library with same name, check versions
-          if ( ( $library->majorVersion === $existinglibrary->majorVersion &&
-                 $library->minorVersion > $existinglibrary->minorVersion ) ||
-               ( $library->majorVersion > $existinglibrary->majorVersion ) ) {
+          if ( ( $library->majorVersion === $existingLibrary->majorVersion &&
+                 $library->minorVersion > $existingLibrary->minorVersion ) ||
+               ( $library->majorVersion > $existingLibrary->majorVersion ) ) {
             // This is a newer version
-            $existinglibrary->isOld = true;
+            $existingLibrary->isOld = TRUE;
           }
           else {
             // This is an older version
-            $library->isOld = true;
+            $library->isOld = TRUE;
           }
         }
       }
