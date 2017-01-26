@@ -647,7 +647,7 @@ msgid "Display Options"
 msgstr "Optionen anzeigen"
 
 #: admin/views/new-content.php:67 admin/views/settings.php:42
-msgid "Display action bar and frame"
+msgid "Display buttons (download, embed and copyright)"
 msgstr "Aktions-Leiste und Rahmen anzeigen"
 
 #: admin/views/new-content.php:72 admin/views/settings.php:48

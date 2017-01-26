@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: H5P\n"
-"POT-Creation-Date: 2016-06-17 10:28+0200\n"
+"POT-Creation-Date: 2017-01-26 11:17+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Frode Petterson <frode.petterson@joubel.com>\n"
 "Language-Team: Joubel <contact@joubel.com>\n"
@@ -19,144 +19,144 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: admin/class-h5p-content-admin.php:163 admin/class-h5p-content-admin.php:661
-#: admin/class-h5p-library-admin.php:227 h5p-php-library/h5p.classes.php:3675
-#: public/class-h5p-plugin.php:915
+#: admin/class-h5p-content-admin.php:158 admin/class-h5p-content-admin.php:659
+#: admin/class-h5p-library-admin.php:215 h5p-php-library/h5p.classes.php:3693
+#: public/class-h5p-plugin.php:981
 msgid "Title"
 msgstr "Tittel"
 
-#: admin/class-h5p-content-admin.php:167 admin/class-h5p-content-admin.php:665
+#: admin/class-h5p-content-admin.php:162 admin/class-h5p-content-admin.php:663
 msgid "Content type"
 msgstr "Innholdstype"
 
-#: admin/class-h5p-content-admin.php:172 h5p-php-library/h5p.classes.php:3682
-#: public/class-h5p-plugin.php:916
+#: admin/class-h5p-content-admin.php:167 h5p-php-library/h5p.classes.php:3700
+#: public/class-h5p-plugin.php:982
 msgid "Author"
 msgstr "Opphavsmann"
 
-#: admin/class-h5p-content-admin.php:177 admin/class-h5p-content-admin.php:670
-#: admin/views/new-content.php:92 admin/views/show-content.php:39
+#: admin/class-h5p-content-admin.php:172 admin/class-h5p-content-admin.php:668
+#: admin/views/new-content.php:96 admin/views/show-content.php:39
 msgid "Tags"
 msgstr "Stikkord"
 
-#: admin/class-h5p-content-admin.php:182 admin/class-h5p-content-admin.php:675
+#: admin/class-h5p-content-admin.php:177 admin/class-h5p-content-admin.php:673
 msgid "Last modified"
 msgstr "Sist modifisert"
 
-#: admin/class-h5p-content-admin.php:186
+#: admin/class-h5p-content-admin.php:181
 msgid "ID"
 msgstr "ID"
 
-#: admin/class-h5p-content-admin.php:205 admin/class-h5p-content-admin.php:683
+#: admin/class-h5p-content-admin.php:200 admin/class-h5p-content-admin.php:681
 #: admin/views/select-content.php:31
 msgid "No H5P content available. You must upload or create new content."
 msgstr ""
 "Intet H5P-innhold er tilgjengelig. Du må laste opp eller lage nytt innhold."
 
-#: admin/class-h5p-content-admin.php:249
+#: admin/class-h5p-content-admin.php:244
 msgid "User"
 msgstr "Bruker"
 
-#: admin/class-h5p-content-admin.php:253 admin/class-h5p-plugin-admin.php:893
+#: admin/class-h5p-content-admin.php:248 admin/class-h5p-plugin-admin.php:983
 msgid "Score"
 msgstr "Poeng"
 
-#: admin/class-h5p-content-admin.php:257 admin/class-h5p-plugin-admin.php:897
+#: admin/class-h5p-content-admin.php:252 admin/class-h5p-plugin-admin.php:987
 msgid "Maximum Score"
 msgstr "Maksimum poeng"
 
-#: admin/class-h5p-content-admin.php:261 admin/class-h5p-plugin-admin.php:901
+#: admin/class-h5p-content-admin.php:256 admin/class-h5p-plugin-admin.php:991
 msgid "Opened"
 msgstr "Åpnet"
 
-#: admin/class-h5p-content-admin.php:265 admin/class-h5p-plugin-admin.php:905
+#: admin/class-h5p-content-admin.php:260 admin/class-h5p-plugin-admin.php:995
 msgid "Finished"
 msgstr "Fullført"
 
-#: admin/class-h5p-content-admin.php:268 admin/class-h5p-plugin-admin.php:908
+#: admin/class-h5p-content-admin.php:263 admin/class-h5p-plugin-admin.php:998
 msgid "Time spent"
 msgstr "Tid brukt"
 
-#: admin/class-h5p-content-admin.php:271
+#: admin/class-h5p-content-admin.php:266
 msgid "There are no logged results for this content."
 msgstr "Det er ingen loggede resultater for dette innholdet."
 
-#: admin/class-h5p-content-admin.php:288 admin/class-h5p-library-admin.php:147
+#: admin/class-h5p-content-admin.php:283 admin/class-h5p-library-admin.php:147
 msgid "Unknown task."
 msgstr "Ukjent oppgave."
 
-#: admin/class-h5p-content-admin.php:315
+#: admin/class-h5p-content-admin.php:310
 msgid "You are not allowed to edit this content."
 msgstr "Du har ikke lov til å redigere dette innholdet."
 
-#: admin/class-h5p-content-admin.php:337
+#: admin/class-h5p-content-admin.php:332
 msgid "Invalid confirmation code, not deleting."
 msgstr "Ugyldig bekreftelseskode, slettes ikke."
 
-#: admin/class-h5p-content-admin.php:511
+#: admin/class-h5p-content-admin.php:508
 msgid "Invalid library."
 msgstr "Ugyldig bibliotek."
 
-#: admin/class-h5p-content-admin.php:518
+#: admin/class-h5p-content-admin.php:515
 msgid "No such library."
 msgstr "Biblioteket finnes ikke."
 
-#: admin/class-h5p-content-admin.php:535
+#: admin/class-h5p-content-admin.php:532
 msgid "Invalid parameters."
 msgstr "Ugyldige parametere."
 
-#: admin/class-h5p-content-admin.php:548
+#: admin/class-h5p-content-admin.php:545
 msgid "Unable to create content directory."
 msgstr "Kan ikke opprette innholdskatalog."
 
-#: admin/class-h5p-content-admin.php:591 admin/class-h5p-content-admin.php:614
+#: admin/class-h5p-content-admin.php:589 admin/class-h5p-content-admin.php:612
 #, php-format
 msgid "Missing %s."
 msgstr "Mangler %s."
 
-#: admin/class-h5p-content-admin.php:619
+#: admin/class-h5p-content-admin.php:617
 msgid "Title is too long. Must be 256 letters or shorter."
 msgstr "Tittelen er for lang. Den må være 256 tegn eller kortere."
 
-#: admin/class-h5p-content-admin.php:637
+#: admin/class-h5p-content-admin.php:635
 msgid "Insert H5P Content"
 msgstr "Sett inn H5P-innhold"
 
-#: admin/class-h5p-content-admin.php:638
+#: admin/class-h5p-content-admin.php:636
 msgid "Add H5P"
 msgstr "Legg til H5P"
 
-#: admin/class-h5p-content-admin.php:802
+#: admin/class-h5p-content-admin.php:800
 msgid "ago"
 msgstr "siden"
 
-#: admin/class-h5p-content-admin.php:856
+#: admin/class-h5p-content-admin.php:854
 msgid "Insert"
 msgstr "Sett inn"
 
-#: admin/class-h5p-content-admin.php:888 admin/views/new-content.php:21
+#: admin/class-h5p-content-admin.php:886 admin/views/new-content.php:21
 #: admin/views/show-content.php:17
 msgid "Results"
 msgstr "Resultater"
 
-#: admin/class-h5p-content-admin.php:897 admin/views/content-results.php:18
+#: admin/class-h5p-content-admin.php:895 admin/views/content-results.php:18
 #: admin/views/new-content.php:18 admin/views/show-content.php:20
 msgid "Edit"
 msgstr "Rediger"
 
-#: admin/class-h5p-content-admin.php:993
+#: admin/class-h5p-content-admin.php:991
 msgid "Are you sure you wish to delete this content?"
 msgstr "Er du sikker på at du ønsker å slette dette innholdet?"
 
-#: admin/class-h5p-content-admin.php:1044
+#: admin/class-h5p-content-admin.php:1042
 msgid "Invalid security token. Please reload the editor."
 msgstr "Ugyldig sikkerhetskode. Vennligst last inn nettsiden på nytt."
 
-#: admin/class-h5p-content-admin.php:1061
+#: admin/class-h5p-content-admin.php:1059
 msgid "File not found on server. Check file upload settings."
 msgstr "Fil ikke funnet på serveren. Vennligst sjekk opplastingsinnstillinger."
 
-#: admin/class-h5p-library-admin.php:62
+#: admin/class-h5p-library-admin.php:62 admin/views/new-content.php:55
 msgid "Delete"
 msgstr "Slett"
 
@@ -169,7 +169,7 @@ msgstr "Innholdsoppgradering"
 msgid "Cannot find library with id: %d."
 msgstr "Finner ikke biblioteket med id: %d."
 
-#: admin/class-h5p-library-admin.php:167 admin/class-h5p-library-admin.php:416
+#: admin/class-h5p-library-admin.php:167 admin/class-h5p-library-admin.php:390
 msgid "N/A"
 msgstr "Ikke tilgjengelig"
 
@@ -185,53 +185,27 @@ msgstr "Slett biblioteket"
 msgid "Upgrade library content"
 msgstr "Oppgrader innhold"
 
-#: admin/class-h5p-library-admin.php:228
+#: admin/class-h5p-library-admin.php:216
 msgid "Restricted"
 msgstr "Begrenset"
 
-#: admin/class-h5p-library-admin.php:230
+#: admin/class-h5p-library-admin.php:218
 msgid "Contents"
 msgstr "Innhold"
 
-#: admin/class-h5p-library-admin.php:234
+#: admin/class-h5p-library-admin.php:222
 msgid "Contents using it"
 msgstr "Innhold som bruker det"
 
-#: admin/class-h5p-library-admin.php:238
+#: admin/class-h5p-library-admin.php:226
 msgid "Libraries using it"
 msgstr "Bibliotek som bruker det"
 
-#: admin/class-h5p-library-admin.php:241 admin/views/new-content.php:45
+#: admin/class-h5p-library-admin.php:229 admin/views/new-content.php:45
 msgid "Actions"
 msgstr "Handlinger"
 
-#: admin/class-h5p-library-admin.php:252
-msgid "The following libraries are outdated and should be upgraded:"
-msgstr "Følgende biblioteker er utdatert og bør oppgraderes:"
-
-#: admin/class-h5p-library-admin.php:254
-msgid "To upgrade all the installed libraries, do the following:"
-msgstr "For å oppgradere alle de installerte bibliotekene, gjør du følgende:"
-
-#: admin/class-h5p-library-admin.php:256
-#, php-format
-msgid "Download the H5P file from the %s page."
-msgstr "Last ned H5P-filen fra %s-siden."
-
-#: admin/class-h5p-library-admin.php:257
-#, php-format
-msgid "Select the downloaded <em> %s</em> file in the form below."
-msgstr "Velg den nedlastede <em>%s</ em>-filen i skjemaet nedenfor."
-
-#: admin/class-h5p-library-admin.php:258
-msgid ""
-"Check off \"Only update existing libraries\" and click the <em>Upload</em> "
-"button."
-msgstr ""
-"Kryss av \"Kun oppdater eksisterende biblioteker\" og trykk på <em>Oppdater</"
-"em>-knappen."
-
-#: admin/class-h5p-library-admin.php:324
+#: admin/class-h5p-library-admin.php:298
 #, php-format
 msgid ""
 "Unfortunately, we were unable to update your installed content types. You "
@@ -248,7 +222,7 @@ msgstr ""
 "target=\"_blank\">henvendelse</a> eller sjekke <a href=\"%s\" target=\"_blank"
 "\">forumet</a> vårt."
 
-#: admin/class-h5p-library-admin.php:345
+#: admin/class-h5p-library-admin.php:319
 msgid ""
 "This Library is used by content or other libraries and can therefore not be "
 "deleted."
@@ -256,108 +230,108 @@ msgstr ""
 "Dette biblioteket brukes av innhold eller andre biblioteker, og kan derfor "
 "ikke slettes."
 
-#: admin/class-h5p-library-admin.php:381
+#: admin/class-h5p-library-admin.php:355
 msgid "No content is using this library"
 msgstr "Dette finnes ikke noe innhold som bruker dette biblioteket"
 
-#: admin/class-h5p-library-admin.php:382
+#: admin/class-h5p-library-admin.php:356
 msgid "Content using this library"
 msgstr "Innhold som bruker dette biblioteket"
 
-#: admin/class-h5p-library-admin.php:383
+#: admin/class-h5p-library-admin.php:357
 msgid "Elements per page"
 msgstr "Elementer per side"
 
-#: admin/class-h5p-library-admin.php:384
+#: admin/class-h5p-library-admin.php:358
 msgid "Filter content"
 msgstr "Filtrer innhold"
 
-#: admin/class-h5p-library-admin.php:385
+#: admin/class-h5p-library-admin.php:359
 msgid "Page $x of $y"
 msgstr "Side $x av $y"
 
-#: admin/class-h5p-library-admin.php:413
+#: admin/class-h5p-library-admin.php:387
 msgid "Version"
 msgstr "Versjon"
 
-#: admin/class-h5p-library-admin.php:414 public/class-h5p-plugin.php:904
+#: admin/class-h5p-library-admin.php:388 public/class-h5p-plugin.php:970
 msgid "Fullscreen"
 msgstr "Fullskjerm"
 
-#: admin/class-h5p-library-admin.php:414 admin/class-h5p-library-admin.php:415
+#: admin/class-h5p-library-admin.php:388 admin/class-h5p-library-admin.php:389
 msgid "Yes"
 msgstr "Ja"
 
-#: admin/class-h5p-library-admin.php:414 admin/class-h5p-library-admin.php:415
+#: admin/class-h5p-library-admin.php:388 admin/class-h5p-library-admin.php:389
 msgid "No"
 msgstr "Nei"
 
-#: admin/class-h5p-library-admin.php:415
+#: admin/class-h5p-library-admin.php:389
 msgid "Content library"
 msgstr "Innholdsbibliotek"
 
-#: admin/class-h5p-library-admin.php:416
+#: admin/class-h5p-library-admin.php:390
 msgid "Used by"
 msgstr "Brukt av"
 
-#: admin/class-h5p-library-admin.php:416 admin/class-h5p-library-admin.php:467
+#: admin/class-h5p-library-admin.php:390 admin/class-h5p-library-admin.php:441
 #, php-format
 msgid "1 content"
 msgid_plural "%d contents"
 msgstr[0] "1 innhold"
 msgstr[1] "%d innhold"
 
-#: admin/class-h5p-library-admin.php:456
+#: admin/class-h5p-library-admin.php:430
 msgid "There are no available upgrades for this library."
 msgstr "Det finnes ingen tilgjengelige oppgraderinger for dette biblioteket."
 
-#: admin/class-h5p-library-admin.php:463
+#: admin/class-h5p-library-admin.php:437
 msgid "There's no content instances to upgrade."
 msgstr "Det finnes ikke noe innhold å oppgradere."
 
-#: admin/class-h5p-library-admin.php:474
+#: admin/class-h5p-library-admin.php:448
 #, php-format
 msgid "You are about to upgrade %s. Please select upgrade version."
 msgstr "Du er i ferd med å oppgradere %s. Vennligst velg ønsket versjon."
 
-#: admin/class-h5p-library-admin.php:475
+#: admin/class-h5p-library-admin.php:449
 msgid "Upgrading to %ver..."
 msgstr "Oppgraderer til %ver..."
 
-#: admin/class-h5p-library-admin.php:476
+#: admin/class-h5p-library-admin.php:450
 msgid "An error occurred while processing parameters:"
 msgstr "Det oppstod en feil under behandling av parameterene:"
 
-#: admin/class-h5p-library-admin.php:477
+#: admin/class-h5p-library-admin.php:451
 msgid "Could not load data for library %lib."
 msgstr "Kunne ikke laste inn data for biblioteket %lib."
 
-#: admin/class-h5p-library-admin.php:478
+#: admin/class-h5p-library-admin.php:452
 msgid "Could not upgrade content %id:"
 msgstr "Kunne ikke oppgradere innhold %id:"
 
-#: admin/class-h5p-library-admin.php:479
+#: admin/class-h5p-library-admin.php:453
 msgid "Could not load upgrades script for %lib."
 msgstr "Kunne ikke laste oppgraderingsscript for %lib."
 
-#: admin/class-h5p-library-admin.php:480
+#: admin/class-h5p-library-admin.php:454
 msgid "Parameters are broken."
 msgstr "Parameterene er ødelagt."
 
-#: admin/class-h5p-library-admin.php:481
+#: admin/class-h5p-library-admin.php:455
 #, php-format
 msgid "You have successfully upgraded %s."
 msgstr "Du har nå oppgradert %s."
 
-#: admin/class-h5p-library-admin.php:481
+#: admin/class-h5p-library-admin.php:455
 msgid "Return"
 msgstr "Tilbake"
 
-#: admin/class-h5p-library-admin.php:491
+#: admin/class-h5p-library-admin.php:465
 msgid "Upgrade"
 msgstr "Oppgrader"
 
-#: admin/class-h5p-library-admin.php:566
+#: admin/class-h5p-library-admin.php:540
 msgid ""
 "Not all content has gotten their cache rebuilt. This is required to be able "
 "to delete libraries, and to display how many contents that uses the library."
@@ -366,30 +340,30 @@ msgstr ""
 "for å være i stand til å slette biblioteker, og for å vise hvor mye innhold "
 "som bruker et gitt biblioteket."
 
-#: admin/class-h5p-library-admin.php:567
+#: admin/class-h5p-library-admin.php:541
 #, php-format
 msgid "1 content need to get its cache rebuilt."
 msgid_plural "%d contents needs to get their cache rebuilt."
 msgstr[0] "1 innhold trenger å få mellomlageret sitt gjenoppbygd."
 msgstr[1] "%d innhold trenger å få mellomlageret sitt gjenoppbygd."
 
-#: admin/class-h5p-library-admin.php:568
+#: admin/class-h5p-library-admin.php:542
 msgid "Rebuild cache"
 msgstr "Gjenoppbygg mellomlager"
 
-#: admin/class-h5p-library-admin.php:580
+#: admin/class-h5p-library-admin.php:554
 msgid "Error, invalid security token!"
 msgstr "Feil, ugyldig sikkerhetskode!"
 
-#: admin/class-h5p-library-admin.php:586 admin/class-h5p-library-admin.php:681
+#: admin/class-h5p-library-admin.php:560 admin/class-h5p-library-admin.php:655
 msgid "Error, missing library!"
 msgstr "Feil, mangler bibliotek!"
 
-#: admin/class-h5p-library-admin.php:598 admin/class-h5p-library-admin.php:687
+#: admin/class-h5p-library-admin.php:572 admin/class-h5p-library-admin.php:661
 msgid "Error, invalid library!"
 msgstr "Feil, ugyldig bibliotek!"
 
-#: admin/class-h5p-library-admin.php:704
+#: admin/class-h5p-library-admin.php:678
 msgid "Error, could not library semantics!"
 msgstr "Feil, kunne ikke laste semantikken til biblioteket!"
 
@@ -397,20 +371,20 @@ msgstr "Feil, kunne ikke laste semantikken til biblioteket!"
 msgid "Content unavailable."
 msgstr "Innhold utilgjengelig."
 
-#: admin/class-h5p-plugin-admin.php:245
+#: admin/class-h5p-plugin-admin.php:259
 msgid "Thank you for staying up to date with H5P."
 msgstr "Takk for at du  holder deg oppdatert med H5P."
 
-#: admin/class-h5p-plugin-admin.php:246
+#: admin/class-h5p-plugin-admin.php:260
 #, php-format
 msgid ""
-"You should head over to the <a href=\"%s\">Libraries</a> page and update "
-"your content types to the latest version."
+"Head over to the <a href=\"%s\">Libraries</a> page and update your content "
+"types to the latest version."
 msgstr ""
-"Du bør navigere til <a href=\"%s\">bibliotekene</a>-siden og oppdatere "
-"innholdstypene til siste versjon."
+"Gå over til <a href=\"%s\">Biblioteks-siden</a> og oppdater innholdtypene "
+"dine til siste versjon."
 
-#: admin/class-h5p-plugin-admin.php:247
+#: admin/class-h5p-plugin-admin.php:261
 #, php-format
 msgid ""
 "By default, H5P is set up to automatically fetch information regarding "
@@ -424,7 +398,7 @@ msgstr ""
 "Denne atferden kan endres gjennom siden for <a href=\"%s\">Innstillinger </"
 "a>."
 
-#: admin/class-h5p-plugin-admin.php:248
+#: admin/class-h5p-plugin-admin.php:262
 #, php-format
 msgid ""
 "If you need any help you can always file a <a href=\"%s\" target=\"_blank"
@@ -437,7 +411,7 @@ msgstr ""
 "\">forumet</a> eller bli med i samtalen på <a href=\"%s\" target=\"_blank"
 "\">H5P Community Chat</a>."
 
-#: admin/class-h5p-plugin-admin.php:256
+#: admin/class-h5p-plugin-admin.php:270
 #, php-format
 msgid ""
 "Check out our <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
@@ -446,11 +420,11 @@ msgstr ""
 "Sjekk ut vår <a href=\"%s\" target=\"_blank\">Examples and Downloads</a>-"
 "side for inspirasjon."
 
-#: admin/class-h5p-plugin-admin.php:261
+#: admin/class-h5p-plugin-admin.php:275
 msgid "Thank you for choosing H5P."
 msgstr "Takk for at du valgte H5P."
 
-#: admin/class-h5p-plugin-admin.php:266
+#: admin/class-h5p-plugin-admin.php:280
 #, php-format
 msgid ""
 "Unfortunately, we were unable to automatically install the default content "
@@ -463,7 +437,7 @@ msgstr ""
 "<a href=\"%s\" target=\"_blank\">Examples and Downloads</a>-siden, for så å "
 "laste dem opp til <a href=\"%s\">bibliotekene</a>-siden."
 
-#: admin/class-h5p-plugin-admin.php:269
+#: admin/class-h5p-plugin-admin.php:283
 #, php-format
 msgid ""
 "We've automatically installed the default content types for your "
@@ -474,82 +448,95 @@ msgstr ""
 "innholdstyper. Du kan nå <a href=\"%s\">begynne å lage</a> ditt eget "
 "interaktive innhold!"
 
-#: admin/class-h5p-plugin-admin.php:352 admin/class-h5p-plugin-admin.php:362
+#: admin/class-h5p-plugin-admin.php:310
+#, php-format
+msgid ""
+"You should <strong>upgrade your H5P content types!</strong> The old content "
+"types still work, but the authoring tool's look and feel is greatly improved "
+"with the new content types. Here's some more info about <a href=\"%s\" "
+"target=\"_blank\">upgrading the content types</a>."
+msgstr ""
+"Du bør <strong>oppgradere H5P-innholdstypene dine!</strong> De gamle "
+"innholdstypene vil fortsatt virke, men forfatterverktøyets utseende er mye "
+"bedre med siste versjon av innholdstypene. Her er mer informasjon om <a href="
+"\"%s\" target=\"_blank\">oppgradering av innholdstypene</a>."
+
+#: admin/class-h5p-plugin-admin.php:376 admin/class-h5p-plugin-admin.php:386
 msgid "Unable to download H5P content types."
 msgstr "Kan ikke laste ned H5P-innholdstyper."
 
-#: admin/class-h5p-plugin-admin.php:398 public/class-h5p-plugin.php:505
+#: admin/class-h5p-plugin-admin.php:426 public/class-h5p-plugin.php:571
 msgid "H5P Content"
 msgstr "H5P-innhold"
 
-#: admin/class-h5p-plugin-admin.php:401
+#: admin/class-h5p-plugin-admin.php:429
 msgid "All H5P Content"
 msgstr "Alt H5P-innhold"
 
-#: admin/class-h5p-plugin-admin.php:404
+#: admin/class-h5p-plugin-admin.php:432
 msgid "Add New"
 msgstr "Legg til"
 
-#: admin/class-h5p-plugin-admin.php:413
+#: admin/class-h5p-plugin-admin.php:441
 #, php-format
 msgid "%s new update is available!"
 msgid_plural "%s new updates are available!"
 msgstr[0] "%s ny oppdatering er tilgjengelig!"
 msgstr[1] "%s nye oppdateringer er tilgjengelig!"
 
-#: admin/class-h5p-plugin-admin.php:414 admin/class-h5p-plugin-admin.php:415
+#: admin/class-h5p-plugin-admin.php:442 admin/class-h5p-plugin-admin.php:443
 msgid "Libraries"
 msgstr "Bibliotekene"
 
-#: admin/class-h5p-plugin-admin.php:421 admin/views/my-results.php:14
+#: admin/class-h5p-plugin-admin.php:449 admin/views/my-results.php:14
 msgid "My Results"
 msgstr "Mine Resultater"
 
-#: admin/class-h5p-plugin-admin.php:633
+#: admin/class-h5p-plugin-admin.php:723
 msgid "Invalid content"
 msgstr "Ugyldig innhold"
 
-#: admin/class-h5p-plugin-admin.php:637 admin/class-h5p-plugin-admin.php:1037
+#: admin/class-h5p-plugin-admin.php:727 admin/class-h5p-plugin-admin.php:1127
 msgid "Invalid security token"
 msgstr "Ugyldig sikkerhetskode"
 
-#: admin/class-h5p-plugin-admin.php:853
+#: admin/class-h5p-plugin-admin.php:943
 msgid "Loading data."
 msgstr "Laster data."
 
-#: admin/class-h5p-plugin-admin.php:854
+#: admin/class-h5p-plugin-admin.php:944
 msgid "Failed to load data."
 msgstr "Kunne ikke laste data."
 
-#: admin/class-h5p-plugin-admin.php:855
+#: admin/class-h5p-plugin-admin.php:945
 msgid "There's no data available that matches your criteria."
 msgstr "Det er ingen data tilgjengelig som passer med kriteriene dine."
 
-#: admin/class-h5p-plugin-admin.php:856
+#: admin/class-h5p-plugin-admin.php:946
 msgid "Page $current of $total"
 msgstr "Side $current av $total"
 
-#: admin/class-h5p-plugin-admin.php:857
+#: admin/class-h5p-plugin-admin.php:947
 msgid "Next page"
 msgstr "Neste side"
 
-#: admin/class-h5p-plugin-admin.php:858
+#: admin/class-h5p-plugin-admin.php:948
 msgid "Previous page"
 msgstr "Forrige side"
 
-#: admin/class-h5p-plugin-admin.php:859
+#: admin/class-h5p-plugin-admin.php:949
 msgid "Search"
 msgstr "Søk"
 
-#: admin/class-h5p-plugin-admin.php:860
+#: admin/class-h5p-plugin-admin.php:950
 msgid "Remove"
 msgstr "Fjern"
 
-#: admin/class-h5p-plugin-admin.php:889
+#: admin/class-h5p-plugin-admin.php:979
 msgid "Content"
 msgstr "Innhold"
 
-#: admin/class-h5p-plugin-admin.php:911
+#: admin/class-h5p-plugin-admin.php:1001
 msgid "There are no logged results for your user."
 msgstr "Det er ingen loggede resultater for din bruker."
 
@@ -688,7 +675,11 @@ msgstr "Venter på JavaScript..."
 msgid "Create"
 msgstr "Opprett"
 
-#: admin/views/new-content.php:62 admin/views/new-content.php:91
+#: admin/views/new-content.php:57
+msgid "Update"
+msgstr "Oppdater"
+
+#: admin/views/new-content.php:62 admin/views/new-content.php:95
 msgid "Toggle panel"
 msgstr "Veksle panel"
 
@@ -696,23 +687,23 @@ msgstr "Veksle panel"
 msgid "Display Options"
 msgstr "Visningsinnstillinger"
 
-#: admin/views/new-content.php:67 admin/views/settings.php:42
-msgid "Display action bar and frame"
-msgstr "Vis handlingslinje og ramme"
+#: admin/views/new-content.php:67
+msgid "Display toolbar below content"
+msgstr "Vis verktøylinje under innhold"
 
-#: admin/views/new-content.php:72 admin/views/settings.php:48
-msgid "Download button"
-msgstr "Last ned-knapp"
+#: admin/views/new-content.php:74 admin/views/settings.php:49
+msgid "Display Download button"
+msgstr "Vis Last ned-knapp"
 
-#: admin/views/new-content.php:78 admin/views/settings.php:54
-msgid "Embed button"
-msgstr "Embed-knapp"
+#: admin/views/new-content.php:80 admin/views/settings.php:74
+msgid "Display Embed button"
+msgstr "Vis Innbyggings-knapp"
 
-#: admin/views/new-content.php:84 admin/views/settings.php:60
-msgid "Copyright button"
-msgstr "Opphavsrett-knapp"
+#: admin/views/new-content.php:86 admin/views/settings.php:99
+msgid "Display Copyright button"
+msgstr "Vis Opphavsrett-knapp"
 
-#: admin/views/new-content.php:95
+#: admin/views/new-content.php:99
 msgid "Separate tags with commas"
 msgstr "Skill stikkord med komma"
 
@@ -757,53 +748,113 @@ msgstr ""
 "samlet</a> på h5p.org."
 
 #: admin/views/settings.php:37
-msgid "Action bar"
-msgstr "Handlinger"
+msgid "Toolbar Below Content"
+msgstr "Verktøylinje under innhold"
 
-#: admin/views/settings.php:66
-msgid "About H5P button"
-msgstr "Om H5P-knapp"
+#: admin/views/settings.php:41 admin/views/settings.php:62
+#: admin/views/settings.php:87 admin/views/settings.php:103
+msgid "Controlled by author - on by default"
+msgstr "Kontrolleres av forfatter - på som standard"
 
-#: admin/views/settings.php:72
+#: admin/views/settings.php:44
+msgid ""
+"By default, a toolbar with 4 buttons is displayed below each interactive "
+"content."
+msgstr ""
+"Som standard, en verktøylinje med 4 knapper vises under hvert interaktivt "
+"innhold."
+
+#: admin/views/settings.php:53 admin/views/settings.php:78
+msgid "Never"
+msgstr "Aldri"
+
+#: admin/views/settings.php:56 admin/views/settings.php:81
+#: admin/views/settings.php:112
+msgid "Always"
+msgstr "Alltid"
+
+#: admin/views/settings.php:59 admin/views/settings.php:84
+msgid "Only for editors"
+msgstr "Bare for redaktører"
+
+#: admin/views/settings.php:65 admin/views/settings.php:90
+msgid "Controlled by author - off by default"
+msgstr "Kontrolleres av forfatter - av som standard"
+
+#: admin/views/settings.php:69
+msgid ""
+"Setting this to 'Never' will reduce the amount of disk space required for "
+"interactive content."
+msgstr ""
+"Ved å sette denne til 'Aldri' vil du redusere mengden diskplass som kreves "
+"for interaktivt innhold."
+
+#: admin/views/settings.php:94
+msgid "Setting this to 'Never' will disable already existing embed codes."
+msgstr ""
+"Ved å sette denne til 'Aldri' vil eksisterende innbyggingskoder slutte å "
+"virke."
+
+#: admin/views/settings.php:108
+msgid "Display About H5P button"
+msgstr "Vis Om H5P-knapp"
+
+#: admin/views/settings.php:117
 msgid "User Results"
 msgstr "Brukerresultater"
 
-#: admin/views/settings.php:76
+#: admin/views/settings.php:121
 msgid "Log results for signed in users"
 msgstr "Log resultater for påloggede brukere"
 
-#: admin/views/settings.php:81
+#: admin/views/settings.php:126
 msgid "Save content state"
 msgstr "Lagre innholdstilstand"
 
-#: admin/views/settings.php:85
+#: admin/views/settings.php:130
 msgid "Allow logged-in users to resume tasks"
 msgstr "Tillatt påloggede brukere å fortsette med oppgaver"
 
-#: admin/views/settings.php:88
+#: admin/views/settings.php:133
 msgid "Auto-save frequency (in seconds)"
 msgstr "Auto-lagringsfrekvens (i sekunder)"
 
-#: admin/views/settings.php:94
+#: admin/views/settings.php:139
 msgid "Add content method"
 msgstr "\"Legg til H5P\"-methode"
 
-#: admin/views/settings.php:97
+#: admin/views/settings.php:142
 msgid ""
 "When adding H5P content to posts and pages using the \"Add H5P\" button:"
 msgstr ""
 "Når du setter inn H5P-innhold i innlegg og sider ved hjelp av \"Legg til H5P"
 "\"-knappen:"
 
-#: admin/views/settings.php:104
+#: admin/views/settings.php:149
 msgid "Reference content by id"
 msgstr "Referer  til innhold gjennom ID"
 
-#: admin/views/settings.php:112
+#: admin/views/settings.php:157
 #, php-format
 msgid "Reference content by <a href=\"%s\" target=\"_blank\">slug</a>"
 msgstr ""
 "Referer til innhold gjennom <a href=\"%s\" target=\"_blank\">lenkenavn</a>"
+
+#: admin/views/settings.php:163
+msgid "Content Types"
+msgstr "Innholdstyper"
+
+#: admin/views/settings.php:167
+msgid "Enable LRS dependent content types"
+msgstr "Vis innholdstyper som krever et LRS for å virke"
+
+#: admin/views/settings.php:170
+msgid ""
+"Makes it possible to use content types that rely upon a Learning Record "
+"Store to function properly, like the Questionnaire content type."
+msgstr ""
+"Gjør det mulig å bruke innholdstyper som er avhengig av en Learning Record "
+"Store for å virke som de skal, slik som Questionnaire-innholdstypen."
 
 #: admin/views/show-content.php:30
 msgid "Shortcode"
@@ -829,54 +880,54 @@ msgstr "Ingen stikkord"
 msgid "Unable to create directory."
 msgstr "Kan ikke opprette katalog."
 
-#: h5p-editor-php-library/h5peditor-file.class.php:112
+#: h5p-editor-php-library/h5peditor-file.class.php:120
 msgid "Unable to get field type."
 msgstr "Finner ikke felttypen."
 
-#: h5p-editor-php-library/h5peditor-file.class.php:118
+#: h5p-editor-php-library/h5peditor-file.class.php:126
 msgid "File type isn't allowed."
 msgstr "Filtypen er ikke tillatt."
 
-#: h5p-editor-php-library/h5peditor-file.class.php:125
+#: h5p-editor-php-library/h5peditor-file.class.php:133
 msgid "Invalid field type."
 msgstr "Ugyldig felttype"
 
-#: h5p-editor-php-library/h5peditor-file.class.php:135
+#: h5p-editor-php-library/h5peditor-file.class.php:143
 msgid "Invalid image file format. Use jpg, png or gif."
 msgstr "Ugyldig bildeformat. Bruk jpg, png eller gif."
 
-#: h5p-editor-php-library/h5peditor-file.class.php:156
+#: h5p-editor-php-library/h5peditor-file.class.php:164
 msgid "File is not an image."
 msgstr "Filen er ikke et bilde."
 
-#: h5p-editor-php-library/h5peditor-file.class.php:176
+#: h5p-editor-php-library/h5peditor-file.class.php:184
 msgid "Invalid audio file format. Use mp3 or wav."
 msgstr "Ugyldig lydformat. Bruke mp3 eller wav."
 
-#: h5p-editor-php-library/h5peditor-file.class.php:192
+#: h5p-editor-php-library/h5peditor-file.class.php:200
 msgid "Invalid video file format. Use mp4 or webm."
 msgstr "Ugyldig videoformat. Bruk mp4 eller WebM."
 
-#: h5p-editor-php-library/h5peditor-file.class.php:228
+#: h5p-editor-php-library/h5peditor-file.class.php:236
 msgid "Could not save file."
 msgstr "Kunne ikke lagre filen."
 
-#: h5p-editor-php-library/h5peditor-file.class.php:234
+#: h5p-editor-php-library/h5peditor-file.class.php:242
 msgid "Could not copy file."
 msgstr "Kunne ikke kopiere filen."
 
-#: h5p-php-library/h5p.classes.php:695
+#: h5p-php-library/h5p.classes.php:680
 msgid "Your PHP version does not support ZipArchive."
 msgstr "Din PHP versjon støtter ikke ZipArchive."
 
-#: h5p-php-library/h5p.classes.php:708
+#: h5p-php-library/h5p.classes.php:693
 msgid ""
 "The file you uploaded is not a valid HTML5 Package (It does not have the ."
 "h5p file extension)"
 msgstr ""
 "Filen du lastet opp er ikke en gyldig H5P-fil (Den har ikke .h5p-filendelsen)"
 
-#: h5p-php-library/h5p.classes.php:718
+#: h5p-php-library/h5p.classes.php:703
 msgid ""
 "The file you uploaded is not a valid HTML5 Package (We are unable to unzip "
 "it)"
@@ -884,23 +935,23 @@ msgstr ""
 "Filen du lastet opp er ikke en gyldig H5P-fil (Det er ikke mulig å pakke den "
 "ut)"
 
-#: h5p-php-library/h5p.classes.php:746
+#: h5p-php-library/h5p.classes.php:731
 msgid "Could not parse the main h5p.json file"
 msgstr "Kunne ikke analysere innholdet i h5p.json-filen"
 
-#: h5p-php-library/h5p.classes.php:755
+#: h5p-php-library/h5p.classes.php:740
 msgid "The main h5p.json file is not valid"
 msgstr "Innholdet i h5p.json-filen er ikke gyldig"
 
-#: h5p-php-library/h5p.classes.php:770
+#: h5p-php-library/h5p.classes.php:755
 msgid "Invalid content folder"
 msgstr "Ugyldig innholdsmappe"
 
-#: h5p-php-library/h5p.classes.php:776
+#: h5p-php-library/h5p.classes.php:761
 msgid "Could not find or parse the content.json file"
 msgstr "Kunne ikke finne eller analysere content.json-filen."
 
-#: h5p-php-library/h5p.classes.php:808
+#: h5p-php-library/h5p.classes.php:793
 msgid ""
 "Library directory name must match machineName or machineName-majorVersion."
 "minorVersion (from library.json). (Directory: %directoryName , machineName: "
@@ -911,19 +962,19 @@ msgstr ""
 "maskinnavn: %machineName, storVersjon: %majorVersion, litenVersjon: "
 "%minorVersion)"
 
-#: h5p-php-library/h5p.classes.php:826
+#: h5p-php-library/h5p.classes.php:811
 msgid "A valid content folder is missing"
 msgstr "Det mangler en gyldig innholdsmappe"
 
-#: h5p-php-library/h5p.classes.php:830
+#: h5p-php-library/h5p.classes.php:815
 msgid "A valid main h5p.json file is missing"
 msgstr "Det mangler en gyldig h5p.json-fil"
 
-#: h5p-php-library/h5p.classes.php:874
+#: h5p-php-library/h5p.classes.php:859
 msgid "Missing required library @library"
 msgstr "Mangler påkrevd bibliotek @library"
 
-#: h5p-php-library/h5p.classes.php:877
+#: h5p-php-library/h5p.classes.php:862
 msgid ""
 "Note that the libraries may exist in the file you uploaded, but you're not "
 "allowed to upload new libraries. Contact the site administrator about this."
@@ -931,34 +982,34 @@ msgstr ""
 "Merk at filen du lastet opp kan innholdet bibliotekene, men at du ikke har "
 "lov til å laste opp nye biblioteker. Kontakt administrator om dette."
 
-#: h5p-php-library/h5p.classes.php:903
+#: h5p-php-library/h5p.classes.php:888
 msgid "Invalid library name: %name"
 msgstr "Ugyldig biblioteksnavn: %name"
 
-#: h5p-php-library/h5p.classes.php:908
+#: h5p-php-library/h5p.classes.php:893
 msgid ""
 "Could not find library.json file with valid json format for library %name"
 msgstr ""
 "Fant ikke en library.json-fil med gyldig JSON-format for biblioteket %name"
 
-#: h5p-php-library/h5p.classes.php:917
+#: h5p-php-library/h5p.classes.php:902
 msgid "Invalid semantics.json file has been included in the library %name"
 msgstr "En ugyldig semantics.json-fil er tatt med i biblioteket %name"
 
-#: h5p-php-library/h5p.classes.php:934
+#: h5p-php-library/h5p.classes.php:919
 msgid "Invalid language file %file in library %library"
 msgstr "Ugyldig språkfil %file i biblioteket %library"
 
-#: h5p-php-library/h5p.classes.php:939
+#: h5p-php-library/h5p.classes.php:924
 msgid ""
 "Invalid language file %languageFile has been included in the library %name"
 msgstr "Ugyldig språkfil %languageFile er tatt med i biblioteket %name"
 
-#: h5p-php-library/h5p.classes.php:1031
+#: h5p-php-library/h5p.classes.php:1016
 msgid "The file \"%file\" is missing from library: \"%name\""
 msgstr "Filen \"%file\" mangler fra biblioteket: \"%name\""
 
-#: h5p-php-library/h5p.classes.php:1066
+#: h5p-php-library/h5p.classes.php:1051
 msgid ""
 "The system was unable to install the <em>%component</em> component from the "
 "package, it requires a newer version of the H5P plugin. This site is "
@@ -970,51 +1021,51 @@ msgstr ""
 "bruker versjon %current, mens den nødvendige versjon er %required eller "
 "høyere. Du bør vurdere å oppgradere for så å prøve på nytt."
 
-#: h5p-php-library/h5p.classes.php:1132
+#: h5p-php-library/h5p.classes.php:1117
 msgid "Invalid data provided for %property in %library. Boolean expected."
 msgstr "Ugyldig data satt for %property i %library. Boolsk forventet."
 
-#: h5p-php-library/h5p.classes.php:1140 h5p-php-library/h5p.classes.php:1145
-#: h5p-php-library/h5p.classes.php:1163
+#: h5p-php-library/h5p.classes.php:1125 h5p-php-library/h5p.classes.php:1130
+#: h5p-php-library/h5p.classes.php:1148
 msgid "Invalid data provided for %property in %library"
 msgstr "Ugyldig data satt for %property i %library"
 
-#: h5p-php-library/h5p.classes.php:1168
+#: h5p-php-library/h5p.classes.php:1153
 msgid "Can't read the property %property in %library"
 msgstr "Kan ikke lese attributten %property i %library"
 
-#: h5p-php-library/h5p.classes.php:1197
+#: h5p-php-library/h5p.classes.php:1182
 msgid "The required property %property is missing from %library"
 msgstr "Den påkrevde attributten %property for %library"
 
-#: h5p-php-library/h5p.classes.php:1220
+#: h5p-php-library/h5p.classes.php:1205
 msgid "Illegal option %option in %library"
 msgstr "Ugyldig alternativ %option i %library"
 
-#: h5p-php-library/h5p.classes.php:1449
+#: h5p-php-library/h5p.classes.php:1431
 msgid "Added %new new H5P libraries and updated %old old."
 msgstr "La til %new nye H5P-bibliotek og oppdaterte %old gamle."
 
-#: h5p-php-library/h5p.classes.php:1452
+#: h5p-php-library/h5p.classes.php:1434
 msgid "Added %new new H5P libraries."
 msgstr "La til %new nye H5P-bibliotek."
 
-#: h5p-php-library/h5p.classes.php:1455
+#: h5p-php-library/h5p.classes.php:1437
 #, php-format
 msgid "Updated %old H5P libraries."
 msgstr "Oppdaterte %old H5P-biblioteker"
 
-#: h5p-php-library/h5p.classes.php:2171
+#: h5p-php-library/h5p.classes.php:2183
 msgid "Missing dependency @dep required by @lib."
 msgstr "Manglende avhengigheten @dep som kreves av @lib."
 
-#: h5p-php-library/h5p.classes.php:2902 h5p-php-library/h5p.classes.php:2957
+#: h5p-php-library/h5p.classes.php:2887 h5p-php-library/h5p.classes.php:2942
 msgid ""
 "The mbstring PHP extension is not loaded. H5P need this to function properly"
 msgstr ""
 "PHP mangler 'mbstring'-utvidelsen. H5P trenger denne for å vaske innholdet"
 
-#: h5p-php-library/h5p.classes.php:2917
+#: h5p-php-library/h5p.classes.php:2902
 msgid ""
 "Provided string is not valid according to regexp in semantics. (value: "
 "\"%value\", regexp: \"%regexp\")"
@@ -1022,7 +1073,7 @@ msgstr ""
 "Den oppgitte streng er ikke gyldig i henhold til uttrykket i semantikken. "
 "(value: \"%value\", regexp: \"%regexp\")"
 
-#: h5p-php-library/h5p.classes.php:2961
+#: h5p-php-library/h5p.classes.php:2946
 #, php-format
 msgid ""
 "File \"%filename\" not allowed. Only files with the following extensions are "
@@ -1031,15 +1082,15 @@ msgstr ""
 "Filen \"%filename\" er ikke tillatt. Bare filer med følgende filendelser er "
 "tillatt: %files-allowed."
 
-#: h5p-php-library/h5p.classes.php:3035
+#: h5p-php-library/h5p.classes.php:3021
 msgid "Invalid selected option in multi-select."
 msgstr "Ugyldig valg i flervalgboks."
 
-#: h5p-php-library/h5p.classes.php:3051
+#: h5p-php-library/h5p.classes.php:3037
 msgid "Invalid selected option in select."
 msgstr "Ugyldig alternativ valgt i valgboks."
 
-#: h5p-php-library/h5p.classes.php:3233
+#: h5p-php-library/h5p.classes.php:3226
 msgid ""
 "H5P internal error: unknown content type \"@type\" in semantics. Removing "
 "content!"
@@ -1047,123 +1098,131 @@ msgstr ""
 "H5P intern feil: ukjent innholdstype \"@type\" i semantikken. Fjerner "
 "innholdet!"
 
-#: h5p-php-library/h5p.classes.php:3275
-msgid "Library used in content is not a valid library according to semantics"
+#: h5p-php-library/h5p.classes.php:3277
+msgid ""
+"The version of the H5P library %machineName used in this content is not "
+"valid. Content contains %contentLibrary, but it should be %semanticsLibrary."
 msgstr ""
-"Biblioteket som brukes i innholdet er ikke gyldig i henhold til semantikken"
+"Versjonen av H5P-biblioteket %machineName som brukes av dette innholdet er "
+"ikke gyldig. Innholdet bruker %contentLibrary, mens det det skal bruke er "
+"%semanticsLibrary."
 
-#: h5p-php-library/h5p.classes.php:3670
+#: h5p-php-library/h5p.classes.php:3287
+msgid "The H5P library %library used in the content is not valid"
+msgstr "H5P-biblioteket %library som brukes av innholdet er ikke gyldig"
+
+#: h5p-php-library/h5p.classes.php:3688
 msgid "Copyright information"
 msgstr "Opphavsrettinformasjon"
 
-#: h5p-php-library/h5p.classes.php:3689
+#: h5p-php-library/h5p.classes.php:3707
 msgid "Year(s)"
 msgstr "Årstall"
 
-#: h5p-php-library/h5p.classes.php:3696 public/class-h5p-plugin.php:918
+#: h5p-php-library/h5p.classes.php:3714 public/class-h5p-plugin.php:984
 msgid "Source"
 msgstr "Kilde"
 
-#: h5p-php-library/h5p.classes.php:3707 public/class-h5p-plugin.php:919
+#: h5p-php-library/h5p.classes.php:3725 public/class-h5p-plugin.php:985
 msgid "License"
 msgstr "Lisens"
 
-#: h5p-php-library/h5p.classes.php:3712
+#: h5p-php-library/h5p.classes.php:3730
 msgid "Undisclosed"
 msgstr ""
 
-#: h5p-php-library/h5p.classes.php:3716
+#: h5p-php-library/h5p.classes.php:3734
 msgid "Attribution 4.0"
 msgstr ""
 
-#: h5p-php-library/h5p.classes.php:3720
+#: h5p-php-library/h5p.classes.php:3738
 msgid "Attribution-ShareAlike 4.0"
 msgstr ""
 
-#: h5p-php-library/h5p.classes.php:3724
+#: h5p-php-library/h5p.classes.php:3742
 msgid "Attribution-NoDerivs 4.0"
 msgstr ""
 
-#: h5p-php-library/h5p.classes.php:3728
+#: h5p-php-library/h5p.classes.php:3746
 msgid "Attribution-NonCommercial 4.0"
 msgstr ""
 
-#: h5p-php-library/h5p.classes.php:3732
+#: h5p-php-library/h5p.classes.php:3750
 msgid "Attribution-NonCommercial-ShareAlike 4.0"
 msgstr ""
 
-#: h5p-php-library/h5p.classes.php:3736
+#: h5p-php-library/h5p.classes.php:3754
 msgid "Attribution-NonCommercial-NoDerivs 4.0"
 msgstr ""
 
-#: h5p-php-library/h5p.classes.php:3740
+#: h5p-php-library/h5p.classes.php:3758
 msgid "General Public License v3"
 msgstr ""
 
-#: h5p-php-library/h5p.classes.php:3744
+#: h5p-php-library/h5p.classes.php:3762
 msgid "Public Domain"
 msgstr ""
 
-#: h5p-php-library/h5p.classes.php:3748
+#: h5p-php-library/h5p.classes.php:3766
 msgid "Public Domain Dedication and Licence"
 msgstr ""
 
-#: h5p-php-library/h5p.classes.php:3752
+#: h5p-php-library/h5p.classes.php:3770
 msgid "Public Domain Mark"
 msgstr ""
 
-#: h5p-php-library/h5p.classes.php:3756
+#: h5p-php-library/h5p.classes.php:3774
 msgid "Copyright"
 msgstr "Opphavsrett"
 
-#: public/class-h5p-plugin.php:614
+#: public/class-h5p-plugin.php:680
 msgid "Missing H5P identifier."
 msgstr "Mangler H5P-identifikator."
 
-#: public/class-h5p-plugin.php:622
+#: public/class-h5p-plugin.php:688
 #, php-format
 msgid "Cannot find H5P content with id: %d."
 msgstr "Kan ikke finne H5P-innhold med id: %d."
 
-#: public/class-h5p-plugin.php:648
+#: public/class-h5p-plugin.php:714
 #, php-format
 msgid "Database error: %s."
 msgstr "Databasefeil: %s."
 
-#: public/class-h5p-plugin.php:652
+#: public/class-h5p-plugin.php:718
 #, php-format
 msgid "Cannot find H5P content with slug: %s."
 msgstr "Kan ikke finne H5P-innhold med lenkenavn: %s."
 
-#: public/class-h5p-plugin.php:905
+#: public/class-h5p-plugin.php:971
 msgid "Disable fullscreen"
 msgstr "Skru av fullskjerm"
 
-#: public/class-h5p-plugin.php:906
+#: public/class-h5p-plugin.php:972
 msgid "Download"
 msgstr "Last ned"
 
-#: public/class-h5p-plugin.php:907 public/class-h5p-plugin.php:913
+#: public/class-h5p-plugin.php:973 public/class-h5p-plugin.php:979
 msgid "Rights of use"
 msgstr "Bruksrett"
 
-#: public/class-h5p-plugin.php:908
+#: public/class-h5p-plugin.php:974
 msgid "Embed"
 msgstr "Innbygg"
 
-#: public/class-h5p-plugin.php:909
+#: public/class-h5p-plugin.php:975
 msgid "Size"
 msgstr "Størrelse"
 
-#: public/class-h5p-plugin.php:910
+#: public/class-h5p-plugin.php:976
 msgid "Show advanced"
 msgstr "Vis avansert"
 
-#: public/class-h5p-plugin.php:911
+#: public/class-h5p-plugin.php:977
 msgid "Hide advanced"
 msgstr "Skjul avansert"
 
-#: public/class-h5p-plugin.php:912
+#: public/class-h5p-plugin.php:978
 msgid ""
 "Include this script on your website if you want dynamic sizing of the "
 "embedded content:"
@@ -1171,67 +1230,118 @@ msgstr ""
 "Inkluder dette skriptet på nettsiden din om du ønsker dynamisk størrelse på "
 "det innbygde innholdet:"
 
-#: public/class-h5p-plugin.php:914
+#: public/class-h5p-plugin.php:980
 msgid "Close"
 msgstr "Lukk"
 
-#: public/class-h5p-plugin.php:917
+#: public/class-h5p-plugin.php:983
 msgid "Year"
 msgstr "Årstall"
 
-#: public/class-h5p-plugin.php:920
+#: public/class-h5p-plugin.php:986
 msgid "Thumbnail"
 msgstr "Miniatyrbilde"
 
-#: public/class-h5p-plugin.php:921
+#: public/class-h5p-plugin.php:987
 msgid "No copyright information available for this content."
 msgstr "Informasjon om opphavsrett er ikke tilgjengelig for dette innholdet."
 
-#: public/class-h5p-plugin.php:922
+#: public/class-h5p-plugin.php:988
 msgid "Download this content as a H5P file."
 msgstr "Last ned dette innholdet som en H5P-fil."
 
-#: public/class-h5p-plugin.php:923
+#: public/class-h5p-plugin.php:989
 msgid "View copyright information for this content."
 msgstr "Vis informasjon om opphavsrett for dette innholdet."
 
-#: public/class-h5p-plugin.php:924
+#: public/class-h5p-plugin.php:990
 msgid "View the embed code for this content."
 msgstr "Vis innbygg-koden for dette innholdet."
 
-#: public/class-h5p-plugin.php:925
+#: public/class-h5p-plugin.php:991
 msgid "Visit H5P.org to check out more cool content."
 msgstr "Besøk H5P.org for å finne mer kult innhold."
 
-#: public/class-h5p-plugin.php:926
+#: public/class-h5p-plugin.php:992
 msgid "This content has changed since you last used it."
 msgstr "Innholdet har endret seg siden sist."
 
-#: public/class-h5p-plugin.php:927
+#: public/class-h5p-plugin.php:993
 msgid "You'll be starting over."
 msgstr "Du starter nå på nytt."
 
-#: public/class-h5p-plugin.php:928
+#: public/class-h5p-plugin.php:994
 msgid "Confirm action"
 msgstr "Bekreft handling"
 
-#: public/class-h5p-plugin.php:929
+#: public/class-h5p-plugin.php:995
 msgid "Please confirm that you wish to proceed. This action is not reversible."
 msgstr ""
 "Vennligst bekreft at du ønsker å fortsette. Denne handlingen kan ikke "
 "reverseres."
 
-#: public/class-h5p-plugin.php:930
+#: public/class-h5p-plugin.php:996
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: public/class-h5p-plugin.php:931
+#: public/class-h5p-plugin.php:997
 msgid "Confirm"
 msgstr "Bekreft"
 
 #: public/class-h5p-wordpress.php:591
 msgid "Invalid json in semantics for %library"
 msgstr "Ugyldig JSON i semantikken til %library"
+
+#~ msgid "The following libraries are outdated and should be upgraded:"
+#~ msgstr "Følgende biblioteker er utdatert og bør oppgraderes:"
+
+#~ msgid "To upgrade all the installed libraries, do the following:"
+#~ msgstr ""
+#~ "For å oppgradere alle de installerte bibliotekene, gjør du følgende:"
+
+#~ msgid "Download the H5P file from the %s page."
+#~ msgstr "Last ned H5P-filen fra %s-siden."
+
+#~ msgid "Select the downloaded <em> %s</em> file in the form below."
+#~ msgstr "Velg den nedlastede <em>%s</ em>-filen i skjemaet nedenfor."
+
+#~ msgid ""
+#~ "Check off \"Only update existing libraries\" and click the <em>Upload</"
+#~ "em> button."
+#~ msgstr ""
+#~ "Kryss av \"Kun oppdater eksisterende biblioteker\" og trykk på "
+#~ "<em>Oppdater</em>-knappen."
+
+#~ msgid ""
+#~ "You should head over to the <a href=\"%s\">Libraries</a> page and update "
+#~ "your content types to the latest version."
+#~ msgstr ""
+#~ "Du bør navigere til <a href=\"%s\">bibliotekene</a>-siden og oppdatere "
+#~ "innholdstypene til siste versjon."
+
+#~ msgid "Display buttons (download, embed and copyright)"
+#~ msgstr "Vis knapper (last ned, embed og opphavsrett)"
+
+#~ msgid "Download button"
+#~ msgstr "Last ned-knapp"
+
+#~ msgid "Embed button"
+#~ msgstr "Embed-knapp"
+
+#~ msgid "Copyright button"
+#~ msgstr "Opphavsrett-knapp"
+
+#~ msgid "Action bar"
+#~ msgstr "Handlinger"
+
+#~ msgid "About H5P button"
+#~ msgstr "Om H5P-knapp"
+
+#~ msgid ""
+#~ "Library used in content is not a valid library according to semantics"
+#~ msgstr ""
+#~ "Biblioteket som brukes i innholdet er ikke gyldig i henhold til "
+#~ "semantikken"
 
 msgid ""
 "Allows you to upload, create, share and use rich interactive content on "

@@ -64,26 +64,26 @@
           <div class="h5p-action-bar-settings h5p-panel">
             <label>
               <input name="frame" type="checkbox" class="h5p-visibility-toggler" data-h5p-visibility-subject-selector=".h5p-action-bar-buttons-settings" value="true"<?php if ($display_options[H5PCore::DISPLAY_OPTION_FRAME]): ?> checked="checked"<?php endif; ?>/>
-              <?php _e("Display action bar and frame", $this->plugin_slug); ?>
+              <?php _e("Display toolbar below content", $this->plugin_slug); ?>
             </label>
             <?php if (isset($display_options[H5PCore::DISPLAY_OPTION_DOWNLOAD]) || isset($display_options[H5PCore::DISPLAY_OPTION_EMBED]) || isset($display_options[H5PCore::DISPLAY_OPTION_COPYRIGHT])) : ?>
               <div class="h5p-action-bar-buttons-settings">
                 <?php if (isset($display_options[H5PCore::DISPLAY_OPTION_DOWNLOAD])): ?>
                   <label>
                     <input name="download" type="checkbox" value="true"<?php if ($display_options[H5PCore::DISPLAY_OPTION_DOWNLOAD]): ?> checked="checked"<?php endif; ?>/>
-                    <?php _e("Download button", $this->plugin_slug); ?>
+                    <?php _e("Display Download button", $this->plugin_slug); ?>
                   </label>
                 <?php endif; ?>
                 <?php if (isset($display_options[H5PCore::DISPLAY_OPTION_EMBED])): ?>
                   <label>
                     <input name="embed" type="checkbox" value="true"<?php if ($display_options[H5PCore::DISPLAY_OPTION_EMBED]): ?> checked="checked"<?php endif; ?>/>
-                    <?php _e("Embed button", $this->plugin_slug); ?>
+                    <?php _e("Display Embed button", $this->plugin_slug); ?>
                   </label>
                 <?php endif; ?>
                 <?php if (isset($display_options[H5PCore::DISPLAY_OPTION_COPYRIGHT])): ?>
                   <label>
                     <input name="copyright" type="checkbox" value="true"<?php if ($display_options[H5PCore::DISPLAY_OPTION_COPYRIGHT]): ?> checked="checked"<?php endif; ?>/>
-                    <?php _e("Copyright button", $this->plugin_slug); ?>
+                    <?php _e("Display Copyright button", $this->plugin_slug); ?>
                   </label>
                 <?php endif; ?>
               </div>

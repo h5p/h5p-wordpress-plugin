@@ -34,68 +34,83 @@
           </td>
         </tr>
         <tr valign="top">
-          <th scope="row"><?php _e("Action bar", $this->plugin_slug); ?></th>
-          <td class="h5p-action-bar-settings">
-            <div>
-              <label>
-                <input name="frame" class="h5p-visibility-toggler" data-h5p-visibility-subject-selector=".h5p-action-bar-buttons-settings" type="checkbox" value="true"<?php if ($frame): ?> checked="checked"<?php endif; ?>/>
-                <?php _e("Display action bar and frame", $this->plugin_slug); ?>
-              </label>
-            </div>
-            <div class="h5p-action-bar-buttons-settings">
-              <div class="h5p-export-button">
-                <label for="export-button"><?php _e("Download button", $this->plugin_slug); ?></label>
-                <select id="export-button" name="download">
-                  <option value="<?php echo H5PDisplayOptionBehaviour::NEVER_SHOW; ?>" <?php if ($download == H5PDisplayOptionBehaviour::NEVER_SHOW): ?>selected="selected"<?php endif; ?>>
-                    <?php _e("Never show", $this->plugin_slug); ?>
-                  </option>
-                  <option value="<?php echo H5PDisplayOptionBehaviour::ALWAYS_SHOW; ?>" <?php if ($download == H5PDisplayOptionBehaviour::ALWAYS_SHOW): ?>selected="selected"<?php endif; ?>>
-                    <?php _e("Always show", $this->plugin_slug); ?>
-                  </option>
-                  <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS; ?>" <?php if ($download == H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS): ?>selected="selected"<?php endif; ?>>
-                    <?php _e("Show only if permitted through permissions", $this->plugin_slug); ?>
-                  </option>
-                  <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON; ?>" <?php if ($download == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON): ?>selected="selected"<?php endif; ?>>
-                    <?php _e("Visibility controlled by author, default is on", $this->plugin_slug); ?>
-                  </option>
-                  <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF; ?>" <?php if ($download == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF): ?>selected="selected"<?php endif; ?>>
-                    <?php _e("Visibility controlled by author, default is off", $this->plugin_slug); ?>
-                  </option>
-                </select>
-              </div>
-              <div class="h5p-embed-button">
-                <label for="embed-button"><?php _e("Embed button", $this->plugin_slug); ?></label>
-                <select id="embed-button" name="embed">
-                  <option value="<?php echo H5PDisplayOptionBehaviour::NEVER_SHOW; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::NEVER_SHOW): ?>selected="selected"<?php endif; ?>>
-                    <?php _e("Never show", $this->plugin_slug); ?>
-                  </option>
-                  <option value="<?php echo H5PDisplayOptionBehaviour::ALWAYS_SHOW; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::ALWAYS_SHOW): ?>selected="selected"<?php endif; ?>>
-                    <?php _e("Always show", $this->plugin_slug); ?>
-                  </option>
-                  <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS): ?>selected="selected"<?php endif; ?>>
-                    <?php _e("Show only if permitted through permissions", $this->plugin_slug); ?>
-                  </option>
-                  <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON): ?>selected="selected"<?php endif; ?>>
-                    <?php _e("Visibility controlled by author, default is on", $this->plugin_slug); ?>
-                  </option>
-                  <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF): ?>selected="selected"<?php endif; ?>>
-                    <?php _e("Visibility controlled by author, default is off", $this->plugin_slug); ?>
-                  </option>
-                </select>
-              </div>
-              <div>
-                <label>
-                  <input name="copyright" type="checkbox" value="true"<?php if ($copyright): ?> checked="checked"<?php endif; ?>/>
-                  <?php _e("Copyright button", $this->plugin_slug); ?>
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input name="about" type="checkbox" value="true"<?php if ($about): ?> checked="checked"<?php endif; ?>/>
-                  <?php _e("About H5P button", $this->plugin_slug); ?>
-                </label>
-              </div>
-            </div>
+          <th scope="row"><?php _e("Toolbar Below Content", $this->plugin_slug); ?></th>
+          <td>
+            <label>
+              <input name="frame" class="h5p-visibility-toggler" data-h5p-visibility-subject-selector=".h5p-toolbar-option" type="checkbox" value="true"<?php if ($frame): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Controlled by author - on by default", $this->plugin_slug); ?>
+            </label>
+            <p class="h5p-setting-desc">
+              <?php _e("By default, a toolbar with 4 buttons is displayed below each interactive content.", $this->plugin_slug); ?>
+            </p>
+          </td>
+        </tr>
+        <tr valign="top" class="h5p-toolbar-option">
+          <th scope="row"><?php _e("Display Download button", $this->plugin_slug); ?></th>
+          <td>
+            <select id="export-button" name="download">
+              <option value="<?php echo H5PDisplayOptionBehaviour::NEVER_SHOW; ?>" <?php if ($download == H5PDisplayOptionBehaviour::NEVER_SHOW): ?>selected="selected"<?php endif; ?>>
+                <?php _e("Never", $this->plugin_slug); ?>
+              </option>
+              <option value="<?php echo H5PDisplayOptionBehaviour::ALWAYS_SHOW; ?>" <?php if ($download == H5PDisplayOptionBehaviour::ALWAYS_SHOW): ?>selected="selected"<?php endif; ?>>
+                <?php _e("Always", $this->plugin_slug); ?>
+              </option>
+              <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS; ?>" <?php if ($download == H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS): ?>selected="selected"<?php endif; ?>>
+                <?php _e("Only for editors", $this->plugin_slug); ?>
+              </option>
+              <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON; ?>" <?php if ($download == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON): ?>selected="selected"<?php endif; ?>>
+                <?php _e("Controlled by author - on by default", $this->plugin_slug); ?>
+              </option>
+              <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF; ?>" <?php if ($download == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF): ?>selected="selected"<?php endif; ?>>
+                <?php _e("Controlled by author - off by default", $this->plugin_slug); ?>
+              </option>
+            </select>
+            <p class="h5p-setting-desc">
+              <?php _e("Setting this to 'Never' will reduce the amount of disk space required for interactive content.", $this->plugin_slug); ?>
+            </p>
+          </td>
+        </tr>
+        <tr valign="top" class="h5p-toolbar-option">
+          <th scope="row"><?php _e("Display Embed button", $this->plugin_slug); ?></th>
+          <td>
+            <select id="embed-button" name="embed">
+              <option value="<?php echo H5PDisplayOptionBehaviour::NEVER_SHOW; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::NEVER_SHOW): ?>selected="selected"<?php endif; ?>>
+                <?php _e("Never", $this->plugin_slug); ?>
+              </option>
+              <option value="<?php echo H5PDisplayOptionBehaviour::ALWAYS_SHOW; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::ALWAYS_SHOW): ?>selected="selected"<?php endif; ?>>
+                <?php _e("Always", $this->plugin_slug); ?>
+              </option>
+              <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::CONTROLLED_BY_PERMISSIONS): ?>selected="selected"<?php endif; ?>>
+                <?php _e("Only for editors", $this->plugin_slug); ?>
+              </option>
+              <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON): ?>selected="selected"<?php endif; ?>>
+                <?php _e("Controlled by author - on by default", $this->plugin_slug); ?>
+              </option>
+              <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF): ?>selected="selected"<?php endif; ?>>
+                <?php _e("Controlled by author - off by default", $this->plugin_slug); ?>
+              </option>
+            </select>
+            <p class="h5p-setting-desc">
+              <?php _e("Setting this to 'Never' will disable already existing embed codes.", $this->plugin_slug); ?>
+            </p>
+          </td>
+        </tr>
+        <tr valign="top" class="h5p-toolbar-option">
+          <th scope="row"><?php _e("Display Copyright button", $this->plugin_slug); ?></th>
+          <td>
+            <label>
+              <input name="copyright" type="checkbox" value="true"<?php if ($copyright): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Controlled by author - on by default", $this->plugin_slug); ?>
+            </label>
+          </td>
+        </tr>
+        <tr valign="top" class="h5p-toolbar-option">
+          <th scope="row"><?php _e("Display About H5P button", $this->plugin_slug); ?></th>
+          <td>
+            <label>
+              <input name="about" type="checkbox" value="true"<?php if ($about): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Always", $this->plugin_slug); ?>
+            </label>
           </td>
         </tr>
         <tr valign="top">

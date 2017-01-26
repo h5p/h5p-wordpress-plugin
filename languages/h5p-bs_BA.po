@@ -651,7 +651,7 @@ msgid "Display Options"
 msgstr "Opcije prikaza"
 
 #: admin/views/new-content.php:67 admin/views/settings.php:42
-msgid "Display action bar and frame"
+msgid "Display buttons (download, embed and copyright)"
 msgstr "Prikaži okvir i traku aktivnosti"
 
 #: admin/views/new-content.php:72 admin/views/settings.php:48
