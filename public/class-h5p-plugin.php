@@ -1094,22 +1094,22 @@ class H5P_Plugin {
    * @since 1.0.0
    */
   public function remove_old_tmp_files() {
-    $plugin = H5P_Plugin::get_instance();
-    $older_than = time() - 86400;
+    global $wpdb;
 
+    $older_than = time() - 86400;
     $num = 0; // Number of files deleted
 
     // Locate files not saved in over a day
     $files = $wpdb->get_results($wpdb->prepare(
         "SELECT path
            FROM {$wpdb->prefix}h5p_tmpfiles
-          WHERE created at < %d",
+          WHERE created_at < %d",
         $older_than)
       );
 
     // Delete files from file system
     foreach ($files as $file) {
-      if (unlink($file->path)) {
+      if (@unlink($file->path)) {
         $num++;
       }
     }
@@ -1117,11 +1117,11 @@ class H5P_Plugin {
     // Remove from tmpfiles table
     $wpdb->query($wpdb->prepare(
         "DELETE FROM {$wpdb->prefix}h5p_tmpfiles
-          WHERE created at < %d",
+          WHERE created_at < %d",
         $older_than));
 
     // Old way of cleaning up tmp files. Needed as a transitional fase and it doesn't really harm to have it here any way.
-    $h5p_path = $plugin->get_h5p_path();
+    $h5p_path = $this->get_h5p_path();
     $editor_path = $h5p_path . DIRECTORY_SEPARATOR . 'editor';
     if (is_dir($h5p_path) && is_dir($editor_path)) {
       $dirs = glob($editor_path . DIRECTORY_SEPARATOR . '*');

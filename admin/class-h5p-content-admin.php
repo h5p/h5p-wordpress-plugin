@@ -1026,6 +1026,8 @@ class H5PContentAdmin {
    * @since 1.1.0
    */
   public function ajax_files() {
+    global $wpdb;
+
     $plugin = H5P_Plugin::get_instance();
     $files_directory = $plugin->get_h5p_path();
 
@@ -1056,7 +1058,7 @@ class H5PContentAdmin {
       $core = $plugin->get_h5p_instance('core');
 
       // Save the valid file
-      $file_id = $core->fs->saveFile($file, $contentid);
+      $file_id = $core->fs->saveFile($file, $contentId);
 
       // Keep track of temporary files so they can be cleaned up later.
       $wpdb->insert($wpdb->prefix . 'h5p_tmpfiles',
