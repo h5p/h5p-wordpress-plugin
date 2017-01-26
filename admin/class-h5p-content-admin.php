@@ -797,7 +797,8 @@ class H5PContentAdmin {
     // Format time
     $time = strtotime($timestamp);
     $current_time = current_time('timestamp');
-    $human_time = human_time_diff($time + $offset, $current_time) . ' ' . __('ago', $this->plugin_slug);
+    $timediff = human_time_diff($time + $offset, $current_time);
+    $human_time = sprintf(__('%s ago', $this->plugin_slug), $timediff);
 
     if ($current_time > $time + DAY_IN_SECONDS) {
       // Over a day old, swap human time for formatted time
