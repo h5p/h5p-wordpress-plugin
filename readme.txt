@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.7
-Stable tag: 1.7.8
+Stable tag: 1.7.9
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -269,4 +269,10 @@ Increases H5P API version to 1.11
 
 = 1.7.8 =
 Visual improvements for the editor
+Improvements for the settings controlling the action button toolbar below each content.
 Increases H5P API version to 1.12
+Fixed untranslatable string, big thanks to Joseph Rezeau for finding and fixing these.
+
+= 1.7.9 =
+Fix compability with PHP <5.4
+Big thanks to andyrandom at drupal.org for providing the fix.

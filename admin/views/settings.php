@@ -38,7 +38,7 @@
           <td>
             <label>
               <input name="frame" class="h5p-visibility-toggler" data-h5p-visibility-subject-selector=".h5p-toolbar-option" type="checkbox" value="true"<?php if ($frame): ?> checked="checked"<?php endif; ?>/>
-              <?php _e("Controlled by author – on by default", $this->plugin_slug); ?>
+              <?php _e("Controlled by author - on by default", $this->plugin_slug); ?>
             </label>
             <p class="h5p-setting-desc">
               <?php _e("By default, a toolbar with 4 buttons is displayed below each interactive content.", $this->plugin_slug); ?>
@@ -59,10 +59,10 @@
                 <?php _e("Only for editors", $this->plugin_slug); ?>
               </option>
               <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON; ?>" <?php if ($download == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON): ?>selected="selected"<?php endif; ?>>
-                <?php _e("Controlled by author – on by default", $this->plugin_slug); ?>
+                <?php _e("Controlled by author - on by default", $this->plugin_slug); ?>
               </option>
               <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF; ?>" <?php if ($download == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF): ?>selected="selected"<?php endif; ?>>
-                <?php _e("Controlled by author – off by default", $this->plugin_slug); ?>
+                <?php _e("Controlled by author - off by default", $this->plugin_slug); ?>
               </option>
             </select>
             <p class="h5p-setting-desc">
@@ -84,10 +84,10 @@
                 <?php _e("Only for editors", $this->plugin_slug); ?>
               </option>
               <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON): ?>selected="selected"<?php endif; ?>>
-                <?php _e("Controlled by author – on by default", $this->plugin_slug); ?>
+                <?php _e("Controlled by author - on by default", $this->plugin_slug); ?>
               </option>
               <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF; ?>" <?php if ($embed == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF): ?>selected="selected"<?php endif; ?>>
-                <?php _e("Controlled by author – off by default", $this->plugin_slug); ?>
+                <?php _e("Controlled by author - off by default", $this->plugin_slug); ?>
               </option>
             </select>
             <p class="h5p-setting-desc">
@@ -100,7 +100,7 @@
           <td>
             <label>
               <input name="copyright" type="checkbox" value="true"<?php if ($copyright): ?> checked="checked"<?php endif; ?>/>
-              <?php _e("Controlled by author – on by default", $this->plugin_slug); ?>
+              <?php _e("Controlled by author - on by default", $this->plugin_slug); ?>
             </label>
           </td>
         </tr>
