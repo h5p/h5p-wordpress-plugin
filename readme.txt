@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.7
-Stable tag: 1.7.9
+Stable tag: 1.7.10
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -276,3 +276,12 @@ Fixed untranslatable string, big thanks to Joseph Rezeau for finding and fixing 
 = 1.7.9 =
 Fix compability with PHP <5.4
 Big thanks to andyrandom at drupal.org for providing the fix.
+
+= 1.7.10 =
+Fixed bug where you could not have a custom user table.
+Internal changes to improve how files are handled.
+Enhanced language code compatibility.
+Added custom xAPI verbs for action toolbar buttons. This will make it possible to track the number of downloads.
+Added Dutch translation for plugin. Thanks to Qsento!
+Updated French translation for plugin. Thanks to Joseph Rezeau!
+Added Dutch translation for editor. Thanks to otacke!
