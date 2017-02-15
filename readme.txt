@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.7
-Stable tag: 1.7.10
+Stable tag: 1.7.11
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -285,3 +285,6 @@ Added custom xAPI verbs for action toolbar buttons. This will make it possible t
 Added Dutch translation for plugin. Thanks to Qsento!
 Updated French translation for plugin. Thanks to Joseph Rezeau!
 Added Dutch translation for editor. Thanks to otacke!
+
+= 1.7.11 =
+Fixed fieldset overflow bug in Editor.
