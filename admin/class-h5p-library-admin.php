@@ -703,6 +703,71 @@ class H5PLibraryAdmin {
   }
 
   /**
+   * Handle ajax request to install library from url
+   */
+  public function ajax_install_library() {
+    // Do not cache the response, since it is not possible to tell if it has changed.
+    header('Cache-Control: no-cache');
+
+    $url = filter_input(INPUT_POST, 'contentTypeUrl');
+    $ajaxResponse = (object) array(
+      'success' => false
+    );
+
+    if (!$url) {
+      $ajaxResponse->error_msg = 'No library url was specified';
+      $ajaxResponse->error_code = 'NO_URL';
+      print json_encode($ajaxResponse);
+      exit;
+    }
+
+    // Get instances
+    $plugin = H5P_Plugin::get_instance();
+    $interface = $plugin->get_h5p_instance('interface');
+    $validator = $plugin->get_h5p_instance('validator');
+    $storage = $plugin->get_h5p_instance('storage');
+
+    // Download file
+    $_FILES['h5p_file'] = array('name' => 'libraries.h5p');
+    $path = $interface->getUploadedH5pPath();
+    $response = wp_safe_remote_get($url, array(
+      'stream' => TRUE,
+      'filename' => $path,
+      'timeout' => 28
+    ));
+
+    if (is_wp_error($response)) {
+      $error_codes = $response->get_error_codes();
+      $ajaxResponse->error_msg = [];
+      foreach ($error_codes as $error_code) {
+        $ajaxResponse->error_msg[] = $response->get_error_messages($error_code);
+        $ajaxResponse->error_code = 'DOWNLOAD_FAILED';
+      }
+    }
+    elseif ($res_code = wp_remote_retrieve_response_code($response) != 200) {
+      $ajaxResponse->error_msg = 'Response failed with response code: ' . $res_code;
+      $ajaxResponse->error_code = 'RESPONSE_FAILED';
+    }
+    else {
+      // Install
+      if ($validator->isValidPackage(TRUE, FALSE)) {
+        $storage->savePackage(NULL, NULL, TRUE);
+
+        // Successfully installed.
+        $ajaxResponse->success = true;
+      }
+      else {
+        $ajaxResponse->error_msg = 'Validating h5p package failed';
+        $ajaxResponse->error_code = 'VALIDATION_FAILED';
+        @unlink($path);
+      }
+    }
+
+    print json_encode($ajaxResponse);
+    exit;
+  }
+
+  /**
    * Handle ajax request to restrict access to the given library.
    *
    * @since 1.2.0
