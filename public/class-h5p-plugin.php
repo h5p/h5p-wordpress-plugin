@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.7.11';
+  const VERSION = '1.7.12';
 
   /**
    * The Unique identifier for this plugin.
@@ -255,6 +255,27 @@ class H5P_Plugin {
       KEY runnable (runnable)
     ) {$charset};");
 
+    // Keep track of h5p libraries content type cache
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries_hub_cache (
+      library_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      machine_name VARCHAR(127) NOT NULL,
+      title VARCHAR(255) NOT NULL,
+      major_version INT UNSIGNED NOT NULL,
+      minor_version INT UNSIGNED NOT NULL,
+      patch_version INT UNSIGNED NOT NULL,
+      h5p_version VARCHAR(127) NOT NULL,
+      short_description TEXT NOT NULL,
+      long_description TEXT NOT NULL,
+      icon VARCHAR(511) NOT NULL,
+      created INT UNSIGNED NOT NULL,
+      updated INT UNSIGNED NOT NULL,
+      is_recommended INT UNSIGNED NOT NULL,
+      is_reviewed INT UNSIGNED NOT NULL,
+      times_downloaded INT UNSIGNED NOT NULL,
+      example_content VARCHAR(511) NOT NULL,
+      PRIMARY KEY  (library_id)
+    ) {$charset};");
+
     // Keep track of h5p library dependencies
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries_libraries (
       library_id INT UNSIGNED NOT NULL,
@@ -301,9 +322,10 @@ class H5P_Plugin {
     ) {$charset};");
 
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_tmpfiles (
+      id INT UNSIGNED NOT NULL AUTO_INCREMENT,
       path VARCHAR(255) NOT NULL,
       created_at INT UNSIGNED NOT NULL,
-      PRIMARY KEY  (path),
+      PRIMARY KEY  (id),
       KEY created_at (created_at)
     ) {$charset};");
 

@@ -10,6 +10,9 @@
  */
 ?>
 <div class="wrap">
+  <?php
+  \H5P_Plugin_Admin::print_messages();
+  ?>
   <h2><?php print esc_html(get_admin_page_title()); ?></h2>
   <?php if ($save !== NULL): ?>
     <div id="setting-error-settings_updated" class="updated settings-error">
@@ -146,7 +149,7 @@
                 <input type="radio" name="insert_method" value="id"
                   <?php if ($insert_method == "id"): ?>checked="checked"<?php endif; ?>
                 />
-                <?php _e("Reference content by id", $this->plugin_slug); ?></th>
+                <?php _e("Reference content by id", $this->plugin_slug); ?>
               </label>
             </div>
             <div>
@@ -154,7 +157,7 @@
                 <input type="radio" name="insert_method" value="slug"
                   <?php if ($insert_method == "slug"): ?>checked="checked"<?php endif; ?>
                 />
-                <?php printf(wp_kses(__('Reference content by <a href="%s" target="_blank">slug</a>', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), 'https://en.wikipedia.org/wiki/Semantic_URL#Slug'); ?></th>
+                <?php printf(wp_kses(__('Reference content by <a href="%s" target="_blank">slug</a>', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), 'https://en.wikipedia.org/wiki/Semantic_URL#Slug'); ?>
               </label>
             </div>
           </td>
@@ -175,5 +178,34 @@
     </table>
     <?php wp_nonce_field('h5p_settings', 'save_these_settings'); ?>
     <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></p>
+  </form>
+  <h1><?php print 'H5P Content Type Cache'; ?></h1>
+  <form method="post">
+    <table class="form-table">
+      <tbody>
+      <tr valign="top">
+        <th scope="row"><?php _e("Last update", $this->plugin_slug); ?></th>
+        <td>
+          <?php
+          if ($last_update !== '') {
+            echo date_i18n('l, F j, Y H:i:s', $last_update);
+          }
+          else {
+            echo 'never';
+          }
+          ?>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <?php wp_nonce_field('h5p_settings', 'update_content_type_cache'); ?>
+    <p class="submit">
+      <input type="submit"
+             name="updatecache"
+             id="updatecache"
+             class="button button-primary"
+             value="Update content type cache"
+      >
+    </p>
   </form>
 </div>
