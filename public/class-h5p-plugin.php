@@ -144,6 +144,9 @@ class H5P_Plugin {
     $plugin = self::get_instance();
     $plugin->get_library_updates();
 
+    // Update content type cache
+    $plugin->update_content_type_cache();
+
     // Cleaning rutine
     wp_schedule_event(time() + (3600 * 24), 'daily', 'h5p_daily_cleanup');
   }
