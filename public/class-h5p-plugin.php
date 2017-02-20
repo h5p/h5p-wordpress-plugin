@@ -301,9 +301,10 @@ class H5P_Plugin {
     ) {$charset};");
 
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_tmpfiles (
+      id INT UNSIGNED NOT NULL,
       path VARCHAR(255) NOT NULL,
       created_at INT UNSIGNED NOT NULL,
-      PRIMARY KEY  (path),
+      PRIMARY KEY  (id),
       KEY created_at (created_at)
     ) {$charset};");
 

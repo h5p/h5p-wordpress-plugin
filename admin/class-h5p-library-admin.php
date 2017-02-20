@@ -709,7 +709,7 @@ class H5PLibraryAdmin {
     // Do not cache the response, since it is not possible to tell if it has changed.
     header('Cache-Control: no-cache');
 
-    $url = filter_input(INPUT_POST, 'contentTypeUrl');
+    $url = filter_input(INPUT_POST, 'contentTypeUrl', FILTER_SANITIZE_URL);
     $ajaxResponse = (object) array(
       'success' => false
     );
@@ -737,12 +737,12 @@ class H5PLibraryAdmin {
     ));
 
     if (is_wp_error($response)) {
-      $error_codes = $response->get_error_codes();
       $ajaxResponse->error_msg = [];
-      foreach ($error_codes as $error_code) {
-        $ajaxResponse->error_msg[] = $response->get_error_messages($error_code);
-        $ajaxResponse->error_code = 'DOWNLOAD_FAILED';
+      $error_messages = $response->get_error_messages();
+      foreach ($error_messages as $msg) {
+        $ajaxResponse->error_msg[] = $msg;
       }
+      $ajaxResponse->error_code = 'DOWNLOAD_FAILED';
     }
     elseif ($res_code = wp_remote_retrieve_response_code($response) != 200) {
       $ajaxResponse->error_msg = 'Response failed with response code: ' . $res_code;
