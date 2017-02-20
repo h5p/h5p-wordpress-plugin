@@ -94,6 +94,9 @@ class H5P_Plugin {
     // Remove old log messages
     add_action('h5p_daily_cleanup', array($this, 'remove_old_log_events'));
 
+    // Update content type cache
+    add_action('h5p_daily_cleanup', array($this, 'update_content_type_cache'));
+
     // Always check if the plugin has been updated to a newer version
     add_action('init', array('H5P_Plugin', 'check_for_updates'), 1);
 
@@ -1203,5 +1206,85 @@ class H5P_Plugin {
         DELETE FROM {$wpdb->prefix}h5p_events
 		          WHERE created_at < %d
         ", $older_than));
+  }
+
+  /**
+   * Update content type cache
+   *
+   * @return bool True if successfully updated
+   */
+  public function update_content_type_cache() {
+    // Get content type cache
+    $endpoint  = 'http://hubendpoints/';
+    $data      = wp_remote_get($endpoint);
+    $interface = $this->get_h5p_instance('interface');
+
+    // Got no data
+    if ($data['response']['code'] !== 200) {
+      $interface->setErrorMessage(
+        __('Could not connect to the H5P Content Type hub. Please try again later.',
+          $this->plugin_slug)
+      );
+      return FALSE;
+    }
+
+    $json = json_decode($data['body']);
+    if (!isset($json->libraries) || empty($json->libraries)) {
+      $interface->setErrorMessage(
+        __('No libraries was received from the H5P Content Type hub. Please try again later.'
+          , $this->plugin_slug)
+      );
+      return FALSE;
+    }
+
+    global $wpdb;
+
+    // Replace existing content type cache
+    $wpdb->query('TRUNCATE TABLE ' . $wpdb->prefix . 'h5p_libraries_hub_cache');
+    foreach ($json->libraries as $library) {
+      // Insert into db
+      $wpdb->insert($wpdb->prefix . 'h5p_libraries_hub_cache', array(
+        'library_id'        => $library->library_id,
+        'machine_name'      => $library->machine_name,
+        'title'             => $library->title,
+        'major_version'     => $library->major_version,
+        'minor_version'     => $library->minor_version,
+        'patch_version'     => $library->patch_version,
+        'h5p_version'       => $library->h5p_version,
+        'short_description' => $library->short_description,
+        'long_description'  => $library->long_description,
+        'icon'              => $library->icon,
+        'created'           => $library->created,
+        'updated'           => $library->updated,
+        'is_recommended'    => $library->is_recommended,
+        'is_reviewed'       => $library->is_reviewed,
+        'times_downloaded'  => $library->times_downloaded,
+        'example_content'   => $library->example_content
+      ), array(
+        '%d',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%d',
+        '%d',
+        '%d',
+        '%s',
+      ));
+    }
+
+    $interface->setInfoMessage(
+      __('Library cache was successfully updated!', $this->plugin_slug)
+    );
+    $last_update = current_time('timestamp');
+    update_option('h5p_content_type_cache_updated', $last_update);
+    return TRUE;
   }
 }

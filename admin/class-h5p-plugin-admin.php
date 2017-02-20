@@ -520,63 +520,17 @@ class H5P_Plugin_Admin {
       $enable_lrs_content_types = get_option('h5p_enable_lrs_content_types', FALSE);
     }
 
-    // Update content type cache
+    $plugin = H5P_Plugin::get_instance();
+
+    // Load last update value into form that will be displayed
     $last_update = get_option('h5p_content_type_cache_updated', '');
+
+    // Update content type cache
     if ($update_ct_cache !== NULL) {
-      // Get content type cache
-      $endpoint = 'http://hubendpoints/';
-      $data = wp_remote_get($endpoint);
-      $plugin = H5P_Plugin::get_instance();
-      $interface = $plugin->get_h5p_instance('interface');
-
-      // Got no data
-      if ($data['response']['code'] !== 200) {
-        $interface->setErrorMessage(__('Could not connect to the H5P Content ' .
-        'Type hub. Please try again later.'), $this->plugin_slug);
-      }
-      else {
-        $json = json_decode($data['body']);
-        if (!isset($json->libraries) || empty($json->libraries)) {
-          $interface->setErrorMessage(__('No libraries was received from ' .
-          'the H5P Content Type hub. Please try again later.'), $this->plugin_slug);
-        }
-        else {
-          global $wpdb;
-
-          // Replace existing content type cache
-          $wpdb->query('TRUNCATE TABLE ' . $wpdb->prefix . 'h5p_libraries_hub_cache');
-          foreach($json->libraries as $library) {
-            // Insert into db
-            $wpdb->insert($wpdb->prefix . 'h5p_libraries_hub_cache', array(
-              'library_id'        => $library->library_id,
-              'machine_name'      => $library->machine_name,
-              'title'             => $library->title,
-              'major_version'     => $library->major_version,
-              'minor_version'     => $library->minor_version,
-              'patch_version'     => $library->patch_version,
-              'h5p_version'       => $library->h5p_version,
-              'short_description' => $library->short_description,
-              'long_description'  => $library->long_description,
-              'icon'              => $library->icon,
-              'created'           => $library->created,
-              'updated'           => $library->updated,
-              'is_recommended'    => $library->is_recommended,
-              'is_reviewed'       => $library->is_reviewed,
-              'times_downloaded'  => $library->times_downloaded,
-              'example_content'   => $library->example_content
-            ), array('%d','%s','%s','%d','%d','%d','%s','%s','%s',
-              '%s','%d','%d','%d','%d','%d','%s',));
-          }
-
-          $interface->setInfoMessage(__('Library cache was successfully updated!'),
-            $this->plugin_slug);
-          $last_update = current_time('timestamp');
-          update_option('h5p_content_type_cache_updated', $last_update);
-        }
-      }
+      $plugin->update_content_type_cache();
     }
 
-    H5P_Plugin::get_instance()->get_h5p_instance('core'); // Make sure core is loaded;
+    $plugin->get_h5p_instance('core'); // Make sure core is loaded;
     include_once('views/settings.php');
     H5P_Plugin_Admin::add_script('h5p-jquery', 'h5p-php-library/js/jquery.js');
     H5P_Plugin_Admin::add_script('h5p-display-options', 'h5p-php-library/js/h5p-display-options.js');
