@@ -504,6 +504,16 @@ class H5P_Plugin_Admin {
 
       $enable_lrs_content_types = filter_input(INPUT_POST, 'enable_lrs_content_types', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_enable_lrs_content_types', $enable_lrs_content_types);
+
+      $site_uuid = filter_input(INPUT_POST, 'site_uuid', FILTER_SANITIZE_SPECIAL_CHARS);
+      if (preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $site_uuid)) {
+        // This appears to be a valid UUID, lets use it!
+        update_option('h5p_h5p_site_uuid', $site_uuid);
+      }
+      else {
+        // Invalid key, use the old one
+        $site_uuid = get_option('h5p_h5p_site_uuid', FALSE);
+      }
     }
     else {
       $frame = get_option('h5p_frame', TRUE);
@@ -517,6 +527,7 @@ class H5P_Plugin_Admin {
       $save_content_frequency = get_option('h5p_save_content_frequency', 30);
       $insert_method = get_option('h5p_insert_method', 'id');
       $enable_lrs_content_types = get_option('h5p_enable_lrs_content_types', FALSE);
+      $site_uuid = get_option('h5p_h5p_site_uuid', FALSE);
     }
 
     H5P_Plugin::get_instance()->get_h5p_instance('core'); // Make sure core is loaded;

@@ -212,6 +212,13 @@
   background: #d54e21;
   border-radius: 50%;
 }
+#h5p-site-key {
+  width: 400px;
+  font-family: Consolas,monaco,monospace;
+}
+.h5p-reveal-value {
+  cursor: pointer;
+}
 
 @media screen and (max-width: 782px) {
   .wrap h2 {
