@@ -324,6 +324,12 @@ class H5P_Plugin_Admin {
       update_option('h5p_last_info_print', H5P_Plugin::VERSION);
     }
 
+    if (get_option('h5p_ct_cache_update_available')) {
+      $plugin = H5P_Plugin::get_instance();
+      $plugin->update_content_type_cache();
+      update_option('h5p_ct_cache_update_available', FALSE);
+    }
+
     if (!empty($messages)) {
       // Print all messages
       ?><div class="updated"><?php
@@ -332,9 +338,10 @@ class H5P_Plugin_Admin {
       }
       ?></div><?php
 
-      // Print any other messages
-      self::print_messages();
     }
+
+    // Print all update and error messages
+    self::print_messages();
   }
 
   /**

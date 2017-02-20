@@ -144,8 +144,8 @@ class H5P_Plugin {
     $plugin = self::get_instance();
     $plugin->get_library_updates();
 
-    // Update content type cache
-    $plugin->update_content_type_cache();
+    // Always update content cache when activating plugin
+    update_option('h5p_ct_cache_update_available', TRUE);
 
     // Cleaning rutine
     wp_schedule_event(time() + (3600 * 24), 'daily', 'h5p_daily_cleanup');
@@ -402,6 +402,15 @@ class H5P_Plugin {
     // Run version specific updates
     if ($v->major < 1 || ($v->major === 1 && $v->minor < 2)) { // < 1.2.0
       self::upgrade_120();
+    }
+
+    // Prepare to update content type cache if version < 1.7.12
+    if (
+      $v->major < 1 ||
+      ($v->major === 1 && $v->minor < 7) ||
+      ($v->major === 1 && $v->minor === 7 && $v->patch < 12)
+    ) {
+      update_option('h5p_ct_cache_update_available', TRUE);
     }
 
     // Keep track of which version of the plugin we have.
