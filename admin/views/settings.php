@@ -9,7 +9,7 @@
  * @copyright 2014 Joubel
  */
 ?>
-<div class="wrap">
+<div class="wrap h5p-settings-container">
   <h2><?php print esc_html(get_admin_page_title()); ?></h2>
   <?php if ($save !== NULL): ?>
     <div id="setting-error-settings_updated" class="updated settings-error">
@@ -146,7 +146,7 @@
                 <input type="radio" name="insert_method" value="id"
                   <?php if ($insert_method == "id"): ?>checked="checked"<?php endif; ?>
                 />
-                <?php _e("Reference content by id", $this->plugin_slug); ?></th>
+                <?php _e("Reference content by id", $this->plugin_slug); ?>
               </label>
             </div>
             <div>
@@ -154,7 +154,7 @@
                 <input type="radio" name="insert_method" value="slug"
                   <?php if ($insert_method == "slug"): ?>checked="checked"<?php endif; ?>
                 />
-                <?php printf(wp_kses(__('Reference content by <a href="%s" target="_blank">slug</a>', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), 'https://en.wikipedia.org/wiki/Semantic_URL#Slug'); ?></th>
+                <?php printf(wp_kses(__('Reference content by <a href="%s" target="_blank">slug</a>', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), 'https://en.wikipedia.org/wiki/Semantic_URL#Slug'); ?>
               </label>
             </div>
           </td>
@@ -178,6 +178,23 @@
             <button type="button" class="h5p-reveal-value" data-control="h5p-site-key" data-hide="<?php _e("Hide", $this->plugin_slug); ?>"><?php _e("Reveal", $this->plugin_slug); ?></button>
             <p class="h5p-setting-desc">
               <?php _e("The site key is a secret that uniquely identifies this site with the Hub.", $this->plugin_slug); ?>
+            </p>
+          </td>
+        </tr>
+        <tr valign="top">
+          <th scope="row"><?php _e("Hub settings", $this->plugin_slug); ?></th>
+          <td>
+            <label>
+              <input
+                class="h5p-settings-disable-hub-checkbox"
+                name="disable_hub"
+                type="checkbox"
+                value="true"
+                <?php if ($disable_hub): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Disable hub", $this->plugin_slug); ?>
+            </label>
+            <p class="h5p-setting-desc">
+              <?php _e("It is strongly discouraged to disable the hub. It will disable all communication with the H5P hub, which mean you will not be able to create, reuse and share content and content types through the H5P hub interface. You will also have to install libraries manually through uploading them.", $this->plugin_slug); ?>
             </p>
           </td>
         </tr>
