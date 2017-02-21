@@ -325,10 +325,10 @@ class H5P_Plugin_Admin {
     }
 
     $plugin = H5P_Plugin::get_instance();
-    $interface = $plugin->get_h5p_instance('interface');
-    if ($interface->getOption('check_h5p_requirements')) {
-      $plugin->check_h5p_requirements();
-      $interface->setOption('check_h5p_requirements', FALSE);
+    $core = $plugin->get_h5p_instance('core');
+    if ($core->h5pF->getOption('check_h5p_requirements')) {
+      $core->h5pF->check_h5p_requirements();
+      $core->h5pF->setOption('check_h5p_requirements', FALSE);
     }
 
     if (!empty($messages)) {
