@@ -327,7 +327,7 @@ class H5P_Plugin_Admin {
     $plugin = H5P_Plugin::get_instance();
     $core = $plugin->get_h5p_instance('core');
     if ($core->h5pF->getOption('check_h5p_requirements')) {
-      $core->h5pF->check_h5p_requirements();
+      $core->check_setup_for_requirements();
       $core->h5pF->setOption('check_h5p_requirements', FALSE);
     }
 
