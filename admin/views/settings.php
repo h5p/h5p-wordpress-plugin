@@ -177,7 +177,7 @@
             <input id="h5p-site-key" name="site_uuid" type="text" maxlength="36" data-value="<?php print $site_uuid ?>" placeholder="<?php print ($site_uuid ? '********-****-****-****-************' : __('Empty', $this->plugin_slug)) ?>"/>
             <button type="button" class="h5p-reveal-value" data-control="h5p-site-key" data-hide="<?php _e("Hide", $this->plugin_slug); ?>"><?php _e("Reveal", $this->plugin_slug); ?></button>
             <p class="h5p-setting-desc">
-              <?php _e("You can copy and paste this key to use it on another site.", $this->plugin_slug); ?>
+              <?php _e("The site key is a secret that uniquely identifies this site with the Hub.", $this->plugin_slug); ?>
             </p>
           </td>
         </tr>
