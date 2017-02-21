@@ -324,6 +324,13 @@ class H5P_Plugin_Admin {
       update_option('h5p_last_info_print', H5P_Plugin::VERSION);
     }
 
+    $plugin = H5P_Plugin::get_instance();
+    $interface = $plugin->get_h5p_instance('interface');
+    if ($interface->getOption('check_h5p_requirements')) {
+      $plugin->check_h5p_requirements();
+      $interface->setOption('check_h5p_requirements', FALSE);
+    }
+
     if (!empty($messages)) {
       // Print all messages
       ?><div class="updated"><?php
@@ -331,10 +338,10 @@ class H5P_Plugin_Admin {
         ?><p><?php print $message; ?></p><?php
       }
       ?></div><?php
-
-      // Print any other messages
-      self::print_messages();
     }
+
+    // Print any other messages
+    self::print_messages();
   }
 
   /**
