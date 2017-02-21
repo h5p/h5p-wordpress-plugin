@@ -709,6 +709,12 @@ class H5PLibraryAdmin {
     // Do not cache the response, since it is not possible to tell if it has changed.
     header('Cache-Control: no-cache');
 
+    // Verify permission to install library
+    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_install_library')) {
+      print __('Error, invalid security token!', $this->plugin_slug);
+      exit;
+    }
+
     $url = filter_input(INPUT_POST, 'contentTypeUrl', FILTER_SANITIZE_URL);
     $ajaxResponse = (object) array(
       'success' => false
