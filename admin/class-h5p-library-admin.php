@@ -243,7 +243,9 @@ class H5PLibraryAdmin {
     $current_update = get_option('h5p_current_update', 0);
     $updates_available = ($update_available !== 0 && $current_update !== 0 && $current_update < $update_available ? 1 : 0);
 
-    H5P_Plugin_Admin::print_messages();
+    // Load content type cache time
+    $last_update = get_option('h5p_content_type_cache_updated_at', '');
+
     include_once('views/libraries.php');
     $plugin->print_settings($settings, 'H5PAdminIntegration');
   }
@@ -259,6 +261,7 @@ class H5PLibraryAdmin {
 
     if ($post) {
       // A form as has been submitted
+      $ct_cache_update = filter_input(INPUT_POST, 'update_content_type_cache');
 
       if (isset($_FILES['h5p_file'])) {
         // If file upload, we're uploading libraries
@@ -284,6 +287,12 @@ class H5PLibraryAdmin {
           H5P_Plugin_Admin::set_error(__($errorMessage, $this->plugin_slug));
         }
         return;
+      }
+      elseif ($ct_cache_update !== NULL) {
+        // Update content type cache
+        $plugin = H5P_Plugin::get_instance();
+        $core = $plugin->get_h5p_instance('core');
+        $core->updateContentTypeCache();
       }
       elseif ($task === NULL) {
         // No files, we must be trying to auto download & update

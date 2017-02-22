@@ -326,7 +326,8 @@ class H5P_Plugin_Admin {
 
     if (get_option('h5p_ct_cache_update_available')) {
       $plugin = H5P_Plugin::get_instance();
-      $plugin->update_content_type_cache();
+      $core = $plugin->get_h5p_instance('core');
+      $core->updateContentTypeCache();
       update_option('h5p_ct_cache_update_available', FALSE);
     }
 
@@ -468,7 +469,6 @@ class H5P_Plugin_Admin {
    */
   public function display_settings_page() {
     $save = filter_input(INPUT_POST, 'save_these_settings');
-    $update_ct_cache = filter_input(INPUT_POST, 'update_content_type_cache');
     if ($save !== NULL) {
       // Get input and store settings
       check_admin_referer('h5p_settings', 'save_these_settings'); // Verify form
@@ -528,16 +528,8 @@ class H5P_Plugin_Admin {
     }
 
     $plugin = H5P_Plugin::get_instance();
-
-    // Load last update value into form that will be displayed
-    $last_update = get_option('h5p_content_type_cache_updated', '');
-
-    // Update content type cache
-    if ($update_ct_cache !== NULL) {
-      $plugin->update_content_type_cache();
-    }
-
     $plugin->get_h5p_instance('core'); // Make sure core is loaded;
+
     include_once('views/settings.php');
     H5P_Plugin_Admin::add_script('h5p-jquery', 'h5p-php-library/js/jquery.js');
     H5P_Plugin_Admin::add_script('h5p-display-options', 'h5p-php-library/js/h5p-display-options.js');

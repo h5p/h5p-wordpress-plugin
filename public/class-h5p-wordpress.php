@@ -1042,7 +1042,7 @@ class H5PWordPress implements H5PFrameworkInterface {
 
   /**
    * Implements hasPermission
-   * 
+   *
    * @method hasPermission
    * @param  H5PPermission    $permission
    * @param  int              $contentUserId
@@ -1055,5 +1055,89 @@ class H5PWordPress implements H5PFrameworkInterface {
         return self::currentUserCanEdit($contentUserId);
     }
     return FALSE;
+  }
+
+  /**
+   * Get content type cache from an external url.
+   *
+   * @param string $endpoint Endpoint containing content type cache
+   *
+   * @return object Json object with an array called 'libraries' containing
+   *  all content types that should be cached
+   */
+  public function getExternalContentTypeCache($endpoint) {
+    $results = wp_remote_get($endpoint);
+
+    // Got no data
+    if ($results['response']['code'] !== 200) {
+      $plugin = H5P_Plugin::get_instance();
+      $interface = $plugin->get_h5p_instance('interface');
+      $interface->setErrorMessage(
+        __('Could not connect to the H5P Content Type hub. Please try again later.',
+          $plugin->get_plugin_slug())
+      );
+    }
+
+    return $results['body'];
+  }
+
+  /**
+   * Replaces existing content type cache with the one passed in
+   *
+   * @param object $contentTypeCache Json with an array called 'libraries'
+   *  containing the new content type cache that should replace the old one.
+   */
+  public function replaceContentTypeCache($contentTypeCache) {
+    global $wpdb;
+
+    // Replace existing content type cache
+    $wpdb->query("TRUNCATE TABLE {$wpdb->base_prefix}h5p_libraries_hub_cache");
+    foreach ($contentTypeCache->libraries as $library) {
+      // Insert into db
+      $wpdb->insert($wpdb->prefix . 'h5p_libraries_hub_cache', array(
+        'library_id'        => $library->library_id,
+        'machine_name'      => $library->machine_name,
+        'title'             => $library->title,
+        'major_version'     => $library->major_version,
+        'minor_version'     => $library->minor_version,
+        'patch_version'     => $library->patch_version,
+        'h5p_version'       => $library->h5p_version,
+        'short_description' => $library->short_description,
+        'long_description'  => $library->long_description,
+        'icon'              => $library->icon,
+        'created'           => $library->created,
+        'updated'           => $library->updated,
+        'is_recommended'    => $library->is_recommended,
+        'is_reviewed'       => $library->is_reviewed,
+        'times_downloaded'  => $library->times_downloaded,
+        'example_content'   => $library->example_content
+      ), array(
+        '%d',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%d',
+        '%d',
+        '%d',
+        '%s',
+      ));
+    }
+  }
+
+  /**
+   * Get timestamp of time at user
+   *
+   * @return int Timestamp of localized time
+   */
+  public function getCurrentUserTime() {
+    return current_time('timestamp');
   }
 }

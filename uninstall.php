@@ -106,7 +106,7 @@ function _h5p_uninstall() {
   delete_option('h5p_multisite_capabilities');
   delete_option('h5p_site_type');
   delete_option('h5p_enable_lrs_content_types');
-  delete_option('h5p_content_type_cache_updated');
+  delete_option('h5p_content_type_cache_updated_at');
   delete_option('h5p_ct_cache_update_available');
 
   // Clean out file dirs.

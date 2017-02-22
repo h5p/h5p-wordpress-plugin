@@ -56,6 +56,35 @@
       </div>
     </div>
   </form>
+  <h1><?php print 'H5P Content Type Cache'; ?></h1>
+  <form method="post" id="h5p-update-content-type-cache">
+    <table class="form-table">
+      <tbody>
+      <tr valign="top">
+        <th scope="row"><?php _e("Last update", $this->plugin_slug); ?></th>
+        <td>
+          <?php
+          if ($last_update !== '') {
+            echo date_i18n('l, F j, Y H:i:s', $last_update);
+          }
+          else {
+            echo 'never';
+          }
+          ?>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <?php wp_nonce_field('h5p_library', 'update_content_type_cache'); ?>
+    <p class="submit">
+      <input type="submit"
+             name="updatecache"
+             id="updatecache"
+             class="button button-primary"
+             value="Update content type cache"
+      >
+    </p>
+  </form>
   <h3 class="h5p-admin-header"><?php esc_html_e('Installed Libraries', $this->plugin_slug); ?></h3>
   <div id="h5p-admin-container"><?php esc_html_e('Waiting for JavaScript.', $this->plugin_slug); ?></div>
 </div>
