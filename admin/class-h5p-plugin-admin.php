@@ -546,9 +546,9 @@ class H5P_Plugin_Admin {
     $core = $plugin->get_h5p_instance('core');
 
     // Get error messages
-    $core->checkSetupErrorMessage();
+    $errors = $core->checkSetupErrorMessage();
     $disableHubData = array(
-      'errors' => $core->h5pF->getMessages('error'),
+      'errors' => $errors,
       'header' => $core->h5pF->t('Confirmation action'),
       'confirmationDialogMsg' => $core->h5pF->t('Do you still want to enable the hub ?'),
       'cancelLabel' => $core->h5pF->t('Cancel'),
