@@ -317,6 +317,7 @@ class H5P_Plugin {
     add_option('h5p_ext_communication', TRUE);
     add_option('h5p_save_content_state', FALSE);
     add_option('h5p_save_content_frequency', 30);
+    add_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
   }
 
   /**
