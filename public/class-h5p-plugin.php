@@ -1012,7 +1012,8 @@ class H5P_Plugin {
           'cancelLabel' => __('Cancel', $this->plugin_slug),
           'confirmLabel' => __('Confirm', $this->plugin_slug)
         )
-      )
+      ),
+      'disableHub' => get_option('h5p_disable_hub', 0)
     );
 
     if ($current_user->ID) {
