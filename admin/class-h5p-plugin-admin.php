@@ -522,8 +522,8 @@ class H5P_Plugin_Admin {
         $site_uuid = get_option('h5p_h5p_site_uuid', FALSE);
       }
 
-      $disable_hub = filter_input(INPUT_POST, 'disable_hub', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_hub_is_disabled', $disable_hub);
+      $enable_hub = filter_input(INPUT_POST, 'enable_hub', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_hub_is_enabled', $enable_hub);
     }
     else {
       $frame = get_option('h5p_frame', TRUE);
@@ -538,7 +538,7 @@ class H5P_Plugin_Admin {
       $insert_method = get_option('h5p_insert_method', 'id');
       $enable_lrs_content_types = get_option('h5p_enable_lrs_content_types', FALSE);
       $site_uuid = get_option('h5p_h5p_site_uuid', FALSE);
-      $disable_hub = get_option('h5p_hub_is_disabled', FALSE);
+      $enable_hub = get_option('h5p_hub_is_enabled', TRUE);
     }
 
     // Attach disable hub configuration

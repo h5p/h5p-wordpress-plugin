@@ -321,7 +321,7 @@ class H5P_Plugin {
     add_option('h5p_save_content_state', FALSE);
     add_option('h5p_save_content_frequency', 30);
     add_option('h5p_check_h5p_requirements', FALSE);
-    add_option('h5p_hub_is_disabled', FALSE);
+    add_option('h5p_hub_is_enabled', TRUE);
   }
 
   /**
@@ -1013,7 +1013,7 @@ class H5P_Plugin {
           'confirmLabel' => __('Confirm', $this->plugin_slug)
         )
       ),
-      'hubIsDisabled' => get_option('h5p_hub_is_disabled', 0)
+      'hubIsEnabled' => get_option('h5p_hub_is_enabled', TRUE)
     );
 
     if ($current_user->ID) {
