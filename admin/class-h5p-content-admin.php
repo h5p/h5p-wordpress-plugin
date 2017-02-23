@@ -426,13 +426,6 @@ class H5PContentAdmin {
     $plugin = H5P_Plugin::get_instance();
     $core = $plugin->get_h5p_instance('core');
 
-    // Update content type cache if it is old
-    $ct_cache_last_update = $core->h5pF->getOption('content_type_cache_updated_at', 0);
-    $outdated_cache = $ct_cache_last_update + (60 * 60 * 24 * 7); // 1 week
-    if (current_time('timestamp') > $outdated_cache) {
-      $core->updateContentTypeCache();
-    }
-
     // Prepare form
     $title = $this->get_input('title', $contentExists ? $this->content['title'] : '');
     $library = $this->get_input('library', $contentExists ? H5PCore::libraryToString($this->content['library']) : 0);
@@ -1004,6 +997,19 @@ class H5PContentAdmin {
   public function ajax_libraries() {
     $editor = $this->get_h5peditor_instance();
 
+    $plugin = H5P_Plugin::get_instance();
+    $core = $plugin->get_h5p_instance('core');
+
+    // Update content type cache if it is enabled and too old
+    if (!$core->h5pF->getOption('hub_is_disabled', FALSE)) {
+      $ct_cache_last_update = $core->h5pF->getOption('content_type_cache_updated_at', 0);
+      $outdated_cache = $ct_cache_last_update + (60 * 60 * 24 * 7); // 1 week
+      if (current_time('timestamp') > $outdated_cache) {
+        $core->updateContentTypeCache();
+      }
+    }
+
+
     $name = filter_input(INPUT_GET, 'machineName', FILTER_SANITIZE_STRING);
     $major_version = filter_input(INPUT_GET, 'majorVersion', FILTER_SANITIZE_NUMBER_INT);
     $minor_version = filter_input(INPUT_GET, 'minorVersion', FILTER_SANITIZE_NUMBER_INT);
@@ -1012,7 +1018,6 @@ class H5PContentAdmin {
     header('Content-type: application/json');
 
     if ($name) {
-      $plugin = H5P_Plugin::get_instance();
       print $editor->getLibraryData($name, $major_version, $minor_version, $plugin->get_language());
 
       // Log library load
