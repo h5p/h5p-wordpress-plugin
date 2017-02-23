@@ -324,13 +324,6 @@ class H5P_Plugin_Admin {
       update_option('h5p_last_info_print', H5P_Plugin::VERSION);
     }
 
-    if (get_option('h5p_ct_cache_update_available')) {
-      $plugin = H5P_Plugin::get_instance();
-      $core = $plugin->get_h5p_instance('core');
-      $core->updateContentTypeCache();
-      update_option('h5p_ct_cache_update_available', FALSE);
-    }
-
     if (!empty($messages)) {
       // Print all messages
       ?><div class="updated"><?php

@@ -94,9 +94,6 @@ class H5P_Plugin {
     // Remove old log messages
     add_action('h5p_daily_cleanup', array($this, 'remove_old_log_events'));
 
-    // Update content type cache
-    add_action('h5p_daily_cleanup', array($this, 'update_content_type_cache'));
-
     // Always check if the plugin has been updated to a newer version
     add_action('init', array('H5P_Plugin', 'check_for_updates'), 1);
 
@@ -143,9 +140,6 @@ class H5P_Plugin {
     // Check for library updates
     $plugin = self::get_instance();
     $plugin->get_library_updates();
-
-    // Always update content cache when activating plugin
-    update_option('h5p_ct_cache_update_available', TRUE);
 
     // Cleaning rutine
     wp_schedule_event(time() + (3600 * 24), 'daily', 'h5p_daily_cleanup');
@@ -345,7 +339,6 @@ class H5P_Plugin {
     add_option('h5p_ext_communication', TRUE);
     add_option('h5p_save_content_state', FALSE);
     add_option('h5p_save_content_frequency', 30);
-    add_option('h5p_ct_cache_update_available', FALSE);
     add_option('h5p_content_type_cache_updated_at', 0);
   }
 
@@ -404,15 +397,6 @@ class H5P_Plugin {
     // Run version specific updates
     if ($v->major < 1 || ($v->major === 1 && $v->minor < 2)) { // < 1.2.0
       self::upgrade_120();
-    }
-
-    // Prepare to update content type cache if version < 1.7.12
-    if (
-      $v->major < 1 ||
-      ($v->major === 1 && $v->minor < 7) ||
-      ($v->major === 1 && $v->minor === 7 && $v->patch < 12)
-    ) {
-      update_option('h5p_ct_cache_update_available', TRUE);
     }
 
     // Keep track of which version of the plugin we have.
