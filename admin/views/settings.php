@@ -190,8 +190,8 @@
                 name="disable_hub"
                 type="checkbox"
                 value="true"
-                <?php if ($disable_hub): ?> checked="checked"<?php endif; ?>/>
-              <?php _e("Disable hub", $this->plugin_slug); ?>
+                <?php if (!$disable_hub): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Enable hub", $this->plugin_slug); ?>
             </label>
             <p class="h5p-setting-desc">
               <?php _e("It is strongly discouraged to disable the hub. It will disable all communication with the H5P hub, which mean you will not be able to create, reuse and share content and content types through the H5P hub interface. You will also have to install libraries manually through uploading them.", $this->plugin_slug); ?>
