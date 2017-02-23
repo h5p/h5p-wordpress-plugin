@@ -1013,7 +1013,7 @@ class H5P_Plugin {
           'confirmLabel' => __('Confirm', $this->plugin_slug)
         )
       ),
-      'hubIsEnabled' => get_option('h5p_hub_is_enabled', TRUE)
+      'hubIsEnabled' => get_option('h5p_hub_is_enabled', TRUE) == TRUE
     );
 
     if ($current_user->ID) {
