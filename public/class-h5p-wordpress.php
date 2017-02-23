@@ -1058,30 +1058,6 @@ class H5PWordPress implements H5PFrameworkInterface {
   }
 
   /**
-   * Get content type cache from an external url.
-   *
-   * @param string $endpoint Endpoint containing content type cache
-   *
-   * @return object Json object with an array called 'libraries' containing
-   *  all content types that should be cached
-   */
-  public function getExternalContentTypeCache($endpoint) {
-    $results = wp_remote_get($endpoint);
-
-    // Got no data
-    if ($results['response']['code'] !== 200) {
-      $plugin = H5P_Plugin::get_instance();
-      $interface = $plugin->get_h5p_instance('interface');
-      $interface->setErrorMessage(
-        __('Could not connect to the H5P Content Type hub. Please try again later.',
-          $plugin->get_plugin_slug())
-      );
-    }
-
-    return $results['body'];
-  }
-
-  /**
    * Replaces existing content type cache with the one passed in
    *
    * @param object $contentTypeCache Json with an array called 'libraries'
