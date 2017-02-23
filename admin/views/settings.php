@@ -190,7 +190,7 @@
                 name="enable_hub"
                 type="checkbox"
                 value="true"
-                <?php if (!$enable_hub): ?> checked="checked"<?php endif; ?>/>
+                <?php if ($enable_hub): ?> checked="checked"<?php endif; ?>/>
               <?php _e("Enable hub", $this->plugin_slug); ?>
             </label>
             <p class="h5p-setting-desc">
