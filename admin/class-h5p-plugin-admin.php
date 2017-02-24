@@ -90,6 +90,9 @@ class H5P_Plugin_Admin {
     add_action('wp_ajax_h5p_content_upgrade_library', array($this->library, 'ajax_upgrade_library'));
     add_action('wp_ajax_h5p_content_upgrade_progress', array($this->library, 'ajax_upgrade_progress'));
 
+    // AJAX for installing library from external url
+    add_action('wp_ajax_h5p_install_library', array($this->library, 'ajax_install_library'));
+
     // AJAX for handling content usage datas
     add_action('wp_ajax_h5p_contents_user_data', array($this, 'ajax_contents_user_data'));
 
