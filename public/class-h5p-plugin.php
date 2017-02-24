@@ -257,7 +257,7 @@ class H5P_Plugin {
 
     // Keep track of h5p libraries content type cache
     dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries_hub_cache (
-      library_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      id INT UNSIGNED NOT NULL AUTO_INCREMENT,
       machine_name VARCHAR(127) NOT NULL,
       title VARCHAR(255) NOT NULL,
       major_version INT UNSIGNED NOT NULL,
@@ -267,13 +267,13 @@ class H5P_Plugin {
       short_description TEXT NOT NULL,
       long_description TEXT NOT NULL,
       icon VARCHAR(511) NOT NULL,
-      created INT UNSIGNED NOT NULL,
-      updated INT UNSIGNED NOT NULL,
+      created_at INT UNSIGNED NOT NULL,
+      updated_at INT UNSIGNED NOT NULL,
       is_recommended INT UNSIGNED NOT NULL,
       is_reviewed INT UNSIGNED NOT NULL,
-      times_downloaded INT UNSIGNED NOT NULL,
+      popularity INT UNSIGNED NOT NULL,
       example_content VARCHAR(511) NOT NULL,
-      PRIMARY KEY  (library_id)
+      PRIMARY KEY  (id)
     ) {$charset};");
 
     // Keep track of h5p library dependencies
