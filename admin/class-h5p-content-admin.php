@@ -920,11 +920,13 @@ class H5PContentAdmin {
    * @param int $id optional content identifier
    */
   public function add_editor_assets($id = NULL) {
+    global $wpdb;
+
     $plugin = H5P_Plugin::get_instance();
     $plugin->add_core_assets();
 
     // Make sure the h5p classes are loaded
-    $plugin->get_h5p_instance('core');
+    $core = $plugin->get_h5p_instance('core');
     $this->get_h5peditor_instance();
 
     // Add JavaScript settings
@@ -985,6 +987,17 @@ class H5PContentAdmin {
     if ($id !== NULL) {
       $settings['editor']['nodeVersionId'] = $id;
     }
+
+
+    // Set content type cache
+    if ($core->h5pF->getOption('hub_is_enabled', TRUE)) {
+      $results = $wpdb->get_results(
+        "SELECT * FROM {$wpdb->base_prefix}h5p_libraries_hub_cache"
+      );
+
+      $settings['editor']['contentTypeCache'] = $results;
+    }
+
 
     $plugin->print_settings($settings);
   }
