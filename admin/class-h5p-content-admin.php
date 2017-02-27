@@ -1022,15 +1022,20 @@ class H5PContentAdmin {
     exit;
   }
 
-  public function ajax_contenttypecache() {
+  /**
+   * Get content type cache
+   */
+  public function ajax_content_type_cache() {
     global $wpdb;
+
+    header('Cache-Control: no-cache');
+    header('Content-type: application/json');
 
     $plugin = H5P_Plugin::get_instance();
     $core = $plugin->get_h5p_instance('core');
 
     if (!$core->h5pF->getOption('hub_is_enabled', TRUE)) {
       status_header(403);
-      header('Cache-Control: no-cache');
       $core::ajaxError(
         $core->h5pF->t('The hub is disabled. You can re-enable it in the H5P settings.'),
         'HUB_DISABLED'
@@ -1058,6 +1063,7 @@ class H5PContentAdmin {
       "SELECT * FROM {$wpdb->base_prefix}h5p_libraries_hub_cache"
     );
 
+    status_header(200);
     print json_encode(array(
       'libraries' => $results
     ));

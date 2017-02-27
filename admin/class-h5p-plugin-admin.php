@@ -83,8 +83,8 @@ class H5P_Plugin_Admin {
     add_action('wp_ajax_h5p_libraries', array($this->content, 'ajax_libraries'));
     add_action('wp_ajax_h5p_files', array($this->content, 'ajax_files'));
 
-    // AJAX for gett content type cache
-    add_action('wp_ajax_h5p_content_type_cache', array($this->content, 'ajax_contenttypecache'));
+    // Editor AJAX for getting content type cache
+    add_action('wp_ajax_h5p_content_type_cache', array($this->content, 'ajax_content_type_cache'));
 
     // AJAX for rebuilding all content caches
     add_action('wp_ajax_h5p_rebuild_cache', array($this->library, 'ajax_rebuild_cache'));
