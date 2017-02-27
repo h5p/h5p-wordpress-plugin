@@ -920,13 +920,11 @@ class H5PContentAdmin {
    * @param int $id optional content identifier
    */
   public function add_editor_assets($id = NULL) {
-    global $wpdb;
-
     $plugin = H5P_Plugin::get_instance();
     $plugin->add_core_assets();
 
     // Make sure the h5p classes are loaded
-    $core = $plugin->get_h5p_instance('core');
+    $plugin->get_h5p_instance('core');
     $this->get_h5peditor_instance();
 
     // Add JavaScript settings
@@ -988,17 +986,6 @@ class H5PContentAdmin {
       $settings['editor']['nodeVersionId'] = $id;
     }
 
-
-    // Set content type cache
-    if ($core->h5pF->getOption('hub_is_enabled', TRUE)) {
-      $results = $wpdb->get_results(
-        "SELECT * FROM {$wpdb->base_prefix}h5p_libraries_hub_cache"
-      );
-
-      $settings['editor']['contentTypeCache'] = $results;
-    }
-
-
     $plugin->print_settings($settings);
   }
 
@@ -1011,25 +998,7 @@ class H5PContentAdmin {
     $editor = $this->get_h5peditor_instance();
 
     $plugin = H5P_Plugin::get_instance();
-    $core = $plugin->get_h5p_instance('core');
-
-    // Update content type cache if it is enabled and too old
-    if ($core->h5pF->getOption('hub_is_enabled', TRUE)) {
-      $ct_cache_last_update = $core->h5pF->getOption('content_type_cache_updated_at', 0);
-      $outdated_cache = $ct_cache_last_update + (60 * 60 * 24 * 7); // 1 week
-      if (current_time('timestamp') > $outdated_cache) {
-        $success = $core->updateContentTypeCache();
-        if (!$success) {
-          status_header(404);
-          $core::ajaxError(
-            $core->h5pF->t('Could not connect to the H5P Content Type Hub. Please try again later.'),
-            'NO_RESPONSE'
-          );
-          exit;
-        }
-      }
-    }
-
+    $plugin->get_h5p_instance('core');
 
     $name = filter_input(INPUT_GET, 'machineName', FILTER_SANITIZE_STRING);
     $major_version = filter_input(INPUT_GET, 'majorVersion', FILTER_SANITIZE_NUMBER_INT);
@@ -1050,6 +1019,48 @@ class H5PContentAdmin {
       print $editor->getLibraries();
     }
 
+    exit;
+  }
+
+  public function ajax_contenttypecache() {
+    global $wpdb;
+
+    $plugin = H5P_Plugin::get_instance();
+    $core = $plugin->get_h5p_instance('core');
+
+    if (!$core->h5pF->getOption('hub_is_enabled', TRUE)) {
+      status_header(403);
+      header('Cache-Control: no-cache');
+      $core::ajaxError(
+        $core->h5pF->t('The hub is disabled. You can re-enable it in the H5P settings.'),
+        'HUB_DISABLED'
+      );
+      exit;
+    }
+
+    // Update content type cache if it is too old
+    $ct_cache_last_update = $core->h5pF->getOption('content_type_cache_updated_at', 0);
+    $outdated_cache = $ct_cache_last_update + (60 * 60 * 24 * 7); // 1 week
+    if (current_time('timestamp') > $outdated_cache) {
+      $success = $core->updateContentTypeCache();
+      if (!$success) {
+        status_header(404);
+        $core::ajaxError(
+          $core->h5pF->t('Could not connect to the H5P Content Type Hub. Please try again later.'),
+          'NO_RESPONSE'
+        );
+        exit;
+      }
+    }
+
+    // Set content type cache
+    $results = $wpdb->get_results(
+      "SELECT * FROM {$wpdb->base_prefix}h5p_libraries_hub_cache"
+    );
+
+    print json_encode(array(
+      'libraries' => $results
+    ));
     exit;
   }
 
