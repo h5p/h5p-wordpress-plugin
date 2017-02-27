@@ -518,12 +518,15 @@ class H5P_Plugin {
       if (is_multisite()) {
         // Multisite, only super admin should be able to disable security checks
         self::map_capability($role, $role_info, array('install_plugins', 'manage_network_plugins'), 'disable_h5p_security');
+        self::map_capability($role, $role_info, array('install_plugins', 'manage_network_plugins'), 'install_any_h5p_content_type');
       }
       else {
         // Not multisite, regular admin can disable security checks
         self::map_capability($role, $role_info, 'install_plugins', 'disable_h5p_security');
+        self::map_capability($role, $role_info, 'install_plugins', 'install_any_h5p_content_type');
       }
       self::map_capability($role, $role_info, 'manage_options', 'manage_h5p_libraries');
+      self::map_capability($role, $role_info, 'manage_options', 'install_recommended_h5p_content_type');
       self::map_capability($role, $role_info, 'edit_others_pages', 'edit_others_h5p_contents');
       self::map_capability($role, $role_info, 'edit_posts', 'edit_h5p_contents');
       self::map_capability($role, $role_info, 'read', 'view_h5p_results');

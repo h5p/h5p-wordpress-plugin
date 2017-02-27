@@ -736,6 +736,14 @@ class H5PLibraryAdmin {
       exit;
     }
 
+    if (!current_user_can('install_any_h5p_content_type') ||
+        !(filter_input(INPUT_POST, 'contentTypeRecommended') && current_user_can('install_recommended_h5p_content_type'))) {
+      $response->error_msg = 'No permission to install content type';
+      $response->error_code = 'ACCESS_DENIED';
+      print json_encode($response);
+      return;
+    }
+
     // Get instances
     $plugin = H5P_Plugin::get_instance();
     $interface = $plugin->get_h5p_instance('interface');

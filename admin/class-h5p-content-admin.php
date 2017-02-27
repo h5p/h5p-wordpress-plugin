@@ -1063,6 +1063,22 @@ class H5PContentAdmin {
       "SELECT * FROM {$wpdb->base_prefix}h5p_libraries_hub_cache"
     );
 
+    // Determine access
+    $can_install_any = current_user_can('install_any_h5p_content_type');
+    $can_install_recommended = current_user_can('install_recommended_h5p_content_type');
+
+    foreach ($results as &$result) {
+      if ($can_install_any) {
+        $result->restricted = false;
+      }
+      elseif ($result->is_recommended && $can_install_recommended) {
+        $result->restricted = false;
+      }
+      else {
+        $result->restricted = true;
+      }
+    }
+
     status_header(200);
     print json_encode(array(
       'libraries' => $results
