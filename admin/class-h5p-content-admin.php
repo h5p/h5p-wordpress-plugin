@@ -997,6 +997,9 @@ class H5PContentAdmin {
   public function ajax_libraries() {
     $editor = $this->get_h5peditor_instance();
 
+    $plugin = H5P_Plugin::get_instance();
+    $plugin->get_h5p_instance('core');
+
     $name = filter_input(INPUT_GET, 'machineName', FILTER_SANITIZE_STRING);
     $major_version = filter_input(INPUT_GET, 'majorVersion', FILTER_SANITIZE_NUMBER_INT);
     $minor_version = filter_input(INPUT_GET, 'minorVersion', FILTER_SANITIZE_NUMBER_INT);
@@ -1005,7 +1008,6 @@ class H5PContentAdmin {
     header('Content-type: application/json');
 
     if ($name) {
-      $plugin = H5P_Plugin::get_instance();
       print $editor->getLibraryData($name, $major_version, $minor_version, $plugin->get_language());
 
       // Log library load
@@ -1017,6 +1019,54 @@ class H5PContentAdmin {
       print $editor->getLibraries();
     }
 
+    exit;
+  }
+
+  /**
+   * Get content type cache
+   */
+  public function ajax_content_type_cache() {
+    global $wpdb;
+
+    header('Cache-Control: no-cache');
+    header('Content-type: application/json');
+
+    $plugin = H5P_Plugin::get_instance();
+    $core = $plugin->get_h5p_instance('core');
+
+    if (!$core->h5pF->getOption('hub_is_enabled', TRUE)) {
+      status_header(403);
+      $core::ajaxError(
+        $core->h5pF->t('The hub is disabled. You can re-enable it in the H5P settings.'),
+        'HUB_DISABLED'
+      );
+      exit;
+    }
+
+    // Update content type cache if it is too old
+    $ct_cache_last_update = $core->h5pF->getOption('content_type_cache_updated_at', 0);
+    $outdated_cache = $ct_cache_last_update + (60 * 60 * 24 * 7); // 1 week
+    if (current_time('timestamp') > $outdated_cache) {
+      $success = $core->updateContentTypeCache();
+      if (!$success) {
+        status_header(404);
+        $core::ajaxError(
+          $core->h5pF->t('Could not connect to the H5P Content Type Hub. Please try again later.'),
+          'NO_RESPONSE'
+        );
+        exit;
+      }
+    }
+
+    // Set content type cache
+    $results = $wpdb->get_results(
+      "SELECT * FROM {$wpdb->base_prefix}h5p_libraries_hub_cache"
+    );
+
+    status_header(200);
+    print json_encode(array(
+      'libraries' => $results
+    ));
     exit;
   }
 

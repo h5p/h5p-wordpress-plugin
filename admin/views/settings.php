@@ -10,6 +10,9 @@
  */
 ?>
 <div class="wrap">
+  <?php
+  \H5P_Plugin_Admin::print_messages();
+  ?>
   <h2><?php print esc_html(get_admin_page_title()); ?></h2>
   <?php if ($save !== NULL): ?>
     <div id="setting-error-settings_updated" class="updated settings-error">
@@ -146,7 +149,7 @@
                 <input type="radio" name="insert_method" value="id"
                   <?php if ($insert_method == "id"): ?>checked="checked"<?php endif; ?>
                 />
-                <?php _e("Reference content by id", $this->plugin_slug); ?></th>
+                <?php _e("Reference content by id", $this->plugin_slug); ?>
               </label>
             </div>
             <div>
@@ -154,7 +157,7 @@
                 <input type="radio" name="insert_method" value="slug"
                   <?php if ($insert_method == "slug"): ?>checked="checked"<?php endif; ?>
                 />
-                <?php printf(wp_kses(__('Reference content by <a href="%s" target="_blank">slug</a>', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), 'https://en.wikipedia.org/wiki/Semantic_URL#Slug'); ?></th>
+                <?php printf(wp_kses(__('Reference content by <a href="%s" target="_blank">slug</a>', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), 'https://en.wikipedia.org/wiki/Semantic_URL#Slug'); ?>
               </label>
             </div>
           </td>

@@ -83,6 +83,9 @@ class H5P_Plugin_Admin {
     add_action('wp_ajax_h5p_libraries', array($this->content, 'ajax_libraries'));
     add_action('wp_ajax_h5p_files', array($this->content, 'ajax_files'));
 
+    // Editor AJAX for getting content type cache
+    add_action('wp_ajax_h5p_content_type_cache', array($this->content, 'ajax_content_type_cache'));
+
     // AJAX for rebuilding all content caches
     add_action('wp_ajax_h5p_rebuild_cache', array($this->library, 'ajax_rebuild_cache'));
 
@@ -332,9 +335,10 @@ class H5P_Plugin_Admin {
       }
       ?></div><?php
 
-      // Print any other messages
-      self::print_messages();
     }
+
+    // Print all update and error messages
+    self::print_messages();
   }
 
   /**
@@ -530,7 +534,9 @@ class H5P_Plugin_Admin {
       $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
     }
 
-    H5P_Plugin::get_instance()->get_h5p_instance('core'); // Make sure core is loaded;
+    $plugin = H5P_Plugin::get_instance();
+    $plugin->get_h5p_instance('core'); // Make sure core is loaded;
+
     include_once('views/settings.php');
     H5P_Plugin_Admin::add_script('h5p-jquery', 'h5p-php-library/js/jquery.js');
     H5P_Plugin_Admin::add_script('h5p-display-options', 'h5p-php-library/js/h5p-display-options.js');

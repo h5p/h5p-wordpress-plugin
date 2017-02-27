@@ -1042,7 +1042,7 @@ class H5PWordPress implements H5PFrameworkInterface {
 
   /**
    * Implements hasPermission
-   * 
+   *
    * @method hasPermission
    * @param  H5PPermission    $permission
    * @param  int              $contentUserId
@@ -1055,5 +1055,56 @@ class H5PWordPress implements H5PFrameworkInterface {
         return self::currentUserCanEdit($contentUserId);
     }
     return FALSE;
+  }
+
+  /**
+   * Replaces existing content type cache with the one passed in
+   *
+   * @param object $contentTypeCache Json with an array called 'libraries'
+   *  containing the new content type cache that should replace the old one.
+   */
+  public function replaceContentTypeCache($contentTypeCache) {
+    global $wpdb;
+
+    // Replace existing content type cache
+    $wpdb->query("TRUNCATE TABLE {$wpdb->base_prefix}h5p_libraries_hub_cache");
+    foreach ($contentTypeCache->libraries as $library) {
+      // Insert into db
+      $wpdb->insert($wpdb->prefix . 'h5p_libraries_hub_cache', array(
+        'id'                => $library->id,
+        'machine_name'      => $library->machineName,
+        'title'             => $library->title,
+        'major_version'     => $library->majorVersion,
+        'minor_version'     => $library->minorVersion,
+        'patch_version'     => $library->patchVersion,
+        'h5p_version'       => $library->h5pVersion,
+        'short_description' => $library->summary,
+        'long_description'  => $library->description,
+        'icon'              => $library->icon,
+        'created_at'        => $library->createdAt,
+        'updated_at'        => $library->updatedAt,
+        'is_recommended'    => $library->isRecommended,
+        'is_reviewed'       => $library->isReviewed,
+        'popularity'        => $library->popularity,
+        'example_content'   => $library->example
+      ), array(
+        '%d',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%d',
+        '%d',
+        '%d',
+        '%s',
+      ));
+    }
   }
 }
