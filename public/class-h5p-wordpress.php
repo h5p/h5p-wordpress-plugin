@@ -1068,35 +1068,30 @@ class H5PWordPress implements H5PFrameworkInterface {
 
     // Replace existing content type cache
     $wpdb->query("TRUNCATE TABLE {$wpdb->base_prefix}h5p_libraries_hub_cache");
-    foreach ($contentTypeCache->libraries as $library) {
+    foreach ($contentTypeCache->contentTypes as $ct) {
       // Insert into db
       $wpdb->insert($wpdb->prefix . 'h5p_libraries_hub_cache', array(
-        'id'                => $library->id,
-        'machine_name'      => $library->machineName,
-        'title'             => $library->title,
-        'major_version'     => $library->majorVersion,
-        'minor_version'     => $library->minorVersion,
-        'patch_version'     => $library->patchVersion,
-        'h5p_version'       => $library->h5pVersion,
-        'short_description' => $library->summary,
-        'long_description'  => $library->description,
-        'icon'              => $library->icon,
-        'created_at'        => $library->createdAt,
-        'updated_at'        => $library->updatedAt,
-        'is_recommended'    => $library->isRecommended,
-        'is_reviewed'       => $library->isReviewed,
-        'popularity'        => $library->popularity,
-        'example_content'   => $library->example
+        'machine_name'      => $ct->id,
+        'major_version'     => $ct->version->major,
+        'minor_version'     => $ct->version->minor,
+        'patch_version'     => $ct->version->patch,
+        'h5p_major_version' => $ct->coreApiVersionNeeded->major,
+        'h5p_minor_version' => $ct->coreApiVersionNeeded->minor,
+        'title'             => $ct->title,
+        'summary'           => $ct->summary,
+        'description'       => $ct->description,
+        'icon'              => $ct->icon,
+        'created_at'        => (new DateTime($ct->createdAt))->getTimestamp(),
+        'updated_at'        => (new DateTime($ct->updatedAt))->getTimestamp(),
+        'is_recommended'    => $ct->isRecommended,
+        'popularity'        => $ct->popularity,
+        'screenshots'       => json_encode($ct->screenshots),
+        'license'           => $ct->license,
+        'example'           => $ct->example,
+        'tutorial'          => $ct->tutorial,
+        'keywords'          => json_encode($ct->keywords),
+        'categories'        => json_encode($ct->categories)
       ), array(
-        '%d',
-        '%s',
-        '%s',
-        '%d',
-        '%d',
-        '%d',
-        '%s',
-        '%s',
-        '%s',
         '%s',
         '%d',
         '%d',
@@ -1104,6 +1099,19 @@ class H5PWordPress implements H5PFrameworkInterface {
         '%d',
         '%d',
         '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%d',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s'
       ));
     }
   }
