@@ -93,6 +93,9 @@ class H5P_Plugin_Admin {
     add_action('wp_ajax_h5p_content_upgrade_library', array($this->library, 'ajax_upgrade_library'));
     add_action('wp_ajax_h5p_content_upgrade_progress', array($this->library, 'ajax_upgrade_progress'));
 
+    // AJAX for installing library from external url
+    add_action('wp_ajax_h5p_install_library', array($this->library, 'ajax_install_library'));
+
     // AJAX for handling content usage datas
     add_action('wp_ajax_h5p_contents_user_data', array($this, 'ajax_contents_user_data'));
 
@@ -327,6 +330,13 @@ class H5P_Plugin_Admin {
       update_option('h5p_last_info_print', H5P_Plugin::VERSION);
     }
 
+    $plugin = H5P_Plugin::get_instance();
+    $core = $plugin->get_h5p_instance('core');
+    if ($core->h5pF->getOption('check_h5p_requirements')) {
+      $core->checkSetupForRequirements();
+      $core->h5pF->setOption('check_h5p_requirements', FALSE);
+    }
+
     if (!empty($messages)) {
       // Print all messages
       ?><div class="updated"><?php
@@ -334,10 +344,9 @@ class H5P_Plugin_Admin {
         ?><p><?php print $message; ?></p><?php
       }
       ?></div><?php
-
     }
 
-    // Print all update and error messages
+    // Print any other messages
     self::print_messages();
   }
 
@@ -518,6 +527,9 @@ class H5P_Plugin_Admin {
         // Invalid key, use the old one
         $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
       }
+
+      $enable_hub = filter_input(INPUT_POST, 'enable_hub', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_hub_is_enabled', $enable_hub);
     }
     else {
       $frame = get_option('h5p_frame', TRUE);
@@ -532,14 +544,33 @@ class H5P_Plugin_Admin {
       $insert_method = get_option('h5p_insert_method', 'id');
       $enable_lrs_content_types = get_option('h5p_enable_lrs_content_types', FALSE);
       $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
+      $enable_hub = get_option('h5p_hub_is_enabled', TRUE);
     }
 
+    // Attach disable hub configuration
     $plugin = H5P_Plugin::get_instance();
-    $plugin->get_h5p_instance('core'); // Make sure core is loaded;
+    $core = $plugin->get_h5p_instance('core');
+
+    // Get error messages
+    $errors = $core->checkSetupErrorMessage();
+    $disableHubData = array(
+      'errors' => $errors,
+      'header' => $core->h5pF->t('Confirmation action'),
+      'confirmationDialogMsg' => $core->h5pF->t('Do you still want to enable the hub ?'),
+      'cancelLabel' => $core->h5pF->t('Cancel'),
+      'confirmLabel' => $core->h5pF->t('Confirm')
+    );
+    $plugin->print_settings($disableHubData, 'H5PDisableHubData');
 
     include_once('views/settings.php');
     H5P_Plugin_Admin::add_script('h5p-jquery', 'h5p-php-library/js/jquery.js');
+    H5P_Plugin_Admin::add_script('h5p-event-dispatcher', 'h5p-php-library/js/h5p-event-dispatcher.js');
+    H5P_Plugin_Admin::add_script('h5p-confirmation-dialog', 'h5p-php-library/js/h5p-confirmation-dialog.js');
+    H5P_Plugin_Admin::add_script('h5p-disable-hub', 'h5p-php-library/js/settings/h5p-disable-hub.js');
     H5P_Plugin_Admin::add_script('h5p-display-options', 'h5p-php-library/js/h5p-display-options.js');
+    H5P_Plugin_Admin::add_style('h5p-confirmation-dialog-css', 'h5p-php-library/styles/h5p-confirmation-dialog.css');
+    H5P_Plugin_Admin::add_style('h5p-css', 'h5p-php-library/styles/h5p.css');
+    H5P_Plugin_Admin::add_style('h5p-core-button-css', 'h5p-php-library/styles/h5p-core-button.css');
 
     new H5P_Event('settings');
   }

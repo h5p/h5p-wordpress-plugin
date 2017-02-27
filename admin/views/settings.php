@@ -9,10 +9,8 @@
  * @copyright 2014 Joubel
  */
 ?>
-<div class="wrap">
-  <?php
-  \H5P_Plugin_Admin::print_messages();
-  ?>
+<div class="wrap h5p-settings-container">
+  <?php \H5P_Plugin_Admin::print_messages(); ?>
   <h2><?php print esc_html(get_admin_page_title()); ?></h2>
   <?php if ($save !== NULL): ?>
     <div id="setting-error-settings_updated" class="updated settings-error">
@@ -181,6 +179,23 @@
             <button type="button" class="h5p-reveal-value" data-control="h5p-site-key" data-hide="<?php _e("Hide", $this->plugin_slug); ?>"><?php _e("Reveal", $this->plugin_slug); ?></button>
             <p class="h5p-setting-desc">
               <?php _e("The site key is a secret that uniquely identifies this site with the Hub.", $this->plugin_slug); ?>
+            </p>
+          </td>
+        </tr>
+        <tr valign="top">
+          <th scope="row"><?php _e("Hub settings", $this->plugin_slug); ?></th>
+          <td>
+            <label>
+              <input
+                class="h5p-settings-disable-hub-checkbox"
+                name="enable_hub"
+                type="checkbox"
+                value="true"
+                <?php if ($enable_hub): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Enable hub", $this->plugin_slug); ?>
+            </label>
+            <p class="h5p-setting-desc">
+              <?php _e("It is strongly discouraged to disable the hub. It will disable all communication with the H5P hub, which mean you will not be able to create, reuse and share content and content types through the H5P hub interface. You will also have to install libraries manually through uploading them.", $this->plugin_slug); ?>
             </p>
           </td>
         </tr>

@@ -141,6 +141,9 @@ class H5P_Plugin {
     $plugin = self::get_instance();
     $plugin->get_library_updates();
 
+    // Always check setup requirements when activating
+    update_option('h5p_check_h5p_requirements', TRUE);
+
     // Cleaning rutine
     wp_schedule_event(time() + (3600 * 24), 'daily', 'h5p_daily_cleanup');
   }
@@ -341,6 +344,8 @@ class H5P_Plugin {
     add_option('h5p_save_content_frequency', 30);
     add_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
     add_option('h5p_content_type_cache_updated_at', 0);
+    add_option('h5p_check_h5p_requirements', FALSE);
+    add_option('h5p_hub_is_enabled', TRUE);
   }
 
   /**
@@ -398,6 +403,15 @@ class H5P_Plugin {
     // Run version specific updates
     if ($v->major < 1 || ($v->major === 1 && $v->minor < 2)) { // < 1.2.0
       self::upgrade_120();
+    }
+
+    // Check requirements when updating to hub version
+    if (
+      $v->major < 1 ||
+      ($v->major === 1 && $v->minor < 7) ||
+      ($v->major === 1 && $v->minor === 7 && $v->patch < 12)
+    ) {
+      update_option('h5p_check_h5p_requirements', TRUE);
     }
 
     // Keep track of which version of the plugin we have.
@@ -1022,7 +1036,8 @@ class H5P_Plugin {
           'cancelLabel' => __('Cancel', $this->plugin_slug),
           'confirmLabel' => __('Confirm', $this->plugin_slug)
         )
-      )
+      ),
+      'hubIsEnabled' => get_option('h5p_hub_is_enabled', TRUE) == TRUE
     );
 
     if ($current_user->ID) {
