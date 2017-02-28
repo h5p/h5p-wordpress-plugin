@@ -1090,7 +1090,8 @@ class H5PWordPress implements H5PFrameworkInterface {
         'example'           => $ct->example,
         'tutorial'          => $ct->tutorial,
         'keywords'          => json_encode($ct->keywords),
-        'categories'        => json_encode($ct->categories)
+        'categories'        => json_encode($ct->categories),
+        'owner'             => $ct->owner
       ), array(
         '%s',
         '%d',
@@ -1106,6 +1107,7 @@ class H5PWordPress implements H5PFrameworkInterface {
         '%d',
         '%d',
         '%d',
+        '%s',
         '%s',
         '%s',
         '%s',
