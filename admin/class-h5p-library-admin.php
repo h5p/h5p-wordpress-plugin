@@ -716,18 +716,17 @@ class H5PLibraryAdmin {
    */
   public function ajax_install_library() {
     global $wpdb;
-
     // Do not cache the response, since it is not possible to tell if it has changed.
     header('Cache-Control: no-cache');
 
     // Verify permission to install library
-    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_install_library')) {
+    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_editor_ajax')) {
       H5PCore::ajaxError('Invalid security token', 'INVALID_TOKEN');
       exit;
     }
 
     // Determine which content type to install from post data
-    $name = filter_input(INPUT_POST, 'contentType');
+    $name = filter_input(INPUT_POST, 'id');
     if (!$name) {
       H5PCore::ajaxError('No content type was specified', 'NO_CONTENT_TYPE');
       exit;
@@ -768,7 +767,8 @@ class H5PLibraryAdmin {
     // Download file
     $_FILES['h5p_file'] = array('name' => 'libraries.h5p');
     $path = $interface->getUploadedH5pPath();
-    $response = wp_safe_remote_get($url, array(
+    $endpoint = 'http://api.h5p.org/v1/content-types/';
+    $response = wp_safe_remote_get($endpoint . $id, array(
       'stream' => TRUE,
       'filename' => $path,
       'timeout' => 28
