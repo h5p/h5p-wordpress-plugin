@@ -714,24 +714,25 @@ class H5PLibraryAdmin {
   /**
    * Handle ajax request to install library from url
    */
-  public function ajax_install_library() {
+  public function ajax_library_install() {
     // Do not cache the response, since it is not possible to tell if it has changed.
     header('Cache-Control: no-cache');
 
     // Verify permission to install library
-    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_install_library')) {
+    $token = filter_input(INPUT_GET, 'token');
+    if (!wp_verify_nonce($token, 'h5p_editor_ajax')) {
       print __('Error, invalid security token!', $this->plugin_slug);
       exit;
     }
 
-    $url = filter_input(INPUT_POST, 'contentTypeUrl', FILTER_SANITIZE_URL);
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_URL);
     $ajaxResponse = (object) array(
       'success' => false
     );
 
-    if (!$url) {
-      $ajaxResponse->error_msg = 'No library url was specified';
-      $ajaxResponse->error_code = 'NO_URL';
+    if (!$id) {
+      $ajaxResponse->error_msg = 'No library id was specified';
+      $ajaxResponse->error_code = 'NO_ID';
       print json_encode($ajaxResponse);
       exit;
     }
@@ -753,7 +754,8 @@ class H5PLibraryAdmin {
     // Download file
     $_FILES['h5p_file'] = array('name' => 'libraries.h5p');
     $path = $interface->getUploadedH5pPath();
-    $response = wp_safe_remote_get($url, array(
+    $endpoint = 'http://api.h5p.org/v1/content-types/';
+    $response = wp_safe_remote_get($endpoint . $id, array(
       'stream' => TRUE,
       'filename' => $path,
       'timeout' => 28
