@@ -281,8 +281,8 @@ class H5P_Plugin {
       tutorial VARCHAR(511),
       keywords TEXT,
       categories TEXT,
-      PRIMARY KEY  (id)
-      UNIQUE KEY name_version (machine_name,major_version,minor_version,patch_version),
+      PRIMARY KEY  (id),
+      KEY name_version (machine_name,major_version,minor_version,patch_version)
     ) {$charset};");
 
     // Keep track of h5p library dependencies
