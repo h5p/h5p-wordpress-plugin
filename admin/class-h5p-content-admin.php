@@ -1073,6 +1073,7 @@ class H5PContentAdmin {
     $can_install_any = current_user_can('manage_h5p_libraries');
     $can_install_recommended = current_user_can('install_recommended_h5p_libraries');
 
+    $libraries = array();
     foreach ($results as &$result) {
       if ($can_install_any) {
         $result->restricted = false;
@@ -1113,7 +1114,7 @@ class H5PContentAdmin {
 
     status_header(200);
     print json_encode(array(
-      'libraries' => $results
+      'libraries' => $libraries
     ));
     exit;
   }
