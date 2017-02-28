@@ -1064,8 +1064,8 @@ class H5PContentAdmin {
     );
 
     // Determine access
-    $can_install_any = current_user_can('install_any_h5p_content_type');
-    $can_install_recommended = current_user_can('install_recommended_h5p_content_type');
+    $can_install_any = current_user_can('manage_h5p_libraries');
+    $can_install_recommended = current_user_can('install_recommended_h5p_libraries');
 
     foreach ($results as &$result) {
       if ($can_install_any) {

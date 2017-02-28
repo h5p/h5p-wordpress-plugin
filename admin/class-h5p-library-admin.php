@@ -715,40 +715,55 @@ class H5PLibraryAdmin {
    * Handle ajax request to install library from url
    */
   public function ajax_install_library() {
+    global $wpdb;
+
     // Do not cache the response, since it is not possible to tell if it has changed.
     header('Cache-Control: no-cache');
 
     // Verify permission to install library
     if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_install_library')) {
-      print __('Error, invalid security token!', $this->plugin_slug);
+      H5PCore::ajaxError('Invalid security token', 'INVALID_TOKEN');
       exit;
     }
 
-    $url = filter_input(INPUT_POST, 'contentTypeUrl', FILTER_SANITIZE_URL);
-    $ajaxResponse = (object) array(
-      'success' => false
-    );
-
-    if (!$url) {
-      $ajaxResponse->error_msg = 'No library url was specified';
-      $ajaxResponse->error_code = 'NO_URL';
-      print json_encode($ajaxResponse);
+    // Determine which content type to install from post data
+    $name = filter_input(INPUT_POST, 'contentType');
+    if (!$name) {
+      H5PCore::ajaxError('No content type was specified', 'NO_CONTENT_TYPE');
       exit;
     }
 
-    if (!current_user_can('install_any_h5p_content_type') ||
-        !(filter_input(INPUT_POST, 'contentTypeRecommended') && current_user_can('install_recommended_h5p_content_type'))) {
-      $response->error_msg = 'No permission to install content type';
-      $response->error_code = 'ACCESS_DENIED';
-      print json_encode($response);
-      return;
+    // Look up content type to ensure it's valid(and to check permissions)
+    $content_type = $wpdb->get_row($wpdb->prepare(
+        "SELECT id, is_recommended
+           FROM {$wpdb->base_prefix}h5p_libraries_hub_cache
+          WHERE machine_name = %s",
+        $name
+    ));
+    if (!$contentType) {
+      H5PCore::ajaxError('The chosen content type is invalid', 'INVALID_CONTENT_TYPE');
+      exit;
+    }
+
+    // Check if the user has access to install or update content types
+    $can_install_all = current_user_can('manage_h5p_libraries');
+    $can_install_recommended = ($content_type->is_recommended && current_user_can('install_recommended_h5p_libraries'));
+    if (!$can_install_all || !$can_install_recommended) {
+      H5PCore::ajaxError('No permission to install content type', 'INSTALL_DENIED');
+      exit;
     }
 
     // Get instances
     $plugin = H5P_Plugin::get_instance();
+    $core = $plugin->get_h5p_instance('core');
     $interface = $plugin->get_h5p_instance('interface');
     $validator = $plugin->get_h5p_instance('validator');
     $storage = $plugin->get_h5p_instance('storage');
+
+    if (!$can_install_all && $can_install_recommended) {
+      // Override core permission check
+      $core->mayUpdateLibraries(TRUE);
+    }
 
     // Download file
     $_FILES['h5p_file'] = array('name' => 'libraries.h5p');
@@ -760,33 +775,32 @@ class H5PLibraryAdmin {
     ));
 
     if (is_wp_error($response)) {
-      $ajaxResponse->error_msg = [];
-      $error_messages = $response->get_error_messages();
-      foreach ($error_messages as $msg) {
-        $ajaxResponse->error_msg[] = $msg;
-      }
-      $ajaxResponse->error_code = 'DOWNLOAD_FAILED';
+      H5PCore::ajaxError($response->get_error_messages(), 'DOWNLOAD_FAILED');
+      exit;
     }
-    elseif ($res_code = wp_remote_retrieve_response_code($response) != 200) {
-      $ajaxResponse->error_msg = 'Response failed with response code: ' . $res_code;
-      $ajaxResponse->error_code = 'RESPONSE_FAILED';
-    }
-    else {
-      // Install
-      if ($validator->isValidPackage(TRUE, FALSE)) {
-        $storage->savePackage(NULL, NULL, TRUE);
-
-        // Successfully installed.
-        $ajaxResponse->success = true;
-      }
-      else {
-        $ajaxResponse->error_msg = 'Validating h5p package failed';
-        $ajaxResponse->error_code = 'VALIDATION_FAILED';
-        @unlink($path);
-      }
+    if ($res_code = wp_remote_retrieve_response_code($response) != 200) {
+      H5PCore::ajaxError('Response failed with response code: ' . $res_code, 'RESPONSE_FAILED');
+      exit;
     }
 
-    print json_encode($ajaxResponse);
+    if (!$validator->isValidPackage(TRUE, FALSE)) {
+      // Clean up
+      @unlink($path);
+
+      // Send errors
+      $errors = $interface->getMessages('error');
+      if ($errors === NULL) {
+        $errors = 'Validating h5p package failed';
+      }
+      H5PCore::ajaxError($errors, 'VALIDATION_FAILED');
+      exit;
+    }
+
+    // Install
+    $storage->savePackage(NULL, NULL, TRUE);
+
+    // Successfully installed.
+    H5PCore::ajaxSuccess();
     exit;
   }
 

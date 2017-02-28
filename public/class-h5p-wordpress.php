@@ -1070,7 +1070,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     $wpdb->query("TRUNCATE TABLE {$wpdb->base_prefix}h5p_libraries_hub_cache");
     foreach ($contentTypeCache->libraries as $library) {
       // Insert into db
-      $wpdb->insert($wpdb->prefix . 'h5p_libraries_hub_cache', array(
+      $wpdb->insert("{$wpdb->base_prefix}h5p_libraries_hub_cache", array(
         'id'                => $library->id,
         'machine_name'      => $library->machineName,
         'title'             => $library->title,

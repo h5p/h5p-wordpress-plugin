@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.7.12';
+  const VERSION = '1.8.0';
 
   /**
    * The Unique identifier for this plugin.
@@ -259,7 +259,7 @@ class H5P_Plugin {
     ) {$charset};");
 
     // Keep track of h5p libraries content type cache
-    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_libraries_hub_cache (
+    dbDelta("CREATE TABLE {$wpdb->base_prefix}h5p_libraries_hub_cache (
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
       machine_name VARCHAR(127) NOT NULL,
       title VARCHAR(255) NOT NULL,
@@ -277,6 +277,7 @@ class H5P_Plugin {
       popularity INT UNSIGNED NOT NULL,
       example_content VARCHAR(511) NOT NULL,
       PRIMARY KEY  (id)
+      UNIQUE KEY name_version (machine_name,major_version,minor_version,patch_version),
     ) {$charset};");
 
     // Keep track of h5p library dependencies
@@ -400,17 +401,22 @@ class H5P_Plugin {
     // Check and update database
     self::update_database();
 
+    $pre_120 = ($v->major < 1 || ($v->major === 1 && $v->minor < 2)); // < 1.2.0
+    $pre_180 = ($v->major < 1 || ($v->major === 1 && $v->minor < 8)); // < 1.8.0
+
     // Run version specific updates
-    if ($v->major < 1 || ($v->major === 1 && $v->minor < 2)) { // < 1.2.0
+    if ($pre_120) {
+      // Re-assign all permissions
       self::upgrade_120();
     }
+    elseif ($pre_180) {
+      // Do not run if upgrade_120 runs
+      // Does only add the new permissions
+      self::upgrade_180();
+    }
 
-    // Check requirements when updating to hub version
-    if (
-      $v->major < 1 ||
-      ($v->major === 1 && $v->minor < 7) ||
-      ($v->major === 1 && $v->minor === 7 && $v->patch < 12)
-    ) {
+    if ($pre_180) {
+      // Force requirements check when hub is introduced.
       update_option('h5p_check_h5p_requirements', TRUE);
     }
 
@@ -476,6 +482,26 @@ class H5P_Plugin {
   }
 
   /**
+   * Add new permissions introduced with hub in 1.8.0.
+   *
+   * @since 1.8.0
+   * @global \WP_Roles $wp_roles
+   */
+  public static function upgrade_180() {
+    global $wp_roles;
+    if (!isset($wp_roles)) {
+      $wp_roles = new WP_Roles();
+    }
+
+    $all_roles = $wp_roles->roles;
+    foreach ($all_roles as $role_name => $role_info) {
+      $role = get_role($role_name);
+
+      self::map_capability($role, $role_info, 'edit_others_pages', 'install_recommended_h5p_libraries');
+    }
+  }
+
+  /**
    * Remove duplicate keys that might have been created by a bug in dbDelta.
    *
    * @since 1.2.0
@@ -518,15 +544,13 @@ class H5P_Plugin {
       if (is_multisite()) {
         // Multisite, only super admin should be able to disable security checks
         self::map_capability($role, $role_info, array('install_plugins', 'manage_network_plugins'), 'disable_h5p_security');
-        self::map_capability($role, $role_info, array('install_plugins', 'manage_network_plugins'), 'install_any_h5p_content_type');
       }
       else {
         // Not multisite, regular admin can disable security checks
         self::map_capability($role, $role_info, 'install_plugins', 'disable_h5p_security');
-        self::map_capability($role, $role_info, 'install_plugins', 'install_any_h5p_content_type');
       }
       self::map_capability($role, $role_info, 'manage_options', 'manage_h5p_libraries');
-      self::map_capability($role, $role_info, 'manage_options', 'install_recommended_h5p_content_type');
+      self::map_capability($role, $role_info, 'edit_others_pages', 'install_recommended_h5p_libraries');
       self::map_capability($role, $role_info, 'edit_others_pages', 'edit_others_h5p_contents');
       self::map_capability($role, $role_info, 'edit_posts', 'edit_h5p_contents');
       self::map_capability($role, $role_info, 'read', 'view_h5p_results');
