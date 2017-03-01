@@ -716,8 +716,6 @@ class H5PLibraryAdmin {
    */
   public function ajax_install_library() {
     global $wpdb;
-    // Do not cache the response, since it is not possible to tell if it has changed.
-    header('Cache-Control: no-cache');
 
     // Verify permission to install library
     if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_editor_ajax')) {
