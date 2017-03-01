@@ -281,7 +281,7 @@ class H5P_Plugin {
       tutorial VARCHAR(511),
       keywords TEXT,
       categories TEXT,
-      owner VARCHAR(511)
+      owner VARCHAR(511),
       PRIMARY KEY  (id),
       KEY name_version (machine_name,major_version,minor_version,patch_version)
     ) {$charset};");
