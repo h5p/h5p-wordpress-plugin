@@ -717,7 +717,7 @@ class H5PLibraryAdmin {
   public function ajax_install_library() {
     global $wpdb;
 
-    // Verify permission to install library
+    // Verify token
     if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_editor_ajax')) {
       H5PCore::ajaxError('Invalid security token', 'INVALID_TOKEN');
       exit;
@@ -766,7 +766,7 @@ class H5PLibraryAdmin {
     $_FILES['h5p_file'] = array('name' => 'libraries.h5p');
     $path = $interface->getUploadedH5pPath();
     $endpoint = 'http://api.h5p.org/v1/content-types/';
-    $response = wp_safe_remote_get($endpoint . $id, array(
+    $response = wp_safe_remote_get($endpoint . $name, array(
       'stream' => TRUE,
       'filename' => $path,
       'timeout' => 28
