@@ -739,7 +739,7 @@ class H5PLibraryAdmin {
           WHERE machine_name = %s",
         $name
     ));
-    if (!$contentType) {
+    if (!$content_type) {
       H5PCore::ajaxError('The chosen content type is invalid', 'INVALID_CONTENT_TYPE');
       exit;
     }
