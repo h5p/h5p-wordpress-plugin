@@ -719,14 +719,14 @@ class H5PLibraryAdmin {
 
     // Verify token
     if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_editor_ajax')) {
-      H5PCore::ajaxError('Invalid security token', 'INVALID_TOKEN');
+      H5PCore::ajaxError(__('Invalid security token.', $this->plugin_slug), 'INVALID_TOKEN');
       exit;
     }
 
     // Determine which content type to install from post data
     $name = filter_input(INPUT_POST, 'id');
     if (!$name) {
-      H5PCore::ajaxError('No content type was specified', 'NO_CONTENT_TYPE');
+      H5PCore::ajaxError(__('No content type was specified.', $this->plugin_slug), 'NO_CONTENT_TYPE');
       exit;
     }
 
@@ -738,7 +738,7 @@ class H5PLibraryAdmin {
         $name
     ));
     if (!$content_type) {
-      H5PCore::ajaxError('The chosen content type is invalid', 'INVALID_CONTENT_TYPE');
+      H5PCore::ajaxError(__('The chosen content type is invalid.', $this->plugin_slug), 'INVALID_CONTENT_TYPE');
       exit;
     }
 
@@ -746,7 +746,7 @@ class H5PLibraryAdmin {
     $can_install_all = current_user_can('manage_h5p_libraries');
     $can_install_recommended = ($content_type->is_recommended && current_user_can('install_recommended_h5p_libraries'));
     if (!$can_install_all || !$can_install_recommended) {
-      H5PCore::ajaxError('No permission to install content type', 'INSTALL_DENIED');
+      H5PCore::ajaxError(__('No permission to install content type.', $this->plugin_slug), 'INSTALL_DENIED');
       exit;
     }
 
@@ -777,7 +777,7 @@ class H5PLibraryAdmin {
       exit;
     }
     if ($res_code = wp_remote_retrieve_response_code($response) != 200) {
-      H5PCore::ajaxError('Response failed with response code: ' . $res_code, 'RESPONSE_FAILED');
+      H5PCore::ajaxError(sprintf(__('Response failed with response code: %s.', $this->plugin_slug), $res_code), 'RESPONSE_FAILED');
       exit;
     }
 
@@ -788,7 +788,7 @@ class H5PLibraryAdmin {
       // Send errors
       $errors = $interface->getMessages('error');
       if ($errors === NULL) {
-        $errors = 'Validating h5p package failed';
+        $errors = __('Validating h5p package failed.', $this->plugin_slug);
       }
       H5PCore::ajaxError($errors, 'VALIDATION_FAILED');
       exit;
