@@ -714,7 +714,7 @@ class H5PLibraryAdmin {
   /**
    * Handle ajax request to install library from url
    */
-  public function ajax_install_library() {
+  public function ajax_library_install() {
     global $wpdb;
 
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -769,8 +769,9 @@ class H5PLibraryAdmin {
     // Download file
     $_FILES['h5p_file'] = array('name' => 'libraries.h5p');
     $path = $interface->getUploadedH5pPath();
-    $endpoint = 'http://api.h5p.org/v1/content-types/';
-    $response = wp_safe_remote_get($endpoint . $name, array(
+    $endpoint = H5PCore::$hubEndpoints[H5PCore::CONTENT_TYPES];
+    $protocol = (extension_loaded('openssl') ? 'https' : 'http');
+    $response = wp_safe_remote_get("{$protocol}://{$endpoint}{$name}", array(
       'stream' => TRUE,
       'filename' => $path,
       'timeout' => 28
