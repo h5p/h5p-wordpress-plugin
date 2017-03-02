@@ -253,6 +253,7 @@ class H5P_Plugin {
       drop_library_css TEXT NULL,
       semantics TEXT NOT NULL,
       tutorial_url VARCHAR(1023) NOT NULL,
+      has_icon INT UNSIGNED NOT NULL DEFAULT 0,
       PRIMARY KEY  (id),
       KEY name_version (name,major_version,minor_version,patch_version),
       KEY runnable (runnable)

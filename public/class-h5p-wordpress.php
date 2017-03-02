@@ -242,7 +242,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             'preloaded_js' => $preloadedJs,
             'preloaded_css' => $preloadedCss,
             'drop_library_css' => $dropLibraryCss,
-            'semantics' => $library['semantics']
+            'semantics' => $library['semantics'],
+            'has_icon' => $library['hasIcon'] ? 1 : 0
           ),
           array(
             '%s',
@@ -256,7 +257,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             '%s',
             '%s',
             '%d',
-            '%s'
+            '%s',
+            '%d'
           )
         );
       $library['libraryId'] = $wpdb->insert_id;
@@ -273,7 +275,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             'preloaded_js' => $preloadedJs,
             'preloaded_css' => $preloadedCss,
             'drop_library_css' => $dropLibraryCss,
-            'semantics' => $library['semantics']
+            'semantics' => $library['semantics'],
+            'has_icon' => $library['hasIcon'] ? 1 : 0
           ),
           array('id' => $library['libraryId']),
           array(
@@ -285,7 +288,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             '%s',
             '%s',
             '%d',
-            '%s'
+            '%s',
+            '%d'
           ),
           array('%d')
         );
@@ -549,7 +553,8 @@ class H5PWordPress implements H5PFrameworkInterface {
 
     $library = $wpdb->get_row($wpdb->prepare(
         "SELECT id as libraryId, name as machineName, title, major_version as majorVersion, minor_version as minorVersion, patch_version as patchVersion,
-          embed_types as embedTypes, preloaded_js as preloadedJs, preloaded_css as preloadedCss, drop_library_css as dropLibraryCss, fullscreen, runnable, semantics
+          embed_types as embedTypes, preloaded_js as preloadedJs, preloaded_css as preloadedCss, drop_library_css as dropLibraryCss, fullscreen, runnable,
+          semantics, has_icon as hasIcon
         FROM {$wpdb->prefix}h5p_libraries
         WHERE name = %s
         AND major_version = %d
