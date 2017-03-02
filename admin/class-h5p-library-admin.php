@@ -717,6 +717,10 @@ class H5PLibraryAdmin {
   public function ajax_install_library() {
     global $wpdb;
 
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+      return;
+    }
+
     // Verify token
     if (!wp_verify_nonce(filter_input(INPUT_GET, 'token'), 'h5p_editor_ajax')) {
       H5PCore::ajaxError(__('Invalid security token.', $this->plugin_slug), 'INVALID_TOKEN');
@@ -724,7 +728,7 @@ class H5PLibraryAdmin {
     }
 
     // Determine which content type to install from post data
-    $name = filter_input(INPUT_POST, 'id');
+    $name = filter_input(INPUT_GET, 'id');
     if (!$name) {
       H5PCore::ajaxError(__('No content type was specified.', $this->plugin_slug), 'NO_CONTENT_TYPE');
       exit;
