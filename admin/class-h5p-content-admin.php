@@ -1058,15 +1058,36 @@ class H5PContentAdmin {
       }
     }
 
-    // Set content type cache
-    $results = $wpdb->get_results(
-      'SELECT c.*, l.id as installed ' .
-      "FROM {$wpdb->base_prefix}h5p_libraries_hub_cache as c " .
-      "LEFT JOIN {$wpdb->prefix}h5p_libraries as l " .
-      'ON c.machine_name = l.name ' .
-      'AND c.major_version = l.major_version ' .
-      'AND c.minor_version = l.minor_version ' .
-      'AND c.patch_version = l.patch_version'
+    // Get latest version of local libraries
+    $local_libraries = $wpdb->get_results(
+      "
+      SELECT *
+      FROM
+      (SELECT
+       m.id as library_id,
+       m.name as machine_name,
+       m.major_version,
+       m.minor_version,
+       m.patch_version,
+       m.restricted
+     FROM {$wpdb->prefix}h5p_libraries AS m
+       JOIN (SELECT
+               l.name,
+               MAX(l.major_version * 1000000 + l.minor_version * 1000 + l.patch_version) AS maxversion
+             FROM {$wpdb->prefix}h5p_libraries AS l
+             WHERE l.runnable = 1
+             GROUP BY l.name) AS m1
+         ON m.name = m1.name AND
+            m.major_version * 1000000 + m.minor_version * 1000 + m.patch_version = maxversion
+      )as libs
+      "
+    );
+
+    $cached_libraries = $wpdb->get_results(
+      "
+      SELECT *
+      FROM {$wpdb->base_prefix}h5p_libraries_hub_cache
+      "
     );
 
     // Determine access
@@ -1074,7 +1095,7 @@ class H5PContentAdmin {
     $can_install_recommended = current_user_can('install_recommended_h5p_libraries');
 
     $libraries = array();
-    foreach ($results as &$result) {
+    foreach ($cached_libraries as &$result) {
       if ($can_install_any) {
         $result->restricted = false;
       }
@@ -1085,32 +1106,9 @@ class H5PContentAdmin {
         $result->restricted = true;
       }
 
-      $libraries[] = array(
-        'machineName'     => $result->machine_name,
-        'majorVersion'    => $result->major_version,
-        'minorVersion'    => $result->minor_version,
-        'patchVersion'    => $result->patch_version,
-        'h5pMajorVersion' => $result->h5p_major_version,
-        'h5pMinorVersion' => $result->h5p_minor_version,
-        'title'           => $result->title,
-        'summary'         => $result->summary,
-        'description'     => $result->description,
-        'icon'            => $result->icon,
-        'createdAt'       => $result->created_at,
-        'updated_At'      => $result->updated_at,
-        'isRecommended'   => $result->is_recommended,
-        'popularity'      => $result->popularity,
-        'screenshots'     => json_decode($result->screenshots),
-        'license'         => $result->license,
-        'example'         => $result->example,
-        'tutorial'        => $result->tutorial,
-        'keywords'        => json_decode($result->keywords),
-        'categories'      => json_decode($result->categories),
-        'owner'           => $result->owner,
-        'installed'       => isset($result->installed),
-        'restricted'      => $result->restricted
-      );
+      $libraries[] = $core->getCachedLibAsList($result);
     }
+    $core->mergeLocalLibsIntoCachedLibs($local_libraries, $libraries);
 
     status_header(200);
     print json_encode(array(
