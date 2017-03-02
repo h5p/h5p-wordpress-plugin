@@ -1006,7 +1006,7 @@ class H5PContentAdmin {
 
     if ($name) {
       $plugin = H5P_Plugin::get_instance();
-      print $editor->getLibraryData($name, $major_version, $minor_version, $plugin->get_language());
+      print $editor->getLibraryData($name, $major_version, $minor_version, $plugin->get_language(), '', $plugin->get_h5p_path());
 
       // Log library load
       new H5P_Event('library', NULL,
