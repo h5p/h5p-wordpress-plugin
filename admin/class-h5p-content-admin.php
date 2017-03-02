@@ -1061,9 +1061,9 @@ class H5PContentAdmin {
     // Set content type cache
     $results = $wpdb->get_results(
       'SELECT c.*, l.id as installed ' .
-      'FROM {hvp_libraries_hub_cache} as c ' .
-      'LEFT JOIN {hvp_libraries} as l ' .
-      'ON c.machine_name = l.machine_name ' .
+      "FROM {$wpdb->base_prefix}h5p_libraries_hub_cache as c " .
+      "LEFT JOIN {$wpdb->prefix}h5p_libraries as l " .
+      'ON c.machine_name = l.name ' .
       'AND c.major_version = l.major_version ' .
       'AND c.minor_version = l.minor_version ' .
       'AND c.patch_version = l.patch_version'
