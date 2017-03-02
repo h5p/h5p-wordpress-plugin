@@ -718,7 +718,7 @@ class H5PLibraryAdmin {
     global $wpdb;
 
     // Verify token
-    if (!wp_verify_nonce(filter_input(INPUT_POST, 'token'), 'h5p_editor_ajax')) {
+    if (!wp_verify_nonce(filter_input(INPUT_GET, 'token'), 'h5p_editor_ajax')) {
       H5PCore::ajaxError(__('Invalid security token.', $this->plugin_slug), 'INVALID_TOKEN');
       exit;
     }
