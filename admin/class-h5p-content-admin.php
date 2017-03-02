@@ -1059,29 +1059,36 @@ class H5PContentAdmin {
     }
 
     // Get latest version of local libraries
+    $major_versions_sql =
+        "SELECT hl.name,
+                MAX(hl.major_version) AS major_version
+           FROM {$wpdb->prefix}h5p_libraries hl
+          WHERE hl.runnable = 1
+       GROUP BY hl.name";
+
+    $minor_versions_sql =
+         "SELECT hl2.name,
+                 hl2.major_version,
+                 MAX(hl2.minor_version) AS minor_version
+            FROM ({$major_versions_sql}) hl1
+            JOIN {$wpdb->prefix}h5p_libraries hl2
+              ON hl1.name = hl2.name
+             AND hl1.major_version = hl2.major_version
+        GROUP BY hl2.name, hl2.major_version";
+
     $local_libraries = $wpdb->get_results(
-      "
-      SELECT *
-      FROM
-      (SELECT
-       m.id as library_id,
-       m.name as machine_name,
-       m.major_version,
-       m.minor_version,
-       m.patch_version,
-       m.restricted
-     FROM {$wpdb->prefix}h5p_libraries AS m
-       JOIN (SELECT
-               l.name,
-               MAX(l.major_version * 1000000 + l.minor_version * 1000 + l.patch_version) AS maxversion
-             FROM {$wpdb->prefix}h5p_libraries AS l
-             WHERE l.runnable = 1
-             GROUP BY l.name) AS m1
-         ON m.name = m1.name AND
-            m.major_version * 1000000 + m.minor_version * 1000 + m.patch_version = maxversion
-      )as libs
-      "
-    );
+        "SELECT hl4.id AS library_id,
+                hl4.name AS machine_name,
+                hl4.major_version,
+                hl4.minor_version,
+                hl4.patch_version,
+                hl4.restricted
+           FROM ({$minor_versions_sql}) hl3
+           JOIN {$wpdb->prefix}h5p_libraries hl4
+             ON hl3.name = hl4.name
+            AND hl3.major_version = hl4.major_version
+            AND hl3.minor_version = hl4.minor_version
+       GROUP BY hl4.name, hl4.major_version, hl4.minor_version");
 
     $cached_libraries = $wpdb->get_results(
       "
