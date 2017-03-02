@@ -769,7 +769,7 @@ class H5PLibraryAdmin {
     // Download file
     $_FILES['h5p_file'] = array('name' => 'libraries.h5p');
     $path = $interface->getUploadedH5pPath();
-    $endpoint = H5PCore::$hubEndpoints[$core::CONTENT_TYPES];
+    $endpoint = H5PCore::$hubEndpoints[H5PCore::CONTENT_TYPES];
     $protocol = (extension_loaded('openssl') ? 'https' : 'http');
     $response = wp_safe_remote_get("{$protocol}://{$endpoint}{$name}", array(
       'stream' => TRUE,
