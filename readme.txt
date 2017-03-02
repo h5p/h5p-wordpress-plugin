@@ -289,5 +289,8 @@ Added Dutch translation for editor. Thanks to otacke!
 = 1.7.11 =
 Fixed fieldset overflow bug in Editor.
 
+= 1.7.12 =
+Fixed issue when generating export for some sites where the web server would report a false document_root.
+
 = 1.8.0 =
 TODO
