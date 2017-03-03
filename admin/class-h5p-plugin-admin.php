@@ -552,7 +552,7 @@ class H5P_Plugin_Admin {
     $core = $plugin->get_h5p_instance('core');
 
     // Get error messages
-    $errors = $core->checkSetupErrorMessage();
+    $errors = $core->checkSetupErrorMessage()->errors;
     $disableHubData = array(
       'errors' => $errors,
       'header' => $core->h5pF->t('Confirmation action'),
