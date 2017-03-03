@@ -1113,7 +1113,7 @@ class H5PContentAdmin {
         $result->restricted = true;
       }
 
-      $libraries[] = $core->getCachedLibAsList($result);
+      $libraries[] = $core->getCachedLibsMap($result);
     }
     $core->mergeLocalLibsIntoCachedLibs($local_libraries, $libraries);
 
