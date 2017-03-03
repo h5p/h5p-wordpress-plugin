@@ -1058,6 +1058,8 @@ class H5PWordPress implements H5PFrameworkInterface {
       case H5PPermission::DOWNLOAD_H5P:
       case H5PPermission::EMBED_H5P:
         return self::currentUserCanEdit($contentUserId);
+      case H5PPermission::CREATE_RESTRICTED:
+        return current_user_can('manage_h5p_libraries');
     }
     return FALSE;
   }
