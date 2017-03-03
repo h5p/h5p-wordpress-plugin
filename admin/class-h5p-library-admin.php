@@ -749,7 +749,7 @@ class H5PLibraryAdmin {
     // Check if the user has access to install or update content types
     $can_install_all = current_user_can('manage_h5p_libraries');
     $can_install_recommended = ($content_type->is_recommended && current_user_can('install_recommended_h5p_libraries'));
-    if (!$can_install_all || !$can_install_recommended) {
+    if (!$can_install_all && !$can_install_recommended) {
       H5PCore::ajaxError(__('No permission to install content type.', $this->plugin_slug), 'INSTALL_DENIED');
       exit;
     }
