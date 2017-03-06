@@ -736,7 +736,7 @@ class H5PLibraryAdmin {
 
     // Look up content type to ensure it's valid(and to check permissions)
     $content_type = $wpdb->get_row($wpdb->prepare(
-        "SELECT *
+        "SELECT id, is_recommended
            FROM {$wpdb->base_prefix}h5p_libraries_hub_cache
           WHERE machine_name = %s",
         $name
@@ -802,24 +802,8 @@ class H5PLibraryAdmin {
     // Install
     $storage->savePackage(NULL, NULL, TRUE);
 
-    // Get updated values for content type
-    $installed_ct = $wpdb->get_row($wpdb->prepare("
-        SELECT l.name as machine_name, l.*
-        FROM {$wpdb->prefix}h5p_libraries l
-        WHERE name = %s
-        AND major_version = %s
-        AND minor_version = %s
-        AND patch_version = %s",
-      $content_type->machine_name,
-      $content_type->major_version,
-      $content_type->minor_version,
-      $content_type->patch_version));
-
-    $cached_content_types = array($core->getCachedLibsMap($content_type));
-    $core->mergeLocalLibsIntoCachedLibs(array($installed_ct), $cached_content_types);
-
     // Successfully installed.
-    H5PCore::ajaxSuccess($cached_content_types[0]);
+    H5PCore::ajaxSuccess();
     exit;
   }
 
