@@ -73,6 +73,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Get the URL to a library file
    */
   public function getLibraryFileUrl($libraryFolderName, $fileName) {
+    $upload_dir = wp_upload_dir();
     return $upload_dir['baseurl'] . '/h5p/libraries/' . $libraryFolderName . '/' . $fileName;
   }
 
@@ -233,6 +234,9 @@ class H5PWordPress implements H5PFrameworkInterface {
     }
     if (!isset($library['fullscreen'])) {
       $library['fullscreen'] = 0;
+    }
+    if (!isset($library['hasIcon'])) {
+      $library['hasIcon'] = 0;
     }
     if ($new) {
       $wpdb->insert(
