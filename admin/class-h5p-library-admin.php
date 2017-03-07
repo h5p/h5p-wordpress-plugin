@@ -759,7 +759,7 @@ class H5PLibraryAdmin {
     @unlink($interface->getUploadedH5pPath());
 
     // Successfully installed.
-    H5PCore::ajaxSuccess($json);
+    H5PCore::ajaxSuccess(json_decode($json));
     exit;
   }
 
