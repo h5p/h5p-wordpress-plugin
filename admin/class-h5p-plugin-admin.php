@@ -96,6 +96,9 @@ class H5P_Plugin_Admin {
     // AJAX for installing library from external url
     add_action('wp_ajax_h5p_library-install', array($this->library, 'ajax_library_install'));
 
+    // AJAX for installing dependencies and getting json content of an h5p
+    add_action('wp_ajax_h5p_library-upload', array($this->library, 'ajax_library_upload'));
+
     // AJAX for handling content usage datas
     add_action('wp_ajax_h5p_contents_user_data', array($this, 'ajax_contents_user_data'));
 

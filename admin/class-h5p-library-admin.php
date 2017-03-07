@@ -714,6 +714,59 @@ class H5PLibraryAdmin {
   /**
    * Handle ajax request to install library from url
    */
+  public function ajax_library_upload() {
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+      exit;
+    }
+
+    // Verify token
+    if (!wp_verify_nonce(filter_input(INPUT_GET, 'token'), 'h5p_editor_ajax')) {
+      H5PCore::ajaxError(__('Invalid security token.', $this->plugin_slug), 'INVALID_TOKEN');
+      exit;
+    }
+
+    // Verify h5p upload
+    if (!$_FILES['h5p']) {
+      H5PCore::ajaxError(__('Could not get posted H5P.', $this->plugin_slug), 'NO_CONTENT_TYPE');
+      exit;
+    }
+
+    // Get instances
+    $plugin    = H5P_Plugin::get_instance();
+    $validator = $plugin->get_h5p_instance('validator');
+    $interface = $plugin->get_h5p_instance('interface');
+
+    // Move so core can validate the file extension.
+    rename($_FILES['h5p']['tmp_name'], $interface->getUploadedH5pPath());
+
+    if (!$validator->isValidPackage()) {
+      // Clean up
+      @unlink($interface->getUploadedH5pPath());
+
+      H5PCore::ajaxError(__('The file you uploaded is not a valid HTML5 Package.'), 'VALIDATION_FAILED');
+      exit;
+    }
+
+    // Install any required dependencies
+    $storage = $plugin->get_h5p_instance('storage');
+    $storage->savePackage(NULL, NULL, TRUE);
+
+    $tmpDir = $interface->getUploadedH5pFolderPath();
+    $json = file_get_contents($tmpDir . DIRECTORY_SEPARATOR . 'content' . DIRECTORY_SEPARATOR . 'content.json');
+
+    // Clean up tmp files
+    @unlink($interface->getUploadedH5pPath());
+
+    // Successfully installed.
+    H5PCore::ajaxSuccess($json);
+    exit;
+  }
+
+
+  /**
+   * Handle ajax request to install library from url
+   */
   public function ajax_library_install() {
     global $wpdb;
 
