@@ -235,6 +235,9 @@ class H5PWordPress implements H5PFrameworkInterface {
     if (!isset($library['fullscreen'])) {
       $library['fullscreen'] = 0;
     }
+    if (!isset($library['hasIcon'])) {
+      $library['hasIcon'] = 0;
+    }
     if ($new) {
       $wpdb->insert(
           $wpdb->prefix . 'h5p_libraries',
