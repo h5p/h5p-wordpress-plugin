@@ -1077,12 +1077,13 @@ class H5PContentAdmin {
         GROUP BY hl2.name, hl2.major_version";
 
     $local_libraries = $wpdb->get_results(
-        "SELECT hl4.id AS library_id,
+        "SELECT hl4.id,
                 hl4.name AS machine_name,
                 hl4.major_version,
                 hl4.minor_version,
                 hl4.patch_version,
-                hl4.restricted
+                hl4.restricted,
+                hl4.has_icon
            FROM ({$minor_versions_sql}) hl3
            JOIN {$wpdb->prefix}h5p_libraries hl4
              ON hl3.name = hl4.name
