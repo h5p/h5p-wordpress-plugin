@@ -73,6 +73,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Get the URL to a library file
    */
   public function getLibraryFileUrl($libraryFolderName, $fileName) {
+    $upload_dir = wp_upload_dir();
     return $upload_dir['baseurl'] . '/h5p/libraries/' . $libraryFolderName . '/' . $fileName;
   }
 
