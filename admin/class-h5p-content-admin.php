@@ -1120,9 +1120,32 @@ class H5PContentAdmin {
 
     status_header(200);
     print json_encode(array(
-      'libraries' => $libraries
+      'libraries' => $libraries,
+      'recentlyUsed' => $this->get_recently_used()
     ));
     exit;
+  }
+
+  /**
+   * Get recently used libraries for the current logged in user
+   */
+  private function get_recently_used() {
+    global $wpdb;
+    $recently_used = array();
+
+    $result = $wpdb->get_results($wpdb->prepare(
+      "SELECT distinct library_name
+         FROM {$wpdb->prefix}h5p_events
+      WHERE type='content' AND sub_type = 'new' AND user_id = %d
+      ORDER BY created_at DESC",
+      get_current_user_id()
+    ));
+
+    foreach ($result as $row) {
+      $recently_used[] = $row->library_name;
+    }
+
+    return $recently_used;
   }
 
   /**
