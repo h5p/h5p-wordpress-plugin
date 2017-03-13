@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.7
-Stable tag: 1.7.12
+Stable tag: 1.7.13
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -291,3 +291,6 @@ Fixed fieldset overflow bug in Editor.
 
 = 1.7.12 =
 Fixed issue when generating export for some sites where the web server would report a false document_root.
+
+= 1.7.13 =
+Fixed editor issue related to a problem with fieldsets in IE (not able to expand)
