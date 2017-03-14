@@ -906,7 +906,8 @@ class H5PContentAdmin {
       $plugin = H5P_Plugin::get_instance();
       self::$h5peditor = new H5peditor(
         $plugin->get_h5p_instance('core'),
-        new H5PEditorWordPressStorage()
+        new H5PEditorWordPressStorage(),
+        new H5PEditorWordPressAjax()
       );
     }
 
@@ -990,6 +991,29 @@ class H5PContentAdmin {
   }
 
   /**
+   * Handle ajax request to install library from url
+   */
+  public function ajax_library_upload() {
+    $token = filter_input(INPUT_GET, 'token');
+
+    $editor = $this->get_h5peditor_instance();
+    $editor->ajax->action(H5PEditorEndpoints::LIBRARY_UPLOAD, $token);
+    exit;
+  }
+
+  /**
+   * Handle ajax request to install library from url
+   */
+  public function ajax_library_install() {
+    $token = filter_input(INPUT_GET, 'token');
+    $name = filter_input(INPUT_GET, 'id');
+
+    $editor = $this->get_h5peditor_instance();
+    $editor->ajax->action(H5PEditorEndpoints::LIBRARY_INSTALL, $token, $name);
+    exit;
+  }
+
+  /**
    * Get library details through AJAX.
    *
    * @since 1.0.0
@@ -997,18 +1021,20 @@ class H5PContentAdmin {
   public function ajax_libraries() {
     $editor = $this->get_h5peditor_instance();
 
-    $plugin = H5P_Plugin::get_instance();
-    $plugin->get_h5p_instance('core');
-
+    // Get input
     $name = filter_input(INPUT_GET, 'machineName', FILTER_SANITIZE_STRING);
     $major_version = filter_input(INPUT_GET, 'majorVersion', FILTER_SANITIZE_NUMBER_INT);
     $minor_version = filter_input(INPUT_GET, 'minorVersion', FILTER_SANITIZE_NUMBER_INT);
 
-    header('Cache-Control: no-cache');
-    header('Content-type: application/json');
-
+    // Retrieve single library if name is specified
     if ($name) {
-      print $editor->getLibraryData($name, $major_version, $minor_version, $plugin->get_language(), '', $plugin->get_h5p_path());
+      $plugin = H5P_Plugin::get_instance();
+      $plugin->get_h5p_instance('core');
+
+      $editor->ajax->action(H5PEditorEndpoints::SINGLE_LIBRARY, $name,
+        $major_version, $minor_version, $plugin->get_language(), '',
+        $plugin->get_h5p_path()
+      );
 
       // Log library load
       new H5P_Event('library', NULL,
@@ -1016,9 +1042,9 @@ class H5PContentAdmin {
           $name, $major_version . '.' . $minor_version);
     }
     else {
-      print $editor->getLibraries();
+      // Otherwise retrieve all libraries
+      $editor->ajax->action(H5PEditorEndpoints::LIBRARIES);
     }
-
     exit;
   }
 
@@ -1026,126 +1052,11 @@ class H5PContentAdmin {
    * Get content type cache
    */
   public function ajax_content_type_cache() {
-    global $wpdb;
+    $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING);
 
-    header('Cache-Control: no-cache');
-    header('Content-type: application/json');
-
-    $plugin = H5P_Plugin::get_instance();
-    $core = $plugin->get_h5p_instance('core');
-
-    if (!$core->h5pF->getOption('hub_is_enabled', TRUE)) {
-      status_header(403);
-      $core::ajaxError(
-        $core->h5pF->t('The hub is disabled. You can re-enable it in the H5P settings.'),
-        'HUB_DISABLED'
-      );
-      exit;
-    }
-
-    // Update content type cache if it is too old
-    $ct_cache_last_update = $core->h5pF->getOption('content_type_cache_updated_at', 0);
-    $outdated_cache = $ct_cache_last_update + (60 * 60 * 24 * 7); // 1 week
-    if (current_time('timestamp') > $outdated_cache) {
-      $success = $core->updateContentTypeCache();
-      if (!$success) {
-        status_header(404);
-        $core::ajaxError(
-          $core->h5pF->t('Could not connect to the H5P Content Type Hub. Please try again later.'),
-          'NO_RESPONSE'
-        );
-        exit;
-      }
-    }
-
-    // Get latest version of local libraries
-    $major_versions_sql =
-        "SELECT hl.name,
-                MAX(hl.major_version) AS major_version
-           FROM {$wpdb->prefix}h5p_libraries hl
-          WHERE hl.runnable = 1
-       GROUP BY hl.name";
-
-    $minor_versions_sql =
-         "SELECT hl2.name,
-                 hl2.major_version,
-                 MAX(hl2.minor_version) AS minor_version
-            FROM ({$major_versions_sql}) hl1
-            JOIN {$wpdb->prefix}h5p_libraries hl2
-              ON hl1.name = hl2.name
-             AND hl1.major_version = hl2.major_version
-        GROUP BY hl2.name, hl2.major_version";
-
-    $local_libraries = $wpdb->get_results(
-        "SELECT hl4.id,
-                hl4.name AS machine_name,
-                hl4.major_version,
-                hl4.minor_version,
-                hl4.patch_version,
-                hl4.restricted,
-                hl4.has_icon
-           FROM ({$minor_versions_sql}) hl3
-           JOIN {$wpdb->prefix}h5p_libraries hl4
-             ON hl3.name = hl4.name
-            AND hl3.major_version = hl4.major_version
-            AND hl3.minor_version = hl4.minor_version
-       GROUP BY hl4.name, hl4.major_version, hl4.minor_version");
-
-    $cached_libraries = $wpdb->get_results(
-      "
-      SELECT *
-      FROM {$wpdb->base_prefix}h5p_libraries_hub_cache
-      "
-    );
-
-    // Determine access
-    $can_install_any = current_user_can('manage_h5p_libraries');
-    $can_install_recommended = current_user_can('install_recommended_h5p_libraries');
-
-    $libraries = array();
-    foreach ($cached_libraries as &$result) {
-      if ($can_install_any) {
-        $result->restricted = false;
-      }
-      elseif ($result->is_recommended && $can_install_recommended) {
-        $result->restricted = false;
-      }
-      else {
-        $result->restricted = true;
-      }
-
-      $libraries[] = $core->getCachedLibsMap($result);
-    }
-    $core->mergeLocalLibsIntoCachedLibs($local_libraries, $libraries);
-
-    status_header(200);
-    print json_encode(array(
-      'libraries' => $libraries,
-      'recentlyUsed' => $this->get_recently_used()
-    ));
+    $editor = $this->get_h5peditor_instance();
+    $editor->ajax->action(H5PEditorEndpoints::CONTENT_TYPE_CACHE, $token);
     exit;
-  }
-
-  /**
-   * Get recently used libraries for the current logged in user
-   */
-  private function get_recently_used() {
-    global $wpdb;
-    $recently_used = array();
-
-    $result = $wpdb->get_results($wpdb->prepare(
-      "SELECT distinct library_name
-         FROM {$wpdb->prefix}h5p_events
-      WHERE type='content' AND sub_type = 'new' AND user_id = %d
-      ORDER BY created_at DESC",
-      get_current_user_id()
-    ));
-
-    foreach ($result as $row) {
-      $recently_used[] = $row->library_name;
-    }
-
-    return $recently_used;
   }
 
   /**
@@ -1154,52 +1065,11 @@ class H5PContentAdmin {
    * @since 1.1.0
    */
   public function ajax_files() {
-    global $wpdb;
-
-    $plugin = H5P_Plugin::get_instance();
-    $files_directory = $plugin->get_h5p_path();
-
-    if (!wp_verify_nonce(filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING), 'h5p_editor_ajax')) {
-      H5PCore::ajaxError(__('Invalid security token. Please reload the editor.', $this->plugin_slug));
-      exit;
-    }
-
-    // Get Content ID for upload
+    $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING);
     $contentId = filter_input(INPUT_POST, 'contentId', FILTER_SANITIZE_NUMBER_INT);
 
-    $file = new H5peditorFile($plugin->get_h5p_instance('interface'));
-    if (!$file->isLoaded()) {
-      H5PCore::ajaxError(__('File not found on server. Check file upload settings.', $this->plugin_slug));
-      exit;
-    }
-
-    if (function_exists('check_upload_size')) {
-      $upload = check_upload_size($_FILES['file']);
-      if ($upload['error'] != '0') {
-        H5PCore::ajaxError($upload['error']);
-        exit;
-      }
-    }
-
-    // Make sure file is valid
-    if ($file->validate()) {
-      $core = $plugin->get_h5p_instance('core');
-
-      // Save the valid file
-      $file_id = $core->fs->saveFile($file, $contentId);
-
-      // Keep track of temporary files so they can be cleaned up later.
-      $wpdb->insert($wpdb->prefix . 'h5p_tmpfiles',
-          array('path' => $file_id, 'created_at' => time()),
-          array('%s', '%d'));
-
-      // Clear cached value for dirsize.
-      delete_transient('dirsize_cache');
-    }
-
-    header('Cache-Control: no-cache');
-
-    $file->printResult();
+    $editor = $this->get_h5peditor_instance();
+    $editor->ajax->action(H5PEditorEndpoints::FILES, $token, $contentId);
     exit;
   }
 
