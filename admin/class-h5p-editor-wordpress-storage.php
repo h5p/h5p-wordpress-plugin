@@ -195,4 +195,13 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
     // Clear cached value for dirsize.
     delete_transient('dirsize_cache');
   }
+
+  /**
+   * Clean up temporary files
+   *
+   * @param string $filePath Path to file or directory
+   */
+  public static function removeTemporarilySavedFiles($filePath) {
+    _h5p_recursive_unlink($filePath);
+  }
 }
