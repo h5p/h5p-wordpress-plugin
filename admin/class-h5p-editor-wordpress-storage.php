@@ -202,6 +202,11 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
    * @param string $filePath Path to file or directory
    */
   public static function removeTemporarilySavedFiles($filePath) {
-    _h5p_recursive_unlink($filePath);
+    if (is_dir($filePath)) {
+      H5PCore::deleteFileTree($filePath);
+    }
+    else {
+      unlink($filePath);
+    }
   }
 }

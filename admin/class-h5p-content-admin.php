@@ -995,9 +995,9 @@ class H5PContentAdmin {
    */
   public function ajax_library_upload() {
     $token = filter_input(INPUT_GET, 'token');
-
+    $filePath = $_FILES['h5p']['tmp_name'];
     $editor = $this->get_h5peditor_instance();
-    $editor->ajax->action(H5PEditorEndpoints::LIBRARY_UPLOAD, $token);
+    $editor->ajax->action(H5PEditorEndpoints::LIBRARY_UPLOAD, $token, $filePath);
     exit;
   }
 

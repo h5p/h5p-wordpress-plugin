@@ -52,7 +52,7 @@ class H5PEditorWordPressAjax implements H5PEditorAjaxInterface {
    *
    * @return array|object|null Returns results from querying the database
    */
-  public function getContentTypeCache($machineName) {
+  public function getContentTypeCache($machineName = NULL) {
     global $wpdb;
 
     // Return info of only the content type with the given machine name
