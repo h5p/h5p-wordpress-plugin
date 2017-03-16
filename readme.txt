@@ -292,5 +292,8 @@ Fixed fieldset overflow bug in Editor.
 = 1.7.12 =
 Fixed issue when generating export for some sites where the web server would report a false document_root.
 
+= 1.7.13 =
+Fixed editor issue related to a problem with fieldsets in IE (not able to expand)
+
 = 1.8.0 =
 TODO
