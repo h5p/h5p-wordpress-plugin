@@ -1136,7 +1136,7 @@ class H5PContentAdmin {
     $result = $wpdb->get_results($wpdb->prepare(
       "SELECT distinct library_name
          FROM {$wpdb->prefix}h5p_events
-      WHERE type='content' AND sub_type = 'new' AND user_id = %d
+      WHERE type='content' AND sub_type = 'create' AND user_id = %d
       ORDER BY created_at DESC",
       get_current_user_id()
     ));
