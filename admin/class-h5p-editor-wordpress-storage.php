@@ -145,4 +145,68 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
     $plugin = H5P_Plugin::get_instance();
     $plugin->alter_assets($files, $libraries, 'editor');
   }
+
+  /**
+   * Saves a file or moves it temporarily. This is often necessary in order to
+   * validate and store uploaded or fetched H5Ps.
+   *
+   * @param string $data Uri of data or actual data that should be saved as a temporary file
+   * @param boolean $move_file Can be set to TRUE to move the data instead of saving it
+   *
+   * @return bool|object Returns false if saving failed or an object with the dir
+   * and the fileName of the saved file
+   */
+  public static function saveFileTemporarily($data, $move_file) {
+    // Get temporary path
+    $plugin = H5P_Plugin::get_instance();
+    $interface = $plugin->get_h5p_instance('interface');
+
+    $path = $interface->getUploadedH5pPath();
+
+    if ($move_file) {
+      // Move so core can validate the file extension.
+      rename($data, $path);
+    }
+    else {
+      // Create file from data
+      file_put_contents($path, $data);
+    }
+
+    return (object) array (
+      'dir' => dirname($path),
+      'fileName' => basename($path)
+    );
+  }
+
+  /**
+   * Marks a file for later cleanup, useful when files are not instantly cleaned
+   * up. E.g. for files that are uploaded through the editor.
+   *
+   * @param H5peditorFile
+   */
+  public static function markFileForCleanup($file) {
+    global $wpdb;
+
+    // Keep track of temporary files so they can be cleaned up later.
+    $wpdb->insert($wpdb->prefix . 'h5p_tmpfiles',
+      array('path' => $file, 'created_at' => time()),
+      array('%s', '%d'));
+
+    // Clear cached value for dirsize.
+    delete_transient('dirsize_cache');
+  }
+
+  /**
+   * Clean up temporary files
+   *
+   * @param string $filePath Path to file or directory
+   */
+  public static function removeTemporarilySavedFiles($filePath) {
+    if (is_dir($filePath)) {
+      H5PCore::deleteFileTree($filePath);
+    }
+    else {
+      unlink($filePath);
+    }
+  }
 }

@@ -80,10 +80,10 @@ class H5P_Plugin_Admin {
     add_action('wp_ajax_h5p_inserted', array($this->content, 'ajax_inserted'));
 
     // Editor ajax
+    add_action('wp_ajax_h5p_library-install', array($this->content, 'ajax_library_install'));
+    add_action('wp_ajax_h5p_library-upload', array($this->content, 'ajax_library_upload'));
     add_action('wp_ajax_h5p_libraries', array($this->content, 'ajax_libraries'));
     add_action('wp_ajax_h5p_files', array($this->content, 'ajax_files'));
-
-    // Editor AJAX for getting content type cache
     add_action('wp_ajax_h5p_content-type-cache', array($this->content, 'ajax_content_type_cache'));
 
     // AJAX for rebuilding all content caches
@@ -92,12 +92,6 @@ class H5P_Plugin_Admin {
     // AJAX for content upgrade
     add_action('wp_ajax_h5p_content_upgrade_library', array($this->library, 'ajax_upgrade_library'));
     add_action('wp_ajax_h5p_content_upgrade_progress', array($this->library, 'ajax_upgrade_progress'));
-
-    // AJAX for installing library from external url
-    add_action('wp_ajax_h5p_library-install', array($this->library, 'ajax_library_install'));
-
-    // AJAX for installing dependencies and getting json content of an h5p
-    add_action('wp_ajax_h5p_library-upload', array($this->library, 'ajax_library_upload'));
 
     // AJAX for handling content usage datas
     add_action('wp_ajax_h5p_contents_user_data', array($this, 'ajax_contents_user_data'));

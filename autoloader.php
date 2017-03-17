@@ -25,6 +25,8 @@ function h5p_autoloader($class) {
       'H5peditor' => 'h5p-editor-php-library/h5peditor.class.php',
       'H5peditorFile' => 'h5p-editor-php-library/h5peditor-file.class.php',
       'H5peditorStorage' => 'h5p-editor-php-library/h5peditor-storage.interface.php',
+      'H5PEditorAjaxInterface' => 'h5p-editor-php-library/h5peditor-ajax.interface.php',
+      'H5PEditorAjax' => 'h5p-editor-php-library/h5peditor-ajax.class.php',
 
       // Public
       'H5P_Event' => 'public/class-h5p-event.php',
@@ -37,6 +39,7 @@ function h5p_autoloader($class) {
       'H5PContentQuery' => 'admin/class-h5p-content-query.php',
       'H5PLibraryAdmin' => 'admin/class-h5p-library-admin.php',
       'H5PEditorWordPressStorage' => 'admin/class-h5p-editor-wordpress-storage.php',
+      'H5PEditorWordPressAjax' => 'admin/class-h5p-editor-wordpress-ajax.php'
     );
   }
 
