@@ -802,6 +802,19 @@ class H5P_Plugin_Admin {
       '%d'
     );
 
+    /**
+     * Allows you to alter a user's submitted result for a given H5P content
+     * This action is fired before the result is saved.
+     *
+     * @since 1.8.0
+     *
+     * @param object &$data Has the following properties score,max_score,opened,finished,time
+     * @param int $result_id Only set if updating result
+     * @param int $content_id Identifier of the H5P Content
+     * @param int $user_id Identfieri of the User
+     */
+    do_action_ref_array('h5p_alter_user_result', array(&$data, $result_id, $content_id, $user_id));
+
     if (!$result_id) {
       // Insert new results
       $data['user_id'] = $user_id;
