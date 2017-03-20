@@ -422,6 +422,7 @@ class H5PContentAdmin {
    */
   public function display_new_content_page() {
     $contentExists = ($this->content !== NULL);
+    $hubIsEnabled = get_option('h5p_hub_is_enabled', TRUE);
 
     $plugin = H5P_Plugin::get_instance();
     $core = $plugin->get_h5p_instance('core');
@@ -432,7 +433,7 @@ class H5PContentAdmin {
     $parameters = $this->get_input('parameters', $contentExists ? $core->filterParameters($this->content) : '{}');
 
     // Determine upload or create
-    if (!$contentExists && !$this->has_libraries()) {
+    if (!$hubIsEnabled && !$contentExists && !$this->has_libraries()) {
       $upload = TRUE;
     }
     else {
