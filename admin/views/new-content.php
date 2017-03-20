@@ -43,7 +43,7 @@
       </div>
       <div class="postbox h5p-sidebar">
         <h2><?php esc_html_e('Actions', $this->plugin_slug); ?></h2>
-        <div id="minor-publishing">
+        <div id="minor-publishing" <?php if (get_option('h5p_hub_is_enabled', TRUE)) : print 'style="display:none"'; endif; ?>>
           <label><input type="radio" name="action" value="upload"<?php if ($upload): print ' checked="checked"'; endif; ?>/><?php esc_html_e('Upload', $this->plugin_slug); ?></label>
           <label><input type="radio" name="action" value="create"/><?php esc_html_e('Create', $this->plugin_slug); ?></label>
           <input type="hidden" name="library" value="<?php print esc_attr($library); ?>"/>
