@@ -981,7 +981,8 @@ class H5PContentAdmin {
       'libraryUrl' => plugin_dir_url('h5p/h5p-editor-php-library/h5peditor.class.php'),
       'copyrightSemantics' => $content_validator->getCopyrightSemantics(),
       'assets' => $assets,
-      'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug)
+      'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug),
+      'apiVersion' => H5PCore::$coreApi
     );
 
     if ($id !== NULL) {
