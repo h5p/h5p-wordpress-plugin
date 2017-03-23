@@ -81,10 +81,11 @@ class H5PEditorWordPressAjax implements H5PEditorAjaxInterface {
     $recently_used = array();
 
     $result = $wpdb->get_results($wpdb->prepare(
-      "SELECT distinct library_name
+     "SELECT library_name, max(created_at) AS max_created_at
          FROM {$wpdb->prefix}h5p_events
-      WHERE type='content' AND sub_type = 'create' AND user_id = %d
-      ORDER BY created_at DESC",
+        WHERE type='content' AND sub_type = 'create' AND user_id = %d
+     GROUP BY library_name
+     ORDER BY max_created_at DESC",
       get_current_user_id()
     ));
 
