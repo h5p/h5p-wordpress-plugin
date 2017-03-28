@@ -60,7 +60,7 @@
   <form method="post" id="h5p-update-content-type-cache">
     <div class="h5p postbox">
       <div class="h5p-text-holder">
-        <p><?php print esc_html_e('Here you can update the content type cache from the H5P hub. This is used to show the available libraries in the H5P authoring tool. Making sure the content type cache is up to date will ensure that you can view and download the latest libraries.', $this->plugin_slug) ?></p>
+        <p><?php print esc_html_e('Making sure the content type cache is up to date will ensure that you can view, download and use the latest libraries. This is different from updating the libraries themselves.', $this->plugin_slug) ?></p>
         <table class="form-table">
           <tbody>
           <tr valign="top">
