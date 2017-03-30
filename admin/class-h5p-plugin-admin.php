@@ -312,6 +312,28 @@ class H5P_Plugin_Admin {
           // Extra warning that content types should be updated in order to look good with the new editor design changes
           $updates_msg = sprintf(wp_kses(__('You should <strong>upgrade your H5P content types!</strong> The old content types still work, but the authoring tool\'s look and feel is greatly improved with the new content types. Here\'s some more info about <a href="%s" target="_blank">upgrading the content types</a>.', $this->plugin_slug), array('strong' => array(), 'a' => array('href' => array(), 'target' => array()))), 'https://h5p.org/update-all-content-types') . '<br/>' . $updates_msg;
         }
+
+        // Notify about H5P Hub communication changes
+        if ($v->major < 1 || ($v->major === 1 && $v->minor < 9)) {
+          if (!get_option('h5p_ext_communication', TRUE)) {
+            $updates_msg .= '<br/>' . sprintf(wp_kses(
+              __('<p>H5P now fetches content types directly from the H5P Hub. In order to do this the H5P plugin will communicate with H5P.org once per day to fetch information about new and updated content types. It will send in anonymous data to the hub about H5P usage. If you do not want to use the new Hub client and get information about new content types automatically, you may disable the H5P Hub in the H5P settings.</p>', $this->plugin_slug)
+            ), array('p' => array()));
+
+            // Enable hub and delete old variable
+            if (!get_option('h5p_hub_is_enabled', TRUE)) {
+              update_option('h5p_hub_is_enabled', TRUE);
+            }
+            delete_option('h5p_ext_communication');
+          }
+
+        }
+      }
+      else {
+        // Notify of H5P Hub communication
+        $updates_msg .= sprintf(wp_kses(
+          __('H5P fetches content types directly from the H5P Hub. In order to do this the H5P plugin will communicate with the Hub once a day to fetch information about new and updated content types. It will send in anonymous data to the Hub about H5P usage. Read more at <a href="https://h5p.org/h5p-plugin-communication">the plugin communication page at H5P.org</a>.', $this->plugin_slug), array('a' => array('href'))
+        ));
       }
 
       if ($update_available > $current_update) {
@@ -494,15 +516,6 @@ class H5P_Plugin_Admin {
       $track_user = filter_input(INPUT_POST, 'track_user', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_track_user', $track_user);
 
-      $ext_communication = filter_input(INPUT_POST, 'ext_communication', FILTER_VALIDATE_BOOLEAN);
-      if ($ext_communication !== (get_option('h5p_ext_communication', TRUE) ? TRUE : NULL)) {
-        // Changed, update core
-        $plugin = H5P_Plugin::get_instance();
-        $core = $plugin->get_h5p_instance('core');
-        $core->fetchLibrariesMetadata($ext_communication === NULL);
-      }
-      update_option('h5p_ext_communication', $ext_communication);
-
       $save_content_state = filter_input(INPUT_POST, 'save_content_state', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_save_content_state', $save_content_state);
 
@@ -535,7 +548,6 @@ class H5P_Plugin_Admin {
       $copyright = get_option('h5p_copyright', TRUE);
       $about = get_option('h5p_icon', TRUE);
       $track_user = get_option('h5p_track_user', TRUE);
-      $ext_communication = get_option('h5p_ext_communication', TRUE);
       $save_content_state = get_option('h5p_save_content_state', FALSE);
       $save_content_frequency = get_option('h5p_save_content_frequency', 30);
       $insert_method = get_option('h5p_insert_method', 'id');

@@ -21,20 +21,6 @@
     <table class="form-table">
       <tbody>
         <tr valign="top">
-          <th scope="row"><?php _e("External communication", $this->plugin_slug); ?></th>
-          <td>
-            <label>
-              <input name="ext_communication" type="checkbox" value="true"<?php if ($ext_communication): ?> checked="checked"<?php endif; ?>/>
-              <?php _e("I wish to aid in the development of H5P by contributing anonymous usage data", $this->plugin_slug); ?>
-            </label>
-            <p class="h5p-setting-desc">
-              <?php _e("Disabling this option will prevent your site from fetching the newest H5P updates.", $this->plugin_slug); ?><br/>
-              <?php _e("You will have to manually download the Content Type updates from H5P.org and then upload them to your site.", $this->plugin_slug); ?><br/>
-              <?php printf(wp_kses(__('You can read more about <a href="%s" target="_blank">which data is collected</a> on h5p.org.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), 'https://h5p.org/tracking-the-usage-of-h5p'); ?>
-            </p>
-          </td>
-        </tr>
-        <tr valign="top">
           <th scope="row"><?php _e("Toolbar Below Content", $this->plugin_slug); ?></th>
           <td>
             <label>
@@ -195,7 +181,7 @@
               <?php _e("Enable hub", $this->plugin_slug); ?>
             </label>
             <p class="h5p-setting-desc">
-              <?php _e("It is strongly discouraged to disable the hub. It will disable all communication with the H5P hub, which mean you will not be able to create, reuse and share content and content types through the H5P hub interface. You will also have to install libraries manually through uploading them.", $this->plugin_slug); ?>
+              <?php _e("It is strongly discouraged to disable the hub. Enabling the hub will allow communication with the H5P hub, allowing you to create, reuse and share content and content types through the H5P Hub interface. Anonymous usage data will also be sent to the H5P Hub. Disabling this option will force you to install libraries manually through upload.", $this->plugin_slug); ?>
             </p>
           </td>
         </tr>
