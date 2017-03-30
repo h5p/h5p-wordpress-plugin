@@ -296,7 +296,6 @@ class H5P_Plugin_Admin {
       }
       $messages[] = $fetching_msg;
       $messages[] = $help_msg;
-      update_option('h5p_last_info_print', H5P_Plugin::VERSION);
     }
 
     // Always print a message after
