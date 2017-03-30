@@ -263,6 +263,7 @@ class H5P_Plugin_Admin {
     $updates_msg = sprintf(wp_kses(__('Head over to the <a href="%s">Libraries</a> page and update your content types to the latest version.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_libraries'));
     $fetching_msg = sprintf(wp_kses(__('By default, H5P is set up to automatically fetch information regarding Content Type updates from H5P.org. When doing so, H5P will also contribute anonymous usage data to aid the development of H5P. This behaviour can be altered through the <a href="%s">Settings</a> page.', $this->plugin_slug), array('a' => array('href' => array()))), admin_url('options-general.php?page=h5p_settings'));
     $help_msg = sprintf(wp_kses(__('If you need any help you can always file a <a href="%s" target="_blank">Support Request</a>, check out our <a href="%s" target="_blank">Forum</a> or join the conversation in the <a href="%s" target="_blank">H5P Community Chat</a>.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum'), esc_url('https://gitter.im/h5p/CommunityChat'));
+    $communication_msg = sprintf(wp_kses(__('H5P fetches content types directly from the H5P Hub. In order to do this the H5P plugin will communicate with the Hub once a day to fetch information about new and updated content types. It will send in anonymous data to the Hub about H5P usage. Read more at <a href="https://h5p.org/h5p-plugin-communication">the plugin communication page at H5P.org</a>.', $this->plugin_slug), array('a' => array('href'))));
 
     // Handle library updates
     $update_available = get_option('h5p_update_available', 0);
@@ -296,6 +297,9 @@ class H5P_Plugin_Admin {
       }
       $messages[] = $fetching_msg;
       $messages[] = $help_msg;
+      $messages[] = $communication_msg;
+
+      update_option('h5p_last_info_print', H5P_Plugin::VERSION);
     }
 
     // Always print a message after
@@ -325,14 +329,7 @@ class H5P_Plugin_Admin {
             }
             delete_option('h5p_ext_communication');
           }
-
         }
-      }
-      else {
-        // Notify of H5P Hub communication
-        $updates_msg .= sprintf(wp_kses(
-          __('H5P fetches content types directly from the H5P Hub. In order to do this the H5P plugin will communicate with the Hub once a day to fetch information about new and updated content types. It will send in anonymous data to the Hub about H5P usage. Read more at <a href="https://h5p.org/h5p-plugin-communication">the plugin communication page at H5P.org</a>.', $this->plugin_slug), array('a' => array('href'))
-        ));
       }
 
       if ($update_available > $current_update) {
