@@ -390,6 +390,8 @@ class H5P_Plugin {
    * @since 1.2.0
    */
   public static function check_for_updates() {
+    global $wpdb;
+
     $current_version = get_option('h5p_version');
     if ($current_version === self::VERSION) {
       return; // Same version as before
@@ -403,6 +405,12 @@ class H5P_Plugin {
 
     // Split version number
     $v = self::split_version($current_version);
+
+    $between_1710_1713 = ($v->major === 1 && $v->minor === 7 && $v->patch >= 10 && $v->patch <= 13); // Target 1.7.10, 1.7.11, 1.7.12, 1.7.13
+    if ($between_1710_1713) {
+      // Fix tmpfiles table manually :-)
+      $wpdb->query("ALTER TABLE {$wpdb->prefix}h5p_tmpfiles ADD COLUMN id INT UNSIGNED NOT NULL AUTO_INCREMENT FIRST, DROP PRIMARY KEY, ADD PRIMARY KEY(id)");
+    }
 
     // Check and update database
     self::update_database();
