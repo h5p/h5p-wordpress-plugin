@@ -261,9 +261,8 @@ class H5P_Plugin_Admin {
     // Some messages used multiple places
     $staying_msg = __('Thank you for staying up to date with H5P.', $this->plugin_slug);
     $updates_msg = sprintf(wp_kses(__('Head over to the <a href="%s">Libraries</a> page and update your content types to the latest version.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_libraries'));
-    $fetching_msg = sprintf(wp_kses(__('By default, H5P is set up to automatically fetch information regarding Content Type updates from H5P.org. When doing so, H5P will also contribute anonymous usage data to aid the development of H5P. This behaviour can be altered through the <a href="%s">Settings</a> page.', $this->plugin_slug), array('a' => array('href' => array()))), admin_url('options-general.php?page=h5p_settings'));
+    $communication_msg = sprintf(wp_kses(__('H5P fetches content types directly from the H5P Hub. In order to do this, the H5P plugin will communicate with the Hub once a day to fetch information about new and updated content types. It will send in anonymous data to the Hub about H5P usage. Read more at <a href="%s">the plugin communication page at H5P.org</a>.', $this->plugin_slug), array('a' => array('href' => array()))), esc_url('https://h5p.org/tracking-the-usage-of-h5p'));
     $help_msg = sprintf(wp_kses(__('If you need any help you can always file a <a href="%s" target="_blank">Support Request</a>, check out our <a href="%s" target="_blank">Forum</a> or join the conversation in the <a href="%s" target="_blank">H5P Community Chat</a>.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum'), esc_url('https://gitter.im/h5p/CommunityChat'));
-    $communication_msg = sprintf(wp_kses(__('H5P fetches content types directly from the H5P Hub. In order to do this the H5P plugin will communicate with the Hub once a day to fetch information about new and updated content types. It will send in anonymous data to the Hub about H5P usage. Read more at <a href="https://h5p.org/tracking-the-usage-of-h5p">the plugin communication page at H5P.org</a>.', $this->plugin_slug), array('a' => array('href'))));
 
     // Handle library updates
     $update_available = get_option('h5p_update_available', 0);
@@ -295,9 +294,8 @@ class H5P_Plugin_Admin {
         $messages[] = $updates_msg;
         $messages[] = $inspiration_msg;
       }
-      $messages[] = $fetching_msg;
-      $messages[] = $help_msg;
       $messages[] = $communication_msg;
+      $messages[] = $help_msg;
 
       update_option('h5p_last_info_print', H5P_Plugin::VERSION);
     }
@@ -319,7 +317,7 @@ class H5P_Plugin_Admin {
         // Notify about H5P Hub communication changes
         if ($v->major < 1 || ($v->major === 1 && $v->minor < 9)) {
           if (!get_option('h5p_ext_communication', TRUE)) {
-            $updates_msg .= '<br/>' . sprintf(wp_kses(__('<p>H5P now fetches content types directly from the H5P Hub. In order to do this the H5P plugin will communicate with H5P.org once per day to fetch information about new and updated content types. It will send in anonymous data to the hub about H5P usage. If you do not want to use the new Hub client and get information about new content types automatically, you may disable the H5P Hub in the H5P settings.</p>', $this->plugin_slug), array('p' => array())));
+            $messages[] = sprintf(__('H5P now fetches content types directly from the H5P Hub. In order to do this, the H5P plugin will communicate with H5P.org once per day to fetch information about new and updated content types. It will send in anonymous data to the hub about H5P usage. If you do not want to use the new Hub client and get information about new content types automatically, you may disable the H5P Hub in the H5P settings.', $this->plugin_slug));
 
             // Enable hub and delete old variable
             if (!get_option('h5p_hub_is_enabled', TRUE)) {
