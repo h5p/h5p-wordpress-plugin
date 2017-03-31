@@ -315,7 +315,7 @@ class H5P_Plugin_Admin {
         }
 
         // Notify about H5P Hub communication changes
-        if ($v->major < 1 || ($v->major === 1 && $v->minor < 9)) {
+        if ($v->major < 1 || ($v->major === 1 && $v->minor < 8)) {
           if (!get_option('h5p_ext_communication', TRUE)) {
             $messages[] = sprintf(__('H5P now fetches content types directly from the H5P Hub. In order to do this, the H5P plugin will communicate with H5P.org once per day to fetch information about new and updated content types. It will send in anonymous data to the hub about H5P usage. If you do not want to use the new Hub client and get information about new content types automatically, you may disable the H5P Hub in the H5P settings.', $this->plugin_slug));
 
