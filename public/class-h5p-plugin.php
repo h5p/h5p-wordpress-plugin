@@ -277,7 +277,7 @@ class H5P_Plugin {
       is_recommended INT UNSIGNED NOT NULL,
       popularity INT UNSIGNED NOT NULL,
       screenshots TEXT,
-      license VARCHAR(511),
+      license TEXT,
       example VARCHAR(511) NOT NULL,
       tutorial VARCHAR(511),
       keywords TEXT,

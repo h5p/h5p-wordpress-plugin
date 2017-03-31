@@ -319,10 +319,7 @@ class H5P_Plugin_Admin {
           if (!get_option('h5p_ext_communication', TRUE)) {
             $messages[] = sprintf(__('H5P now fetches content types directly from the H5P Hub. In order to do this, the H5P plugin will communicate with H5P.org once per day to fetch information about new and updated content types. It will send in anonymous data to the hub about H5P usage. If you do not want to use the new Hub client and get information about new content types automatically, you may disable the H5P Hub in the H5P settings.', $this->plugin_slug));
 
-            // Enable hub and delete old variable
-            if (!get_option('h5p_hub_is_enabled', TRUE)) {
-              update_option('h5p_hub_is_enabled', TRUE);
-            }
+            // Delete old variable
             delete_option('h5p_ext_communication');
           }
         }
@@ -332,10 +329,7 @@ class H5P_Plugin_Admin {
         // User should update content types
         $messages[] = $updates_msg;
       }
-      if ($last_print == 0) {
-        // Notify user about anonymous data tracking
-        $messages[] = $fetching_msg;
-      }
+
       // Always offer help
       $messages[] = $help_msg;
       update_option('h5p_last_info_print', H5P_Plugin::VERSION);
@@ -531,6 +525,13 @@ class H5P_Plugin_Admin {
       }
 
       $enable_hub = filter_input(INPUT_POST, 'enable_hub', FILTER_VALIDATE_BOOLEAN);
+      $is_hub_enabled = get_option('h5p_hub_is_enabled', TRUE) ? TRUE : NULL;
+      if ($enable_hub !== $is_hub_enabled) {
+        // Changed, update core
+        $plugin = H5P_Plugin::get_instance();
+        $core   = $plugin->get_h5p_instance('core');
+        $core->fetchLibrariesMetadata($enable_hub === NULL);
+      }
       update_option('h5p_hub_is_enabled', $enable_hub);
     }
     else {
