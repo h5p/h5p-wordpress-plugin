@@ -183,13 +183,32 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
    * up. E.g. for files that are uploaded through the editor.
    *
    * @param H5peditorFile
+   * @param $content_id
    */
-  public static function markFileForCleanup($file) {
+  public static function markFileForCleanup($file, $content_id = null) {
     global $wpdb;
+
+    $plugin = H5P_Plugin::get_instance();
+    $path   = $plugin->get_h5p_path();
+
+    if (empty($content_id)) {
+      // Should be in editor tmp folder
+      $path .= '/editor';
+    }
+    else {
+      // Should be in content folder
+      $path .= '/content/' . $content_id;
+    }
+
+    // Add file type to path
+    $path .= '/' . $file->getType() . 's';
+
+    // Add filename to path
+    $path .= '/' . $file->getName();
 
     // Keep track of temporary files so they can be cleaned up later.
     $wpdb->insert($wpdb->prefix . 'h5p_tmpfiles',
-      array('path' => $file, 'created_at' => time()),
+      array('path' => $path, 'created_at' => time()),
       array('%s', '%d'));
 
     // Clear cached value for dirsize.
