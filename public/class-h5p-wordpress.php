@@ -858,24 +858,38 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements fetchExternalData
    */
-  public function fetchExternalData($url, $data = NULL) {
+  public function fetchExternalData($url, $data = NULL, $blocking = TRUE, $stream = NULL) {
+    @set_time_limit(0);
+    $options = array(
+      'timeout' => !empty($blocking) ? 30 : 0.01,
+      'stream' => !empty($stream),
+      'filename' => !empty($stream) ? $stream : FALSE
+    );
+
     if ($data !== NULL) {
       // Post
-      $response = wp_remote_post($url, array('body' => $data));
+      $options['body'] = $data;
+      $response = wp_remote_post($url, $options);
     }
     else {
       // Get
-      $response = wp_remote_get($url);
+
+      if (empty($options['filename'])) {
+        // Support redirects
+        $response = wp_remote_get($url);
+      }
+      else {
+        // Use safe when downloading files
+        $response = wp_safe_remote_get($url, $options);
+      }
     }
 
     if (is_wp_error($response)) {
       //$error_message = $response->get_error_message();
+      return FALSE;
     }
     elseif ($response['response']['code'] === 200) {
-      return $response['body'];
-    }
-    else {
-
+      return empty($response['body']) ? TRUE : $response['body'];
     }
 
     return NULL;
