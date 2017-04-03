@@ -238,11 +238,6 @@ class H5PLibraryAdmin {
     $this->add_admin_assets();
     H5P_Plugin_Admin::add_script('library-list', 'h5p-php-library/js/h5p-library-list.js');
 
-    // Updates
-    $update_available = get_option('h5p_update_available', 0);
-    $current_update = get_option('h5p_current_update', 0);
-    $updates_available = ($update_available !== 0 && $current_update !== 0 && $current_update < $update_available ? 1 : 0);
-
     // Load content type cache time
     $last_update = get_option('h5p_content_type_cache_updated_at', '');
 
@@ -261,7 +256,6 @@ class H5PLibraryAdmin {
 
     if ($post) {
       // A form as has been submitted
-      $ct_cache_update = filter_input(INPUT_POST, 'update_content_type_cache');
 
       if (isset($_FILES['h5p_file'])) {
         // If file upload, we're uploading libraries
@@ -288,28 +282,13 @@ class H5PLibraryAdmin {
         }
         return;
       }
-      elseif ($ct_cache_update !== NULL) {
+      elseif (filter_input(INPUT_POST, 'sync_hub')) {
+        check_admin_referer('h5p_sync', 'sync_hub'); // Verify form
+
         // Update content type cache
         $plugin = H5P_Plugin::get_instance();
         $core = $plugin->get_h5p_instance('core');
         $core->updateContentTypeCache();
-      }
-      elseif ($task === NULL) {
-        // No files, we must be trying to auto download & update
-
-        check_admin_referer('h5p_update', 'download_update'); // Verify form
-        if (!H5P_Plugin_Admin::download_h5p_libraries(TRUE)) {
-          // Ignore update if it failed, user must manually update.
-          update_option('h5p_current_update', get_option('h5p_update_available', 0));
-          H5P_Plugin_Admin::set_error(
-              vsprintf(
-                wp_kses(
-                  __('Unfortunately, we were unable to update your installed content types. You must manually download the update from <a href="%s" target="_blank">H5P.org</a>, and then upload it through the <em>Upload Libraries</em> section. If you need futher assistance, please file a <a href="%s" target="_blank">support request</a> or check out our <a href="%s" target="_blank">forum</a>.', $this->plugin_slug),
-                  array('a' => array('href' => array(), 'target' => array()), 'em' => array())
-                ),
-                array(esc_url('https://h5p.org/update-all-content-types'), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum'))
-              ));
-        }
       }
     }
 
