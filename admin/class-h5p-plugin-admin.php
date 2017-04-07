@@ -74,7 +74,7 @@ class H5P_Plugin_Admin {
     add_filter('plugin_action_links_h5p/h5p.php', array($this, 'add_settings_link'));
 
     // Custom media button for inserting H5Ps.
-    add_action('media_buttons_context', array($this->content, 'add_insert_button')); // TODO: Deprecated. Use media_buttons instead!
+    add_action('media_buttons', array($this->content, 'add_insert_button'));
     add_action('admin_footer', array($this->content, 'print_insert_content_scripts'));
     add_action('wp_ajax_h5p_insert_content', array($this->content, 'ajax_insert_content'));
     add_action('wp_ajax_h5p_inserted', array($this->content, 'ajax_inserted'));

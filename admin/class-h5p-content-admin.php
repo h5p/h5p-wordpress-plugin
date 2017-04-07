@@ -618,18 +618,16 @@ class H5PContentAdmin {
    * Add custom media button for selecting H5P content.
    *
    * @since 1.1.0
-   * @return string
+   * @param string $editor_id
    */
-  public function add_insert_button() {
+  public function add_insert_button($editor_id = 'content') {
     $this->insertButton = TRUE;
 
-    $insert_method = get_option('h5p_insert_method', 'id');
-    $button_content =
-      '<a href="#" id="add-h5p" class="button" title="' . __('Insert H5P Content', $this->plugin_slug) . '" data-method="' . $insert_method . '">' .
-      __('Add H5P', $this->plugin_slug) .
-      '</a>';
-
-    return $button_content;
+    printf('<button type="button" id="add-h5p" class="button" title="%s" data-method="%s">%s</button>',
+        __('Insert interactive content', $this->plugin_slug),
+        get_option('h5p_insert_method', 'id'),
+        __('Add H5P', $this->plugin_slug)
+    );
   }
 
   /**
