@@ -360,6 +360,7 @@ class H5PContentAdmin {
         $content['id'] = $result;
         $this->set_content_tags($content['id'], filter_input(INPUT_POST, 'tags'));
         wp_safe_redirect(admin_url('admin.php?page=h5p&task=show&id=' . $result));
+        exit;
       }
     }
   }
@@ -486,7 +487,7 @@ class H5PContentAdmin {
    * @param array $content
    * @return mixed
    */
-  private function handle_content_creation(&$content) {
+  private function handle_content_creation($content) {
     $plugin = H5P_Plugin::get_instance();
     $core = $plugin->get_h5p_instance('core');
 
