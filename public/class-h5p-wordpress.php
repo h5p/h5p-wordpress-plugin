@@ -36,7 +36,12 @@ class H5PWordPress implements H5PFrameworkInterface {
    * @return array
    */
   public function getMessages($type) {
-    return isset($this->messages[$type]) ? $this->messages[$type] : NULL;
+    if (empty($this->messages[$type])) {
+      return NULL;
+    }
+    $messages = $this->messages[$type];
+    $this->messages[$type] = array();
+    return $messages;
   }
 
   /**
@@ -551,6 +556,7 @@ class H5PWordPress implements H5PFrameworkInterface {
             '%d',
             '%s',
             '%d',
+            '%d'
           )
         );
     }
