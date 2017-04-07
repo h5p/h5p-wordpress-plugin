@@ -486,7 +486,7 @@ class H5PContentAdmin {
    * @param array $content
    * @return mixed
    */
-  private function handle_content_creation($content) {
+  private function handle_content_creation(&$content) {
     $plugin = H5P_Plugin::get_instance();
     $core = $plugin->get_h5p_instance('core');
 
@@ -997,7 +997,8 @@ class H5PContentAdmin {
     $token = filter_input(INPUT_GET, 'token');
     $filePath = $_FILES['h5p']['tmp_name'];
     $editor = $this->get_h5peditor_instance();
-    $editor->ajax->action(H5PEditorEndpoints::LIBRARY_UPLOAD, $token, $filePath);
+    $contentId = filter_input(INPUT_POST, 'contentId', FILTER_SANITIZE_NUMBER_INT);
+    $editor->ajax->action(H5PEditorEndpoints::LIBRARY_UPLOAD, $token, $filePath, $contentId);
     exit;
   }
 
