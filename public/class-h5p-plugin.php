@@ -353,6 +353,7 @@ class H5P_Plugin {
     add_option('h5p_content_type_cache_updated_at', 0);
     add_option('h5p_check_h5p_requirements', FALSE);
     add_option('h5p_hub_is_enabled', TRUE);
+    add_option('h5p_send_usage_statistics', TRUE);
   }
 
   /**
@@ -1241,7 +1242,7 @@ class H5P_Plugin {
    * @since 1.2.0
    */
   public function get_library_updates() {
-    if (get_option('h5p_hub_is_enabled', TRUE)) {
+    if (get_option('h5p_hub_is_enabled', TRUE) || get_option('h5p_send_usage_statistics', TRUE)) {
       $core = $this->get_h5p_instance('core');
       $core->fetchLibrariesMetadata();
     }
