@@ -110,7 +110,7 @@
           </td>
         </tr>
         <tr valign="top">
-          <th scope="row"><?php _e("Save content state", $this->plugin_slug); ?></th>
+          <th scope="row"><?php _e("Save Content State", $this->plugin_slug); ?></th>
           <td>
             <label>
               <input name="save_content_state" type="checkbox" value="true"<?php if ($save_content_state): ?> checked="checked"<?php endif; ?>/>
@@ -123,7 +123,7 @@
           </td>
         </tr>
         <tr valign="top">
-          <th scope="row"><?php _e("Add content method", $this->plugin_slug); ?></th>
+          <th scope="row"><?php _e("Add Content Method", $this->plugin_slug); ?></th>
           <td class="h5p-action-bar-settings">
             <div>
               <?php _e('When adding H5P content to posts and pages using the "Add H5P" button:', $this->plugin_slug); ?>
@@ -156,6 +156,18 @@
             <p class="h5p-setting-desc">
               <?php _e("Makes it possible to use content types that rely upon a Learning Record Store to function properly, like the Questionnaire content type.", $this->plugin_slug); ?>
             </p>
+            <label class="h5p-hub-setting">
+              <input
+                class="h5p-settings-disable-hub-checkbox"
+                name="enable_hub"
+                type="checkbox"
+                value="true"
+                <?php if ($enable_hub): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Use H5P Hub", $this->plugin_slug); ?>
+            </label>
+            <p class="h5p-setting-desc">
+              <?php _e("It's strongly encouraged to keep this option <strong>enabled</strong>. The H5P Hub provides an easy interface for getting new content types and keeping existing content types up to date. In the future, it will also make it easier to share and reuse content. Disabling this option you will have to install and update content types through file uploads.", $this->plugin_slug); ?>
+            </p>
           </td>
         </tr>
         <tr valign="top">
@@ -164,24 +176,19 @@
             <input id="h5p-site-key" name="site_key" type="text" maxlength="36" data-value="<?php print $site_key ?>" placeholder="<?php print ($site_key ? '********-****-****-****-************' : __('Empty', $this->plugin_slug)) ?>"/>
             <button type="button" class="h5p-reveal-value" data-control="h5p-site-key" data-hide="<?php _e("Hide", $this->plugin_slug); ?>"><?php _e("Reveal", $this->plugin_slug); ?></button>
             <p class="h5p-setting-desc">
-              <?php _e("The site key is a secret that uniquely identifies this site with the Hub.", $this->plugin_slug); ?>
+              <?php _e("The site key is a secret used to uniquely identifies the site with the Hub.", $this->plugin_slug); ?>
             </p>
           </td>
         </tr>
         <tr valign="top">
-          <th scope="row"><?php _e("Hub settings", $this->plugin_slug); ?></th>
+          <th scope="row"><?php _e("Usage Statistics", $this->plugin_slug); ?></th>
           <td>
             <label>
-              <input
-                class="h5p-settings-disable-hub-checkbox"
-                name="enable_hub"
-                type="checkbox"
-                value="true"
-                <?php if ($enable_hub): ?> checked="checked"<?php endif; ?>/>
-              <?php _e("Enable hub", $this->plugin_slug); ?>
+              <input name="send_usage_statistics" type="checkbox" value="true"<?php if ($send_usage_statistics): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Automatically contribute usage statistics", $this->plugin_slug); ?>
             </label>
             <p class="h5p-setting-desc">
-              <?php _e("It is strongly discouraged to disable the hub. Enabling the hub will allow communication with the H5P hub, allowing you to create, reuse and share content and content types through the H5P Hub interface. Anonymous usage data will also be sent to the H5P Hub. Disabling this option will force you to install libraries manually through upload.", $this->plugin_slug); ?>
+              <?php _e("Usage statistics numbers will automatically be reported to help the developers better understand how H5P is used and to determine potential areas of improvement.", $this->plugin_slug); ?>
             </p>
           </td>
         </tr>

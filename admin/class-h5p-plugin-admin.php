@@ -428,6 +428,9 @@ class H5P_Plugin_Admin {
         $core->fetchLibrariesMetadata($enable_hub === NULL);
       }
       update_option('h5p_hub_is_enabled', $enable_hub);
+
+      $send_usage_statistics = filter_input(INPUT_POST, 'send_usage_statistics', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_send_usage_statistics', $send_usage_statistics);
     }
     else {
       $frame = get_option('h5p_frame', TRUE);
@@ -440,8 +443,9 @@ class H5P_Plugin_Admin {
       $save_content_frequency = get_option('h5p_save_content_frequency', 30);
       $insert_method = get_option('h5p_insert_method', 'id');
       $enable_lrs_content_types = get_option('h5p_enable_lrs_content_types', FALSE);
-      $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
       $enable_hub = get_option('h5p_hub_is_enabled', TRUE);
+      $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
+      $send_usage_statistics = get_option('h5p_send_usage_statistics', TRUE);
     }
 
     // Attach disable hub configuration

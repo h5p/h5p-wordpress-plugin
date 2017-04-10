@@ -219,6 +219,10 @@
 .h5p-reveal-value {
   cursor: pointer;
 }
+.h5p-hub-setting {
+  margin-top: 1em;
+  display: block;
+}
 
 @media screen and (max-width: 782px) {
   .wrap h2 {
