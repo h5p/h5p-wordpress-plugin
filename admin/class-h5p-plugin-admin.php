@@ -279,7 +279,7 @@ class H5P_Plugin_Admin {
 
           if ($v->major < 1 || ($v->major === 1 && $v->minor < 7) || ($v->major === 1 && $v->minor === 7 && $v->patch < 8)) { // < 1.7.8
             // Extra warning that content types should be updated in order to look good with the new editor design changes
-            $messages[] = sprintf(wp_kses(__('You should <strong>upgrade your H5P content types!</strong> The old content types still work, but the authoring tool\'s look and feel is greatly improved with the new content types. Here\'s some more info about <a href="%s" target="_blank">upgrading the content types</a>.', $this->plugin_slug), array('strong' => array(), 'a' => array('href' => array(), 'target' => array()))), 'https://h5p.org/update-all-content-types') . '<br/>' . $updates_msg;
+            $messages[] = sprintf(wp_kses(__('You should <strong>upgrade your H5P content types!</strong> The old content types still work, but the authoring tool\'s look and feel is greatly improved with the new content types. Here\'s some more info about <a href="%s" target="_blank">upgrading the content types</a>.', $this->plugin_slug), array('strong' => array(), 'a' => array('href' => array(), 'target' => array()))), 'https://h5p.org/update-all-content-types');
           }
 
           // Notify about H5P Hub communication changes
