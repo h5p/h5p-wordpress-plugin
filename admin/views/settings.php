@@ -166,7 +166,7 @@
               <?php _e("Use H5P Hub", $this->plugin_slug); ?>
             </label>
             <p class="h5p-setting-desc">
-              <?php _e("It's strongly encouraged to keep this option <strong>enabled</strong>. The H5P Hub provides an easy interface for getting new content types and keeping existing content types up to date. In the future, it will also make it easier to share and reuse content. Disabling this option you will have to install and update content types through file uploads.", $this->plugin_slug); ?>
+              <?php _e("It's strongly encouraged to keep this option <strong>enabled</strong>. The H5P Hub provides an easy interface for getting new content types and keeping existing content types up to date. In the future, it will also make it easier to share and reuse content. If this option is disabled you'll have to install and update content types through file upload forms.", $this->plugin_slug); ?>
             </p>
           </td>
         </tr>
