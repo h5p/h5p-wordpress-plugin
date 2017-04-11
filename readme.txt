@@ -296,4 +296,7 @@ Fixed issue when generating export for some sites where the web server would rep
 Fixed editor issue related to a problem with fieldsets in IE (not able to expand)
 
 = 1.8.0 =
-TODO
+Added H5P Hub interface for selecting and installing content types
+Improved requirements checking
+Added support for important description in editor
+Minor improvements and bug fixes
