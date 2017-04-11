@@ -29,8 +29,9 @@ class H5PEditorWordPressAjax implements H5PEditorAjaxInterface {
         GROUP BY hl2.name, hl2.major_version";
 
     return $wpdb->get_results(
-      "SELECT hl4.id,
+        "SELECT hl4.id,
                 hl4.name AS machine_name,
+                hl4.title,
                 hl4.major_version,
                 hl4.minor_version,
                 hl4.patch_version,
