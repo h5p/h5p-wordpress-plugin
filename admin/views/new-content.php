@@ -40,6 +40,12 @@
           <?php endif; ?>
         </div>
         <div class="h5p-create"><div class="h5p-editor"><?php esc_html_e('Waiting for javascript...', $this->plugin_slug); ?></div></div>
+        <?php  if ($examplesHint): ?>
+          <div class="no-content-types-hint">
+            <p><?php printf(wp_kses(__('It looks like there are no content types installed. You can get the ones you want by using the small \'Download\' button in the lower left corner on any example from the <a href="%s" target="_blank">Examples and Downloads</a> page and then you upload the file here.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications')); ?></p>
+            <p><?php printf(wp_kses(__('If you need any help you can always file a <a href="%s" target="_blank">Support Request</a>, check out our <a href="%s" target="_blank">Forum</a> or join the conversation in the <a href="%s" target="_blank">H5P Community Chat</a>.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://wordpress.org/support/plugin/h5p'), esc_url('https://h5p.org/forum'), esc_url('https://gitter.im/h5p/CommunityChat')); ?></p>
+          </div>
+        <?php endif ?>
       </div>
       <div class="postbox h5p-sidebar">
         <h2><?php esc_html_e('Actions', $this->plugin_slug); ?></h2>

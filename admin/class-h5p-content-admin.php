@@ -436,9 +436,11 @@ class H5PContentAdmin {
     // Determine upload or create
     if (!$hubIsEnabled && !$contentExists && !$this->has_libraries()) {
       $upload = TRUE;
+      $examplesHint = TRUE;
     }
     else {
       $upload = (filter_input(INPUT_POST, 'action') === 'upload');
+      $examplesHint = FALSE;
     }
 
     // Filter/escape parameters, double escape that is...
