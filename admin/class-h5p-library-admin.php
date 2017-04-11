@@ -240,6 +240,7 @@ class H5PLibraryAdmin {
 
     // Load content type cache time
     $last_update = get_option('h5p_content_type_cache_updated_at', '');
+    $hubOn = get_option('h5p_hub_is_enabled', TRUE);
 
     include_once('views/libraries.php');
     $plugin->print_settings($settings, 'H5PAdminIntegration');

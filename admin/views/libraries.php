@@ -12,40 +12,42 @@
 
 <div class="wrap">
   <h2><?php print esc_html(get_admin_page_title()); ?></h2>
-  <h3><?php esc_html_e('Content Type Cache'); ?></h3>
-  <form method="post" id="h5p-update-content-type-cache">
-    <div class="h5p postbox">
-      <div class="h5p-text-holder">
-        <p><?php print esc_html_e('Making sure the content type cache is up to date will ensure that you can view, download and use the latest libraries. This is different from updating the libraries themselves.', $this->plugin_slug) ?></p>
-        <table class="form-table">
-          <tbody>
-          <tr valign="top">
-            <th scope="row"><?php _e("Last update", $this->plugin_slug); ?></th>
-            <td>
-              <?php
-              if ($last_update !== '') {
-                echo date_i18n('l, F j, Y H:i:s', $last_update);
-              }
-              else {
-                echo 'never';
-              }
-              ?>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+  <?php if ($hubOn): ?>
+    <h3><?php esc_html_e('Content Type Cache'); ?></h3>
+    <form method="post" id="h5p-update-content-type-cache">
+      <div class="h5p postbox">
+        <div class="h5p-text-holder">
+          <p><?php print esc_html_e('Making sure the content type cache is up to date will ensure that you can view, download and use the latest libraries. This is different from updating the libraries themselves.', $this->plugin_slug) ?></p>
+          <table class="form-table">
+            <tbody>
+            <tr valign="top">
+              <th scope="row"><?php _e("Last update", $this->plugin_slug); ?></th>
+              <td>
+                <?php
+                if ($last_update !== '') {
+                  echo date_i18n('l, F j, Y H:i:s', $last_update);
+                }
+                else {
+                  echo 'never';
+                }
+                ?>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="h5p-button-holder">
+          <?php wp_nonce_field('h5p_sync', 'sync_hub'); ?>
+          <input type="submit"
+                 name="updatecache"
+                 id="updatecache"
+                 class="button button-primary button-large"
+                 value=<?php esc_html_e('Update', $this->plugin_slug) ?>
+          />
+        </div>
       </div>
-      <div class="h5p-button-holder">
-        <?php wp_nonce_field('h5p_sync', 'sync_hub'); ?>
-        <input type="submit"
-               name="updatecache"
-               id="updatecache"
-               class="button button-primary button-large"
-               value=<?php esc_html_e('Update', $this->plugin_slug) ?>
-        />
-      </div>
-    </div>
-  </form>
+    </form>
+  <?php endif; ?>
   <h3 class="h5p-admin-header"><?php esc_html_e('Upload Libraries', $this->plugin_slug); ?></h3>
   <form method="post" enctype="multipart/form-data" id="h5p-library-form">
     <div class="h5p postbox">
