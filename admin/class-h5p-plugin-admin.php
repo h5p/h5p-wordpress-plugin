@@ -409,15 +409,16 @@ class H5P_Plugin_Admin {
       $enable_lrs_content_types = filter_input(INPUT_POST, 'enable_lrs_content_types', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_enable_lrs_content_types', $enable_lrs_content_types);
 
-      $site_key = filter_input(INPUT_POST, 'site_key', FILTER_SANITIZE_SPECIAL_CHARS);
-      if (preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $site_key)) {
-        // This appears to be a valid UUID, lets use it!
-        update_option('h5p_site_key', $site_key);
-      }
-      else {
-        // Invalid key, use the old one
-        $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
-      }
+      // TODO: Make it possible to change site key
+//      $site_key = filter_input(INPUT_POST, 'site_key', FILTER_SANITIZE_SPECIAL_CHARS);
+//      if (preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $site_key)) {
+//        // This appears to be a valid UUID, lets use it!
+//        update_option('h5p_site_key', $site_key);
+//      }
+//      else {
+//        // Invalid key, use the old one
+//        $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
+//      }
 
       $enable_hub = filter_input(INPUT_POST, 'enable_hub', FILTER_VALIDATE_BOOLEAN);
       $is_hub_enabled = get_option('h5p_hub_is_enabled', TRUE) ? TRUE : NULL;
@@ -444,7 +445,7 @@ class H5P_Plugin_Admin {
       $insert_method = get_option('h5p_insert_method', 'id');
       $enable_lrs_content_types = get_option('h5p_enable_lrs_content_types', FALSE);
       $enable_hub = get_option('h5p_hub_is_enabled', TRUE);
-      $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
+//      $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
       $send_usage_statistics = get_option('h5p_send_usage_statistics', TRUE);
     }
 
