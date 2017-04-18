@@ -1057,7 +1057,7 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements afterExportCreated
    */
-  public function afterExportCreated() {
+  public function afterExportCreated($content, $filename) {
     // Clear cached value for dirsize.
     delete_transient('dirsize_cache');
   }
