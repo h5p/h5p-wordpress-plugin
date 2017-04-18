@@ -1125,8 +1125,8 @@ class H5PWordPress implements H5PFrameworkInterface {
         'summary'           => $ct->summary,
         'description'       => $ct->description,
         'icon'              => $ct->icon,
-        'created_at'        => (new DateTime($ct->createdAt))->getTimestamp(),
-        'updated_at'        => (new DateTime($ct->updatedAt))->getTimestamp(),
+        'created_at'        => self::dateTimeToTime($ct->createdAt),
+        'updated_at'        => self::dateTimeToTime($ct->updatedAt),
         'is_recommended'    => $ct->isRecommended === TRUE ? 1 : 0,
         'popularity'        => $ct->popularity,
         'screenshots'       => json_encode($ct->screenshots),
@@ -1160,5 +1160,16 @@ class H5PWordPress implements H5PFrameworkInterface {
         '%s'
       ));
     }
+  }
+
+  /**
+   * Convert datetime string to unix timestamp
+   *
+   * @param string $datetime
+   * @return int unix timestamp
+   */
+  public static function dateTimeToTime($datetime) {
+    $dt = new DateTime($datetime);
+    return $dt->getTimestamp();
   }
 }
