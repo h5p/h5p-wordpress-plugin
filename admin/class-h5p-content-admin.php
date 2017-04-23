@@ -289,7 +289,7 @@ class H5PContentAdmin {
    *
    * @since 1.1.0
    */
-  public function process_new_content() {
+  public function process_new_content($echo_on_success = NULL) {
     $plugin = H5P_Plugin::get_instance();
 
     // Check if we have any content or errors loading content
@@ -358,8 +358,11 @@ class H5PContentAdmin {
 
       if ($result) {
         $content['id'] = $result;
-        $this->set_content_tags($content['id'], filter_input(INPUT_POST, 'tags'));
-        wp_safe_redirect(admin_url('admin.php?page=h5p&task=show&id=' . $result));
+		$this->set_content_tags($content['id'], filter_input(INPUT_POST, 'tags'));
+		if($echo_on_success == NULL)
+			wp_safe_redirect(admin_url('admin.php?page=h5p&task=show&id=' . $result));
+		else
+			echo $echo_on_success;
         exit;
       }
     }
@@ -421,7 +424,7 @@ class H5PContentAdmin {
    *
    * @since 1.1.0
    */
-  public function display_new_content_page() {
+  public function display_new_content_page($custom_view = NULL) {
     $contentExists = ($this->content !== NULL);
     $hubIsEnabled = get_option('h5p_hub_is_enabled', TRUE);
 
@@ -450,7 +453,10 @@ class H5PContentAdmin {
 
     $display_options = $core->getDisplayOptionsForEdit($this->content['disable']);
 
-    include_once('views/new-content.php');
+	// allows for customization of the editor's view
+	$view_path = is_null($custom_view) || $custom_view === '' ? 'views/new-content.php' : $custom_view;
+    include_once($view_path);
+
     $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
     H5P_Plugin_Admin::add_script('jquery', 'h5p-php-library/js/jquery.js');
     H5P_Plugin_Admin::add_script('disable', 'h5p-php-library/js/h5p-display-options.js');
