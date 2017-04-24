@@ -664,7 +664,7 @@ class H5P_Plugin_Admin {
    * @param string $path
    */
   public static function add_script($handle, $path) {
-    wp_enqueue_script(self::asset_handle($handle), plugins_url('h5p/' . $path), array(), H5P_Plugin::VERSION, true);
+    wp_enqueue_script(self::asset_handle($handle), plugins_url('h5p/' . $path), array(), H5P_Plugin::VERSION);
   }
 
   /**
