@@ -128,7 +128,7 @@ class H5P_Plugin_Admin {
    * @since 1.8.3
    */
   public function display_new_content_page($custom_view = NULL) {
-	  $this->content->display_new_content_page($custom_view);	  
+    $this->content->display_new_content_page($custom_view);	  
   }
   
   /**
@@ -137,7 +137,7 @@ class H5P_Plugin_Admin {
    * @since 1.8.3
    */
   public function process_new_content($echo_on_success = NULL) {
-	  $this->content->process_new_content($echo_on_success);	  
+    $this->content->process_new_content($echo_on_success);	  
   }
 
   /**
