@@ -453,8 +453,8 @@ class H5PContentAdmin {
 
     $display_options = $core->getDisplayOptionsForEdit($this->content['disable']);
 
-	// allows for customization of the editor's view
-	$view_path = is_null($custom_view) || $custom_view === '' ? 'views/new-content.php' : $custom_view;
+    // allows for customization of the editor's view
+    $view_path = is_null($custom_view) || $custom_view === '' ? 'views/new-content.php' : $custom_view;
     include_once($view_path);
 
     $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
