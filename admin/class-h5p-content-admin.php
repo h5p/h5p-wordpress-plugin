@@ -358,11 +358,11 @@ class H5PContentAdmin {
 
       if ($result) {
         $content['id'] = $result;
-		$this->set_content_tags($content['id'], filter_input(INPUT_POST, 'tags'));
-		if($echo_on_success == NULL)
-			wp_safe_redirect(admin_url('admin.php?page=h5p&task=show&id=' . $result));
-		else
-			echo $echo_on_success;
+	$this->set_content_tags($content['id'], filter_input(INPUT_POST, 'tags'));
+	if($echo_on_success == NULL)
+          wp_safe_redirect(admin_url('admin.php?page=h5p&task=show&id=' . $result));
+        else
+          echo $echo_on_success;
         exit;
       }
     }
