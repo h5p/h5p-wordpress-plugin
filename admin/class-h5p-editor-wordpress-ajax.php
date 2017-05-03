@@ -41,8 +41,7 @@ class H5PEditorWordPressAjax implements H5PEditorAjaxInterface {
            JOIN {$wpdb->prefix}h5p_libraries hl4
              ON hl3.name = hl4.name
             AND hl3.major_version = hl4.major_version
-            AND hl3.minor_version = hl4.minor_version
-       GROUP BY hl4.name, hl4.major_version, hl4.minor_version");
+            AND hl3.minor_version = hl4.minor_version");
   }
 
   /**
