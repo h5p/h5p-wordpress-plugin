@@ -98,7 +98,7 @@ class H5P_Plugin {
     add_action('init', array('H5P_Plugin', 'check_for_updates'), 1);
 
     // Add menu options to admin bar.
-    add_action('admin_bar_menu', array($this, 'admin_bar'));
+    add_action('admin_bar_menu', array($this, 'admin_bar'), 999);
   }
 
   /**
