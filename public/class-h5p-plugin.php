@@ -1037,6 +1037,7 @@ class H5P_Plugin {
   public function get_core_settings() {
     $current_user = wp_get_current_user();
 
+    $core = $this->get_h5p_instance('core');
     $settings = array(
       'baseUrl' => get_site_url(),
       'url' => $this->get_h5p_url(),
@@ -1048,36 +1049,7 @@ class H5P_Plugin {
       'saveFreq' => get_option('h5p_save_content_state', FALSE) ? get_option('h5p_save_content_frequency', 30) : FALSE,
       'siteUrl' => get_site_url(),
       'l10n' => array(
-        'H5P' => array(
-          'fullscreen' => __('Fullscreen', $this->plugin_slug),
-          'disableFullscreen' => __('Disable fullscreen', $this->plugin_slug),
-          'download' => __('Download', $this->plugin_slug),
-          'copyrights' => __('Rights of use', $this->plugin_slug),
-          'embed' => __('Embed', $this->plugin_slug),
-          'size' => __('Size', $this->plugin_slug),
-          'showAdvanced' => __('Show advanced', $this->plugin_slug),
-          'hideAdvanced' => __('Hide advanced', $this->plugin_slug),
-          'advancedHelp' => __('Include this script on your website if you want dynamic sizing of the embedded content:', $this->plugin_slug),
-          'copyrightInformation' => __('Rights of use', $this->plugin_slug),
-          'close' => __('Close', $this->plugin_slug),
-          'title' => __('Title', $this->plugin_slug),
-          'author' => __('Author', $this->plugin_slug),
-          'year' => __('Year', $this->plugin_slug),
-          'source' => __('Source', $this->plugin_slug),
-          'license' => __('License', $this->plugin_slug),
-          'thumbnail' => __('Thumbnail', $this->plugin_slug),
-          'noCopyrights' => __('No copyright information available for this content.', $this->plugin_slug),
-          'downloadDescription' => __('Download this content as a H5P file.', $this->plugin_slug),
-          'copyrightsDescription' => __('View copyright information for this content.', $this->plugin_slug),
-          'embedDescription' => __('View the embed code for this content.', $this->plugin_slug),
-          'h5pDescription' => __('Visit H5P.org to check out more cool content.', $this->plugin_slug),
-          'contentChanged' => __('This content has changed since you last used it.', $this->plugin_slug),
-          'startingOver' => __("You'll be starting over.", $this->plugin_slug),
-          'confirmDialogHeader' => __('Confirm action', $this->plugin_slug),
-          'confirmDialogBody' => __('Please confirm that you wish to proceed. This action is not reversible.', $this->plugin_slug),
-          'cancelLabel' => __('Cancel', $this->plugin_slug),
-          'confirmLabel' => __('Confirm', $this->plugin_slug)
-        )
+        'H5P' => $core->getLocalization(),
       ),
       'hubIsEnabled' => get_option('h5p_hub_is_enabled', TRUE) == TRUE
     );
