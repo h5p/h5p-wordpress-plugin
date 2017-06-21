@@ -1000,20 +1000,37 @@ class H5P_Plugin {
    * @param array $assets
    */
   public function enqueue_assets(&$assets) {
-    $abs_url = $this->get_h5p_url(TRUE);
     $rel_url = $this->get_h5p_url();
+
+    // Enqueue JavaScripts
     foreach ($assets['scripts'] as $script) {
-      $url = $rel_url . $script->path . $script->version;
+      if (preg_match('/^https?:\/\//i', $script->path)) {
+        $url = $script->path; // Absolute path
+      }
+      else {
+        $url = $rel_url . $script->path; // Relative path
+      }
+
+      // Make sure each file is only loaded once
       if (!in_array($url, self::$settings['loadedJs'])) {
         self::$settings['loadedJs'][] = $url;
-        wp_enqueue_script($this->asset_handle(trim($script->path, '/')), $abs_url . $script->path, array(), str_replace('?ver', '', $script->version));
+        wp_enqueue_script($this->asset_handle(trim($script->path, '/')), $url, array(), urlencode(str_replace('?ver=', '', $script->version)));
       }
     }
+
+    // Enqueue stylesheets
     foreach ($assets['styles'] as $style) {
-      $url = $rel_url . $style->path . $style->version;
+      if (preg_match('/^https?:\/\//i', $style->path)) {
+        $url = $style->path; // Absolute path
+      }
+      else {
+        $url = $rel_url . $style->path; // Relative path
+      }
+
+      // Make sure each file is only loaded once
       if (!in_array($url, self::$settings['loadedCss'])) {
         self::$settings['loadedCss'][] = $url;
-        wp_enqueue_style($this->asset_handle(trim($style->path, '/')), $abs_url . $style->path, array(), str_replace('?ver', '', $style->version));
+        wp_enqueue_style($this->asset_handle(trim($style->path, '/')), $url, array(), urlencode(str_replace('?ver=', '', $style->version)));
       }
     }
   }
