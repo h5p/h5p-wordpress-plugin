@@ -188,7 +188,7 @@
               <?php _e("Automatically contribute usage statistics", $this->plugin_slug); ?>
             </label>
             <p class="h5p-setting-desc">
-              <?php _e("Usage statistics numbers will automatically be reported to help the developers better understand how H5P is used and to determine potential areas of improvement.", $this->plugin_slug); ?>
+              <?php printf(wp_kses(__("Usage statistics numbers will automatically be reported to help the developers better understand how H5P is used and to determine potential areas of improvement. Read more about which <a href=\"%s\" target=\"_blank\">data is collected on h5p.org</a>.", $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), 'https://h5p.org/tracking-the-usage-of-h5p'); ?>
             </p>
           </td>
         </tr>
