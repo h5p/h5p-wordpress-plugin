@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.8
-Stable tag: 1.8.4
+Stable tag: 1.9.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -323,3 +323,22 @@ Minor code improvements in core.
 Updated translations.
 Minor design layout improvements in editor.
 Added external event for when changing and loading library in editor.
+
+= 1.9.0 =
+Improved H5P Hub error handling.
+Removed warnings in PHP 7.0+ when checking requirements due to bytes conversion.
+Added version selector when selecting content license.
+Added support for localizing content licenses.
+Made the built-in fullscreen button keyboard accessible.
+Improved the confirmation dialog positioning.
+Improved the handling of temporary files as they're uploaded.
+Added vtt and webvtt to the default file upload whitelist.
+Improved font-family validation regex pattern. Big thanks to Cornel Les.
+Moved the list description text to be consistent with other editor fields.
+Improved the YouTube regexp matching pattern. Big thanks to Otacke!
+Improved copyright button for media fields.
+Improved editor number fields to support feedback ranges.
+Improved editor number fields error messages to be consistent with other fields.
+Removed update button in H5P Hub when the users doesn't have access to upated libraries.
+Other minor editor improvements.
+Fixed support for absolute URLs for content types embedded through div.
