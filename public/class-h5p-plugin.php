@@ -681,20 +681,23 @@ class H5P_Plugin {
   public function get_h5p_url($absolute = FALSE) {
     static $url;
 
-    if (!$url) {
-      $upload_dir = wp_upload_dir();
+   if (!$url) {
+		
+	$upload_dir = wp_upload_dir();
 
-      // Absolute urls are used to enqueue assets.
-      $url = array('abs' => $upload_dir['baseurl'] . '/h5p');
+	  
+	// Absolute urls are used to enqueue assets.
+	$url = array('abs' => $upload_dir['baseurl'] . '/h5p');
 
-      // Check for HTTPS
-      if (is_ssl() && substr($url['abs'], 0, 5) !== 'https') {
-        // Update protocol
-        $url['abs'] = 'https' . substr($url['abs'], 4);
-      }
+	// Relative URLs are used to support both http and https in iframes.
+	$url['rel'] = str_replace(get_home_url(), '', $url['abs']);
 
-      // Relative URLs are used to support both http and https in iframes.
-      $url['rel'] = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $url['abs']);
+	// Check for HTTPS
+	if (is_ssl() && substr($url['abs'], 0, 5) !== 'https') {
+		// Update protocol
+		$url['abs'] = 'https' . substr($url['abs'], 4);
+	}
+	  
     }
 
     return $absolute ? $url['abs'] : $url['rel'];
