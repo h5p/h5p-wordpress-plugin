@@ -24,7 +24,7 @@
    */
   var insertionDataView = function (id) {
     var $wrapper;
-    var $add = $('#add-h5p').click(function () {
+    var $add = $(document).on('click', '#add-h5p', function () {
       // Open ThickBox
       tb_show($(this).attr('title'), '#TB_inline?inlineId=h5p-nope');
       $('#TB_window').addClass('h5p-insertion');
