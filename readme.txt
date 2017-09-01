@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.8
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -342,3 +342,6 @@ Improved editor number fields error messages to be consistent with other fields.
 Removed update button in H5P Hub when the users doesn't have access to upated libraries.
 Other minor editor improvements.
 Fixed support for absolute URLs for content types embedded through div.
+
+= 1.9.1 =
+Fixed content not loading due to wrong URL for multisites on the same domain. Big thanks to Joachim Happel for contributing the fix.

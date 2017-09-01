@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.9.0';
+  const VERSION = '1.9.1';
 
   /**
    * The Unique identifier for this plugin.
@@ -696,7 +696,7 @@ class H5P_Plugin {
         $url['abs'] = 'https' . substr($url['abs'], 4);
       }
     }
-    
+
     return $absolute ? $url['abs'] : $url['rel'];
   }
 
