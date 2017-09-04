@@ -688,7 +688,7 @@ class H5P_Plugin {
       $url = array('abs' => $upload_dir['baseurl'] . '/h5p');
 
       // Relative URLs are used to support both http and https in iframes.
-      $url['rel'] = str_replace(get_home_url(), '', $url['abs']);
+      $url['rel'] = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $url['abs']);
 
       // Check for HTTPS
       if (is_ssl() && substr($url['abs'], 0, 5) !== 'https') {
@@ -1002,35 +1002,49 @@ class H5P_Plugin {
   public function enqueue_assets(&$assets) {
     $rel_url = $this->get_h5p_url();
 
+    // Subdir multisite is a special case
+    if (is_multisite()) {
+      $subsite = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', get_site_url());
+      $rel_sub = preg_replace('/^' . preg_quote($subsite, '/') . '/', '', $rel_url, 1);
+    }
+
     // Enqueue JavaScripts
     foreach ($assets['scripts'] as $script) {
       if (preg_match('/^https?:\/\//i', $script->path)) {
-        $url = $script->path; // Absolute path
+        // Absolute path
+        $url = $script->path;
+        $enq = $script->path;
       }
       else {
-        $url = $rel_url . $script->path; // Relative path
+        // Relative path
+        $url = $rel_url . $script->path;
+        $enq = (empty($rel_sub) ? $url : $rel_sub . $script->path);
       }
 
       // Make sure each file is only loaded once
       if (!in_array($url, self::$settings['loadedJs'])) {
         self::$settings['loadedJs'][] = $url;
-        wp_enqueue_script($this->asset_handle(trim($script->path, '/')), $url, array(), urlencode(str_replace('?ver=', '', $script->version)));
+        wp_enqueue_script($this->asset_handle(trim($script->path, '/')), $enq, array(), urlencode(str_replace('?ver=', '', $script->version)));
       }
     }
 
     // Enqueue stylesheets
     foreach ($assets['styles'] as $style) {
       if (preg_match('/^https?:\/\//i', $style->path)) {
-        $url = $style->path; // Absolute path
+        // Absolute path
+        $url = $style->path;
+        $enq = $style->path;
       }
       else {
-        $url = $rel_url . $style->path; // Relative path
+        // Relative path
+        $url = $rel_url . $style->path;
+        $enq = (empty($rel_sub) ? $url : $rel_sub . $style->path);
       }
 
       // Make sure each file is only loaded once
       if (!in_array($url, self::$settings['loadedCss'])) {
         self::$settings['loadedCss'][] = $url;
-        wp_enqueue_style($this->asset_handle(trim($style->path, '/')), $url, array(), urlencode(str_replace('?ver=', '', $style->version)));
+        wp_enqueue_style($this->asset_handle(trim($style->path, '/')), $enq, array(), urlencode(str_replace('?ver=', '', $style->version)));
       }
     }
   }
