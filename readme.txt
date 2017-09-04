@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.8
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -345,3 +345,6 @@ Fixed support for absolute URLs for content types embedded through div.
 
 = 1.9.1 =
 Fixed content not loading due to wrong URL for multisites on the same domain. Big thanks to Joachim Happel for contributing the fix.
+
+= 1.9.2 =
+Fixed 'div' content not loading on sites residing in sub directories, changes fix for multisites as well.
