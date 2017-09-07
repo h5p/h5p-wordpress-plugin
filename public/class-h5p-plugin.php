@@ -1001,12 +1001,7 @@ class H5P_Plugin {
    */
   public function enqueue_assets(&$assets) {
     $rel_url = $this->get_h5p_url();
-
-    // Subdir multisite is a special case
-    if (is_multisite()) {
-      $subsite = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', get_site_url());
-      $rel_sub = preg_replace('/^' . preg_quote($subsite, '/') . '/', '', $rel_url, 1);
-    }
+    $abs_url = $this->get_h5p_url(TRUE);
 
     // Enqueue JavaScripts
     foreach ($assets['scripts'] as $script) {
@@ -1018,7 +1013,7 @@ class H5P_Plugin {
       else {
         // Relative path
         $url = $rel_url . $script->path;
-        $enq = (empty($rel_sub) ? $url : $rel_sub . $script->path);
+        $enq = $abs_url . $script->path;
       }
 
       // Make sure each file is only loaded once
@@ -1038,7 +1033,7 @@ class H5P_Plugin {
       else {
         // Relative path
         $url = $rel_url . $style->path;
-        $enq = (empty($rel_sub) ? $url : $rel_sub . $style->path);
+        $enq = $abs_url . $style->path;
       }
 
       // Make sure each file is only loaded once
