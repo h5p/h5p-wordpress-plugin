@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.8.4';
+  const VERSION = '1.9.3';
 
   /**
    * The Unique identifier for this plugin.
@@ -687,14 +687,14 @@ class H5P_Plugin {
       // Absolute urls are used to enqueue assets.
       $url = array('abs' => $upload_dir['baseurl'] . '/h5p');
 
+      // Relative URLs are used to support both http and https in iframes.
+      $url['rel'] = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $url['abs']);
+
       // Check for HTTPS
       if (is_ssl() && substr($url['abs'], 0, 5) !== 'https') {
         // Update protocol
         $url['abs'] = 'https' . substr($url['abs'], 4);
       }
-
-      // Relative URLs are used to support both http and https in iframes.
-      $url['rel'] = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $url['abs']);
     }
 
     return $absolute ? $url['abs'] : $url['rel'];
@@ -1001,36 +1001,45 @@ class H5P_Plugin {
    */
   public function enqueue_assets(&$assets) {
     $rel_url = $this->get_h5p_url();
+    $abs_url = $this->get_h5p_url(TRUE);
 
     // Enqueue JavaScripts
     foreach ($assets['scripts'] as $script) {
       if (preg_match('/^https?:\/\//i', $script->path)) {
-        $url = $script->path; // Absolute path
+        // Absolute path
+        $url = $script->path;
+        $enq = $script->path;
       }
       else {
-        $url = $rel_url . $script->path; // Relative path
+        // Relative path
+        $url = $rel_url . $script->path;
+        $enq = $abs_url . $script->path;
       }
 
       // Make sure each file is only loaded once
       if (!in_array($url, self::$settings['loadedJs'])) {
         self::$settings['loadedJs'][] = $url;
-        wp_enqueue_script($this->asset_handle(trim($script->path, '/')), $url, array(), urlencode(str_replace('?ver=', '', $script->version)));
+        wp_enqueue_script($this->asset_handle(trim($script->path, '/')), $enq, array(), urlencode(str_replace('?ver=', '', $script->version)));
       }
     }
 
     // Enqueue stylesheets
     foreach ($assets['styles'] as $style) {
       if (preg_match('/^https?:\/\//i', $style->path)) {
-        $url = $style->path; // Absolute path
+        // Absolute path
+        $url = $style->path;
+        $enq = $style->path;
       }
       else {
-        $url = $rel_url . $style->path; // Relative path
+        // Relative path
+        $url = $rel_url . $style->path;
+        $enq = $abs_url . $style->path;
       }
 
       // Make sure each file is only loaded once
       if (!in_array($url, self::$settings['loadedCss'])) {
         self::$settings['loadedCss'][] = $url;
-        wp_enqueue_style($this->asset_handle(trim($style->path, '/')), $url, array(), urlencode(str_replace('?ver=', '', $style->version)));
+        wp_enqueue_style($this->asset_handle(trim($style->path, '/')), $enq, array(), urlencode(str_replace('?ver=', '', $style->version)));
       }
     }
   }
