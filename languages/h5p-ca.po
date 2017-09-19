@@ -1,0 +1,1613 @@
+# Translation of Plugins - Interactive Content – H5P - Stable (latest release) in Catalan
+# This file is distributed under the same license as the Plugins - Interactive Content – H5P - Stable (latest release) package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Plugins - Interactive Content – H5P - Stable (latest "
+"release)\n"
+"POT-Creation-Date: 2017-09-19 17:02+0200\n"
+"PO-Revision-Date: 2017-09-19 17:14+0200\n"
+"Last-Translator: Francesc Busquets <francesc@gmail.com>\n"
+"Language-Team: Catalan\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
+"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
+"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
+"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Loco-Target-Locale: ca\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: admin/class-h5p-content-admin.php:158 admin/class-h5p-content-admin.php:653
+#: admin/class-h5p-library-admin.php:215 h5p-php-library/h5p.classes.php:3052
+#: h5p-php-library/h5p.classes.php:4052
+msgid "Title"
+msgstr "Títol"
+
+#: admin/class-h5p-content-admin.php:162 admin/class-h5p-content-admin.php:657
+msgid "Content type"
+msgstr "Tipus de contingut"
+
+#: admin/class-h5p-content-admin.php:167 h5p-php-library/h5p.classes.php:3053
+#: h5p-php-library/h5p.classes.php:4059
+msgid "Author"
+msgstr "Autor"
+
+#: admin/class-h5p-content-admin.php:172 admin/class-h5p-content-admin.php:662
+#: admin/views/new-content.php:102 admin/views/show-content.php:39
+msgid "Tags"
+msgstr "Etiquetes"
+
+#: admin/class-h5p-content-admin.php:177 admin/class-h5p-content-admin.php:667
+msgid "Last modified"
+msgstr "Modificat per darrera vegada"
+
+#: admin/class-h5p-content-admin.php:181
+msgid "ID"
+msgstr "ID"
+
+#: admin/class-h5p-content-admin.php:200 admin/class-h5p-content-admin.php:675
+#: admin/views/select-content.php:31
+msgid "No H5P content available. You must upload or create new content."
+msgstr ""
+"No hi ha cap contingut H5P disponible. Heu de penjar o crear algun contingut "
+"nou."
+
+#: admin/class-h5p-content-admin.php:244
+msgid "User"
+msgstr "Usuari"
+
+#: admin/class-h5p-content-admin.php:248 admin/class-h5p-plugin-admin.php:946
+msgid "Score"
+msgstr "Puntuació"
+
+#: admin/class-h5p-content-admin.php:252 admin/class-h5p-plugin-admin.php:950
+msgid "Maximum Score"
+msgstr "Puntuació màxima"
+
+#: admin/class-h5p-content-admin.php:256 admin/class-h5p-plugin-admin.php:954
+msgid "Opened"
+msgstr "Obert"
+
+#: admin/class-h5p-content-admin.php:260 admin/class-h5p-plugin-admin.php:958
+msgid "Finished"
+msgstr "Finalitzat"
+
+#: admin/class-h5p-content-admin.php:263 admin/class-h5p-plugin-admin.php:961
+msgid "Time spent"
+msgstr "Temps invertit"
+
+#: admin/class-h5p-content-admin.php:266
+msgid "There are no logged results for this content."
+msgstr "No hi ha cap resultat registrat per aquest contingut."
+
+#: admin/class-h5p-content-admin.php:283 admin/class-h5p-library-admin.php:147
+msgid "Unknown task."
+msgstr "Tasca desconeguda."
+
+#: admin/class-h5p-content-admin.php:310
+msgid "You are not allowed to edit this content."
+msgstr "No teniu autorització per editar aquest contingut."
+
+#: admin/class-h5p-content-admin.php:332
+msgid "Invalid confirmation code, not deleting."
+msgstr "El codi de confirmació no és vàlid. S'ha cancel·lat la supressió."
+
+#: admin/class-h5p-content-admin.php:512
+msgid "Invalid library."
+msgstr "La biblioteca no és vàlida."
+
+#: admin/class-h5p-content-admin.php:519
+msgid "No such library."
+msgstr "Aquesta biblioteca no existeix."
+
+#: admin/class-h5p-content-admin.php:536
+msgid "Invalid parameters."
+msgstr "Paràmetres invàlids."
+
+#: admin/class-h5p-content-admin.php:585 admin/class-h5p-content-admin.php:608
+#, php-format
+msgid "Missing %s."
+msgstr "No s'ha trobat %s."
+
+#: admin/class-h5p-content-admin.php:613
+msgid "Title is too long. Must be 256 letters or shorter."
+msgstr "El títol és massa llarg. Ha de tenir 256 caràcters com a màxim."
+
+#: admin/class-h5p-content-admin.php:630
+msgid "Insert interactive content"
+msgstr "Insereix un contingut interactiu"
+
+#: admin/class-h5p-content-admin.php:632
+msgid "Add H5P"
+msgstr "Afegeix un H5P"
+
+#: admin/class-h5p-content-admin.php:795
+#, php-format
+msgid "%s ago"
+msgstr "fa %s"
+
+#: admin/class-h5p-content-admin.php:849
+msgid "Insert"
+msgstr "Insereix"
+
+#: admin/class-h5p-content-admin.php:881 admin/views/new-content.php:21
+#: admin/views/show-content.php:17
+msgid "Results"
+msgstr "Resultats"
+
+#: admin/class-h5p-content-admin.php:890 admin/views/content-results.php:18
+#: admin/views/new-content.php:18 admin/views/show-content.php:20
+msgid "Edit"
+msgstr "Edita"
+
+#: admin/class-h5p-content-admin.php:985
+msgid "Are you sure you wish to delete this content?"
+msgstr "Segur que voleu suprimir aquest contingut?"
+
+#: admin/class-h5p-library-admin.php:62 admin/views/new-content.php:61
+msgid "Delete"
+msgstr "Suprimeix"
+
+#: admin/class-h5p-library-admin.php:65
+msgid "Content Upgrade"
+msgstr "Actualització del contingut"
+
+#: admin/class-h5p-library-admin.php:102
+#, php-format
+msgid "Cannot find library with id: %d."
+msgstr "No es troba la biblioteca amb l'id: %d."
+
+#: admin/class-h5p-library-admin.php:167 admin/class-h5p-library-admin.php:379
+msgid "N/A"
+msgstr "N/A"
+
+#: admin/class-h5p-library-admin.php:168
+msgid "View library details"
+msgstr "Mostra els detalls de la biblioteca"
+
+#: admin/class-h5p-library-admin.php:169
+msgid "Delete library"
+msgstr "Esborra la biblioteca"
+
+#: admin/class-h5p-library-admin.php:170
+msgid "Upgrade library content"
+msgstr "Actualitza el contingut de la biblioteca"
+
+#: admin/class-h5p-library-admin.php:216
+msgid "Restricted"
+msgstr "Restringit"
+
+#: admin/class-h5p-library-admin.php:218
+msgid "Contents"
+msgstr "Continguts"
+
+#: admin/class-h5p-library-admin.php:222
+msgid "Contents using it"
+msgstr "Continguts que l'utilitzen"
+
+#: admin/class-h5p-library-admin.php:226
+msgid "Libraries using it"
+msgstr "Biblioteques que l'utilitzen"
+
+#: admin/class-h5p-library-admin.php:229 admin/views/new-content.php:51
+msgid "Actions"
+msgstr "Accions"
+
+#: admin/class-h5p-library-admin.php:308
+msgid ""
+"This Library is used by content or other libraries and can therefore not be "
+"deleted."
+msgstr ""
+"Aquesta biblioteca està sent utilitzada per algun contingut o bé per altres "
+"biblioteques, i això fa que no sigui possible esborrar-lo."
+
+#: admin/class-h5p-library-admin.php:344
+msgid "No content is using this library"
+msgstr "Cap contingut no utilitza aquesta biblioteca"
+
+#: admin/class-h5p-library-admin.php:345
+msgid "Content using this library"
+msgstr "Continguts que utilitzen aquesta biblioteca"
+
+#: admin/class-h5p-library-admin.php:346
+msgid "Elements per page"
+msgstr "Elements per pàgina"
+
+#: admin/class-h5p-library-admin.php:347
+msgid "Filter content"
+msgstr "Filtra el contingut"
+
+#: admin/class-h5p-library-admin.php:348
+msgid "Page $x of $y"
+msgstr "Pàgina $x de $y"
+
+#: admin/class-h5p-library-admin.php:376
+msgid "Version"
+msgstr "Versió"
+
+#: admin/class-h5p-library-admin.php:377 h5p-php-library/h5p.classes.php:3041
+msgid "Fullscreen"
+msgstr "Pantalla completa"
+
+#: admin/class-h5p-library-admin.php:377 admin/class-h5p-library-admin.php:378
+msgid "Yes"
+msgstr "Sí"
+
+#: admin/class-h5p-library-admin.php:377 admin/class-h5p-library-admin.php:378
+msgid "No"
+msgstr "No"
+
+#: admin/class-h5p-library-admin.php:378
+msgid "Content library"
+msgstr "Biblioteca de continguts"
+
+#: admin/class-h5p-library-admin.php:379
+msgid "Used by"
+msgstr "Usat per"
+
+#: admin/class-h5p-library-admin.php:379 admin/class-h5p-library-admin.php:430
+#, php-format
+msgid "1 content"
+msgid_plural "%d contents"
+msgstr[0] "un contingut"
+msgstr[1] "%d continguts"
+
+#: admin/class-h5p-library-admin.php:419
+msgid "There are no available upgrades for this library."
+msgstr "No hi ha disponible cap actualització d'aquesta biblioteca."
+
+#: admin/class-h5p-library-admin.php:426
+msgid "There's no content instances to upgrade."
+msgstr "No hi ha cap instància del contingut per actualitzar."
+
+#: admin/class-h5p-library-admin.php:437
+#, php-format
+msgid "You are about to upgrade %s. Please select upgrade version."
+msgstr ""
+"Sou a punt d'actualitzar %s. Escolliu la versió a la qual voleu actualitzar."
+
+#: admin/class-h5p-library-admin.php:438
+msgid "Upgrading to %ver..."
+msgstr "S'està actualitzant a la versió %ver..."
+
+#: admin/class-h5p-library-admin.php:439
+msgid "An error occurred while processing parameters:"
+msgstr "S'ha produït un error en processar els paràmetres:"
+
+#: admin/class-h5p-library-admin.php:440
+msgid "Could not load data for library %lib."
+msgstr "No s'han pogut llegir les dades de la biblioteca %lib."
+
+#: admin/class-h5p-library-admin.php:441
+msgid "Could not upgrade content %id:"
+msgstr "No s'ha pogut actualitzar el contingut %id:"
+
+#: admin/class-h5p-library-admin.php:442
+msgid "Could not load upgrades script for %lib."
+msgstr "No s'ha pogut llegir l'script d'actualització de %lib."
+
+#: admin/class-h5p-library-admin.php:443
+msgid "Parameters are broken."
+msgstr "Els paràmetres estan trencats."
+
+#: admin/class-h5p-library-admin.php:444
+#, php-format
+msgid "You have successfully upgraded %s."
+msgstr "Heu actualitzat correctament %s."
+
+#: admin/class-h5p-library-admin.php:444
+msgid "Return"
+msgstr "Torna"
+
+#: admin/class-h5p-library-admin.php:454
+msgid "Upgrade"
+msgstr "Actualitza"
+
+#: admin/class-h5p-library-admin.php:529
+msgid ""
+"Not all content has gotten their cache rebuilt. This is required to be able "
+"to delete libraries, and to display how many contents that uses the library."
+msgstr ""
+"No s'ha pogut regenerar la memòria cau de tots els continguts. Això es "
+"necessari per permetre l'eliminació de biblioteques i per mostrar quins "
+"continguts utilitza cada biblioteca."
+
+#: admin/class-h5p-library-admin.php:530
+#, php-format
+msgid "1 content need to get its cache rebuilt."
+msgid_plural "%d contents needs to get their cache rebuilt."
+msgstr[0] "Un contingut necessita regenerar la seva memòria cau."
+msgstr[1] "%d continguts necessiten regenerar la seva memòria cau."
+
+#: admin/class-h5p-library-admin.php:531
+msgid "Rebuild cache"
+msgstr "Reconstrueix la memòria cau"
+
+#: admin/class-h5p-library-admin.php:543
+msgid "Error, invalid security token!"
+msgstr "Error, el testimoni de seguretat no és vàlid!"
+
+#: admin/class-h5p-library-admin.php:549 admin/class-h5p-library-admin.php:644
+msgid "Error, missing library!"
+msgstr "Error, la biblioteca no es troba!"
+
+#: admin/class-h5p-library-admin.php:561 admin/class-h5p-library-admin.php:650
+msgid "Error, invalid library!"
+msgstr "Error, la biblioteca no és vàlida!"
+
+#: admin/class-h5p-library-admin.php:667
+msgid "Error, could not library semantics!"
+msgstr "Error de semàntica en la biblioteca!"
+
+#: admin/class-h5p-plugin-admin.php:217
+msgid "Content unavailable."
+msgstr "El contingut no està disponible."
+
+#: admin/class-h5p-plugin-admin.php:267
+msgid "Thank you for choosing H5P."
+msgstr "Gràcies per escollir l'H5P."
+
+#: admin/class-h5p-plugin-admin.php:269
+#, php-format
+msgid ""
+"Check out our <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
+"page for inspiration."
+msgstr ""
+"Visiteu la pàgina d'<a href=\"%s\" target=\"_blank\">Exemples i Baixades</a> "
+"per inspirar-vos."
+
+#: admin/class-h5p-plugin-admin.php:270
+#, php-format
+msgid ""
+"H5P fetches content types directly from the H5P Hub. In order to do this, "
+"the H5P plugin will communicate with the Hub once a day to fetch information "
+"about new and updated content types. It will send in anonymous data to the "
+"Hub about H5P usage. Read more at <a href=\"%s\">the plugin communication "
+"page at H5P.org</a>."
+msgstr ""
+"L'H5P agafa els tipus de contingut directament del servei \"H5P Hub\". El "
+"complement H5P es comunica un cop al dia amb H5P.org per obtenir informació "
+"sobre els tipus de contingut nous o que s'han actualitzat. Això fa que "
+"s'enviïn dades anònimes sobre l'ús de l'H5P. Per a més informació vegeu <a "
+"href=\"%s\">la pàgina de comunicacions del complement a H5P.org</a>."
+
+#: admin/class-h5p-plugin-admin.php:274
+msgid "Thank you for staying up to date with H5P."
+msgstr "Gràcies per actualitzar l'H5P!"
+
+#: admin/class-h5p-plugin-admin.php:282
+#, php-format
+msgid ""
+"You should <strong>upgrade your H5P content types!</strong> The old content "
+"types still work, but the authoring tool's look and feel is greatly improved "
+"with the new content types. Here's some more info about <a href=\"%s\" "
+"target=\"_blank\">upgrading the content types</a>."
+msgstr ""
+"Heu d'<strong>actualitzar els tipus de contingut H5P!</strong> Els tipus de "
+"contingut antics seguiran funcionant, però l'aparença de l'eina d'autor ha "
+"millorat molt en la nova versió. Aquí teniu més informació sobre l'<a href="
+"\"%s\" target=\"_blank\">actualització dels tipus de contingut</a>."
+
+#: admin/class-h5p-plugin-admin.php:288
+msgid ""
+"H5P now fetches content types directly from the H5P Hub. In order to do "
+"this, the H5P plugin will communicate with H5P.org once per day to fetch "
+"information about new and updated content types. It will send in anonymous "
+"data to the hub about H5P usage. You may disable the data contribution and/"
+"or the H5P Hub in the H5P settings."
+msgstr ""
+"Ara l'H5P agafa els tipus de contingut directament del servei \"H5P Hub\". "
+"El complement H5P es comunica un cop al dia amb H5P.org per obtenir "
+"informació sobre els tipus de contingut nous o que s'han actualitzat. Això "
+"fa que s'enviïn dades anònimes sobre l'ús de l'H5P. Podeu desactivar aquesta "
+"contribució de dades i/o el servei \"H5P Hub\" en la configuració de "
+"l'extensió H5P del menú \"Extensions\"."
+
+#: admin/class-h5p-plugin-admin.php:301 admin/views/new-content.php:46
+#, php-format
+msgid ""
+"If you need any help you can always file a <a href=\"%s\" target=\"_blank"
+"\">Support Request</a>, check out our <a href=\"%s\" target=\"_blank"
+"\">Forum</a> or join the conversation in the <a href=\"%s\" target=\"_blank"
+"\">H5P Community Chat</a>."
+msgstr ""
+"Si necessiteu ajuda podeu omplir una <a href=\"%s\" target=\"_blank"
+"\">sol·licitud de suport</a>, consultar el nostre <a href=\"%s\" target="
+"\"_blank\">fòrum</a> o participar al <a href=\"%s\" target=\"_blank\">xat de "
+"la comunitat H5P</a> (preferiblement en anglès)."
+
+#: admin/class-h5p-plugin-admin.php:343 public/class-h5p-plugin.php:658
+msgid "H5P Content"
+msgstr "Continguts H5P"
+
+#: admin/class-h5p-plugin-admin.php:346
+msgid "All H5P Content"
+msgstr "Tots el continguts H5P"
+
+#: admin/class-h5p-plugin-admin.php:349
+msgid "Add New"
+msgstr "Afegeix-ne un de nou"
+
+#: admin/class-h5p-plugin-admin.php:355
+msgid "Libraries"
+msgstr "Biblioteques"
+
+#: admin/class-h5p-plugin-admin.php:362 admin/views/my-results.php:14
+msgid "My Results"
+msgstr "Els meus resultats"
+
+#: admin/class-h5p-plugin-admin.php:460
+msgid "Confirmation action"
+msgstr "Confirmació de l'acció"
+
+#: admin/class-h5p-plugin-admin.php:461
+msgid "Do you still want to enable the hub ?"
+msgstr "Segur que voleu habilitar el Hub?"
+
+#: admin/class-h5p-plugin-admin.php:462 h5p-php-library/h5p.classes.php:3071
+msgid "Cancel"
+msgstr "Anul·la"
+
+#: admin/class-h5p-plugin-admin.php:463 h5p-php-library/h5p.classes.php:3072
+msgid "Confirm"
+msgstr "Confirma"
+
+#: admin/class-h5p-plugin-admin.php:673
+msgid "Invalid content"
+msgstr "El contingut no és vàlid"
+
+#: admin/class-h5p-plugin-admin.php:677 admin/class-h5p-plugin-admin.php:1090
+msgid "Invalid security token"
+msgstr "El testimoni de seguretat no és vàlid"
+
+#: admin/class-h5p-plugin-admin.php:906
+msgid "Loading data."
+msgstr "S'estan llegint les dades."
+
+#: admin/class-h5p-plugin-admin.php:907
+msgid "Failed to load data."
+msgstr "No s'han pogut llegir les dades."
+
+#: admin/class-h5p-plugin-admin.php:908
+msgid "There's no data available that matches your criteria."
+msgstr "No hi ha cap dada que concideixi amb aquests criteris"
+
+#: admin/class-h5p-plugin-admin.php:909
+msgid "Page $current of $total"
+msgstr "Pàgina $current de $total"
+
+#: admin/class-h5p-plugin-admin.php:910
+msgid "Next page"
+msgstr "Pàgina següent"
+
+#: admin/class-h5p-plugin-admin.php:911
+msgid "Previous page"
+msgstr "Pàgina anterior"
+
+#: admin/class-h5p-plugin-admin.php:912
+msgid "Search"
+msgstr "Cerca"
+
+#: admin/class-h5p-plugin-admin.php:913
+msgid "Remove"
+msgstr "Elimina"
+
+#: admin/class-h5p-plugin-admin.php:942
+msgid "Content"
+msgstr "Contingut"
+
+#: admin/class-h5p-plugin-admin.php:964
+msgid "There are no logged results for your user."
+msgstr "No hi ha resultats registrats del vostre usuari."
+
+#: admin/views/content-results.php:15
+#, php-format
+msgid "Results for \"%s\""
+msgstr "Resultats per a \"%s\""
+
+#: admin/views/content-results.php:16 admin/views/new-content.php:19
+msgid "View"
+msgstr "Mostra"
+
+#: admin/views/content-results.php:22 admin/views/contents.php:16
+#: admin/views/libraries.php:73 admin/views/my-results.php:16
+msgid "Waiting for JavaScript."
+msgstr "S'està esperant el Javascript."
+
+#: admin/views/contents.php:14
+msgid "Add new"
+msgstr "Afegeix un tipus nou"
+
+#: admin/views/libraries.php:16
+msgid "Content Type Cache"
+msgstr "Memòria cau dels tipus de contingut"
+
+#: admin/views/libraries.php:20
+msgid ""
+"Making sure the content type cache is up to date will ensure that you can "
+"view, download and use the latest libraries. This is different from updating "
+"the libraries themselves."
+msgstr ""
+"Mantenint actualitzada la memòria cau dels tipus de contingut podreu veure, "
+"baixar i utilitzar les darreres versions de les biblioteques. Aquesta acció "
+"és diferent de la d'actualitzar cada una de les biblioteques."
+
+#: admin/views/libraries.php:24
+msgid "Last update"
+msgstr "Última actualització"
+
+#: admin/views/libraries.php:45 admin/views/new-content.php:63
+msgid "Update"
+msgstr "Actualitza"
+
+#: admin/views/libraries.php:51
+msgid "Upload Libraries"
+msgstr "Penja biblioteques"
+
+#: admin/views/libraries.php:55
+msgid ""
+"Here you can upload new libraries or upload updates to existing libraries. "
+"Files uploaded here must be in the .h5p file format."
+msgstr ""
+"Des d'aquí podeu afegir biblioteques noves al servidor o actualitzar les "
+"biblioteques existents. Els fitxers s'han de penjar en format \".h5p\""
+
+#: admin/views/libraries.php:58
+msgid "Only update existing libraries"
+msgstr "Actualitza només les biblioteques existents"
+
+#: admin/views/libraries.php:61 admin/views/new-content.php:37
+msgid "Disable file extension check"
+msgstr "Desactiva la verificació de les extensions en els noms de fitxer"
+
+#: admin/views/libraries.php:62 admin/views/new-content.php:38
+msgid ""
+"Warning! This may have security implications as it allows for uploading php "
+"files. That in turn could make it possible for attackers to execute "
+"malicious code on your site. Please make sure you know exactly what you're "
+"uploading."
+msgstr ""
+"Atenció! Pot tenir implicacions en la seguretat del lloc, ja que permet "
+"penjar fitxers php al servidor. Això podria permetre a atacants potencials "
+"l'execució de codi maliciós. Assegureu-vos de conèixer exactament què esteu "
+"penjant."
+
+#: admin/views/libraries.php:68 admin/views/new-content.php:53
+msgid "Upload"
+msgstr "Penja"
+
+#: admin/views/libraries.php:72
+msgid "Installed Libraries"
+msgstr "Biblioteques instal·lades"
+
+#: admin/views/library-content-upgrade.php:15
+#, php-format
+msgid "Upgrade %s %d.%d.%d content"
+msgstr "Actualitza el contingut %s %d.%d.%d"
+
+#: admin/views/library-content-upgrade.php:19
+msgid "Please enable JavaScript."
+msgstr "Cal que habiliteu el Javascript."
+
+#: admin/views/library-delete.php:16
+msgid "Are you sure you wish to delete this H5P library?"
+msgstr "Segur que voleu suprimir aquesta biblioteca H5P?"
+
+#: admin/views/library-delete.php:18
+msgid "Do it!"
+msgstr "Fes-ho!"
+
+#: admin/views/new-content.php:30
+msgid "Enter title here"
+msgstr "Escriviu aquí el títol"
+
+#: admin/views/new-content.php:42
+msgid "Waiting for javascript..."
+msgstr "S'està esperant el Javascript..."
+
+#: admin/views/new-content.php:45
+#, php-format
+msgid ""
+"It looks like there are no content types installed. You can get the ones you "
+"want by using the small 'Download' button in the lower left corner on any "
+"example from the <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
+"page and then you upload the file here."
+msgstr ""
+"Sembla que no teniu cap tipus de contingut instal·lat. Podeu aconseguir els "
+"tipus de contingut que vulgueu amb el botó 'Baixa' que hi ha a la cantonada "
+"inferior esquerra de qualsevol dels exemples de la pàgina <a href=\"%s\" "
+"target=\"_blank\">Exemples i baixades</a>. Els fitxers obtinguts amb aquest "
+"botó s'han de penjar des d'aquí al vostre servidor."
+
+#: admin/views/new-content.php:54 admin/views/new-content.php:63
+msgid "Create"
+msgstr "Crea"
+
+#: admin/views/new-content.php:68 admin/views/new-content.php:101
+msgid "Toggle panel"
+msgstr "Commuta el plafó"
+
+#: admin/views/new-content.php:69
+msgid "Display Options"
+msgstr "Mostra les opcions"
+
+#: admin/views/new-content.php:73
+msgid "Display toolbar below content"
+msgstr "Mostra la barra d'eines a sota del contingut"
+
+#: admin/views/new-content.php:80 admin/views/settings.php:36
+msgid "Display Download button"
+msgstr "Mostra el botó de baixada"
+
+#: admin/views/new-content.php:86 admin/views/settings.php:61
+msgid "Display Embed button"
+msgstr "Mostra el botó d'incrustació"
+
+#: admin/views/new-content.php:92 admin/views/settings.php:86
+msgid "Display Copyright button"
+msgstr "Mostra el botó de Copyright"
+
+#: admin/views/new-content.php:105
+msgid "Separate tags with commas"
+msgstr "Separa les etiquetes amb comes"
+
+#: admin/views/settings.php:17
+msgid "Settings saved."
+msgstr "S'han desat els paràmetres."
+
+#: admin/views/settings.php:24
+msgid "Toolbar Below Content"
+msgstr "Mostra la barra d'eines a sota del contingut"
+
+#: admin/views/settings.php:28 admin/views/settings.php:49
+#: admin/views/settings.php:74 admin/views/settings.php:90
+msgid "Controlled by author - on by default"
+msgstr "Controlat per l'autor - activat per defecte"
+
+#: admin/views/settings.php:31
+msgid ""
+"By default, a toolbar with 4 buttons is displayed below each interactive "
+"content."
+msgstr ""
+"Per defecte es mostra una barra d'eines amb 4 botons a sota de cada "
+"contingut interactiu."
+
+#: admin/views/settings.php:40 admin/views/settings.php:65
+msgid "Never"
+msgstr "Mai"
+
+#: admin/views/settings.php:43 admin/views/settings.php:68
+#: admin/views/settings.php:99
+msgid "Always"
+msgstr "Sempre"
+
+#: admin/views/settings.php:46 admin/views/settings.php:71
+msgid "Only for editors"
+msgstr "Només per a editors"
+
+#: admin/views/settings.php:52 admin/views/settings.php:77
+msgid "Controlled by author - off by default"
+msgstr "Controlat per l'autor - desactivat per defecte"
+
+#: admin/views/settings.php:56
+msgid ""
+"Setting this to 'Never' will reduce the amount of disk space required for "
+"interactive content."
+msgstr ""
+"Fixant aquest paràmetre a 'Mai' reduireu l'espai de disc requerit pels "
+"continguts interactius."
+
+#: admin/views/settings.php:81
+msgid "Setting this to 'Never' will disable already existing embed codes."
+msgstr ""
+"Fixant aquest paràmetre a 'Mai' es desactivaran tots els codis actualment "
+"incrustats."
+
+#: admin/views/settings.php:95
+msgid "Display About H5P button"
+msgstr "Mostra el botó 'Quant a l'H5P'"
+
+#: admin/views/settings.php:104
+msgid "User Results"
+msgstr "Resultats de l'usuari"
+
+#: admin/views/settings.php:108
+msgid "Log results for signed in users"
+msgstr "Registra els resultats dels usuaris que hagin iniciat la sessió"
+
+#: admin/views/settings.php:113
+msgid "Save Content State"
+msgstr "Desa l'estat del contingut interactiu"
+
+#: admin/views/settings.php:117
+msgid "Allow logged-in users to resume tasks"
+msgstr "Permetre reprendre tasques als usuaris que hagin iniciat la sessió"
+
+#: admin/views/settings.php:120
+msgid "Auto-save frequency (in seconds)"
+msgstr "Interval de desament automàtic (en segons)"
+
+#: admin/views/settings.php:126
+msgid "Add Content Method"
+msgstr "Mètode a emprar per afegir continguts"
+
+#: admin/views/settings.php:129
+msgid ""
+"When adding H5P content to posts and pages using the \"Add H5P\" button:"
+msgstr ""
+"Quan s'afegeixi algun contingut interactiu en entrades, articles o pàgines "
+"mitjançant el botó \"Afegeix H5P\":"
+
+#: admin/views/settings.php:136
+msgid "Reference content by id"
+msgstr "Referencia el contingut  mitjançant un identificador numèric"
+
+#: admin/views/settings.php:144
+#, php-format
+msgid "Reference content by <a href=\"%s\" target=\"_blank\">slug</a>"
+msgstr ""
+"Referencia el contingut mitjançant una <a href=\"%s\" target=\"_blank"
+"\">expressió resumida</a>"
+
+#: admin/views/settings.php:150
+msgid "Content Types"
+msgstr "Tipus de contingut"
+
+#: admin/views/settings.php:154
+msgid "Enable LRS dependent content types"
+msgstr ""
+"Activa els tipus de contingut dependents d'un repositori d'objectes "
+"d'aprenentatge (LRS)"
+
+#: admin/views/settings.php:157
+msgid ""
+"Makes it possible to use content types that rely upon a Learning Record "
+"Store to function properly, like the Questionnaire content type."
+msgstr ""
+"Fa possible l'ús dels tipus de contingut que requereixen d'un repositori "
+"d'objectes d'aprenentatge (LRS) per funcionar correctament, com ara el tipus "
+"\"Questionnaire\"."
+
+#: admin/views/settings.php:166
+msgid "Use H5P Hub"
+msgstr "Utilitza el servei H5P Hub"
+
+#: admin/views/settings.php:169
+msgid ""
+"It's strongly encouraged to keep this option <strong>enabled</strong>. The "
+"H5P Hub provides an easy interface for getting new content types and keeping "
+"existing content types up to date. In the future, it will also make it "
+"easier to share and reuse content. If this option is disabled you'll have to "
+"install and update content types through file upload forms."
+msgstr ""
+"Es recomana vivament deixar aquesta opció <strong>habilitada</strong>. El "
+"servei \"H5P Hub\" us proporciona una interfície simple per aconseguir nous "
+"tipus de contingut i mantenir actualitzats els que ja teniu instal·lats. En "
+"el futur també farà més senzill compartir i reutilitzar continguts creats "
+"pels usuaris. Si desactiveu aquesta opció haureu d'instal·lar i actualitzar "
+"manualment els tipus de contingut mitjançant formularis de pujada de fitxers."
+
+#: admin/views/settings.php:184
+msgid "Usage Statistics"
+msgstr "Estadístiques d'ús"
+
+#: admin/views/settings.php:188
+msgid "Automatically contribute usage statistics"
+msgstr "Notifica les estadístiques d'ús de manera automàtica"
+
+#: admin/views/settings.php:191
+#, php-format
+msgid ""
+"Usage statistics numbers will automatically be reported to help the "
+"developers better understand how H5P is used and to determine potential "
+"areas of improvement. Read more about which <a href=\"%s\" target=\"_blank"
+"\">data is collected on h5p.org</a>."
+msgstr ""
+"Les estadístiques d'ús es notificaran de manera automàtica per ajudar els "
+"desenvolupadors a entendre millor com s'està utilitzant l'H5P i determinar "
+"les possibles àrees de millora. Llegiu més sobre <a href=\"%s\" target="
+"\"_blank\">com recull les dades h5p.org</a>."
+
+#: admin/views/show-content.php:30
+msgid "Shortcode"
+msgstr "Codi breu"
+
+#: admin/views/show-content.php:32
+msgid "What's next?"
+msgstr "Què ve ara?"
+
+#: admin/views/show-content.php:33
+msgid ""
+"You can use the following shortcode to insert this interactive content into "
+"posts, pages, widgets, templates etc."
+msgstr ""
+"Utilitzeu el codi següent per inserir aquest contingut interactiu dins "
+"d'entrades, articles, pàgines, ginys, plantilles, etc."
+
+#: admin/views/show-content.php:42
+msgid "No tags"
+msgstr "Cap etiqueta"
+
+#: h5p-editor-php-library/h5peditor-ajax.class.php:142
+msgid "File not found on server. Check file upload settings."
+msgstr ""
+"No s'ha trobat el fitxer al servidor. Comproveu la configuració de pujada de "
+"fitxers."
+
+#: h5p-editor-php-library/h5peditor-ajax.class.php:165
+msgid "Could not get posted H5P."
+msgstr "El contingut H5P no s'ha pogut publicar."
+
+#: h5p-editor-php-library/h5peditor-ajax.class.php:205
+msgid "Invalid security token."
+msgstr "El testimoni de seguretat no és vàlid."
+
+#: h5p-editor-php-library/h5peditor-ajax.class.php:225
+msgid "No content type was specified."
+msgstr "No s'ha especificat el tipus de contingut."
+
+#: h5p-editor-php-library/h5peditor-ajax.class.php:232
+msgid "The chosen content type is invalid."
+msgstr "El tipus de contingut escollit no és vàlid."
+
+#: h5p-editor-php-library/h5peditor-ajax.class.php:238
+msgid ""
+"You do not have permission to install content types. Contact the "
+"administrator of your site."
+msgstr ""
+"No teniu permís per instal·lar nous tipus de contingut. Contacteu "
+"l'administrador del lloc."
+
+#: h5p-editor-php-library/h5peditor-ajax.class.php:277
+msgid "Validating h5p package failed."
+msgstr "Ha fallat la validació del paquet h5p."
+
+#: h5p-editor-php-library/h5peditor-ajax.class.php:302
+#: h5p-editor-php-library/h5peditor-ajax.class.php:323
+msgid "Failed to download the requested H5P."
+msgstr "Ha fallat la baixada de l'H5P sol·licitat."
+
+#: h5p-editor-php-library/h5peditor-ajax.class.php:340
+msgid "A post message is required to access the given endpoint"
+msgstr ""
+"Cal un missatge vinculat a una entrada del blog per accedir a aquesta adreça"
+
+#: h5p-editor-php-library/h5peditor-ajax.class.php:357
+msgid "The hub is disabled. You can enable it in the H5P settings."
+msgstr ""
+"El hub es troba desactivat. Podeu activar-lo en les opcions de configuració "
+"de l'H5P."
+
+#: h5p-editor-php-library/h5peditor-ajax.class.php:382
+#: h5p-php-library/h5p.classes.php:2876
+msgid "Couldn't communicate with the H5P Hub. Please try again later."
+msgstr "No ha estat possible comunicar-se amb el Hub H5P. Proveu-ho més tard."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:113
+msgid "Unable to get field type."
+msgstr "No s'ha pogut obtenir el tipus de camp."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:119
+msgid "File type isn't allowed."
+msgstr "Aquest tipus de fitxer no està permès."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:126
+msgid "Invalid field type."
+msgstr "El tipus de camp no és vàlid."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:136
+msgid "Invalid image file format. Use jpg, png or gif."
+msgstr "El format de la imatge no és vàlid. Feu servir jpg, png o gif."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:157
+msgid "File is not an image."
+msgstr "El fitxer no és una imatge."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:177
+msgid "Invalid audio file format. Use mp3 or wav."
+msgstr "El format del so no és vàlid. Feu servir mp3 o wav."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:193
+msgid "Invalid video file format. Use mp4 or webm."
+msgstr "El format del vídeo no és vàlid. Feu servir mp4 o webm."
+
+#: h5p-php-library/h5p.classes.php:700 h5p-php-library/h5p.classes.php:2912
+msgid "Your PHP version does not support ZipArchive."
+msgstr "La vostra versió de PHP no suporta ZipArchive."
+
+#: h5p-php-library/h5p.classes.php:713
+msgid ""
+"The file you uploaded is not a valid HTML5 Package (It does not have the ."
+"h5p file extension)"
+msgstr ""
+"El fitxer que heu pujat no és un paquet HTML5 vàlid (té un nom sense "
+"l'extensió .h5p)"
+
+#: h5p-php-library/h5p.classes.php:723
+msgid ""
+"The file you uploaded is not a valid HTML5 Package (We are unable to unzip "
+"it)"
+msgstr ""
+"El fitxer que heu pujat no és un paquet HTML5 vàlid (no s'ha pogut "
+"descomprimir)"
+
+#: h5p-php-library/h5p.classes.php:751
+msgid "Could not parse the main h5p.json file"
+msgstr "No s'ha pogut analitzar el fitxer principal \"h5p.json\""
+
+#: h5p-php-library/h5p.classes.php:760
+msgid "The main h5p.json file is not valid"
+msgstr "El fitxer principal \"h5p.json\" no és vàlid"
+
+#: h5p-php-library/h5p.classes.php:771
+msgid "Invalid content folder"
+msgstr "La carpeta de continguts no és vàlida"
+
+#: h5p-php-library/h5p.classes.php:777
+msgid "Could not find or parse the content.json file"
+msgstr "No s'ha pogut trobar o analitzar el fitxer \"content.json\""
+
+#: h5p-php-library/h5p.classes.php:809
+msgid ""
+"Library directory name must match machineName or machineName-majorVersion."
+"minorVersion (from library.json). (Directory: %directoryName , machineName: "
+"%machineName, majorVersion: %majorVersion, minorVersion: %minorVersion)"
+msgstr ""
+"El nom del directori de la biblioteca ha de tenir un format de tipus "
+"\"machineName\" o bé \"machineName-majorVersion.minorVersion\" (a library."
+"json). (Directori: %directoryName , machineName: %machineName, majorVersion: "
+"%majorVersion, minorVersion: %minorVersion)"
+
+#: h5p-php-library/h5p.classes.php:827
+msgid "A valid content folder is missing"
+msgstr "No s'ha trobat una carpeta vàlida per als continguts"
+
+#: h5p-php-library/h5p.classes.php:831
+msgid "A valid main h5p.json file is missing"
+msgstr "Manca un fitxer principal \"h5p.json\" vàlid"
+
+#: h5p-php-library/h5p.classes.php:875
+msgid "Missing required library @library"
+msgstr "No s'ha trobat la biblioteca requerida @library"
+
+#: h5p-php-library/h5p.classes.php:878
+msgid ""
+"Note that the libraries may exist in the file you uploaded, but you're not "
+"allowed to upload new libraries. Contact the site administrator about this."
+msgstr ""
+"El fitxer que heu pujat podria contenir biblioteques, però no teniu permís "
+"per pujar biblioteques al servidor. Contacteu amb l'administrador del lloc."
+
+#: h5p-php-library/h5p.classes.php:904
+msgid "Invalid library name: %name"
+msgstr "Aquest nom no és vàlid per a una biblioteca: %name"
+
+#: h5p-php-library/h5p.classes.php:909
+msgid ""
+"Could not find library.json file with valid json format for library %name"
+msgstr ""
+"No es troba el fitxer \"library.json\" amb un format vàlid per a la "
+"biblioteca %name"
+
+#: h5p-php-library/h5p.classes.php:918
+msgid "Invalid semantics.json file has been included in the library %name"
+msgstr "S'ha inclòs un fitxer \"semantics.json\" invàlid a la biblioteca %name"
+
+#: h5p-php-library/h5p.classes.php:935
+msgid "Invalid language file %file in library %library"
+msgstr "El fitxer d'idioma %file de la biblioteca %library no és vàlid"
+
+#: h5p-php-library/h5p.classes.php:940
+msgid ""
+"Invalid language file %languageFile has been included in the library %name"
+msgstr ""
+"La biblioteca \"%name\" conté un fitxer d'idioma anomenat \"%languageFile\" "
+"que no és vàlid"
+
+#: h5p-php-library/h5p.classes.php:1035
+msgid "The file \"%file\" is missing from library: \"%name\""
+msgstr "Falta el fitxer \"%file\" a la biblioteca: \"%name\""
+
+#: h5p-php-library/h5p.classes.php:1070
+msgid ""
+"The system was unable to install the <em>%component</em> component from the "
+"package, it requires a newer version of the H5P plugin. This site is "
+"currently running version %current, whereas the required version is "
+"%required or higher. You should consider upgrading and then try again."
+msgstr ""
+"El sistema ha estat incapaç d'instal·lar el component <em>%component</em> "
+"del paquet, degut a que requereix d'una versió més actual del complement "
+"H5P. Aquest lloc està utilitzant la versió %current, i es necessita una "
+"versió %required o superior. Hauríeu d'actualitzar el complement H5P i "
+"tornar a provar-ho."
+
+#: h5p-php-library/h5p.classes.php:1136
+msgid "Invalid data provided for %property in %library. Boolean expected."
+msgstr ""
+"S'ha passat un valor no vàlid per a %property a %library. S'esperava un "
+"booleà."
+
+#: h5p-php-library/h5p.classes.php:1144 h5p-php-library/h5p.classes.php:1149
+#: h5p-php-library/h5p.classes.php:1167
+msgid "Invalid data provided for %property in %library"
+msgstr "S'ha passat un valor no vàlid per a %property a %library"
+
+#: h5p-php-library/h5p.classes.php:1172
+msgid "Can't read the property %property in %library"
+msgstr "No es pot llegir el valor de %property a %library"
+
+#: h5p-php-library/h5p.classes.php:1201
+msgid "The required property %property is missing from %library"
+msgstr ""
+"No es troba cap valor per a la propietat requerida %property de %library"
+
+#: h5p-php-library/h5p.classes.php:1224
+msgid "Illegal option %option in %library"
+msgstr "L'opció %option no és vàlida per a %library"
+
+#: h5p-php-library/h5p.classes.php:1450
+msgid "Added %new new H5P libraries and updated %old old."
+msgstr ""
+"S'han afegit %new biblioteques noves a l'H5P i se n'han actualitzat %old "
+"d'antigues."
+
+#: h5p-php-library/h5p.classes.php:1453
+msgid "Added %new new H5P libraries."
+msgstr "S'han afegit %new biblioteques noves a l'H5P."
+
+#: h5p-php-library/h5p.classes.php:1456
+#, php-format
+msgid "Updated %old H5P libraries."
+msgstr "S'han actualitzat %old biblioteques H5P."
+
+#: h5p-php-library/h5p.classes.php:2210
+msgid "Missing dependency @dep required by @lib."
+msgstr "No es troba la dependència @dep requerida per @lib."
+
+#: h5p-php-library/h5p.classes.php:2464
+msgid ""
+"Site could not be registered with the hub. Please contact your site "
+"administrator."
+msgstr ""
+"El lloc no s'ha pogut registrar al hub. Contacteu l'administrador del lloc."
+
+#: h5p-php-library/h5p.classes.php:2467
+msgid ""
+"The H5P Hub has been disabled until this problem can be resolved. You may "
+"still upload libraries through the \"H5P Libraries\" page."
+msgstr ""
+"El Hub H5P s'ha desactivat fins que el problema es resolgui. Podeu seguir "
+"pujant biblioteques des de la pàgina \"Biblioteques H5P\""
+
+#: h5p-php-library/h5p.classes.php:2477
+msgid "Your site was successfully registered with the H5P Hub."
+msgstr "El lloc s'ha registrat satisfactòriament al servei \"H5P Hub\"."
+
+#: h5p-php-library/h5p.classes.php:2886
+msgid ""
+"No content types were received from the H5P Hub. Please try again later."
+msgstr ""
+"No s'han rebut tipus de contingut nous del Hub H5P. Proveu-ho més tard."
+
+#: h5p-php-library/h5p.classes.php:2895
+msgid "Library cache was successfully updated!"
+msgstr "La memòria cau de les biblioteques s'ha actualitzat correctament."
+
+#: h5p-php-library/h5p.classes.php:2918
+msgid ""
+"The mbstring PHP extension is not loaded. H5P needs this to function properly"
+msgstr ""
+"No s'ha carregat l'extensió de PHP mbstring. L'H5P necessita aquesta "
+"funcionalitat per operar correctament."
+
+#: h5p-php-library/h5p.classes.php:2926
+msgid ""
+"Your PHP version is outdated. H5P requires version 5.2 to function properly. "
+"Version 5.6 or later is recommended."
+msgstr ""
+"La vostra versió de PHP és antiga. L'H5P necessita la versió 5.2 per "
+"funcionar correctament. Es recomana utilitzar la versió 5.6 o superior."
+
+#: h5p-php-library/h5p.classes.php:2932
+msgid ""
+"A problem with the server write access was detected. Please make sure that "
+"your server can write to your data folder."
+msgstr ""
+"S'ha detectat un problema amb l'escriptura a disc del servidor. Assegureu-"
+"vos que el servidor pugui escriure al directori de dades."
+
+#: h5p-php-library/h5p.classes.php:2941
+msgid ""
+"Your PHP max upload size is quite small. With your current setup, you may "
+"not upload files larger than %number MB. This might be a problem when trying "
+"to upload H5Ps, images and videos. Please consider to increase it to more "
+"than 5MB."
+msgstr ""
+"El valor \"max upload size\" del PHP és massa petit. Amb la configuració "
+"actual no podreu pujar fitxers que pesin més de %number MB. Això pot ser un "
+"problema quan intenteu pujar objectes H5P que utilitzin imatges o vídeos. "
+"Intenteu incrementar-ho per tal que tingui un valor superior a 5MB."
+
+#: h5p-php-library/h5p.classes.php:2946
+msgid ""
+"Your PHP max post size is quite small. With your current setup, you may not "
+"upload files larger than %number MB. This might be a problem when trying to "
+"upload H5Ps, images and videos. Please consider to increase it to more than "
+"5MB"
+msgstr ""
+"El valor \"max post size\" del PHP és massa petit. Amb la configuració "
+"actual no podreu pujar fitxers que pesin més de %number MB. Això pot ser un "
+"problema quan intenteu pujar objectes H5P que utilitzin imatges o vídeos. "
+"Intenteu incrementar-ho per tal que tingui un valor superior a 5MB."
+
+#: h5p-php-library/h5p.classes.php:2951
+msgid ""
+"Your PHP max upload size is bigger than your max post size. This is known to "
+"cause issues in some installations."
+msgstr ""
+"El valor \"max upload size\" del PHP és superior a \"max post size\". Això "
+"pot causar problemes en algunes instal·lacions."
+
+#: h5p-php-library/h5p.classes.php:2957
+msgid ""
+"Your server does not have SSL enabled. SSL should be enabled to ensure a "
+"secure connection with the H5P hub."
+msgstr ""
+"El servidor no té el protocol SSL activat. L'activació del protocol SSL és "
+"necessari per permetre una connexió segura al Hub H5P."
+
+#: h5p-php-library/h5p.classes.php:2980
+msgid ""
+"H5P hub communication has been disabled because one or more H5P requirements "
+"failed."
+msgstr ""
+"La comunicació amb el Hub H5P s'ha desactivat perquè un o més requeriments "
+"de l'H5P han fallat."
+
+#: h5p-php-library/h5p.classes.php:2983
+msgid ""
+"When you have revised your server setup you may re-enable H5P hub "
+"communication in H5P Settings."
+msgstr ""
+"Podreu reactivar la comunicació amb el Hub H5P a les opcions de configuració "
+"de l'H5P quan hàgiu revisat la configuració del servidor."
+
+#: h5p-php-library/h5p.classes.php:3042
+msgid "Disable fullscreen"
+msgstr "Deshabilita el mode de pantalla completa"
+
+#: h5p-php-library/h5p.classes.php:3043
+msgid "Download"
+msgstr "Descarrega"
+
+#: h5p-php-library/h5p.classes.php:3044 h5p-php-library/h5p.classes.php:3050
+msgid "Rights of use"
+msgstr "Drets d'ús"
+
+#: h5p-php-library/h5p.classes.php:3045
+msgid "Embed"
+msgstr "Incrusta"
+
+#: h5p-php-library/h5p.classes.php:3046
+msgid "Size"
+msgstr "Mida"
+
+#: h5p-php-library/h5p.classes.php:3047
+msgid "Show advanced"
+msgstr "Mostra les característiques avançades"
+
+#: h5p-php-library/h5p.classes.php:3048
+msgid "Hide advanced"
+msgstr "Oculta les característiques avançades"
+
+#: h5p-php-library/h5p.classes.php:3049
+msgid ""
+"Include this script on your website if you want dynamic sizing of the "
+"embedded content:"
+msgstr ""
+"Per obtenir un redimensionament dinàmic del contingut incrustat cal incloure "
+"aquest script al vostre lloc web."
+
+#: h5p-php-library/h5p.classes.php:3051
+msgid "Close"
+msgstr "Tanca"
+
+#: h5p-php-library/h5p.classes.php:3054
+msgid "Year"
+msgstr "Any"
+
+#: h5p-php-library/h5p.classes.php:3055 h5p-php-library/h5p.classes.php:4073
+msgid "Source"
+msgstr "Font"
+
+#: h5p-php-library/h5p.classes.php:3056 h5p-php-library/h5p.classes.php:4084
+msgid "License"
+msgstr "Licència"
+
+#: h5p-php-library/h5p.classes.php:3057
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+#: h5p-php-library/h5p.classes.php:3058
+msgid "No copyright information available for this content."
+msgstr "No hi ha informació de copyright per a aquest contingut."
+
+#: h5p-php-library/h5p.classes.php:3059
+msgid "Download this content as a H5P file."
+msgstr "Descarrega aquest contingut en un fitxer H5P."
+
+#: h5p-php-library/h5p.classes.php:3060
+msgid "View copyright information for this content."
+msgstr "Mostra la informació de copyright d'aquest contingut."
+
+#: h5p-php-library/h5p.classes.php:3061
+msgid "View the embed code for this content."
+msgstr "Mostra el codi d'incrustació per a aquest contingut."
+
+#: h5p-php-library/h5p.classes.php:3062
+msgid "Visit H5P.org to check out more cool content."
+msgstr "Visiteu H5P.org per trobar més continguts interessants."
+
+#: h5p-php-library/h5p.classes.php:3063
+msgid "This content has changed since you last used it."
+msgstr ""
+"Aquest contingut ha canviat des de la darrera vegada que el vau utilitzar."
+
+#: h5p-php-library/h5p.classes.php:3064
+msgid "You'll be starting over."
+msgstr "Haureu de tornar a començar."
+
+#: h5p-php-library/h5p.classes.php:3065
+msgid "by"
+msgstr "per"
+
+#: h5p-php-library/h5p.classes.php:3066
+msgid "Show more"
+msgstr "Mostra'n més"
+
+#: h5p-php-library/h5p.classes.php:3067
+msgid "Show less"
+msgstr "Mostra'n menys"
+
+#: h5p-php-library/h5p.classes.php:3068
+msgid "Sublevel"
+msgstr "Subnivell"
+
+#: h5p-php-library/h5p.classes.php:3069
+msgid "Confirm action"
+msgstr "Confirma l'acció"
+
+#: h5p-php-library/h5p.classes.php:3070
+msgid "Please confirm that you wish to proceed. This action is not reversible."
+msgstr "Confirmeu que realment voleu fer-ho. Aquesta acció no és reversible."
+
+#: h5p-php-library/h5p.classes.php:3073 h5p-php-library/h5p.classes.php:4089
+msgid "Undisclosed"
+msgstr "No revelat"
+
+#: h5p-php-library/h5p.classes.php:3074 h5p-php-library/h5p.classes.php:4093
+msgid "Attribution"
+msgstr "Reconeixement"
+
+#: h5p-php-library/h5p.classes.php:3075 h5p-php-library/h5p.classes.php:4098
+msgid "Attribution-ShareAlike"
+msgstr "Reconeixement-CompartirIgual"
+
+#: h5p-php-library/h5p.classes.php:3076 h5p-php-library/h5p.classes.php:4103
+msgid "Attribution-NoDerivs"
+msgstr "Reconeixement-SenseObraDerivada!"
+
+#: h5p-php-library/h5p.classes.php:3077 h5p-php-library/h5p.classes.php:4108
+msgid "Attribution-NonCommercial"
+msgstr "Reconeixement-NoComercial!"
+
+#: h5p-php-library/h5p.classes.php:3078 h5p-php-library/h5p.classes.php:4113
+msgid "Attribution-NonCommercial-ShareAlike"
+msgstr "Reconeixement-NoComercial-CompartirIgual!"
+
+#: h5p-php-library/h5p.classes.php:3079 h5p-php-library/h5p.classes.php:4118
+msgid "Attribution-NonCommercial-NoDerivs"
+msgstr "Reconeixement-NoComercial-SenseObraDerivada!"
+
+#: h5p-php-library/h5p.classes.php:3080 h5p-php-library/h5p.classes.php:4024
+msgid "4.0 International"
+msgstr "4.0 Internacional!"
+
+#: h5p-php-library/h5p.classes.php:3081 h5p-php-library/h5p.classes.php:4028
+msgid "3.0 Unported"
+msgstr "3.0 No adaptada!"
+
+#: h5p-php-library/h5p.classes.php:3082 h5p-php-library/h5p.classes.php:4032
+msgid "2.5 Generic"
+msgstr "2.5 Genèrica!"
+
+#: h5p-php-library/h5p.classes.php:3083 h5p-php-library/h5p.classes.php:4036
+msgid "2.0 Generic"
+msgstr "2.0 Genèrica!"
+
+#: h5p-php-library/h5p.classes.php:3084 h5p-php-library/h5p.classes.php:4040
+msgid "1.0 Generic"
+msgstr "1.0 Genèrica!"
+
+#: h5p-php-library/h5p.classes.php:3085 h5p-php-library/h5p.classes.php:4123
+msgid "General Public License"
+msgstr "Llicència Pública General GNU!"
+
+#: h5p-php-library/h5p.classes.php:3086 h5p-php-library/h5p.classes.php:4127
+msgid "Version 3"
+msgstr "Versió 3"
+
+#: h5p-php-library/h5p.classes.php:3087 h5p-php-library/h5p.classes.php:4131
+msgid "Version 2"
+msgstr "Versió 2"
+
+#: h5p-php-library/h5p.classes.php:3088 h5p-php-library/h5p.classes.php:4135
+msgid "Version 1"
+msgstr "Versió 1"
+
+#: h5p-php-library/h5p.classes.php:3089 h5p-php-library/h5p.classes.php:4141
+msgid "Public Domain"
+msgstr "Domini Públic"
+
+#: h5p-php-library/h5p.classes.php:3090
+msgid "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"
+msgstr "CC0 1.0 Universal (CC0 1.0) Dedicació de Domini Públic"
+
+#: h5p-php-library/h5p.classes.php:3091 h5p-php-library/h5p.classes.php:4153
+msgid "Public Domain Mark"
+msgstr "Marca de Domini Públic"
+
+#: h5p-php-library/h5p.classes.php:3092 h5p-php-library/h5p.classes.php:4159
+msgid "Copyright"
+msgstr "Copyright"
+
+#: h5p-php-library/h5p.classes.php:3218 h5p-php-library/h5p.classes.php:3273
+msgid ""
+"The mbstring PHP extension is not loaded. H5P need this to function properly"
+msgstr ""
+"L'extensió mbstring del PHP no s'ha carregat. L'H5P necessita aquesta "
+"extensió per funcionar correctament"
+
+#: h5p-php-library/h5p.classes.php:3233
+msgid ""
+"Provided string is not valid according to regexp in semantics. (value: "
+"\"%value\", regexp: \"%regexp\")"
+msgstr ""
+"La cadena de text proporcionada no és vàlida d'acord amb els requeriments "
+"per a les expressions regulars en la semàntica. (valor: \"%value\", regexp: "
+"\"%regexp\")"
+
+#: h5p-php-library/h5p.classes.php:3277
+#, php-format
+msgid ""
+"File \"%filename\" not allowed. Only files with the following extensions are "
+"allowed: %files-allowed."
+msgstr ""
+"El fitxer \"%filename\" no és permès. Només es permeten els fitxers amb les "
+"extensions: %files-allowed."
+
+#: h5p-php-library/h5p.classes.php:3352
+msgid "Invalid selected option in multi-select."
+msgstr ""
+"S'ha seleccionat una opció no vàlida en un control de selecció múltiple."
+
+#: h5p-php-library/h5p.classes.php:3368
+msgid "Invalid selected option in select."
+msgstr "S'ha seleccionat una opció no vàlida."
+
+#: h5p-php-library/h5p.classes.php:3562
+msgid ""
+"H5P internal error: unknown content type \"@type\" in semantics. Removing "
+"content!"
+msgstr ""
+"Error intern de l'H5P: el tipus de contingut \"@type\" és desconegut en la "
+"semàntica. El contingut s'està eliminant!"
+
+#: h5p-php-library/h5p.classes.php:3613
+msgid ""
+"The version of the H5P library %machineName used in this content is not "
+"valid. Content contains %contentLibrary, but it should be %semanticsLibrary."
+msgstr ""
+"La versió de la biblioteca H5P %machineName utilitzada en aquest recurs no "
+"és vàlida. El recurs conté %contentLibrary, però hauria de ser "
+"%semanticsLibrary."
+
+#: h5p-php-library/h5p.classes.php:3623
+msgid "The H5P library %library used in the content is not valid"
+msgstr "La biblioteca H5P %library utilitzada en aquest contingut no és vàlida"
+
+#: h5p-php-library/h5p.classes.php:4047
+msgid "Copyright information"
+msgstr "Informació de copyright"
+
+#: h5p-php-library/h5p.classes.php:4066
+msgid "Year(s)"
+msgstr "Any/s"
+
+#: h5p-php-library/h5p.classes.php:4149
+msgid "CC0 1.0 Universal"
+msgstr "CC0 1.0 Universal"
+
+#: h5p-php-library/h5p.classes.php:4166
+msgid "License Version"
+msgstr "Versió de la llicència"
+
+#: public/class-h5p-plugin.php:767
+msgid "Missing H5P identifier."
+msgstr "Manca l'identificador H5P"
+
+#: public/class-h5p-plugin.php:775
+#, php-format
+msgid "Cannot find H5P content with id: %d."
+msgstr "No s'ha trobat cap contingut H5P amb l'identificador: %d."
+
+#: public/class-h5p-plugin.php:801
+#, php-format
+msgid "Database error: %s."
+msgstr "Error de la base de dades: %s."
+
+#: public/class-h5p-plugin.php:805
+#, php-format
+msgid "Cannot find H5P content with slug: %s."
+msgstr "No es troba el contingut H5P: %s."
+
+#: public/class-h5p-wordpress.php:613
+msgid "Invalid json in semantics for %library"
+msgstr "Error de json en la semàntica de la biblioteca %library"
+
+#~ msgid "http://joubel.com"
+#~ msgstr "http://joubel.com"
+
+#~ msgid "Joubel"
+#~ msgstr "Joubel"
+
+#~ msgid ""
+#~ "Allows you to upload, create, share and use rich interactive content on "
+#~ "your WordPress site."
+#~ msgstr ""
+#~ "Us permet publicar, crear, compartir i utilitzar continguts interactius "
+#~ "enriquits al vostre lloc WordPress."
+
+#~ msgid "http://h5p.org/wordpress"
+#~ msgstr "http://h5p.org/wordpress"
+
+#~ msgid "H5P"
+#~ msgstr "H5P"
+
+#~ msgid "Action bar"
+#~ msgstr "Barra d'accions"
+
+#~ msgid ""
+#~ "You can read more about <a href=\"%s\" target=\"_blank\">which data is "
+#~ "collected</a> on h5p.org."
+#~ msgstr ""
+#~ "Llegiu més sobre <a href=\"%s\" target=\"_blank\">com es recullen les "
+#~ "dades</a> a h5p.org."
+
+#~ msgid ""
+#~ "You will have to manually download the Content Type updates from H5P.org "
+#~ "and then upload them to your site."
+#~ msgstr ""
+#~ "Haureu de baixar manualment les actualitzacions de tipus de contingut des "
+#~ "d'H5P.org i pujar-les al vostre servidor."
+
+#~ msgid ""
+#~ "Disabling this option will prevent your site from fetching the newest H5P "
+#~ "updates."
+#~ msgstr ""
+#~ "Si desactiveu aquesta opció impedireu que el vostre servidor intenti "
+#~ "buscar actualitzacions de l'H5P."
+
+#~ msgid ""
+#~ "I wish to aid in the development of H5P by contributing anonymous usage "
+#~ "data"
+#~ msgstr ""
+#~ "Vull contribuir al desenvolupament de l'H5P enviant dades anònimes sobre "
+#~ "el seu ús"
+
+#~ msgid "External communication"
+#~ msgstr "Comunicació amb l'exterior"
+
+#~ msgid "Display action bar and frame"
+#~ msgstr "Mostra la barra d'acció i el marc"
+
+#~ msgid "Download & Update"
+#~ msgstr "Descarrega i actualitza"
+
+#~ msgid ""
+#~ "You can use the button below to automatically download and update all of "
+#~ "your content types."
+#~ msgstr ""
+#~ "Podeu fer servir el botó de sota per descarregar i actualitzar de manera "
+#~ "automàtica les actualitzacions dels vostres tipus de contingut."
+
+#~ msgid "The most recent version was released on <strong>%s</strong>."
+#~ msgstr "La versió més recent es va publicar el <strong>%s</strong>."
+
+#~ msgid "The version you're running is from <strong>%s</strong>."
+#~ msgstr "La versió que esteu utilitzant és del <strong>%s</strong>."
+
+#~ msgid ""
+#~ "The page also list the different changelogs, where you can read about the "
+#~ "new features introduced and the issues that have been fixed."
+#~ msgstr ""
+#~ "Aquesta pàgina també mostra els registres de canvis (changelog), on "
+#~ "trobareu informació sobre les noves funcionalitats afegides, així com "
+#~ "sobre els errors que han estat arreglats."
+
+#~ msgid ""
+#~ "You can read about why it's important to update and the benefits from "
+#~ "doing so on the <a href=\"%s\" target=\"_blank\">Why Update H5P</a> page."
+#~ msgstr ""
+#~ "Informeu-vos sobre la importància i els beneficis d'actualitzar el "
+#~ "programari a la pàgina: <a href=\"%s\" target=\"_blank\">Why Update H5P</"
+#~ "a>."
+
+#~ msgid "There are updates available for your H5P content types."
+#~ msgstr ""
+#~ "Hi ha actualitzacions disponibles per als vostres tipus de continguts H5P."
+
+#~ msgid "%s new update is available!"
+#~ msgid_plural "%s new updates are available!"
+#~ msgstr[0] "Hi ha %s nova actualització disponible!"
+#~ msgstr[1] "Hi ha %s noves actualitzacions disponibles!"
+
+#~ msgid "Unable to download H5P content types."
+#~ msgstr "No s'han pogut descarregar els tipus de contingut H5P."
+
+#~ msgid ""
+#~ "We've automatically installed the default content types for your "
+#~ "convenience. You can now <a href=\"%s\">start creating</a> your own "
+#~ "interactive content!"
+#~ msgstr ""
+#~ "Per a la vostra comoditat, hem instal·lat els tipus de contingut per "
+#~ "defecte de l'H5P. Ara podeu <a href=\"%s\">començar a crear</a> els "
+#~ "vostres propis recursos interactius!"
+
+#~ msgid ""
+#~ "By default, H5P is set up to automatically fetch information regarding "
+#~ "Content Type updates from H5P.org. When doing so, H5P will also "
+#~ "contribute anonymous usage data to aid the development of H5P. This "
+#~ "behaviour can be altered through the <a href=\"%s\">Settings</a> page."
+#~ msgstr ""
+#~ "La configuració per defecte de l'H5P cerca automàticament informació "
+#~ "sobre els tipus de contingut a H5P.org. En fer-ho, aprofita per enviar "
+#~ "informació anònima sobre el seu ús que resulta útil per al "
+#~ "desenvolupament de l'H5P. Aquest comportament es pot modificar des de la "
+#~ "pàgina de <a href=\"%s\">Configuració</a>."
+
+#~ msgid ""
+#~ "You should head over to the <a href=\"%s\">Libraries</a> page and update "
+#~ "your content types to the latest version."
+#~ msgstr ""
+#~ "Hauríeu d'anar a la pàgina de <a href=\"%s\">Biblioteques</a> i "
+#~ "actualitzar els vostres tipus de contingut a les darreres versions."
+
+#~ msgid ""
+#~ "Unfortunately, we were unable to update your installed content types. You "
+#~ "must manually download the update from <a href=\"%s\" target=\"_blank"
+#~ "\">H5P.org</a>, and then upload it through the <em>Upload Libraries</em> "
+#~ "section. If you need futher assistance, please file a <a href=\"%s\" "
+#~ "target=\"_blank\">support request</a> or check out our <a href=\"%s\" "
+#~ "target=\"_blank\">forum</a>."
+#~ msgstr ""
+#~ "Malauradament no ha estat possible actualitzar els tipus de contingut que "
+#~ "teniu instal·lats. Haureu de descarregar manualment les actualitzacions "
+#~ "des d'<a href=\"%s\" target=\"_blank\">H5P.org</a>, i pujar-les al "
+#~ "servidor des de la secció <em>Puja biblioteques</em>. Si necessiteu més "
+#~ "assistència, ompliu una <a href=\"%s\" target=\"_blank\">petició de "
+#~ "suport</a> o consulteu el nostre <a href=\"%s\" target=\"_blank\">fòrum</"
+#~ "a>."
+
+#~ msgid "Invalid security token. Please reload the editor."
+#~ msgstr "El testimoni de seguretat no és vàlid. Torneu a carregar l'editor."
+
+#~ msgid "ago"
+#~ msgstr "enrera"
