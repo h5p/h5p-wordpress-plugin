@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.8
-Stable tag: 1.9.3
+Stable tag: 1.9.4
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -351,3 +351,6 @@ Fixed 'div' content not loading on sites residing in sub directories, changes fi
 
 = 1.9.3 =
 Improved the fix introduced in 1.9.2 as it was not tested well enough.
+
+= 1.9.4 =
+Something went wrong with the release of 1.9.3.
