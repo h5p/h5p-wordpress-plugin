@@ -200,6 +200,9 @@ class H5P_Plugin_Admin {
           $scripts = array_merge($scripts, $core->getAssetsUrls($files['scripts']));
           $styles = array_merge($styles, $core->getAssetsUrls($files['styles']));
 
+          $additional_embed_head_tags = array();
+          do_action_ref_array('h5p_additional_embed_head_tags', array(&$additional_embed_head_tags));
+
           include_once(plugin_dir_path(__FILE__) . '../h5p-php-library/embed.php');
 
           // Log embed view
