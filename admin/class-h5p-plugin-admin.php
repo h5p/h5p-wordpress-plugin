@@ -626,10 +626,10 @@ class H5P_Plugin_Admin {
     $plugin = H5P_Plugin::get_instance();
     $interface = $plugin->get_h5p_instance('interface');
 
-    foreach (array('updated', 'error') as $type) {
+    foreach (array('info', 'error') as $type) {
       $messages = $interface->getMessages($type);
       if (!empty($messages)) {
-        print '<div class="' . $type . '"><ul>';
+        print '<div class="' . ($type === 'info' ? 'updated' : $type) . '"><ul>';
         foreach ($messages as $message) {
           print '<li>' . $message . '</li>';
         }

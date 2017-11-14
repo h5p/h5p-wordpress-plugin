@@ -8,7 +8,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    * @since 1.0.0
    * @var array
    */
-  protected $messages = array('error' => array(), 'updated' => array());
+  protected $messages = array('error' => array(), 'info' => array());
 
   /**
    * Implements setErrorMessage
@@ -24,7 +24,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function setInfoMessage($message) {
     if (current_user_can('edit_h5p_contents')) {
-      $this->messages['updated'][] = $message;
+      $this->messages['info'][] = $message;
     }
   }
 
