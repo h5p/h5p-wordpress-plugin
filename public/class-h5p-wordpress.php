@@ -8,14 +8,17 @@ class H5PWordPress implements H5PFrameworkInterface {
    * @since 1.0.0
    * @var array
    */
-  protected $messages = array('error' => array(), 'info' => array());
+  private $messages = array('error' => array(), 'info' => array());
 
   /**
    * Implements setErrorMessage
    */
-  public function setErrorMessage($message) {
+  public function setErrorMessage($message, $code = NULL) {
     if (current_user_can('edit_h5p_contents')) {
-      $this->messages['error'][] = $message;
+      $this->messages['error'][] = (object)array(
+        'code' => $code,
+        'message' => $message
+      );
     }
   }
 

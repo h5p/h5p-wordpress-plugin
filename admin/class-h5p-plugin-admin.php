@@ -631,7 +631,7 @@ class H5P_Plugin_Admin {
       if (!empty($messages)) {
         print '<div class="' . ($type === 'info' ? 'updated' : $type) . '"><ul>';
         foreach ($messages as $message) {
-          print '<li>' . $message . '</li>';
+          print '<li>' . $message->message . '</li>';
         }
         print '</ul></div>';
       }
