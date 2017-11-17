@@ -894,7 +894,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     }
 
     if (is_wp_error($response)) {
-      //$error_message = $response->get_error_message();
+      $this->setErrorMessage($response->get_error_message(), 'failed-fetching-external-data');
       return FALSE;
     }
     elseif ($response['response']['code'] === 200) {
