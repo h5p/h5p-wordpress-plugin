@@ -60,7 +60,7 @@ class H5PWordPress implements H5PFrameworkInterface {
         $replacements[$key] = '<em>' . esc_html($replacement) . '</em>';
       }
     }
-    $message = preg_replace('/(!|@|%)[a-z0-9]+/i', '%s', $message);
+    $message = preg_replace('/(!|@|%)[a-z0-9-]+/i', '%s', $message);
 
     $plugin = H5P_Plugin::get_instance();
     $this->plugin_slug = $plugin->get_plugin_slug();
