@@ -101,7 +101,7 @@
         <div role="button" class="h5p-toggle" tabindex="0" aria-expanded="true" aria-label="<?php esc_html_e('Toggle panel', $this->plugin_slug); ?>"></div>
         <h2><?php esc_html_e('Tags', $this->plugin_slug); ?></h2>
         <div class="h5p-panel">
-          <textarea rows="2" name="tags" class="h5p-tags"><?php print esc_html($this->content['tags']); ?></textarea>
+          <textarea rows="2" name="tags" class="h5p-tags"><?php if ($contentExists): print esc_html($this->content['tags']); endif; ?></textarea>
           <p class="howto"><?php esc_html_e('Separate tags with commas', $this->plugin_slug); ?></p>
         </div>
       </div>

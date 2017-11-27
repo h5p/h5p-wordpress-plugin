@@ -422,7 +422,7 @@ class H5PContentAdmin {
    * @since 1.1.0
    */
   public function display_new_content_page() {
-    $contentExists = ($this->content !== NULL);
+    $contentExists = ($this->content !== NULL && !is_string($this->content));
     $hubIsEnabled = get_option('h5p_hub_is_enabled', TRUE);
 
     $plugin = H5P_Plugin::get_instance();
@@ -448,7 +448,7 @@ class H5PContentAdmin {
     $safe_text = _wp_specialchars($safe_text, ENT_QUOTES, false, true);
     $parameters = apply_filters('attribute_escape', $safe_text, $parameters);
 
-    $display_options = $core->getDisplayOptionsForEdit($this->content['disable']);
+    $display_options = $core->getDisplayOptionsForEdit($contentExists ? $this->content['disable'] : NULL);
 
     include_once('views/new-content.php');
     $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
