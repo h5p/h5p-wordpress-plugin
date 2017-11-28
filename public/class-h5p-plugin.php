@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.9.4';
+  const VERSION = '1.10.0';
 
   /**
    * The Unique identifier for this plugin.

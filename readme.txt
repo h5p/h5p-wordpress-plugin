@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.9
-Stable tag: 1.9.4
+Stable tag: 1.10.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -354,3 +354,16 @@ Improved the fix introduced in 1.9.2 as it was not tested well enough.
 
 = 1.9.4 =
 Something went wrong with the release of 1.9.3.
+
+= 1.10.0 =
+Adds more detailed error messages with links for troubleshooting them.
+Prevent deleting sub content of linked directories.
+New action for adding head tags to embed page.
+Fixed PHP warnings when trying to view deleted content.
+Updated CKEditor to version 4.7.3.
+Added Greek translations (thanks to xarhsdev).
+Added Finnish translations (thanks to Janne Särkelä).
+Added support for editor iframe reloading.
+Allow multiple content to be loaded at the same time.
+Refactor of the Content Type Selector(Hub); big UX and performance improvements .
+Updated translations.
