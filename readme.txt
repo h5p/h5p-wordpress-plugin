@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
 Requires at least: 3.8.1
 Tested up to: 4.9
-Stable tag: 1.10.0
+Stable tag: 1.10.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -367,3 +367,7 @@ Added support for editor iframe reloading.
 Allow multiple content to be loaded at the same time.
 Refactor of the Content Type Selector(Hub); big UX and performance improvements .
 Updated translations.
+
+= 1.10.1 =
+Fix issue with editor not saving correctly in Safari 11.
+Fix missing translation and some PHP notices.
