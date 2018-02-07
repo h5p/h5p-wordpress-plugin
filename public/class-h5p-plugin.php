@@ -1077,7 +1077,8 @@ class H5P_Plugin {
       'l10n' => array(
         'H5P' => $core->getLocalization(),
       ),
-      'hubIsEnabled' => get_option('h5p_hub_is_enabled', TRUE) == TRUE
+      'hubIsEnabled' => get_option('h5p_hub_is_enabled', TRUE) == TRUE,
+      'reportingIsEnabled' => (get_option('h5p_enable_lrs_content_types', FALSE) === '1') ? TRUE : FALSE,
     );
 
     if ($current_user->ID) {
