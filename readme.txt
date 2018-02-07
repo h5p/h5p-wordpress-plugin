@@ -1,7 +1,7 @@
 ﻿=== Interactive Content – H5P ===
 Contributors: icc0rz, fnoks, falcon28
 Donate link: http://h5p.org
-Tags: interactive content, content, interactive video, quiz, drag and drop, multiple choice, hot spots, collage, memory game, cloze test, game, free, export, elearning, e-learning, learning, education, xAPI, html5, responsive
+Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 4.9
 Stable tag: 1.10.1
@@ -12,7 +12,7 @@ Create and add rich content to your website for free. Some examples of what you 
 
 == Description ==
 
-One of the great benefits with using H5P is that it gives you access to lots of different [interactive content types](https://h5p.org/content-types-and-applications "Examples and Downloads").
+One of the great benefits with using H5P is that it gives you access to lots of different [interactive content types](https://h5p.org/content-types-and-applications "Examples and Downloads"), such as presentation, interactive video, memory game, quiz, multiple choice, timeline, collage, hotspots, drag and drop, cloze test (fill in the blanks), personality quiz, accordion, flash cards, audio recorder.
 
 Another great benefit with H5P is that it allows you to easily share and reuse content. To use content created with H5P, you simply insert a shortcode `[h5p Id="1"]` where you wish for the content to appear. To reuse content, you just download the H5P you would like to edit and make your changes – e.g. translate to a new language or adjust it to a new situation.
 
