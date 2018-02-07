@@ -278,8 +278,7 @@ class H5P_Plugin_Admin {
         // A new installation of the plugin
         $messages[] = __('Thank you for choosing H5P.', $this->plugin_slug);
 
-        $messages[] = sprintf(wp_kses(__('Check out our <a href="%s" target="_blank">Examples and Downloads</a> page for inspiration.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), esc_url('https://h5p.org/content-types-and-applications'));
-        $messages[] = sprintf(wp_kses(__('H5P fetches content types directly from the H5P Hub. In order to do this, the H5P plugin will communicate with the Hub once a day to fetch information about new and updated content types. It will send in anonymous data to the Hub about H5P usage. Read more at <a href="%s">the plugin communication page at H5P.org</a>.', $this->plugin_slug), array('a' => array('href' => array()))), esc_url('https://h5p.org/tracking-the-usage-of-h5p'));
+        $messages[] = sprintf(wp_kses(__('You are ready to <a href="%s">start creating</a> interactive content. Check out our <a href="%s" target="_blank">Examples and Downloads</a> page for inspiration.', $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), admin_url('admin.php?page=h5p_new'), esc_url('https://h5p.org/content-types-and-applications'));
       }
       else {
         // Looks like we've just updated, always thank the user for updating.
@@ -316,7 +315,7 @@ class H5P_Plugin_Admin {
 
     $plugin = H5P_Plugin::get_instance();
     $core = $plugin->get_h5p_instance('core');
-    if ($core->h5pF->getOption('check_h5p_requirements')) {
+    if ($core->h5pF->getOption('hub_is_enabled') && $core->h5pF->getOption('check_h5p_requirements')) {
       $core->checkSetupForRequirements();
       $core->h5pF->setOption('check_h5p_requirements', FALSE);
     }

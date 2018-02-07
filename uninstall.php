@@ -111,6 +111,7 @@ function _h5p_uninstall() {
   delete_option('h5p_check_h5p_requirements');
   delete_option('h5p_hub_is_enabled');
   delete_option('h5p_send_usage_statistics');
+  delete_option('h5p_has_request_user_consent');
 
   // Clean out file dirs.
   $upload_dir = wp_upload_dir();

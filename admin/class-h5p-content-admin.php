@@ -291,6 +291,14 @@ class H5PContentAdmin {
    */
   public function process_new_content() {
     $plugin = H5P_Plugin::get_instance();
+    
+    $consent = filter_input(INPUT_POST, 'consent', FILTER_VALIDATE_BOOLEAN);
+    if ($consent !== NULL && !get_option('h5p_has_request_user_consent', FALSE) && current_user_can('manage_options')) {
+      check_admin_referer('h5p_consent', 'can_has'); // Verify form
+      update_option('h5p_hub_is_enabled', $consent);
+      update_option('h5p_send_usage_statistics', $consent);
+      update_option('h5p_has_request_user_consent', TRUE);
+    }
 
     // Check if we have any content or errors loading content
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -422,6 +430,11 @@ class H5PContentAdmin {
    * @since 1.1.0
    */
   public function display_new_content_page() {
+    if (!get_option('h5p_has_request_user_consent', FALSE) && current_user_can('manage_options')) {
+      // Get the user to enable the Hub before creating content
+      return include_once('views/user-consent.php');
+    }
+
     $contentExists = ($this->content !== NULL && !is_string($this->content));
     $hubIsEnabled = get_option('h5p_hub_is_enabled', TRUE);
 
