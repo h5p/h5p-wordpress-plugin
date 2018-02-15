@@ -13,7 +13,7 @@
 <div class="wrap">
   <h2><?php print esc_html(get_admin_page_title()); ?></h2>
   <?php if ($hubOn): ?>
-    <h3><?php esc_html_e('Content Type Cache'); ?></h3>
+    <h3><?php esc_html_e('Content Type Cache', $this->plugin_slug); ?></h3>
     <form method="post" id="h5p-update-content-type-cache">
       <div class="h5p postbox">
         <div class="h5p-text-holder">
