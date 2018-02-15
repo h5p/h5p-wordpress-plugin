@@ -19,7 +19,7 @@
       <p><?php esc_html_e('To be able to start creating interactive content you must first install at least one content type.', $this->plugin_slug); ?></p>
       <p><?php esc_html_e('The H5P Hub is here to simplify this process by automatically installing the content types you choose and providing updates for those already installed.', $this->plugin_slug); ?></p>
       <p>
-        <?php printf(wp_kses(__('In order for the H5P Hub to be able to do this communication with H5P.org is required.<br/>
+        <?php printf(wp_kses(__('In order for the H5P Hub to be able to do this, communication with H5P.org is required.<br/>
         As this will provide H5P.org with anonymous data on how H5P is used we kindly ask for your consent before proceeding.<br/>
         You can read more on <a href="%s" target="_blank">the plugin communication page</a>.', $this->plugin_slug), array('br' => array(), 'a' => array('href' => array()))), esc_url('https://h5p.org/tracking-the-usage-of-h5p')) ?>
       </p>
