@@ -23,6 +23,11 @@ class H5PPrivacyPolicy {
   private $plugin_slug = NULL;
 
   /**
+   * @since 1.10.2
+   */
+  private $PAGE_LENGTH = 25;
+
+  /**
    * Initialize.
    *
    * @since 1.10.2
@@ -49,10 +54,11 @@ class H5PPrivacyPolicy {
    * Get results data.
    *
    * @since 1.10.2
-   * @param int $wpid WordPress User ID
-   * @return array Results.
+   * @param int $wpid WordPress User ID.
+   * @param int $page Exporter page.
+   * @return array Database results.
    */
-  function get_user_results($wpid) {
+  function get_user_results($wpid, $page) {
     global $wpdb;
 
     return $wpdb->get_results($wpdb->prepare(
@@ -72,8 +78,12 @@ class H5PPrivacyPolicy {
       WHERE
         res.user_id = %d AND
         res.content_id = con.id
+      LIMIT
+        %d, %d
       ",
-      $wpid
+      $wpid,
+      ($page - 1) * $this->PAGE_LENGTH, // page start
+      $this->PAGE_LENGTH // to page end
     ));
   }
 
@@ -81,10 +91,11 @@ class H5PPrivacyPolicy {
    * Get saved content state data.
    *
    * @since 1.10.2
-   * @param int $wpid WordPress User ID
-   * @return array Results.
+   * @param int $wpid WordPress User ID.
+   * @param int $page Exporter page.
+   * @return array Database results.
    */
-  function get_user_saved_content_state($wpid) {
+  function get_user_saved_content_state($wpid, $page) {
     global $wpdb;
 
     return $wpdb->get_results($wpdb->prepare(
@@ -105,8 +116,12 @@ class H5PPrivacyPolicy {
       WHERE
         scs.user_id = %d AND
         scs.content_id = con.id
+      LIMIT
+        %d, %d
       ",
-      $wpid
+      $wpid,
+      ($page - 1) * $this->PAGE_LENGTH, // page start
+      $this->PAGE_LENGTH // to page end
     ));
   }
 
@@ -116,9 +131,11 @@ class H5PPrivacyPolicy {
    * @since 1.10.2
    * @param int $wpid WordPress User ID.
    * @param array &$export_items Current export items.
+   * @param int $page Export page.
+   * @return int Number of items amended.
    */
-  function add_export_items_results($wpid, &$export_items) {
-    $items = $this->get_user_results($wpid);
+  function add_export_items_results($wpid, &$export_items, $page) {
+    $items = $this->get_user_results($wpid, $page);
 
     foreach ($items as $item) {
       // Set time related parameters
@@ -172,6 +189,7 @@ class H5PPrivacyPolicy {
         'data' => $data
       );
     }
+    return count($items);
   }
 
   /**
@@ -180,9 +198,11 @@ class H5PPrivacyPolicy {
    * @since 1.10.2
    * @param int $wpid WordPress User ID.
    * @param array &$export_items Current export items.
+   * @param int $page Export page.
+   * @return int Number of items amended.
    */
-  function add_export_items_saved_content_state($wpid, &$export_items) {
-    $items = $this->get_user_saved_content_state($wpid);
+  function add_export_items_saved_content_state($wpid, &$export_items, $page) {
+    $items = $this->get_user_saved_content_state($wpid, $page);
 
     foreach ($items as $item) {
       $data = array(
@@ -227,6 +247,7 @@ class H5PPrivacyPolicy {
         'data' => $data
       );
     }
+    return count($items);
   }
 
   /**
@@ -238,18 +259,20 @@ class H5PPrivacyPolicy {
    * @return array Export results.
    */
   function h5p_exporter($email, $page = 1) {
-    // TODO: This could benefit from pagination to avoid timeout
-    $export_items = array();
+    $page = (int) $page;
 
+    $export_items = array();
     $wp_user = get_user_by('email', $email);
+
     if ($wp_user) {
-      $this->add_export_items_results($wp_user->ID, $export_items);
-      $this->add_export_items_saved_content_state($wp_user->ID, $export_items);
+      $length = array();
+      $length[] = $this->add_export_items_results($wp_user->ID, $export_items, $page);
+      $length[] = $this->add_export_items_saved_content_state($wp_user->ID, $export_items, $page);
     }
 
     return array(
       'data' => $export_items,
-      'done' => true
+      'done' => max($length) < $this->PAGE_LENGTH
     );
   }
 
@@ -286,19 +309,24 @@ class H5PPrivacyPolicy {
 
     $wp_user = get_user_by('email', $email);
     if ($wp_user) {
-      $ok = $wpdb->delete($wpdb->prefix . 'h5p_results', array(
-        'user_id' => $wp_user->ID
+      $length = array();
+      $length[] = $wpdb->query($wpdb->prepare(
+        "DELETE FROM {$wpdb->prefix}h5p_results WHERE user_id = %d LIMIT %d",
+        $wp_user->ID,
+        $this->PAGE_LENGTH
       ));
-      $ok += $wpdb->delete($wpdb->prefix . 'h5p_contents_user_data', array(
-        'user_id' => $wp_user->ID
+      $length[] = $wpdb->query($wpdb->prepare(
+        "DELETE FROM {$wpdb->prefix}h5p_contents_user_data WHERE user_id = %d LIMIT %d",
+        $wp_user->ID,
+        $this->PAGE_LENGTH
       ));
     }
 
     return array(
-      'items_removed' => $ok,
+      'items_removed' => max($length),
       'items_retained' => false,
       'messages' => array(),
-      'done' => true
+      'done' => max($length) < $this->PAGE_LENGTH
     );
   }
 
