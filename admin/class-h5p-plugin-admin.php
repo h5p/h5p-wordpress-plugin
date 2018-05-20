@@ -345,6 +345,8 @@ class H5P_Plugin_Admin {
   function add_privacy_features() {
     add_action('admin_init', array($this->privacy, 'add_privacy_policy_content'), 20);
     add_filter('wp_privacy_personal_data_exporters', array($this->privacy, 'register_h5p_exporter'), 10);
+    add_filter('wp_privacy_personal_data_erasers', array($this->privacy, 'register_h5p_eraser_results'), 10);
+    add_filter('wp_privacy_personal_data_erasers', array($this->privacy, 'register_h5p_eraser_saved_content_state'), 11);
   }
 
   /**

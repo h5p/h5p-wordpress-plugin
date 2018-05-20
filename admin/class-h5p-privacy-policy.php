@@ -264,11 +264,97 @@ class H5PPrivacyPolicy {
     * @param array $exporters Exporters.
     * @return array Exporters.
     */
-   public function register_h5p_exporter($xporters) {
+   public function register_h5p_exporter($exporters) {
      $exporters[$this->plugin_slug] = array(
        'exporter_friendly_name' => __($this->plugin_slug, $this->plugin_slug),
        'callback' => array($this, 'h5p_exporter')
      );
      return $exporters;
+   }
+
+   /**
+    * Add eraser for results.
+    *
+    * @since 1.10.2
+    * @param string $email Email address.
+    * @param int $page Eraser page.
+    * @return array Eraser results.
+    */
+   function h5p_eraser_results($email, $page = 1) {
+     global $wpdb;
+
+     $erase_items = array();
+
+     $wp_user = get_user_by('email', $email);
+     if ($wp_user) {
+       $ok = $wpdb->delete(
+         $wpdb->prefix . 'h5p_results', array('user_id' => $wp_user->ID)
+       );
+     }
+
+     return array(
+       'items_removed' => $ok,
+       'items_retained' => false,
+       'messages' => array(),
+       'done' => true
+     );
+   }
+
+   /**
+    * Add eraser for saved content state.
+    *
+    * @since 1.10.2
+    * @param string $email Email address.
+    * @param int $page Eraser page.
+    * @return array Eraser results.
+    */
+   function h5p_eraser_saved_content_state($email, $page = 1) {
+     global $wpdb;
+
+     $erase_items = array();
+
+     $wp_user = get_user_by('email', $email);
+     if ($wp_user) {
+       $ok = $wpdb->delete(
+         $wpdb->prefix . 'h5p_contents_user_data', array('user_id' => $wp_user->ID)
+       );
+     }
+
+     return array(
+       'items_removed' => $ok,
+       'items_retained' => false,
+       'messages' => array(),
+       'done' => true
+     );
+   }
+
+   /**
+    * Register eraser for results.
+    *
+    * @since 1.10.2
+    * @param array $erasers Erasers.
+    * @return array Erasers.
+    */
+   public function register_h5p_eraser_results($erasers) {
+     $erasers[$this->plugin_slug . '-results'] = array(
+       'eraser_friendly_name' => $this->plugin_slug . '-results',
+       'callback' => array($this, 'h5p_eraser_results')
+     );
+     return $erasers;
+   }
+
+   /**
+    * Register eraser for saved content state.
+    *
+    * @since 1.10.2
+    * @param array $erasers Erasers.
+    * @return array Erasers.
+    */
+   public function register_h5p_eraser_saved_content_state($erasers) {
+     $erasers[$this->plugin_slug . '-saved-content-state'] = array(
+       'eraser_friendly_name' => $this->plugin_slug . '-saved-content-state',
+       'callback' => array($this, 'h5p_eraser_saved_content_state')
+     );
+     return $erasers;
    }
 }
