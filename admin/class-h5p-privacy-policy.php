@@ -14,6 +14,7 @@
  *
  * @package H5P_Plugin_Admin
  * @author Joubel <contact@joubel.com>
+ * @link https://developer.wordpress.org/plugins/privacy/ Documentation
  */
 class H5PPrivacyPolicy {
 
@@ -23,7 +24,7 @@ class H5PPrivacyPolicy {
   private $plugin_slug = NULL;
 
   /**
-   * Default page length for exporters and erasers (to avoit timeouts)
+   * Default page length for exporters and erasers (to avoid timeouts)
    *
    * @since 1.10.2
    */
