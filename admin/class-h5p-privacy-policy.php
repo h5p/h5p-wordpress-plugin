@@ -23,9 +23,11 @@ class H5PPrivacyPolicy {
   private $plugin_slug = NULL;
 
   /**
+   * Default page length for exporters and erasers (to avoit timeouts)
+   *
    * @since 1.10.2
    */
-  private $PAGE_LENGTH = 25;
+  const PAGE_LENGTH = 25;
 
   /**
    * Initialize.
@@ -37,7 +39,7 @@ class H5PPrivacyPolicy {
   }
 
   /**
-   * Add the privacy policy suggestion text.
+   * Add privacy policy suggestion text.
    *
    * @since 1.10.2
    */
@@ -45,7 +47,71 @@ class H5PPrivacyPolicy {
     if (!function_exists('wp_add_privacy_policy_content')) {
       return;
     }
-    $content = sprintf(__('H5P TODO', $this->plugin_slug));
+
+    // Links
+    $link_xapi = sprintf(
+      '<a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md" target="_blank">%s</a>',
+    	__( "xAPI", $this->plugin_slug)
+    );
+    $link_h5p_tracking = sprintf(
+      '<a href="https://h5p.org/tracking-the-usage-of-h5p" target="_blank">%s</a>',
+    	__( "H5P tracking information", $this->plugin_slug)
+    );
+    $link_google = sprintf(
+      '<a href="https://policies.google.com/privacy">%s</a>',
+      __("Google's Privacy policy", $this->plugin_slug)
+    );
+    $link_twitter = sprintf(
+      '<a href="https://twitter.com/en/privacy">%s</a>',
+      __("Twitter's Privacy policy", $this->plugin_slug)
+    );
+
+    // Intentionally using no identifier here, as this is a WordPress headline.
+    $content = "<h2>" . __("What personal data we collect and why we collect it") . '</h2>';
+    $content .= "<h3>" . strtoupper(__($this->plugin_slug, $this->plugin_slug)) . "</h3>";
+    $content .= '<p style="font-weight: bold">';
+    $content .= __('Suggested text ("We" and "our" mean "you", not "us"!):', $this->plugin_slug);
+    $content .= "</p>";
+    $content .= "<p>";
+    $content .= sprintf(
+      __("We may process and store personal data about your interactions using %s.", $this->plugin_slug),
+      $link_xapi
+    ) . " ";
+    $content .= __("We use the data to learn about how well the interactions are designed and how it could be adapted to improve the usability and your learning outcomes.", $this->plugin_slug) . " ";
+    $content .= __("The data is processed and stored [on our platform|on an external platform] until further notice.");
+    $content .= "</p>";
+    $content .= "<p>";
+    $content .= __("We may store the results of your interactions on our platform until further notice.", $this->plugin_slug) . " ";
+    $content .= __("The results may contain your score, the maximum score possible, when you started, when you finished, and how much time you used.", $this->plugin_slug) . " ";
+    $content .= __("We use the results to learn about how well you performed and to help us give you feedback.", $this->plugin_slug);
+    $content .= "</p>";
+    $content .= "<p>";
+    $content .= __("We may store interactive content that you create on our platform.", $this->plugin_slug) . " ";
+    $content .= __("We also may send anonymized reports about content creation without any personal data to the plugin creators.", $this->plugin_slug) . " ";
+    $content .= sprintf(
+      __("Please consult the %s page for details.", $this->plugin_slug),
+      $link_h5p_tracking
+    );
+    $content .= "</p>";
+    $content .= "<p>";
+    $content .= __("If you use interactive content that contains a video that is hosted on YouTube, YouTube will set cookies on your computer.", $this->plugin_slug) . " ";
+    $content .= __("YouTube uses these cookies to help them and their partners to analyze the traffic to their websites.", $this->plugin_slug) . " ";
+    $content .= sprintf(
+      __("Please consult %s for details.", $this->plugin_slug),
+      $link_google
+    ) . " ";
+    $content .= __("It is our legitimate interest to use YouTube, because we we need their services for our interactive content and would not be able to provide you with the video content and features otherwise.", $this->plugin_slug);
+    $content .= "</p>";
+    $content .= "<p>";
+    $content .= __("If you use interactive content that contains a Twitter feed, Twitter will set a cookie on your computer.", $this->plugin_slug) . " ";
+    $content .= __("Twitter uses these cookies to help them and their partners to make their advertizing more relevant to you.", $this->plugin_slug) . " ";
+    $content .= sprintf(
+      __("Please consult %s for details.", $this->plugin_slug),
+      $link_twitter
+    ) . " ";
+    $content .= __("It is our legitimate interest to use Twitter, because we need their services for our interactive content and would not be able to provide you with it otherwise.", $this->plugin_slug);
+    $content .= "</p>";
+    $content .= __("", $this->plugin_slug);
 
     wp_add_privacy_policy_content($this->plugin_slug, wp_kses_post(wpautop($content, false)));
   }
@@ -82,8 +148,8 @@ class H5PPrivacyPolicy {
         %d, %d
       ",
       $wpid,
-      ($page - 1) * $this->PAGE_LENGTH, // page start
-      $this->PAGE_LENGTH // to page end
+      ($page - 1) * self::PAGE_LENGTH, // page start
+      self::PAGE_LENGTH // to page end
     ));
   }
 
@@ -120,8 +186,78 @@ class H5PPrivacyPolicy {
         %d, %d
       ",
       $wpid,
-      ($page - 1) * $this->PAGE_LENGTH, // page start
-      $this->PAGE_LENGTH // to page end
+      ($page - 1) * self::PAGE_LENGTH, // page start
+      self::PAGE_LENGTH // to page end
+    ));
+  }
+
+  /**
+   * Get events data.
+   *
+   * @since 1.10.2
+   * @param int $wpid WordPress User ID.
+   * @param int $page Exporter page.
+   * @return array Database results.
+   */
+  function get_user_events($wpid, $page) {
+    global $wpdb;
+
+    return $wpdb->get_results($wpdb->prepare(
+      "
+      SELECT
+        *
+      FROM
+        {$wpdb->prefix}h5p_events
+      WHERE
+        user_id = %d
+      LIMIT
+        %d, %d
+      ",
+      $wpid,
+      ($page - 1) * self::PAGE_LENGTH, // page start
+      self::PAGE_LENGTH // to page end
+    ));
+  }
+
+  /**
+   * Get contents data.
+   *
+   * @since 1.10.2
+   * @param int $wpid WordPress User ID.
+   * @param int $page Exporter page.
+   * @return array Database results.
+   */
+  function get_user_contents($wpid, $page) {
+    global $wpdb;
+
+    return $wpdb->get_results($wpdb->prepare(
+      "
+      SELECT
+        con.id,
+        con.created_at,
+        con.updated_at,
+        con.user_id,
+        con.title,
+        con.library_id,
+        con.parameters,
+        con.filtered,
+        con.slug,
+        con.embed_type,
+        con.disable,
+        con.content_type,
+        lib.title AS library_title
+      FROM
+        {$wpdb->prefix}h5p_contents AS con,
+        {$wpdb->prefix}h5p_libraries AS lib
+      WHERE
+        con.user_id = %d AND
+        con.library_id = lib.id
+      LIMIT
+        %d, %d
+      ",
+      $wpid,
+      ($page - 1) * self::PAGE_LENGTH, // page start
+      self::PAGE_LENGTH // to page end
     ));
   }
 
@@ -137,11 +273,11 @@ class H5PPrivacyPolicy {
   function add_export_items_results($wpid, &$export_items, $page) {
     $items = $this->get_user_results($wpid, $page);
 
-    foreach ($items as $item) {
-      // Set time related parameters
-      $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
-      $offset = get_option('gmt_offset') * 3600;
+    // Set time related parameters
+    $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
+    $offset = get_option('gmt_offset') * 3600;
 
+    foreach ($items as $item) {
       // Compute time
       if ($item->time === '0') {
         $item->time = $item->finished - $item->opened;
@@ -251,6 +387,139 @@ class H5PPrivacyPolicy {
   }
 
   /**
+   * Amend export items with items from events.
+   *
+   * @since 1.10.2
+   * @param int $wpid WordPress User ID.
+   * @param array &$export_items Current export items.
+   * @param int $page Export page.
+   * @return int Number of items amended.
+   */
+  function add_export_items_events($wpid, &$export_items, $page) {
+    $items = $this->get_user_events($wpid, $page);
+
+    // Set time related parameters
+    $datetimeformat = get_option('date_format') . ' ' . get_option('time_format');
+    $offset = get_option('gmt_offset') * 3600;
+
+    foreach ($items as $item) {
+      $data = array(
+        array(
+          'name' => __('ID', $this->plugin_slug),
+          'value' => $item->id
+        ),
+        array(
+          'name' => __('User ID', $this->plugin_slug),
+          'value' => $item->user_id
+        ),
+        array(
+          'name' => __('Created at', $this->plugin_slug),
+          'value' => date($datetimeformat, $offset + $item->created_at)
+        ),
+        array(
+          'name' => __('Type', $this->plugin_slug),
+          'value' => $item->type
+        ),
+        array(
+          'name' => __('Sub type', $this->plugin_slug),
+          'value' => $item->sub_type
+        ),
+        array(
+          'name' => __('Content', $this->plugin_slug),
+          'value' => $item->content_title . ' (ID: ' . $item->content_id . ')'
+        ),
+        array(
+          'name' => __('Library', $this->plugin_slug),
+          'value' => $item->library_name . ' ' . $item->library_version
+        ),
+      );
+
+      $export_items[] = array(
+        'group_id' => 'h5p-events',
+        'group_label' => strtoupper($this->plugin_slug) . ' ' . __('Events', $this->plugin_slug),
+        'item_id' => 'h5p-events-' . $item->id,
+        'data' => $data
+      );
+    }
+    return count($items);
+  }
+
+  /**
+   * Amend export items with items from contents.
+   *
+   * @since 1.10.2
+   * @param int $wpid WordPress User ID.
+   * @param array &$export_items Current export items.
+   * @param int $page Export page.
+   * @return int Number of items amended.
+   */
+  function add_export_items_contents($wpid, &$export_items, $page) {
+    $items = $this->get_user_contents($wpid, $page);
+
+    foreach ($items as $item) {
+      $data = array(
+        array(
+          'name' => __('ID', $this->plugin_slug),
+          'value' => $item->id
+        ),
+        array(
+          'name' => __('Title', $this->plugin_slug),
+          'value' => $item->title
+        ),
+        array(
+          'name' => __('Created at', $this->plugin_slug),
+          'value' => $item->created_at
+        ),
+        array(
+          'name' => __('Updated at', $this->plugin_slug),
+          'value' => $item->updated_at
+        ),
+        array(
+          'name' => __('User ID', $this->plugin_slug),
+          'value' => $item->user_id
+        ),
+        array(
+          'name' => __('Library', $this->plugin_slug),
+          'value' => $item->library_title . ' (ID: ' . $item->library_id . ')'
+        ),
+        array(
+          'name' => __('Parameters', $this->plugin_slug),
+          'value' => $item->parameters
+        ),
+        array(
+          'name' => __('Filtered parameters', $this->plugin_slug),
+          'value' => $item->filtered
+        ),
+        array(
+          'name' => __('Slug', $this->plugin_slug),
+          'value' => $item->slug
+        ),
+        array(
+          'name' => __('Embed type', $this->plugin_slug),
+          'value' => $item->embed_type
+        ),
+        array(
+          'name' => __('Disable', $this->plugin_slug),
+          'value' => $item->disable
+        ),
+        array(
+          'name' => __('Content type', $this->plugin_slug),
+          'value' => $item->content_type
+        )
+        // TODO: Will have to be amended when we add the new metadata fields
+      );
+
+      $export_items[] = array(
+        'group_id' => 'h5p-contents',
+        'group_label' => strtoupper($this->plugin_slug) . ' ' . __('Contents', $this->plugin_slug),
+        'item_id' => 'h5p-contents-' . $item->id,
+        'data' => $data
+      );
+    }
+    return count($items);
+  }
+
+  /**
    * Add exporter for personal data.
    *
    * @since 1.10.2
@@ -268,11 +537,13 @@ class H5PPrivacyPolicy {
       $length = array();
       $length[] = $this->add_export_items_results($wp_user->ID, $export_items, $page);
       $length[] = $this->add_export_items_saved_content_state($wp_user->ID, $export_items, $page);
+      $length[] = $this->add_export_items_events($wp_user->ID, $export_items, $page);
+      $length[] = $this->add_export_items_contents($wp_user->ID, $export_items, $page);
     }
 
     return array(
       'data' => $export_items,
-      'done' => max($length) < $this->PAGE_LENGTH
+      'done' => max($length) < self::PAGE_LENGTH
     );
   }
 
@@ -305,6 +576,9 @@ class H5PPrivacyPolicy {
   function h5p_eraser($email, $page = 1) {
     global $wpdb;
 
+    // Get ID of the "oldest" admin
+    $admin_prime_id = get_users(array('role' => 'administrator', 'number' => 1))[0]->ID;
+
     $erase_items = array();
 
     $wp_user = get_user_by('email', $email);
@@ -313,12 +587,24 @@ class H5PPrivacyPolicy {
       $length[] = $wpdb->query($wpdb->prepare(
         "DELETE FROM {$wpdb->prefix}h5p_results WHERE user_id = %d LIMIT %d",
         $wp_user->ID,
-        $this->PAGE_LENGTH
+        self::PAGE_LENGTH
       ));
       $length[] = $wpdb->query($wpdb->prepare(
         "DELETE FROM {$wpdb->prefix}h5p_contents_user_data WHERE user_id = %d LIMIT %d",
         $wp_user->ID,
-        $this->PAGE_LENGTH
+        self::PAGE_LENGTH
+      ));
+      $length[] = $wpdb->query($wpdb->prepare(
+        "DELETE FROM {$wpdb->prefix}h5p_events WHERE user_id = %d LIMIT %d",
+        $wp_user->ID,
+        self::PAGE_LENGTH
+      ));
+      $length[] = $wpdb->query($wpdb->prepare(
+        // Only anonymize data by linking them to the admin
+        "UPDATE {$wpdb->prefix}h5p_contents SET user_id = %d WHERE user_id = %d LIMIT %d",
+        $admin_prime_id,
+        $wp_user->ID,
+        self::PAGE_LENGTH
       ));
     }
 
@@ -326,7 +612,7 @@ class H5PPrivacyPolicy {
       'items_removed' => max($length),
       'items_retained' => false,
       'messages' => array(),
-      'done' => max($length) < $this->PAGE_LENGTH
+      'done' => max($length) < self::PAGE_LENGTH
     );
   }
 
