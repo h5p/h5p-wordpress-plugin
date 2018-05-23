@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: H5P\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-09 10:18+0100\n"
-"PO-Revision-Date: 2017-02-09 10:18+0100\n"
-"Last-Translator: Joseph Rézeau <joseph@rezeau.org>\n"
-"Language-Team: Joubel <contact@joubel.com>\n"
+"PO-Revision-Date: 2018-05-22 14:23+0000\n"
+"Last-Translator: cmssupertest5 <eric.malalel@knowledgeplaces.com>\n"
+"Language-Team: Français\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Loco https://localise.biz/\n"
 "X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
 "__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
 "_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Loco-Target-Locale: fr_FR\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-0: *.js"
 
 #: admin/class-h5p-content-admin.php:158 admin/class-h5p-content-admin.php:651
 #: admin/class-h5p-library-admin.php:215 h5p-php-library/h5p.classes.php:3690
@@ -215,17 +215,17 @@ msgid ""
 "Unfortunately, we were unable to update your installed content types. You "
 "must manually download the update from <a href=\"%s\" target=\"_blank\">H5P."
 "org</a>, and then upload it through the <em>Upload Libraries</em> section. "
-"If you need futher assistance, please file a <a href=\"%s\" target=\"_blank"
-"\">support request</a> or check out our <a href=\"%s\" target=\"_blank"
-"\">forum</a>."
+"If you need futher assistance, please file a <a href=\"%s\" "
+"target=\"_blank\">support request</a> or check out our <a href=\"%s\" "
+"target=\"_blank\">forum</a>."
 msgstr ""
 "Malheureusement, nous n'avons pas réussi à mettre à jour les types "
 "d'activités déjà installés. Vous devez télécharger manuellement la mise à "
 "jour sur <a href=\"%s\" target=\"_blank\">H5P.org</a>, puis la charger sur "
 "votre site dans la section <em>Mettre à jour les librairies</em>. Si vous "
-"avez besoin d'aide, merci de déposer une <a href=\"%s\" target=\"_blank"
-"\">demande d'aide</a> ou de vous rendre sur le <a href=\"%s\" target=\"_blank"
-"\">forum</a>."
+"avez besoin d'aide, merci de déposer une <a href=\"%s\" target=\"_blank\">"
+"demande d'aide</a> ou de vous rendre sur le <a href=\"%s\" target=\"_blank\">"
+"forum</a>."
 
 #: admin/class-h5p-library-admin.php:319
 msgid ""
@@ -388,6 +388,8 @@ msgid ""
 "Head over to the <a href=\"%s\">Libraries</a> page and update your content "
 "types to the latest version."
 msgstr ""
+"Rendez vous à la page <a href=\"%s\">Librairies</a> et mettez à jour vos "
+"types de contenus vers la dernière version."
 
 #: admin/class-h5p-plugin-admin.php:261
 #, php-format
@@ -400,21 +402,21 @@ msgstr ""
 "Par défaut, H5P est paramétré pour chercher automatiquement les informations "
 "liées aux mises à jour des types d'activités. Ce faisant, H5P collecte "
 "également des données d'utilisation, de façon anonyme, pour contribuer au "
-"développement d'H5P. Ce paramètre peut être modifié sur la page des <a href="
-"\"%s\">Réglages</a>."
+"développement d'H5P. Ce paramètre peut être modifié sur la page des <a "
+"href=\"%s\">Réglages</a>."
 
 #: admin/class-h5p-plugin-admin.php:262
 #, php-format
 msgid ""
-"If you need any help you can always file a <a href=\"%s\" target=\"_blank"
-"\">Support Request</a>, check out our <a href=\"%s\" target=\"_blank"
-"\">Forum</a> or join the conversation in the <a href=\"%s\" target=\"_blank"
-"\">H5P Community Chat</a>."
+"If you need any help you can always file a <a href=\"%s\" target=\"_blank\">"
+"Support Request</a>, check out our <a href=\"%s\" target=\"_blank\">Forum</a>"
+" or join the conversation in the <a href=\"%s\" target=\"_blank\">H5P "
+"Community Chat</a>."
 msgstr ""
-"Si vous avez besoin d'aide, vous pouvez déposer une <a href=\"%s\" target="
-"\"_blank\">demande d'aide</a>, consulter le <a href=\"%s\" target=\"_blank"
-"\">forum</a> ou prendre part à une discussion sur le <a href=\"%s\" target="
-"\"_blank\">chat de la communauté H5P</a>."
+"Si vous avez besoin d'aide, vous pouvez déposer une <a href=\"%s\" "
+"target=\"_blank\">demande d'aide</a>, consulter le <a href=\"%s\" "
+"target=\"_blank\">forum</a> ou prendre part à une discussion sur le <a "
+"href=\"%s\" target=\"_blank\">chat de la communauté H5P</a>."
 
 #: admin/class-h5p-plugin-admin.php:270
 #, php-format
@@ -439,16 +441,15 @@ msgid ""
 msgstr ""
 "Malheureusement, nous n'avons pas réussi à installer de façon automatique "
 "les types d'activités par défaut. Vous devez télécharger manuellement les "
-"différents types d'activités sur la page des <a href=\"%s\" target=\"_blank"
-"\">Exemples et téléchargements</a>, afin de les charger sur votre site à "
-"partir de la page des <a href=\"%s\">librairies</a>."
+"différents types d'activités sur la page des <a href=\"%s\" "
+"target=\"_blank\">Exemples et téléchargements</a>, afin de les charger sur "
+"votre site à partir de la page des <a href=\"%s\">librairies</a>."
 
 #: admin/class-h5p-plugin-admin.php:283
 #, php-format
 msgid ""
-"We've automatically installed the default content types for your "
-"convenience. You can now <a href=\"%s\">start creating</a> your own "
-"interactive content!"
+"We've automatically installed the default content types for your convenience."
+" You can now <a href=\"%s\">start creating</a> your own interactive content!"
 msgstr ""
 "Pour vous aider, nous avons automatiquement installer les types d'activités "
 "par défaut. Vous pouvez maintenant <a href=\"%s\">commencer à créer</a> vos "
@@ -462,6 +463,11 @@ msgid ""
 "with the new content types. Here's some more info about <a href=\"%s\" "
 "target=\"_blank\">upgrading the content types</a>."
 msgstr ""
+"Vous devriez <strong>mettre à jour vos types de contenus H5P !</strong> Les "
+"anciens types de contenus fonctionnent toujours, mais l'ergonomie des outils "
+"auteurs est grandement améliorée avec ces nouveaux types de contenus. Voici "
+"quelques informations à propos de la <a href=\"%s\" target=\"_blank\">mise à "
+"jour des types de contenus</a>."
 
 #: admin/class-h5p-plugin-admin.php:376 admin/class-h5p-plugin-admin.php:386
 msgid "Unable to download H5P content types."
@@ -575,9 +581,9 @@ msgid ""
 "so on the <a href=\"%s\" target=\"_blank\">Why Update H5P</a> page."
 msgstr ""
 "Vous pouvez en apprendre davantage sur la raison pour laquelle il est "
-"important de faire les mises à jours, ainsi que sur les bénéfices à en "
-"tirer, sur cette page : <a href=\"%s\" target=\"_blank\">Pourquoi mettre H5P "
-"à jour ?</a>."
+"important de faire les mises à jours, ainsi que sur les bénéfices à en tirer,"
+" sur cette page : <a href=\"%s\" target=\"_blank\">Pourquoi mettre H5P à "
+"jour ?</a>."
 
 #: admin/views/libraries.php:22
 msgid ""
@@ -681,7 +687,7 @@ msgstr "Créer"
 
 #: admin/views/new-content.php:57
 msgid "Update"
-msgstr ""
+msgstr "Mettre à jour"
 
 #: admin/views/new-content.php:62 admin/views/new-content.php:95
 msgid "Toggle panel"
@@ -693,23 +699,23 @@ msgstr "Options d'affichage"
 
 #: admin/views/new-content.php:67
 msgid "Display toolbar below content"
-msgstr ""
+msgstr "Afficher la barre d'outils sous le contenu"
 
 #: admin/views/new-content.php:74 admin/views/settings.php:49
 msgid "Display Download button"
-msgstr ""
+msgstr "Afficher le bouton Télécharger"
 
 #: admin/views/new-content.php:80 admin/views/settings.php:74
 msgid "Display Embed button"
-msgstr ""
+msgstr "Afficher le bouton Intégrer"
 
 #: admin/views/new-content.php:86 admin/views/settings.php:99
 msgid "Display Copyright button"
-msgstr ""
+msgstr "Afficher le bouton Copyright"
 
 #: admin/views/new-content.php:99
 msgid "Separate tags with commas"
-msgstr ""
+msgstr "Séparer les étiquettes avec des virgules"
 
 #: admin/views/settings.php:16
 msgid "Settings saved."
@@ -753,22 +759,24 @@ msgstr ""
 
 #: admin/views/settings.php:37
 msgid "Toolbar Below Content"
-msgstr ""
+msgstr "Barre d'outils sous le Contenu"
 
 #: admin/views/settings.php:41 admin/views/settings.php:62
 #: admin/views/settings.php:87 admin/views/settings.php:103
 msgid "Controlled by author - on by default"
-msgstr ""
+msgstr "Géré par l'auteur - activé par défaut"
 
 #: admin/views/settings.php:44
 msgid ""
 "By default, a toolbar with 4 buttons is displayed below each interactive "
 "content."
 msgstr ""
+"Par défaut, une barre d'outils avec 4 boutons est affichée en dessous de "
+"chaque contenu interactif."
 
 #: admin/views/settings.php:53 admin/views/settings.php:78
 msgid "Never"
-msgstr ""
+msgstr "Jamais"
 
 #: admin/views/settings.php:56 admin/views/settings.php:81
 #: admin/views/settings.php:112
@@ -777,25 +785,29 @@ msgstr ""
 
 #: admin/views/settings.php:59 admin/views/settings.php:84
 msgid "Only for editors"
-msgstr ""
+msgstr "Uniquement pour les éditeurs"
 
 #: admin/views/settings.php:65 admin/views/settings.php:90
 msgid "Controlled by author - off by default"
-msgstr ""
+msgstr "Géré par l'auteur - désactivé par défaut"
 
 #: admin/views/settings.php:69
 msgid ""
 "Setting this to 'Never' will reduce the amount of disk space required for "
 "interactive content."
 msgstr ""
+"Définir cette option sur \"Jamais\" réduira la quantité d'espace disque "
+"requise pour le contenu interactif."
 
 #: admin/views/settings.php:94
 msgid "Setting this to 'Never' will disable already existing embed codes."
 msgstr ""
+"Si vous définissez cette option sur \"Jamais\", les codes d'intégration déjà "
+"existants seront désactivés."
 
 #: admin/views/settings.php:108
 msgid "Display About H5P button"
-msgstr ""
+msgstr "Afficher le bouton A propos de H5P"
 
 #: admin/views/settings.php:117
 msgid "User Results"
@@ -840,17 +852,19 @@ msgstr ""
 
 #: admin/views/settings.php:163
 msgid "Content Types"
-msgstr ""
+msgstr "Types de Contenu"
 
 #: admin/views/settings.php:167
 msgid "Enable LRS dependent content types"
-msgstr ""
+msgstr "Activer les types de contenus utilisant un LRS"
 
 #: admin/views/settings.php:170
 msgid ""
 "Makes it possible to use content types that rely upon a Learning Record "
 "Store to function properly, like the Questionnaire content type."
 msgstr ""
+"Permet d'utiliser les types de contenus qui dépendent d'un LRS pour "
+"fonctionner correctement, comme le type de contenu Questionnaire."
 
 #: admin/views/show-content.php:30
 msgid "Shortcode"
@@ -1057,6 +1071,8 @@ msgstr "Il manque la librairie dépendante @dep requise par la librairie @lib."
 msgid ""
 "The mbstring PHP extension is not loaded. H5P need this to function properly"
 msgstr ""
+"L'extension mbstring de PHP n'est pas chargée. H5P a besoin de cette "
+"extension pour fonctionner correctement."
 
 #: h5p-php-library/h5p.classes.php:2899
 msgid ""
@@ -1096,10 +1112,13 @@ msgid ""
 "The version of the H5P library %machineName used in this content is not "
 "valid. Content contains %contentLibrary, but it should be %semanticsLibrary."
 msgstr ""
+"La version de la librairie H5P %machineName utilisée dans ce contenu n'est "
+"pas valide. Le contenu contient %contentLibrary, mais cela devrait être  "
+"%semanticsLibrary."
 
 #: h5p-php-library/h5p.classes.php:3284
 msgid "The H5P library %library used in the content is not valid"
-msgstr ""
+msgstr "La librairie H5P %library utilisée dans le contenu n'est pas valide"
 
 #: h5p-php-library/h5p.classes.php:3685
 msgid "Copyright information"
@@ -1280,46 +1299,3 @@ msgstr "Confirmer"
 #: public/class-h5p-wordpress.php:591
 msgid "Invalid json in semantics for %library"
 msgstr "Invalide JSON dans la sémantique de %library"
-
-#~ msgid "Unable to create content directory."
-#~ msgstr "Impossible de créer le répertoire de contenu."
-
-#~ msgid ""
-#~ "You should head over to the <a href=\"%s\">Libraries</a> page and update "
-#~ "your content types to the latest version."
-#~ msgstr ""
-#~ "Vous devriez vous rendre dans la page des <a href=\"%s\">librairies</a> "
-#~ "et mettre à jour vos types d'activités avec les dernières versions."
-
-#~ msgid "Display action bar and frame"
-#~ msgstr "Afficher la barre d'action et le cadre"
-
-#~ msgid "Download button"
-#~ msgstr "Bouton de téléchargement"
-
-#~ msgid "Embed button"
-#~ msgstr "Bouton d'intégration"
-
-#~ msgid "Copyright button"
-#~ msgstr "Bouton de copyright"
-
-#~ msgid "Action bar"
-#~ msgstr "Barre d'actions"
-
-#~ msgid "About H5P button"
-#~ msgstr "Bouton à propos d'H5P"
-
-#~ msgid "Unable to create directory."
-#~ msgstr "Impossible de créer le répertoire."
-
-#~ msgid "Could not save file."
-#~ msgstr "Le fichier n'a pas pu être sauvé."
-
-#~ msgid "Could not copy file."
-#~ msgstr "Le fichier n'a pas pu être copié."
-
-#~ msgid ""
-#~ "Library used in content is not a valid library according to semantics"
-#~ msgstr ""
-#~ "La librairie utilisée par ce contenu n'est pas une librairie valide "
-#~ "d'après la sémantique"
