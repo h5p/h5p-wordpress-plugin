@@ -60,6 +60,10 @@ class H5P_Plugin_Admin {
     // Prepare admin pages / sections
     $this->content = new H5PContentAdmin($this->plugin_slug);
     $this->library = new H5PLibraryAdmin($this->plugin_slug);
+    $this->privacy = new H5PPrivacyPolicy($this->plugin_slug);
+
+    // Initialize admin area.
+    $this->add_privacy_features();
 
     // Load admin style sheet and JavaScript.
     add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_styles_and_scripts'));
@@ -331,6 +335,22 @@ class H5P_Plugin_Admin {
 
     // Print any other messages
     self::print_messages();
+  }
+
+  /**
+   * Initialize admin area.
+   *
+   * @since 1.10.2
+   */
+  function add_privacy_features() {
+    // Privacy Policy
+    add_action('admin_init', array($this->privacy, 'add_privacy_policy_content'), 20);
+
+    // Exporter
+    add_filter('wp_privacy_personal_data_exporters', array($this->privacy, 'register_h5p_exporter'), 10);
+
+    // Eraser
+    add_filter('wp_privacy_personal_data_erasers', array($this->privacy, 'register_h5p_eraser'), 10);
   }
 
   /**
