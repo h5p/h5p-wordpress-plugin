@@ -112,7 +112,6 @@ class H5PPrivacyPolicy {
     ) . " ";
     $content .= __("It is our legitimate interest to use Twitter, because we need their services for our interactive content and would not be able to provide you with it otherwise.", $this->plugin_slug);
     $content .= "</p>";
-    $content .= __("", $this->plugin_slug);
 
     wp_add_privacy_policy_content($this->plugin_slug, wp_kses_post(wpautop($content, false)));
   }
