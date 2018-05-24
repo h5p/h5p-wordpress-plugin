@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 4.9
-Stable tag: 1.10.2
+Stable tag: 1.10.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -28,8 +28,7 @@ The H5P community is actively contributing to improve H5P. Updates and new featu
 View our [setup for WordPress](https://h5p.org/documentation/setup/wordpress "Setup H5P for WordPress") to get information on how to get started with H5P.
 
 = GDPR Compliance =
-Information useful to help you achieve GDPR compliance while using this plugin
-can be found at [H5P.org's GDPR Compliance](https://h5p.org/plugin-gdpr-compliance "GDPR Compliance") page.
+Information useful to help you achieve GDPR compliance while using this plugin can be found at [H5P.org's GDPR Compliance](https://h5p.org/plugin-gdpr-compliance "GDPR Compliance") page.
 
 == Installation ==
 
