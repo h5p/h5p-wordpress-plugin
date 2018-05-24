@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 4.9
-Stable tag: 1.10.1
+Stable tag: 1.10.2
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -374,3 +374,11 @@ Updated translations.
 = 1.10.1 =
 Fix issue with editor not saving correctly in Safari 11.
 Fix missing translation and some PHP notices.
+
+= 1.10.2 =
+Add support for the new Privacy APIs added in the latest WordPress. (retrieving and deleting user data upon request)
+Add an opt-in option for statistics for first time users of the plugin.
+Update the French translation, big thanks to knowledgeplaces on GitHub!
+Restricted some new content type in case an LRS isn't used.
+Add support for the latest H5P Core version.
+Various minor bug fixes
