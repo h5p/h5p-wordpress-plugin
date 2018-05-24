@@ -27,6 +27,10 @@ The H5P community is actively contributing to improve H5P. Updates and new featu
 
 View our [setup for WordPress](https://h5p.org/documentation/setup/wordpress "Setup H5P for WordPress") to get information on how to get started with H5P.
 
+= GDPR Compliance =
+Information useful to help you achieve GDPR compliance while using this plugin
+can be found at [H5P.org's GDPR Compliance](https://h5p.org/plugin-gdpr-compliance "GDPR Compliance") page.
+
 == Installation ==
 
 1. Download and extract the package
