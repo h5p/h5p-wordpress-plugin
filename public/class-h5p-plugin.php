@@ -1086,6 +1086,7 @@ class H5P_Plugin {
       ),
       'hubIsEnabled' => get_option('h5p_hub_is_enabled', TRUE) == TRUE,
       'reportingIsEnabled' => (get_option('h5p_enable_lrs_content_types', FALSE) === '1') ? TRUE : FALSE,
+      'crossorigin' => defined('H5P_CROSSORIGIN') ? H5P_CROSSORIGIN : null,
     );
 
     if ($current_user->ID) {
