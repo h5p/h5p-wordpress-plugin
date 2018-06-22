@@ -577,7 +577,8 @@ class H5PPrivacyPolicy {
     global $wpdb;
 
     // Get ID of the "oldest" admin
-    $admin_prime_id = get_users(array('role' => 'administrator', 'number' => 1))[0]->ID;
+    $users = get_users(array('role' => 'administrator', 'number' => 1));
+    $admin_prime_id = $users[0]->ID;
 
     $erase_items = array();
 
