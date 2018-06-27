@@ -291,7 +291,7 @@ class H5PContentAdmin {
    */
   public function process_new_content() {
     $plugin = H5P_Plugin::get_instance();
-    
+
     $consent = filter_input(INPUT_POST, 'consent', FILTER_VALIDATE_BOOLEAN);
     if ($consent !== NULL && !get_option('h5p_has_request_user_consent', FALSE) && current_user_can('manage_options')) {
       check_admin_referer('h5p_consent', 'can_has'); // Verify form
@@ -994,6 +994,7 @@ class H5PContentAdmin {
       'ajaxPath' => admin_url('admin-ajax.php?token=' . wp_create_nonce('h5p_editor_ajax') . '&action=h5p_'),
       'libraryUrl' => plugin_dir_url('h5p/h5p-editor-php-library/h5peditor.class.php'),
       'copyrightSemantics' => $content_validator->getCopyrightSemantics(),
+      'metadataSemantics' => $content_validator->getMetadataSemantics(),
       'assets' => $assets,
       'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug),
       'apiVersion' => H5PCore::$coreApi
