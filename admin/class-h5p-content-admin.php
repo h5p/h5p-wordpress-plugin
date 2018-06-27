@@ -456,6 +456,9 @@ class H5PContentAdmin {
       $examplesHint = FALSE;
     }
 
+    // Avoid decoding parameters again...
+    $parameters = '{"params":' . $parameters . ',"metadata":' . json_encode($this->content['metadata']) . '}';
+
     // Filter/escape parameters, double escape that is...
     $safe_text = wp_check_invalid_utf8($parameters);
     $safe_text = _wp_specialchars($safe_text, ENT_QUOTES, false, true);
@@ -550,6 +553,9 @@ class H5PContentAdmin {
       return FALSE;
     }
 
+    $content['params'] = json_encode($params->params);
+    $content['metadata'] = $params->metadata;
+
     // Set disabled features
     $this->get_disabled_content_features($core, $content);
 
@@ -558,8 +564,7 @@ class H5PContentAdmin {
 
     // Move images and find all content dependencies
     $editor = $this->get_h5peditor_instance();
-    $editor->processParameters($content['id'], $content['library'], $params, $oldLibrary, $oldParams);
-    //$content['params'] = json_encode($params);
+    $editor->processParameters($content['id'], $content['library'], $params->params, $oldLibrary, $oldParams);
     return $content['id'];
   }
 

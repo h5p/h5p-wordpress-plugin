@@ -149,6 +149,23 @@ class H5P_Plugin {
   }
 
   /**
+   * Drop the given column from the given table.
+   *
+   * @since 1.11.0
+   * @global \wpdb $wpdb
+   * @param string $table
+   * @param string $column
+   */
+  public static function drop_column($table, $column) {
+    global $wpdb;
+
+    $wpdb->get_results("SHOW COLUMNS FROM {$table} LIKE '{$column}'");
+    if (!empty($wpdb->num_rows)) {
+      $wpdb->query("ALTER TABLE {$table} DROP COLUMN {$column}");
+    }
+  }
+
+  /**
    * Makes sure the database is up to date.
    *
    * @since 1.1.0
@@ -176,10 +193,15 @@ class H5P_Plugin {
       embed_type VARCHAR(127) NOT NULL,
       disable INT UNSIGNED NOT NULL DEFAULT 0,
       content_type VARCHAR(127) NULL,
-      author VARCHAR(127) NULL,
-      license VARCHAR(7) NULL,
-      keywords TEXT NULL,
-      description TEXT NULL,
+      authors LONGTEXT NULL,
+      source VARCHAR(2083) NULL,
+      year_from INT UNSIGNED NULL,
+      year_to INT UNSIGNED NULL,
+      license VARCHAR(32) NULL,
+      license_version VARCHAR(10) NULL,
+      license_extras LONGTEXT NULL,
+      author_comments LONGTEXT NULL,
+      changes LONGTEXT NULL,
       PRIMARY KEY  (id)
     ) {$charset};");
 
@@ -421,6 +443,7 @@ class H5P_Plugin {
     $pre_180 = ($v->major < 1 || ($v->major === 1 && $v->minor < 8)); // < 1.8.0
     $pre_1102 = ($v->major < 1 || ($v->major === 1 && $v->minor < 10) ||
                  ($v->major === 1 && $v->minor === 10 && $v->patch < 2)); // < 1.10.2
+    $pre_1110 = ($v->major < 1 || ($v->major === 1 && $v->minor < 11)); // < 1.11.0
 
     // Run version specific updates
     if ($pre_120) {
@@ -440,6 +463,13 @@ class H5P_Plugin {
 
     if ($pre_1102 && $current_version !== '0.0.0') {
       update_option('h5p_has_request_user_consent', TRUE);
+    }
+
+    if ($pre_1110) {
+      // Remove unused columns
+      self::drop_column("{$wpdb->prefix}h5p_contents", 'author');
+      self::drop_column("{$wpdb->prefix}h5p_contents", 'keywords');
+      self::drop_column("{$wpdb->prefix}h5p_contents", 'description');
     }
 
     // Keep track of which version of the plugin we have.
