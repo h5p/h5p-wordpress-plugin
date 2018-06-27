@@ -717,7 +717,7 @@ class H5PWordPress implements H5PFrameworkInterface {
       );
 
     $content['metadata'] = array();
-    $metadata_structure = array('title', 'authors', 'source', 'year_from', 'year_to', 'license', 'license_version', 'license_extras', 'author_comments', 'changes');
+    $metadata_structure = array('title', 'authors', 'source', 'yearFrom', 'yearTo', 'license', 'licenseVersion', 'licenseExtras', 'authorComments', 'changes');
     foreach ($metadata_structure as $property) {
       if (!empty($content[$property])) {
         if ($property === 'authors' || $property === 'changes') {
