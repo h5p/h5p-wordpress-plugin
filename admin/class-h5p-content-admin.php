@@ -355,7 +355,6 @@ class H5PContentAdmin {
       elseif (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
         // Create new content if none exists
         $content = ($this->content === NULL ? array('disable' => H5PCore::DISABLE_NONE) : $this->content);
-        $content['title'] = $this->get_input_title();
         $content['uploaded'] = true;
         $this->get_disabled_content_features($core, $content);
 
@@ -442,7 +441,6 @@ class H5PContentAdmin {
     $core = $plugin->get_h5p_instance('core');
 
     // Prepare form
-    $title = $this->get_input('title', $contentExists ? $this->content['title'] : '');
     $library = $this->get_input('library', $contentExists ? H5PCore::libraryToString($this->content['library']) : 0);
     $parameters = $this->get_input('parameters', $contentExists ? $core->filterParameters($this->content) : '{}');
 
@@ -536,12 +534,6 @@ class H5PContentAdmin {
       return FALSE;
     }
 
-    // Get title
-    $content['title'] = $this->get_input_title();
-    if ($content['title'] === NULL) {
-      return FALSE;
-    }
-
     // Check parameters
     $content['params'] = $this->get_input('parameters');
     if ($content['params'] === NULL) {
@@ -555,6 +547,18 @@ class H5PContentAdmin {
 
     $content['params'] = json_encode($params->params);
     $content['metadata'] = $params->metadata;
+
+    // Trim title and check length
+    $trimmed_title = trim($content['metadata']->title);
+    if ($trimmed_title === '') {
+      H5P_Plugin_Admin::set_error(sprintf(__('Missing %s.', $this->plugin_slug), 'title'));
+      return FALSE;
+    }
+
+    if (strlen($trimmed_title) > 255) {
+      H5P_Plugin_Admin::set_error(__('Title is too long. Must be 256 letters or shorter.', $this->plugin_slug));
+      return FALSE;
+    }
 
     // Set disabled features
     $this->get_disabled_content_features($core, $content);
@@ -606,33 +610,6 @@ class H5PContentAdmin {
     }
 
     return $value;
-  }
-
-  /**
-   * Get input post data field title. Validates.
-   *
-   * @since 1.1.0
-   * @return string
-   */
-  public function get_input_title() {
-    $title = $this->get_input('title');
-    if ($title === NULL) {
-      return NULL;
-    }
-
-    // Trim title and check length
-    $trimmed_title = trim($title);
-    if ($trimmed_title === '') {
-      H5P_Plugin_Admin::set_error(sprintf(__('Missing %s.', $this->plugin_slug), 'title'));
-      return NULL;
-    }
-
-    if (strlen($trimmed_title) > 255) {
-      H5P_Plugin_Admin::set_error(__('Title is too long. Must be 256 letters or shorter.', $this->plugin_slug));
-      return NULL;
-    }
-
-    return $trimmed_title;
   }
 
   /**

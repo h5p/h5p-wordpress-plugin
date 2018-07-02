@@ -482,7 +482,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     }
     new H5P_Event('content', $event_type,
         $content['id'],
-        $content['title'],
+        $metadata['title'],
         $content['library']['machineName'],
         $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']);
 
