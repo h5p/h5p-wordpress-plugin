@@ -1,0 +1,1258 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: H5P\n"
+"POT-Creation-Date: 2016-05-18 10:48+0200\n"
+"PO-Revision-Date: \n"
+"Language-Team: Александр <a.v.shulgin@mail.ru>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.6\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
+"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"t\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Last-Translator: \n"
+"Language: ru\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: h5p-editor-php-library/h5peditor-file.class.php:29
+msgid "Unable to create directory."
+msgstr "Невозможно создать каталог."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:93
+msgid "Unable to get field type."
+msgstr "Не удается получить Тип поля."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:99
+msgid "File type isn't allowed."
+msgstr "Тип файла не допускается."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:106
+msgid "Invalid field type."
+msgstr "Неверные тип поля."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:116
+msgid "Invalid image file format. Use jpg, png or gif."
+msgstr "Неверный формат файла изображения. Используйте jpg, png or gif."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:122
+msgid "File is not an image."
+msgstr "Файл не является изображением."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:142
+msgid "Invalid audio file format. Use mp3 or wav."
+msgstr "Неверный формат аудиофайла. Используйте mp3 or wav."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:158
+msgid "Invalid video file format. Use mp4 or webm."
+msgstr "Неверный формат видеофайла. Используйте mp4 or webm."
+
+#: h5p-editor-php-library/h5peditor-file.class.php:185
+msgid "Could not copy file."
+msgstr "Не удалось скопировать файл."
+
+#: admin/class-h5p-plugin-admin.php:214
+msgid "Content unavailable."
+msgstr "Контент недоступен."
+
+#: admin/class-h5p-plugin-admin.php:245
+msgid "Thank you for staying up to date with H5P."
+msgstr "Спасибо, что остаетесь с H5P."
+
+#: admin/class-h5p-plugin-admin.php:246
+#, php-format
+msgid ""
+"You should head over to the <a href=\"%s\">Libraries</a> page and update "
+"your content types to the latest version."
+msgstr ""
+"Вы должны направиться к странице <a href=\"%s\">Библиотека</a> и обновить "
+"типы контента до последней версии."
+
+#: admin/class-h5p-plugin-admin.php:247
+#, php-format
+msgid ""
+"By default, H5P is set up to automatically fetch information regarding "
+"Content Type updates from H5P.org. When doing so, H5P will also contribute "
+"anonymous usage data to aid the development of H5P. This behaviour can be "
+"altered through the <a href=\"%s\">Settings</a> page."
+msgstr ""
+"По умолчанию H5P настроен на автоматическую выборку информации об "
+"обновлениях типов Контента из H5P.org. При этом H5P также будет "
+"предоставлять анонимные данные об использовании для содействия развитию H5P. "
+"Это поведение можно изменить через страницу <a href=\"%s\">Настройки</a>"
+
+#: admin/class-h5p-plugin-admin.php:248
+#, php-format
+msgid ""
+"If you need any help you can always file a <a href=\"%s\" target=\"_blank"
+"\">Support Request</a>, check out our <a href=\"%s\" target=\"_blank"
+"\">Forum</a> or join the conversation in the <a href=\"%s\" target=\"_blank"
+"\">H5P Community Chat</a>."
+msgstr ""
+"Если вам нужна помощь, вы всегда можете отправить <a href=\"%s\" target="
+"\"_blank\">Запрос на поддержку</a>, проверить наш<a href=\"%s\" target="
+"\"_blank\">Форум</a> или присоединиться к разговору в<a href=\"%s\" target="
+"\"_blank\">H5P Общий Чат</a>."
+
+#: admin/class-h5p-plugin-admin.php:256
+#, php-format
+msgid ""
+"Check out our <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
+"page for inspiration."
+msgstr ""
+"Проверьте нашу страницу <a href=\"%s\" target=\"_blank\">Примеры и загрузки</"
+"a> для вдохновения."
+
+#: admin/class-h5p-plugin-admin.php:261
+msgid "Thank you for choosing H5P."
+msgstr "Спасибо, что выбрали H5P."
+
+#: admin/class-h5p-plugin-admin.php:266
+#, php-format
+msgid ""
+"Unfortunately, we were unable to automatically install the default content "
+"types. You must manually download the content types you wish to use from the "
+"<a href=\"%s\" target=\"_blank\">Examples and Downloads</a> page, and then "
+"upload them through the <a href=\"%s\">Libraries</a> page."
+msgstr ""
+"К сожалению, мы не смогли автоматически установить типы контента по "
+"умолчанию. Необходимо вручную загрузить типы контента, которые вы хотите "
+"использовать ,со страницы<a href=\"%s\" target=\"_blank\">Примеры и загрузки "
+"</a>, а затем загрузить их через страницу<a href=\"%s\">Библиотеки < /a>."
+
+#: admin/class-h5p-plugin-admin.php:269
+#, php-format
+msgid ""
+"We've automatically installed the default content types for your "
+"convenience. You can now <a href=\"%s\">start creating</a> your own "
+"interactive content!"
+msgstr ""
+"Для Вашего удобства мы автоматически установили типы контента по умолчанию. "
+"Теперь вы можете <a href=\"%s\">начать создавать</a> свой собственный "
+"интерактивный контент!"
+
+#: admin/class-h5p-plugin-admin.php:352 admin/class-h5p-plugin-admin.php:362
+msgid "Unable to download H5P content types."
+msgstr "Можете скачать H5P типы контента."
+
+#: admin/class-h5p-plugin-admin.php:398 public/class-h5p-plugin.php:505
+msgid "H5P Content"
+msgstr "H5P контент"
+
+#: admin/class-h5p-plugin-admin.php:401
+msgid "All H5P Content"
+msgstr "Весь H5P контент"
+
+#: admin/class-h5p-plugin-admin.php:404
+msgid "Add New"
+msgstr "Добавить Новый"
+
+#: admin/class-h5p-plugin-admin.php:413
+#, php-format
+msgid "%s new update is available!"
+msgid_plural "%s new updates are available!"
+msgstr[0] "%s новое обновление доступно!"
+msgstr[1] "%s новых обновления доступно!"
+msgstr[2] "%s новых обновления доступно!"
+
+#: admin/class-h5p-plugin-admin.php:414 admin/class-h5p-plugin-admin.php:415
+msgid "Libraries"
+msgstr "Библиотеки"
+
+#: admin/class-h5p-plugin-admin.php:421 admin/views/my-results.php:14
+msgid "My Results"
+msgstr "Мои результаты"
+
+#: admin/class-h5p-plugin-admin.php:627
+msgid "Invalid content"
+msgstr "Недопустимое содержимое"
+
+#: admin/class-h5p-plugin-admin.php:631 admin/class-h5p-plugin-admin.php:1031
+msgid "Invalid security token"
+msgstr "Неверный код безопасности."
+
+#: admin/class-h5p-plugin-admin.php:847
+msgid "Loading data."
+msgstr "Загрузка данных."
+
+#: admin/class-h5p-plugin-admin.php:848
+msgid "Failed to load data."
+msgstr "Не удалось загрузить данные."
+
+#: admin/class-h5p-plugin-admin.php:849
+msgid "There's no data available that matches your criteria."
+msgstr "Нет данных, соответствующих вашим критериям."
+
+#: admin/class-h5p-plugin-admin.php:850
+msgid "Page $current of $total"
+msgstr "Страница $текущий из $всего"
+
+#: admin/class-h5p-plugin-admin.php:851
+msgid "Next page"
+msgstr "Следующая страница"
+
+#: admin/class-h5p-plugin-admin.php:852
+msgid "Previous page"
+msgstr "Предыдущая страница"
+
+#: admin/class-h5p-plugin-admin.php:853
+msgid "Search"
+msgstr "Поиск"
+
+#: admin/class-h5p-plugin-admin.php:854
+msgid "Remove"
+msgstr "Удалить"
+
+#: admin/class-h5p-plugin-admin.php:883
+msgid "Content"
+msgstr "Содержание"
+
+#: admin/class-h5p-plugin-admin.php:887 admin/class-h5p-content-admin.php:253
+msgid "Score"
+msgstr "Баллы "
+
+#: admin/class-h5p-plugin-admin.php:891 admin/class-h5p-content-admin.php:257
+msgid "Maximum Score"
+msgstr "Максимальный балл"
+
+#: admin/class-h5p-plugin-admin.php:895 admin/class-h5p-content-admin.php:261
+msgid "Opened"
+msgstr "Открыто"
+
+#: admin/class-h5p-plugin-admin.php:899 admin/class-h5p-content-admin.php:265
+msgid "Finished"
+msgstr "Завершено"
+
+#: admin/class-h5p-plugin-admin.php:902 admin/class-h5p-content-admin.php:268
+msgid "Time spent"
+msgstr "Затрачено время"
+
+#: admin/class-h5p-plugin-admin.php:905
+msgid "There are no logged results for your user."
+msgstr "Нет зарегистрированных результатов для вашего пользователя."
+
+#: admin/class-h5p-library-admin.php:62
+msgid "Delete"
+msgstr "Удалить"
+
+#: admin/class-h5p-library-admin.php:65
+msgid "Content Upgrade"
+msgstr "Обновить контент"
+
+#: admin/class-h5p-library-admin.php:102
+#, php-format
+msgid "Cannot find library with id: %d."
+msgstr "Не удается найти библиотеку с id: %d."
+
+#: admin/class-h5p-library-admin.php:147 admin/class-h5p-content-admin.php:288
+msgid "Unknown task."
+msgstr "Неизвестная задача."
+
+#: admin/class-h5p-library-admin.php:167 admin/class-h5p-library-admin.php:416
+msgid "N/A"
+msgstr "Н.Д."
+
+#: admin/class-h5p-library-admin.php:168
+msgid "View library details"
+msgstr "Показать детали библиотеки"
+
+#: admin/class-h5p-library-admin.php:169
+msgid "Delete library"
+msgstr "Удалить библиотеку"
+
+#: admin/class-h5p-library-admin.php:170
+msgid "Upgrade library content"
+msgstr "Обновить контент библиотеки"
+
+#: admin/class-h5p-library-admin.php:227 admin/class-h5p-content-admin.php:163
+#: admin/class-h5p-content-admin.php:661 h5p-php-library/h5p.classes.php:3579
+#: public/class-h5p-plugin.php:914
+msgid "Title"
+msgstr "Название"
+
+#: admin/class-h5p-library-admin.php:228
+msgid "Restricted"
+msgstr "Ограничено"
+
+#: admin/class-h5p-library-admin.php:230
+msgid "Contents"
+msgstr "Контент"
+
+#: admin/class-h5p-library-admin.php:234
+msgid "Contents using it"
+msgstr "Контент использующий"
+
+#: admin/class-h5p-library-admin.php:238
+msgid "Libraries using it"
+msgstr "Библиотека использующая"
+
+#: admin/class-h5p-library-admin.php:241 admin/views/new-content.php:45
+msgid "Actions"
+msgstr "Действия"
+
+#: admin/class-h5p-library-admin.php:252
+msgid "The following libraries are outdated and should be upgraded:"
+msgstr "Следующие библиотеки устарели и должны быть обновлены:"
+
+#: admin/class-h5p-library-admin.php:254
+msgid "To upgrade all the installed libraries, do the following:"
+msgstr "Обновить все установленные библиотеки, выполните следующие действия:"
+
+#: admin/class-h5p-library-admin.php:256
+#, php-format
+msgid "Download the H5P file from the %s page."
+msgstr "Загрузите файл H5P со страницы %s."
+
+#: admin/class-h5p-library-admin.php:257
+#, php-format
+msgid "Select the downloaded <em> %s</em> file in the form below."
+msgstr "Выберите загруженный файл <em> %s</em> в форме ниже."
+
+#: admin/class-h5p-library-admin.php:258
+msgid ""
+"Check off \"Only update existing libraries\" and click the <em>Upload</em> "
+"button."
+msgstr ""
+"Установите флажок \"Обновлять только существующие библиотеки\" и нажмите "
+"кнопку <em>Загрузка</em>."
+
+#: admin/class-h5p-library-admin.php:324
+#, php-format
+msgid ""
+"Unfortunately, we were unable to update your installed content types. You "
+"must manually download the update from <a href=\"%s\" target=\"_blank\">H5P."
+"org</a>, and then upload it through the <em>Upload Libraries</em> section. "
+"If you need futher assistance, please file a <a href=\"%s\" target=\"_blank"
+"\">support request</a> or check out our <a href=\"%s\" target=\"_blank"
+"\">forum</a>."
+msgstr ""
+"К сожалению, мы не смогли обновить установленные типы контента. Вы должны "
+"вручную загрузить из <a href=\"%s\" target=\"_blank\">H5P.org</a>, а затем "
+"загрузить его через секцию <em>Загрузка библиотек</em> . Если вам нужна "
+"дополнительная помощь, пожалуйста, подайте <a href=\"%s\" target=\"_blank"
+"\">запрос на поддержку</a> или проверьте наш <a href=\"%s\" target=\"_blank"
+"\">форум</a>."
+
+#: admin/class-h5p-library-admin.php:345
+msgid ""
+"This Library is used by content or other libraries and can therefore not be "
+"deleted."
+msgstr ""
+"Эта библиотека используется содержимым или другими библиотеками и поэтому не "
+"может быть удалена."
+
+#: admin/class-h5p-library-admin.php:381
+msgid "No content is using this library"
+msgstr "Содержимое этой библиотеки не используется"
+
+#: admin/class-h5p-library-admin.php:382
+msgid "Content using this library"
+msgstr "Содержимое, используемое этой библиотекой"
+
+#: admin/class-h5p-library-admin.php:383
+msgid "Elements per page"
+msgstr "Элементов на странице"
+
+#: admin/class-h5p-library-admin.php:384
+msgid "Filter content"
+msgstr "Фильтр контента"
+
+#: admin/class-h5p-library-admin.php:385
+msgid "Page $x of $y"
+msgstr "Страница $x из $y"
+
+#: admin/class-h5p-library-admin.php:413
+msgid "Version"
+msgstr "Версия"
+
+#: admin/class-h5p-library-admin.php:414 public/class-h5p-plugin.php:903
+msgid "Fullscreen"
+msgstr "Во весь экран"
+
+#: admin/class-h5p-library-admin.php:414 admin/class-h5p-library-admin.php:415
+msgid "Yes"
+msgstr "Да"
+
+#: admin/class-h5p-library-admin.php:414 admin/class-h5p-library-admin.php:415
+msgid "No"
+msgstr "Нет"
+
+#: admin/class-h5p-library-admin.php:415
+msgid "Content library"
+msgstr "Контент библиотеки"
+
+#: admin/class-h5p-library-admin.php:416
+msgid "Used by"
+msgstr "Используется"
+
+#: admin/class-h5p-library-admin.php:416 admin/class-h5p-library-admin.php:467
+#, php-format
+msgid "1 content"
+msgid_plural "%d contents"
+msgstr[0] "%d контент"
+msgstr[1] "%d контента"
+msgstr[2] "%d контентов"
+
+#: admin/class-h5p-library-admin.php:456
+msgid "There are no available upgrades for this library."
+msgstr "Нет доступных обновлений для этой библиотеки."
+
+#: admin/class-h5p-library-admin.php:463
+msgid "There's no content instances to upgrade."
+msgstr "Нет экземпляров контента для обновления."
+
+#: admin/class-h5p-library-admin.php:474
+#, php-format
+msgid "You are about to upgrade %s. Please select upgrade version."
+msgstr "Вы собираетесь обновить %s. Пожалуйста, выберите обновление версии."
+
+#: admin/class-h5p-library-admin.php:475
+msgid "Upgrading to %ver..."
+msgstr "Обновление до %ver..."
+
+#: admin/class-h5p-library-admin.php:476
+msgid "An error occurred while processing parameters:"
+msgstr "Произошла ошибка при обработке параметров:"
+
+#: admin/class-h5p-library-admin.php:477
+msgid "Could not load data for library %lib."
+msgstr "Не удалось загрузить данные для библиотеки %lib."
+
+#: admin/class-h5p-library-admin.php:478
+msgid "Could not upgrade content %id:"
+msgstr "Не удалось обновить содержимое %id:"
+
+#: admin/class-h5p-library-admin.php:479
+msgid "Could not load upgrades script for %lib."
+msgstr "Не удалось загрузить сценарий обновления для %lib."
+
+#: admin/class-h5p-library-admin.php:480
+msgid "Parameters are broken."
+msgstr "Параметры нарушены."
+
+#: admin/class-h5p-library-admin.php:481
+#, php-format
+msgid "You have successfully upgraded %s."
+msgstr "Вы успешно обновили %s."
+
+#: admin/class-h5p-library-admin.php:481
+msgid "Return"
+msgstr "Возврат"
+
+#: admin/class-h5p-library-admin.php:491
+msgid "Upgrade"
+msgstr "Обновление"
+
+#: admin/class-h5p-library-admin.php:566
+msgid ""
+"Not all content has gotten their cache rebuilt. This is required to be able "
+"to delete libraries, and to display how many contents that uses the library."
+msgstr ""
+"Не все содержимое было восстановлено. Это необходимо для удаления библиотек "
+"и отображения количества содержимого, использующего библиотеку."
+
+#: admin/class-h5p-library-admin.php:567
+#, php-format
+msgid "1 content need to get its cache rebuilt."
+msgid_plural "%d contents needs to get their cache rebuilt."
+msgstr[0] "%d контент нуждается в востановлении кеша."
+msgstr[1] "%d контента нуждается в востановлении кеша."
+msgstr[2] "%d контентов нуждается в востановлении кеша."
+
+#: admin/class-h5p-library-admin.php:568
+msgid "Rebuild cache"
+msgstr "Перестроить кэш"
+
+#: admin/class-h5p-library-admin.php:580
+msgid "Error, invalid security token!"
+msgstr "Ошибка, недопустимый токен безопасности!"
+
+#: admin/class-h5p-library-admin.php:586 admin/class-h5p-library-admin.php:681
+msgid "Error, missing library!"
+msgstr "Ошибка, отсутствует библиотека!"
+
+#: admin/class-h5p-library-admin.php:598 admin/class-h5p-library-admin.php:687
+msgid "Error, invalid library!"
+msgstr "Ошибка, недопустимая библиотека!"
+
+#: admin/class-h5p-library-admin.php:704
+msgid "Error, could not library semantics!"
+msgstr "Ошибка, неверная семантика библиотеки!"
+
+#: admin/class-h5p-content-admin.php:167 admin/class-h5p-content-admin.php:665
+msgid "Content type"
+msgstr "Тип содержания"
+
+#: admin/class-h5p-content-admin.php:172 h5p-php-library/h5p.classes.php:3586
+#: public/class-h5p-plugin.php:915
+msgid "Author"
+msgstr "Автор"
+
+#: admin/class-h5p-content-admin.php:177 admin/class-h5p-content-admin.php:670
+#: admin/views/new-content.php:92 admin/views/show-content.php:39
+msgid "Tags"
+msgstr "Теги"
+
+#: admin/class-h5p-content-admin.php:182 admin/class-h5p-content-admin.php:675
+msgid "Last modified"
+msgstr "Последнее изменение"
+
+#: admin/class-h5p-content-admin.php:186
+msgid "ID"
+msgstr "ID "
+
+#: admin/class-h5p-content-admin.php:205 admin/class-h5p-content-admin.php:683
+#: admin/views/select-content.php:31
+msgid "No H5P content available. You must upload or create new content."
+msgstr "Нет H5P контента. Необходимо загрузить или создать новый контент."
+
+#: admin/class-h5p-content-admin.php:249
+msgid "User"
+msgstr "Пользователь"
+
+#: admin/class-h5p-content-admin.php:271
+msgid "There are no logged results for this content."
+msgstr "Для этого содержимого нет зарегистрированных результатов."
+
+#: admin/class-h5p-content-admin.php:315
+msgid "You are not allowed to edit this content."
+msgstr "Вы не можете редактировать этот контент."
+
+#: admin/class-h5p-content-admin.php:337
+msgid "Invalid confirmation code, not deleting."
+msgstr "Неверный код подтверждения, не удаляется."
+
+#: admin/class-h5p-content-admin.php:511
+msgid "Invalid library."
+msgstr "Недопустимая библиотека!"
+
+#: admin/class-h5p-content-admin.php:518
+msgid "No such library."
+msgstr "Нет такой библиотеки."
+
+#: admin/class-h5p-content-admin.php:535
+msgid "Invalid parameters."
+msgstr "Неверные параметры"
+
+#: admin/class-h5p-content-admin.php:548
+msgid "Unable to create content directory."
+msgstr "Не удалось создать директорию контента."
+
+#: admin/class-h5p-content-admin.php:591 admin/class-h5p-content-admin.php:614
+#, php-format
+msgid "Missing %s."
+msgstr "Отсутствие %s."
+
+#: admin/class-h5p-content-admin.php:619
+msgid "Title is too long. Must be 256 letters or shorter."
+msgstr "Название слишком длинное. Должно быть 256 символов или меньше."
+
+#: admin/class-h5p-content-admin.php:637
+msgid "Insert H5P Content"
+msgstr "Вставить H5P контент"
+
+#: admin/class-h5p-content-admin.php:638
+msgid "Add H5P"
+msgstr "Добавить H5P контент"
+
+#: admin/class-h5p-content-admin.php:802
+msgid "ago"
+msgstr "назад "
+
+#: admin/class-h5p-content-admin.php:856
+msgid "Insert"
+msgstr "Вставить"
+
+#: admin/class-h5p-content-admin.php:888 admin/views/new-content.php:21
+#: admin/views/show-content.php:17
+msgid "Results"
+msgstr "Результаты"
+
+#: admin/class-h5p-content-admin.php:897 admin/views/content-results.php:18
+#: admin/views/new-content.php:18 admin/views/show-content.php:20
+msgid "Edit"
+msgstr "Редактировать"
+
+#: admin/class-h5p-content-admin.php:993
+msgid "Are you sure you wish to delete this content?"
+msgstr "Вы уверены, что хотите удалить этот контент?"
+
+#: admin/class-h5p-content-admin.php:1045
+msgid "Invalid security token. Please reload the editor."
+msgstr "Недопустимый токен безопасности. Пожалуйста, перезагрузите редактор."
+
+#: admin/class-h5p-content-admin.php:1062
+msgid "File not found on server. Check file upload settings."
+msgstr "Файл не найден на сервере. Проверьте настройки загрузки файлов."
+
+#: admin/views/content-results.php:15
+#, php-format
+msgid "Results for \"%s\""
+msgstr "результаты из \"%s\""
+
+#: admin/views/content-results.php:16 admin/views/new-content.php:19
+msgid "View"
+msgstr "Просмотр"
+
+#: admin/views/content-results.php:22 admin/views/my-results.php:16
+#: admin/views/contents.php:16 admin/views/libraries.php:60
+msgid "Waiting for JavaScript."
+msgstr "Ожидание для JavaScript."
+
+#: admin/views/new-content.php:30
+msgid "Enter title here"
+msgstr "Введите заголовок здесь"
+
+#: admin/views/new-content.php:37 admin/views/libraries.php:48
+msgid "Disable file extension check"
+msgstr "Отключить проверку расширений файлов"
+
+#: admin/views/new-content.php:38 admin/views/libraries.php:49
+msgid ""
+"Warning! This may have security implications as it allows for uploading php "
+"files. That in turn could make it possible for attackers to execute "
+"malicious code on your site. Please make sure you know exactly what you're "
+"uploading."
+msgstr ""
+"Внимание! Это может иметь последствия для безопасности, поскольку позволяет "
+"загружать файлы php. Что, в свою очередь, может позволить злоумышленникам "
+"выполнить вредоносный код на вашем сайте. Пожалуйста, убедитесь, что вы "
+"точно знаете, что вы загружаете."
+
+#: admin/views/new-content.php:42
+msgid "Waiting for javascript..."
+msgstr "Ожидание для JavaScript..."
+
+#: admin/views/new-content.php:47 admin/views/libraries.php:55
+msgid "Upload"
+msgstr "Загрузка"
+
+#: admin/views/new-content.php:48 admin/views/new-content.php:57
+msgid "Create"
+msgstr "Создать"
+
+#: admin/views/new-content.php:62 admin/views/new-content.php:91
+msgid "Toggle panel"
+msgstr "Панель переключения"
+
+#: admin/views/new-content.php:63
+msgid "Display Options"
+msgstr "Настройки показа"
+
+#: admin/views/new-content.php:67 admin/views/settings.php:42
+msgid "Display buttons (download, embed and copyright)"
+msgstr "Показ кнопок (загрузка, внедрение и авторское право)"
+
+#: admin/views/new-content.php:72 admin/views/settings.php:48
+msgid "Download button"
+msgstr "Кнопка загрузки"
+
+#: admin/views/new-content.php:78 admin/views/settings.php:54
+msgid "Embed button"
+msgstr "Размещение кнопки"
+
+#: admin/views/new-content.php:84 admin/views/settings.php:60
+msgid "Copyright button"
+msgstr "Кнопка Copyright"
+
+#: admin/views/contents.php:14
+msgid "Add new"
+msgstr "Добавить новый"
+
+#: admin/views/show-content.php:30
+msgid "Shortcode"
+msgstr "Шорткод"
+
+#: admin/views/show-content.php:32
+msgid "What's next?"
+msgstr "Что дальше?"
+
+#: admin/views/show-content.php:33
+msgid ""
+"You can use the following shortcode to insert this interactive content into "
+"posts, pages, widgets, templates and etc."
+msgstr ""
+"Вы можете использовать следующий шорткод для вставки этого интерактивного "
+"контента в записи, страницы, виджеты, шаблоны и т. д."
+
+#: admin/views/show-content.php:42
+msgid "No tags"
+msgstr "Нет тегов"
+
+#: admin/views/library-content-upgrade.php:15
+#, php-format
+msgid "Upgrade %s %d.%d.%d content"
+msgstr "Обновление %s %d.%d.%d контента"
+
+#: admin/views/library-content-upgrade.php:19
+msgid "Please enable JavaScript."
+msgstr "Пожалуйста, включите JavaScript."
+
+#: admin/views/settings.php:16
+msgid "Settings saved."
+msgstr "Настройки сохранены."
+
+#: admin/views/settings.php:23
+msgid "External communication"
+msgstr "Внешняя связь"
+
+#: admin/views/settings.php:27
+msgid ""
+"I wish to aid in the development of H5P by contributing anonymous usage data"
+msgstr ""
+"Я хочу помочь в развитии H5P, предоставляя анонимные данные об использовании"
+
+#: admin/views/settings.php:30
+msgid ""
+"Disabling this option will prevent your site from fetching the newest H5P "
+"updates."
+msgstr ""
+"Отключение этой опции предотвратит получение сайтом новейших обновлений H5P."
+
+#: admin/views/settings.php:31
+msgid ""
+"You will have to manually download the Content Type updates from H5P.org and "
+"then upload them to your site."
+msgstr ""
+"Вам придется вручную загрузить обновления типа контента из H5P.org а затем "
+"загрузить их на свой сайт."
+
+#: admin/views/settings.php:32
+#, php-format
+msgid ""
+"You can read more about <a href=\"%s\" target=\"_blank\">which data is "
+"collected</a> on h5p.org."
+msgstr ""
+"Вы можете прочитать больше о том, <a href=\"%s\" target=\"_blank\">какие "
+"данные собираются</a> на h5p.org."
+
+#: admin/views/settings.php:37
+msgid "Action bar"
+msgstr "Панель действий"
+
+#: admin/views/settings.php:66
+msgid "About H5P button"
+msgstr "О кнопке H5P"
+
+#: admin/views/settings.php:72
+msgid "User Results"
+msgstr "Результаты пользователя"
+
+#: admin/views/settings.php:76
+msgid "Log results for signed in users"
+msgstr "Результаты журнала для пользователей, выполнивших вход"
+
+#: admin/views/settings.php:81
+msgid "Save content state"
+msgstr "Сохранить состояние контента"
+
+#: admin/views/settings.php:85
+msgid "Allow logged-in users to resume tasks"
+msgstr "Разрешить зарегистрированным пользователям возобновление задач"
+
+#: admin/views/settings.php:88
+msgid "Auto-save frequency (in seconds)"
+msgstr "Частота автосохранения (в секундах)"
+
+#: admin/views/settings.php:94
+msgid "Add content method"
+msgstr "Добавить метод контента"
+
+#: admin/views/settings.php:97
+msgid ""
+"When adding H5P content to posts and pages using the \"Add H5P\" button:"
+msgstr ""
+"Когда добавляется контент H5P в посты и страницы, используется кнопка "
+"\"Добавить H5P\":"
+
+#: admin/views/settings.php:104
+msgid "Reference content by id"
+msgstr "Ссылка на материалы по ID"
+
+#: admin/views/settings.php:112
+#, php-format
+msgid "Reference content by <a href=\"%s\" target=\"_blank\">slug</a>"
+msgstr "Ссылка контента под <a href=\"%s\" target=\"_blank\">slug</a>"
+
+#: admin/views/library-delete.php:16
+msgid "Are you sure you wish to delete this H5P library?"
+msgstr "Вы уверены, что хотите удалить эту библиотеку H5P?"
+
+#: admin/views/library-delete.php:18
+msgid "Do it!"
+msgstr "Сделай это!"
+
+#: admin/views/libraries.php:17
+msgid "Update All Libraries"
+msgstr "Обновить все библиотеки"
+
+#: admin/views/libraries.php:20
+msgid "There are updates available for your H5P content types."
+msgstr "Для типов контента H5P доступны обновления."
+
+#: admin/views/libraries.php:21
+#, php-format
+msgid ""
+"You can read about why it's important to update and the benefits from doing "
+"so on the <a href=\"%s\" target=\"_blank\">Why Update H5P</a> page."
+msgstr ""
+"Вы можете прочитать о важности обновления и преимуществах от этого на "
+"странице <a href=\"%s\" target=\"_blank\">Зачем обновлять H5P</a> ."
+
+#: admin/views/libraries.php:22
+msgid ""
+"The page also list the different changelogs, where you can read about the "
+"new features introduced and the issues that have been fixed."
+msgstr ""
+"На странице также перечислены различные журналы изменений, где вы можете "
+"прочитать о новых функциях и проблемах, которые были исправлены."
+
+#: admin/views/libraries.php:25
+#, php-format
+msgid "The version you're running is from <strong>%s</strong>."
+msgstr "Используемая вами версия начинается с <strong>%s</strong>."
+
+#: admin/views/libraries.php:27
+#, php-format
+msgid "The most recent version was released on <strong>%s</strong>."
+msgstr "Была выпущена последняя версия <strong>%s</strong>."
+
+#: admin/views/libraries.php:29
+msgid ""
+"You can use the button below to automatically download and update all of "
+"your content types."
+msgstr ""
+"Вы можете использовать кнопку ниже для автоматической загрузки и обновления "
+"всех типов контента."
+
+#: admin/views/libraries.php:33
+msgid "Download & Update"
+msgstr "\vЗагрузка и обновление"
+
+#: admin/views/libraries.php:38
+msgid "Upload Libraries"
+msgstr "Загрузить библиотеки"
+
+#: admin/views/libraries.php:42
+msgid ""
+"Here you can upload new libraries or upload updates to existing libraries. "
+"Files uploaded here must be in the .h5p file format."
+msgstr ""
+"Здесь можно загружать новые библиотеки или обновления существующих "
+"библиотек. Файлы загруженные сюда должны быть в формате файла .h5p ."
+
+#: admin/views/libraries.php:45
+msgid "Only update existing libraries"
+msgstr "Обновлять только существующие библиотеки"
+
+#: admin/views/libraries.php:59
+msgid "Installed Libraries"
+msgstr "Установить библиотеки"
+
+#: h5p-php-library/h5p.classes.php:683
+msgid "Your PHP version does not support ZipArchive."
+msgstr "Ваша версия PHPне поддерживает ZipArchive."
+
+#: h5p-php-library/h5p.classes.php:696
+msgid ""
+"The file you uploaded is not a valid HTML5 Package (It does not have the ."
+"h5p file extension)"
+msgstr ""
+"Файл, который вы загрузили, не является допустимым пакетом HTML5 (он не "
+"имеет .h5p расширение файла)"
+
+#: h5p-php-library/h5p.classes.php:706
+msgid ""
+"The file you uploaded is not a valid HTML5 Package (We are unable to unzip "
+"it)"
+msgstr ""
+"The file you uploaded is not a valid HTML5 Package (We are unable to unzip "
+"it)"
+
+#: h5p-php-library/h5p.classes.php:733
+msgid "Could not parse the main h5p.json file"
+msgstr "Не удалось разобрать основной h5p.json файл"
+
+#: h5p-php-library/h5p.classes.php:742
+msgid "The main h5p.json file is not valid"
+msgstr "Основной h5p.json файл не является допустимым"
+
+#: h5p-php-library/h5p.classes.php:757
+msgid "Invalid content folder"
+msgstr "Недопустимая папка контента"
+
+#: h5p-php-library/h5p.classes.php:763
+msgid "Could not find or parse the content.json file"
+msgstr "Не удалось найти или проанализировать content.json файл"
+
+#: h5p-php-library/h5p.classes.php:795
+msgid ""
+"Library directory name must match machineName or machineName-majorVersion."
+"minorVersion (from library.json). (Directory: %directoryName , machineName: "
+"%machineName, majorVersion: %majorVersion, minorVersion: %minorVersion)"
+msgstr ""
+"Имя каталога библиотеки должно совпадать с machineName или machineName-"
+"majorVersion.minorVersion (from library.json). (Директория:%directoryName , "
+"machineName: %machineName, majorVersion: %majorVersion, minorVersion: "
+"%minorVersion)"
+
+#: h5p-php-library/h5p.classes.php:813
+msgid "A valid content folder is missing"
+msgstr "папка допустимого контента отсутствует"
+
+#: h5p-php-library/h5p.classes.php:817
+msgid "A valid main h5p.json file is missing"
+msgstr "Допустимый основной файл h5p.json отсутствует"
+
+#: h5p-php-library/h5p.classes.php:861
+msgid "Missing required library @library"
+msgstr "Отсутствует необходимая библиотека @library"
+
+#: h5p-php-library/h5p.classes.php:864
+msgid ""
+"Note that the libraries may exist in the file you uploaded, but you're not "
+"allowed to upload new libraries. Contact the site administrator about this."
+msgstr ""
+"Обратите внимание, что библиотеки могут существовать в загруженном файле, но "
+"вы не можете загружать новые библиотеки. Обратитесь к администратору сайта."
+
+#: h5p-php-library/h5p.classes.php:890
+msgid "Invalid library name: %name"
+msgstr "Неверное имя библиотеки: %name"
+
+#: h5p-php-library/h5p.classes.php:895
+msgid ""
+"Could not find library.json file with valid json format for library %name"
+msgstr ""
+"Не удалось найти файл library.json с допустимым форматом json для библиотеки "
+"%name"
+
+#: h5p-php-library/h5p.classes.php:904
+msgid "Invalid semantics.json file has been included in the library %name"
+msgstr "Недопустимый файл semantics.json был включен в библиотеку %name"
+
+#: h5p-php-library/h5p.classes.php:921
+msgid "Invalid language file %file in library %library"
+msgstr "Недопустимый языковой файл %file в библиотеке %library"
+
+#: h5p-php-library/h5p.classes.php:926
+msgid ""
+"Invalid language file %languageFile has been included in the library %name"
+msgstr ""
+"Недопустимый языковой файл %languageFile был включен в библиотеку %name"
+
+#: h5p-php-library/h5p.classes.php:1018
+msgid "The file \"%file\" is missing from library: \"%name\""
+msgstr "Файл \"%file \"отсутствует в библиотеке: \"%name\""
+
+#: h5p-php-library/h5p.classes.php:1054
+msgid ""
+"The library \"%libraryName\" requires H5P %requiredVersion, but only H5P "
+"%coreApi is installed."
+msgstr ""
+"Библиотека \"%libraryName\" требует H5P %requiredVersion, но только H5P "
+"%coreApi установлено."
+
+#: h5p-php-library/h5p.classes.php:1116
+msgid "Invalid data provided for %property in %library. Boolean expected."
+msgstr "Недопустимые данные для %property в %library. Логическое ожидание."
+
+#: h5p-php-library/h5p.classes.php:1124 h5p-php-library/h5p.classes.php:1129
+#: h5p-php-library/h5p.classes.php:1147
+msgid "Invalid data provided for %property in %library"
+msgstr "Недопустимые данные для %property в %library"
+
+#: h5p-php-library/h5p.classes.php:1152
+msgid "Can't read the property %property in %library"
+msgstr "Не удается прочитать свойство %property в %library"
+
+#: h5p-php-library/h5p.classes.php:1181
+msgid "The required property %property is missing from %library"
+msgstr "Требуемое свойство %property отсутствует в библиотеке %library"
+
+#: h5p-php-library/h5p.classes.php:1204
+msgid "Illegal option %option in %library"
+msgstr "Незаконный вариант %option в %library"
+
+#: h5p-php-library/h5p.classes.php:1431
+msgid "Added %new new H5P libraries and updated %old old."
+msgstr "Добавлены %new новые H5P библиотеки и обновлены %old старые."
+
+#: h5p-php-library/h5p.classes.php:1434
+msgid "Added %new new H5P libraries."
+msgstr "Добавлены %new новые H5P библиотеки."
+
+#: h5p-php-library/h5p.classes.php:1437
+#, php-format
+msgid "Updated %old H5P libraries."
+msgstr "Обновлены %old H5P библиотеки."
+
+#: h5p-php-library/h5p.classes.php:2119
+msgid "Missing dependency @dep required by @lib."
+msgstr "Отсутствует зависимость @dep, требуемая @lib."
+
+#: h5p-php-library/h5p.classes.php:2847
+msgid ""
+"Provided string is not valid according to regexp in semantics. (value: "
+"\"%value\", regexp: \"%regexp\")"
+msgstr ""
+"Прилагаемая строка не соответствует регулярным выражениям в семантике. "
+"(value: \"%value\", regexp: \"%regexp\")"
+
+#: h5p-php-library/h5p.classes.php:2886
+#, php-format
+msgid ""
+"File \"%filename\" not allowed. Only files with the following extensions are "
+"allowed: %files-allowed."
+msgstr ""
+"Файл \"%filename\" не разрешен. Разрешены только файлы со следующими "
+"расширениями: %files-allowed."
+
+#: h5p-php-library/h5p.classes.php:2960
+msgid "Invalid selected option in multiselect."
+msgstr "Недействительны выбранные варианты в множественном выборе."
+
+#: h5p-php-library/h5p.classes.php:2976
+msgid "Invalid selected option in select."
+msgstr "Недействительны выбранные варианты в выборе."
+
+#: h5p-php-library/h5p.classes.php:3137
+msgid ""
+"H5P internal error: unknown content type \"@type\" in semantics. Removing "
+"content!"
+msgstr ""
+"Внутренняя ошибка H5P: неизвестный тип содержимого \"@type\" в семантике. "
+"Удаление Контента!"
+
+#: h5p-php-library/h5p.classes.php:3177
+msgid "Library used in content is not a valid library according to semantics"
+msgstr ""
+"Библиотека, используемая в содержимом, не является допустимой библиотекой в "
+"соответствии с семантикой"
+
+#: h5p-php-library/h5p.classes.php:3574
+msgid "Copyright information"
+msgstr "информация о Copyright"
+
+#: h5p-php-library/h5p.classes.php:3593
+msgid "Year(s)"
+msgstr "Год(а)"
+
+#: h5p-php-library/h5p.classes.php:3600 public/class-h5p-plugin.php:917
+msgid "Source"
+msgstr "Источник"
+
+#: h5p-php-library/h5p.classes.php:3611 public/class-h5p-plugin.php:918
+msgid "License"
+msgstr "Лицензия"
+
+#: h5p-php-library/h5p.classes.php:3616
+msgid "Undisclosed"
+msgstr "Нераскрытый"
+
+#: h5p-php-library/h5p.classes.php:3620
+msgid "Attribution"
+msgstr ""
+
+#: h5p-php-library/h5p.classes.php:3624
+msgid "Attribution-ShareAlike"
+msgstr ""
+
+#: h5p-php-library/h5p.classes.php:3628
+msgid "Attribution-NoDerivs"
+msgstr ""
+
+#: h5p-php-library/h5p.classes.php:3632
+msgid "Attribution-NonCommercial"
+msgstr ""
+
+#: h5p-php-library/h5p.classes.php:3636
+msgid "Attribution-NonCommercial-ShareAlike"
+msgstr ""
+
+#: h5p-php-library/h5p.classes.php:3640
+msgid "Attribution-NonCommercial-NoDerivs"
+msgstr ""
+
+#: h5p-php-library/h5p.classes.php:3644
+msgid "General Public License"
+msgstr ""
+
+#: h5p-php-library/h5p.classes.php:3648
+msgid "Public Domain"
+msgstr ""
+
+#: h5p-php-library/h5p.classes.php:3652
+msgid "Public Domain Dedication and Licence"
+msgstr ""
+
+#: h5p-php-library/h5p.classes.php:3656
+msgid "Public Domain Mark"
+msgstr ""
+
+#: h5p-php-library/h5p.classes.php:3660
+msgid "Copyright"
+msgstr "Copyright"
+
+#: public/class-h5p-plugin.php:613
+msgid "Missing H5P identifier."
+msgstr "Отсутствует идентификатор H5P."
+
+#: public/class-h5p-plugin.php:621
+#, php-format
+msgid "Cannot find H5P content with id: %d."
+msgstr "Не могу найти H5P контент с id: %d."
+
+#: public/class-h5p-plugin.php:647
+#, php-format
+msgid "Database error: %s."
+msgstr "Ошибка базы данных: %s."
+
+#: public/class-h5p-plugin.php:651
+#, php-format
+msgid "Cannot find H5P content with slug: %s."
+msgstr "Не удается найти содержимое H5P с slug: %s."
+
+#: public/class-h5p-plugin.php:904
+msgid "Disable fullscreen"
+msgstr "Отключить полноэкранный режим"
+
+#: public/class-h5p-plugin.php:905
+msgid "Download"
+msgstr "Загрузка"
+
+#: public/class-h5p-plugin.php:906 public/class-h5p-plugin.php:912
+msgid "Rights of use"
+msgstr "Права использования"
+
+#: public/class-h5p-plugin.php:907
+msgid "Embed"
+msgstr "Размещено"
+
+#: public/class-h5p-plugin.php:908
+msgid "Size"
+msgstr "Размер"
+
+#: public/class-h5p-plugin.php:909
+msgid "Show advanced"
+msgstr "Показать дополнительные"
+
+#: public/class-h5p-plugin.php:910
+msgid "Hide advanced"
+msgstr "Скрыть дополнительные"
+
+#: public/class-h5p-plugin.php:911
+msgid ""
+"Include this script on your website if you want dynamic sizing of the "
+"embedded content:"
+msgstr ""
+"Включите этот скрипт на свой веб-сайт, если вы хотите использовать "
+"динамический размер встроенного Контента:"
+
+#: public/class-h5p-plugin.php:913
+msgid "Close"
+msgstr "Закрыть"
+
+#: public/class-h5p-plugin.php:916
+msgid "Year"
+msgstr "Год"
+
+#: public/class-h5p-plugin.php:919
+msgid "Thumbnail"
+msgstr "Эскиз"
+
+#: public/class-h5p-plugin.php:920
+msgid "No copyright information available for this content."
+msgstr "Информация об авторских правах на данный контент отсутствует."
+
+#: public/class-h5p-plugin.php:921
+msgid "Download this content as a H5P file."
+msgstr "Скачать этот контент как H5P файл."
+
+#: public/class-h5p-plugin.php:922
+msgid "View copyright information for this content."
+msgstr "Просмотр информации об авторских правах на этот контент."
+
+#: public/class-h5p-plugin.php:923
+msgid "View the embed code for this content."
+msgstr "Просмотрите код внедрения для этого содержимого."
+
+#: public/class-h5p-plugin.php:924
+msgid "Visit H5P.org to check out more cool content."
+msgstr "Посетите H5P.org чтобы найти более крутой контент."
+
+#: public/class-h5p-plugin.php:925
+msgid "This content has changed since you last used it."
+msgstr "Это содержимое изменилось с момента последнего использования."
+
+#: public/class-h5p-plugin.php:926
+msgid "You'll be starting over."
+msgstr "Начните сначала."
+
+#: public/class-h5p-wordpress.php:591
+msgid "Invalid json in semantics for %library"
+msgstr "Недопустимый json в семантике для %library"
+
+msgid ""
+"Allows you to upload, create, share and use rich interactive content on your "
+"WordPress site."
+msgstr ""
+"Позволяет загружать, создавать, делиться и использовать богатый "
+"интерактивный контент на вашем сайте WordPress."
+
+msgid "Created"
+msgstr "Создано"
+
+msgid "User Tracking"
+msgstr "Отслеживание Пользователя"
+
+msgid "Library updates"
+msgstr "Обновления библиотеки"
+
+msgid "Fetch information about updates for your H5P content types"
+msgstr "Получение информации об обновлениях типов контента H5P"
+
+msgid "Unable to write to the content directory."
+msgstr "Не удается выполнить запись в каталог контента."
+
+msgid "Unable to write to the libraries directory."
+msgstr "Не удается выполнить запись в каталог библиотек."
+
+msgid "Unable to write to the temporary directory."
+msgstr "Не удается выполнить запись во временный каталог."
+
+msgid "Unable to write to the exports directory."
+msgstr "Не удается выполнить запись в каталог экспорта."
+
+msgid "Unable to copy file tree."
+msgstr "Невозможно скопировать дерево файлов."
+
+msgid "Content type upgrades are here!"
+msgstr "Обновления типа контента здесь!"
+
+msgid ""
+"If you've just upgraded you plugin, you should install the <a href=\"%s\" "
+"target=\"_blank\">lastest version</a> of your content types."
+msgstr ""
+"Если вы только что обновили плагин, вы должны установить <a href=\"%s\" "
+"target=\"_blank\">последнюю версию</a> ваших типов контента."
+
+msgid ""
+"In order to take advantage of this plugin you must first select and download "
+"the H5P content types you wish to use."
+msgstr ""
+"Для того, чтобы воспользоваться этим плагином, вы должны сначала выбрать и "
+"загрузить типы контента H5P, которые вы хотите использовать."
+
+msgid "Here is a short guide to get you started:"
+msgstr "Вот Краткое руководство, чтобы вы начали:"
+
+msgid "Download %s."
+msgstr "Загрузить %s."
+
+msgid "Installed"
+msgstr "Установлено"
