@@ -15,7 +15,7 @@
     <?php if ($this->content === NULL): ?>
       <?php print esc_html(get_admin_page_title()); ?>
     <?php else: ?>
-      <?php esc_html_e('Edit', $this->plugin_slug); ?> <em><?php print esc_html($title); ?></em>
+      <?php esc_html_e('Edit', $this->plugin_slug); ?> <em><?php print esc_html($this->content['title']); ?></em>
       <a href="<?php print admin_url('admin.php?page=h5p&task=show&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('View', $this->plugin_slug); ?></a>
       <?php if ($this->current_user_can_view_content_results($this->content)): ?>
         <a href="<?php print admin_url('admin.php?page=h5p&task=results&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('Results', $this->plugin_slug); ?></a>
@@ -26,10 +26,6 @@
   <?php if (!$contentExists || $this->current_user_can_edit($this->content)): ?>
     <form method="post" enctype="multipart/form-data" id="h5p-content-form">
       <div id="post-body-content">
-        <div id="titlediv">
-          <label class="" id="title-prompt-text" for="title"><?php esc_html_e('Enter title here', $this->plugin_slug); ?></label>
-          <input id="title" type="text" name="title" id="title" value="<?php print esc_attr($title); ?>"/>
-        </div>
         <div class="h5p-upload">
           <input type="file" name="h5p_file" id="h5p-file"/>
           <?php if (current_user_can('disable_h5p_security')): ?>
