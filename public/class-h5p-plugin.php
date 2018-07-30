@@ -254,6 +254,7 @@ class H5P_Plugin {
       semantics TEXT NOT NULL,
       tutorial_url VARCHAR(1023) NOT NULL,
       has_icon INT UNSIGNED NOT NULL DEFAULT 0,
+      add_to TEXT DEFAULT NULL,
       PRIMARY KEY  (id),
       KEY name_version (name,major_version,minor_version,patch_version),
       KEY runnable (runnable)
@@ -1086,6 +1087,7 @@ class H5P_Plugin {
       ),
       'hubIsEnabled' => get_option('h5p_hub_is_enabled', TRUE) == TRUE,
       'reportingIsEnabled' => (get_option('h5p_enable_lrs_content_types', FALSE) === '1') ? TRUE : FALSE,
+      'mathDisplayConfig' => defined('H5P_MATHDISPLAY_CONFIG') ? H5P_MATHDISPLAY_CONFIG : NULL,
     );
 
     if ($current_user->ID) {

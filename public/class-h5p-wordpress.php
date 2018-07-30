@@ -262,7 +262,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             'preloaded_css' => $preloadedCss,
             'drop_library_css' => $dropLibraryCss,
             'semantics' => $library['semantics'],
-            'has_icon' => $library['hasIcon'] ? 1 : 0
+            'has_icon' => $library['hasIcon'] ? 1 : 0,
+            'add_to' => isset($library['addTo']) ? json_encode($library['addTo']) : NULL
           ),
           array(
             '%s',
@@ -277,7 +278,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             '%s',
             '%d',
             '%s',
-            '%d'
+            '%d',
+            '%s'
           )
         );
       $library['libraryId'] = $wpdb->insert_id;
@@ -295,7 +297,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             'preloaded_css' => $preloadedCss,
             'drop_library_css' => $dropLibraryCss,
             'semantics' => $library['semantics'],
-            'has_icon' => $library['hasIcon'] ? 1 : 0
+            'has_icon' => $library['hasIcon'] ? 1 : 0,
+            'add_to' => isset($library['addTo']) ? json_encode($library['addTo']) : NULL
           ),
           array('id' => $library['libraryId']),
           array(
@@ -308,7 +311,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             '%s',
             '%d',
             '%s',
-            '%d'
+            '%d',
+            '%s'
           ),
           array('%d')
         );
@@ -574,7 +578,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     $library = $wpdb->get_row($wpdb->prepare(
         "SELECT id as libraryId, name as machineName, title, major_version as majorVersion, minor_version as minorVersion, patch_version as patchVersion,
           embed_types as embedTypes, preloaded_js as preloadedJs, preloaded_css as preloadedCss, drop_library_css as dropLibraryCss, fullscreen, runnable,
-          semantics, has_icon as hasIcon
+          semantics, has_icon as hasIcon, add_to as addTo
         FROM {$wpdb->prefix}h5p_libraries
         WHERE name = %s
         AND major_version = %d
