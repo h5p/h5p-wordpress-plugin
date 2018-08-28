@@ -1219,4 +1219,24 @@ class H5PWordPress implements H5PFrameworkInterface {
     $dt = new DateTime($datetime);
     return $dt->getTimestamp();
   }
+
+  /**
+   * Load addon libraries
+   *
+   * @return array
+   */
+  public function loadAddons() {
+    // Load addons
+    return array();
+  }
+
+  /**
+   * Implements getLibraryConfig
+   *
+   * @param array $libraries
+   * @return array
+   */
+  public function getLibraryConfig($libraries = NULL) {
+     return NULL;
+  }
 }
