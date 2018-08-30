@@ -909,6 +909,7 @@ class H5P_Plugin {
       'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
       'title' => $content['title'],
       'displayOptions' => $core->getDisplayOptionsForView($content['disable'], $author_id),
+      'metadata' => $content['metadata'],
       'contentUserData' => array(
         0 => array(
           'state' => '{}'
