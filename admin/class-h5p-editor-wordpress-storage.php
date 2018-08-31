@@ -66,7 +66,7 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
       foreach ($libraries as $library) {
         // Look for library
         $details = $wpdb->get_row($wpdb->prepare(
-            "SELECT title, runnable, restricted, tutorial_url
+            "SELECT title, runnable, restricted, tutorial_url, metadata
               FROM {$wpdb->prefix}h5p_libraries
               WHERE name = %s
               AND major_version = %d
@@ -80,6 +80,7 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
           $library->title = $details->title;
           $library->runnable = $details->runnable;
           $library->restricted = $super_user ? FALSE : ($details->restricted === '1' ? TRUE : FALSE);
+          $library->metadata = $details->metadata;
           $librariesWithDetails[] = $library;
         }
       }
@@ -96,7 +97,8 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
                 major_version AS majorVersion,
                 minor_version AS minorVersion,
                 tutorial_url AS tutorialUrl,
-                restricted
+                restricted,
+                metadata
           FROM {$wpdb->prefix}h5p_libraries
           WHERE runnable = 1
           AND semantics IS NOT NULL
