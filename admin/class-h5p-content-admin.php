@@ -549,7 +549,7 @@ class H5PContentAdmin {
     $content['metadata'] = $params->metadata;
 
     // Trim title and check length
-    $trimmed_title = trim($content['metadata']->title);
+    $trimmed_title = empty($content['metadata']->title) ? '' : trim($content['metadata']->title);
     if ($trimmed_title === '') {
       H5P_Plugin_Admin::set_error(sprintf(__('Missing %s.', $this->plugin_slug), 'title'));
       return FALSE;
