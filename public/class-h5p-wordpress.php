@@ -425,15 +425,25 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function updateContent($content, $contentMainId = NULL) {
     global $wpdb;
 
+    $metadata = (array)$content['metadata'];
     $table = $wpdb->prefix . 'h5p_contents';
     $data = array(
       'updated_at' => current_time('mysql', 1),
-      'title' => $content['title'],
+      'title' => $metadata['title'], // TODO: Add validation error if title is missing...
       'parameters' => $content['params'],
       'embed_type' => 'div', // TODO: Determine from library?
       'library_id' => $content['library']['libraryId'],
       'filtered' => '',
       'disable' => $content['disable'],
+      'authors' => empty($metadata['authors']) ? NULL : json_encode($metadata['authors']),
+      'source' => empty($metadata['source']) ? NULL : $metadata['source'],
+      'year_from' => empty($metadata['yearFrom']) ? NULL : $metadata['yearFrom'],
+      'year_to' => empty($metadata['yearTo']) ? NULL : $metadata['yearTo'],
+      'license' => empty($metadata['license']) ? NULL : $metadata['license'],
+      'license_version' => empty($metadata['licenseVersion']) ? NULL : $metadata['licenseVersion'],
+      'license_extras' => empty($metadata['licenseExtras']) ? NULL : $metadata['licenseExtras'],
+      'author_comments' => empty($metadata['authorComments']) ? NULL : $metadata['authorComments'],
+      'changes' => empty($metadata['changes']) ? NULL : json_encode($metadata['changes'])
     );
     $format = array(
       '%s',
@@ -442,7 +452,16 @@ class H5PWordPress implements H5PFrameworkInterface {
       '%s',
       '%d',
       '%s',
-      '%d'
+      '%d',
+      '%s',
+      '%s',
+      '%d',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
     );
 
     if (!isset($content['id'])) {
@@ -467,7 +486,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     }
     new H5P_Event('content', $event_type,
         $content['id'],
-        $content['title'],
+        $metadata['title'],
         $content['library']['machineName'],
         $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']);
 
@@ -578,7 +597,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     $library = $wpdb->get_row($wpdb->prepare(
         "SELECT id as libraryId, name as machineName, title, major_version as majorVersion, minor_version as minorVersion, patch_version as patchVersion,
           embed_types as embedTypes, preloaded_js as preloadedJs, preloaded_css as preloadedCss, drop_library_css as dropLibraryCss, fullscreen, runnable,
-          semantics, has_icon as hasIcon, add_to as addTo
+          semantics, has_icon as hasIcon
         FROM {$wpdb->prefix}h5p_libraries
         WHERE name = %s
         AND major_version = %d
@@ -685,12 +704,37 @@ class H5PWordPress implements H5PFrameworkInterface {
               , hl.minor_version AS libraryMinorVersion
               , hl.embed_types AS libraryEmbedTypes
               , hl.fullscreen AS libraryFullscreen
+              , hc.authors AS authors
+              , hc.source AS source
+              , hc.year_from AS yearFrom
+              , hc.year_to AS yearTo
+              , hc.license AS license
+              , hc.license_version AS licenseVersion
+              , hc.license_extras AS licenseExtras
+              , hc.author_comments AS authorComments
+              , hc.changes AS changes
         FROM {$wpdb->prefix}h5p_contents hc
         JOIN {$wpdb->prefix}h5p_libraries hl ON hl.id = hc.library_id
         WHERE hc.id = %d",
         $id),
         ARRAY_A
       );
+
+    $content['metadata'] = array();
+    $metadata_structure = array('title', 'authors', 'source', 'yearFrom', 'yearTo', 'license', 'licenseVersion', 'licenseExtras', 'authorComments', 'changes');
+    foreach ($metadata_structure as $property) {
+      if (!empty($content[$property])) {
+        if ($property === 'authors' || $property === 'changes') {
+          $content['metadata'][$property] = json_decode($content[$property]);
+        }
+        else {
+          $content['metadata'][$property] = $content[$property];
+        }
+        if ($property !== 'title') {
+          unset($content[$property]); // Unset all except title
+        }
+      }
+    }
 
     return $content;
   }
@@ -1178,5 +1222,38 @@ class H5PWordPress implements H5PFrameworkInterface {
   public static function dateTimeToTime($datetime) {
     $dt = new DateTime($datetime);
     return $dt->getTimestamp();
+  }
+
+  /**
+   * Load addon libraries
+   *
+   * @return array
+   */
+  public function loadAddons() {
+    global $wpdb;
+    // Load addons
+    // If there are several versions of the same addon, pick the newest one
+    return $wpdb->get_results(
+       "SELECT l1.id as libraryId, l1.name as machineName,
+              l1.major_version as majorVersion, l1.minor_version as minorVersion,
+              l1.patch_version as patchVersion, l1.add_to as addTo
+        FROM {$wpdb->prefix}h5p_libraries AS l1
+        LEFT JOIN {$wpdb->prefix}h5p_libraries AS l2
+          ON l1.name = l2.name AND
+            (l1.major_version < l2.major_version OR
+              (l1.major_version = l2.major_version AND
+               l1.minor_version < l2.minor_version))
+        WHERE l1.add_to IS NOT NULL AND l2.name IS NULL", ARRAY_A
+    );
+  }
+
+  /**
+   * Implements getLibraryConfig
+   *
+   * @param array $libraries
+   * @return array
+   */
+  public function getLibraryConfig($libraries = NULL) {
+     return defined('H5P_LIBRARY_CONFIG') ? H5P_LIBRARY_CONFIG : NULL;
   }
 }

@@ -149,6 +149,23 @@ class H5P_Plugin {
   }
 
   /**
+   * Drop the given column from the given table.
+   *
+   * @since 1.11.0
+   * @global \wpdb $wpdb
+   * @param string $table
+   * @param string $column
+   */
+  public static function drop_column($table, $column) {
+    global $wpdb;
+
+    $wpdb->get_results("SHOW COLUMNS FROM {$table} LIKE '{$column}'");
+    if (!empty($wpdb->num_rows)) {
+      $wpdb->query("ALTER TABLE {$table} DROP COLUMN {$column}");
+    }
+  }
+
+  /**
    * Makes sure the database is up to date.
    *
    * @since 1.1.0
@@ -176,10 +193,15 @@ class H5P_Plugin {
       embed_type VARCHAR(127) NOT NULL,
       disable INT UNSIGNED NOT NULL DEFAULT 0,
       content_type VARCHAR(127) NULL,
-      author VARCHAR(127) NULL,
-      license VARCHAR(7) NULL,
-      keywords TEXT NULL,
-      description TEXT NULL,
+      authors LONGTEXT NULL,
+      source VARCHAR(2083) NULL,
+      year_from INT UNSIGNED NULL,
+      year_to INT UNSIGNED NULL,
+      license VARCHAR(32) NULL,
+      license_version VARCHAR(10) NULL,
+      license_extras LONGTEXT NULL,
+      author_comments LONGTEXT NULL,
+      changes LONGTEXT NULL,
       PRIMARY KEY  (id)
     ) {$charset};");
 
@@ -422,6 +444,7 @@ class H5P_Plugin {
     $pre_180 = ($v->major < 1 || ($v->major === 1 && $v->minor < 8)); // < 1.8.0
     $pre_1102 = ($v->major < 1 || ($v->major === 1 && $v->minor < 10) ||
                  ($v->major === 1 && $v->minor === 10 && $v->patch < 2)); // < 1.10.2
+    $pre_1110 = ($v->major < 1 || ($v->major === 1 && $v->minor < 11)); // < 1.11.0
 
     // Run version specific updates
     if ($pre_120) {
@@ -441,6 +464,13 @@ class H5P_Plugin {
 
     if ($pre_1102 && $current_version !== '0.0.0') {
       update_option('h5p_has_request_user_consent', TRUE);
+    }
+
+    if ($pre_1110) {
+      // Remove unused columns
+      self::drop_column("{$wpdb->prefix}h5p_contents", 'author');
+      self::drop_column("{$wpdb->prefix}h5p_contents", 'keywords');
+      self::drop_column("{$wpdb->prefix}h5p_contents", 'description');
     }
 
     // Keep track of which version of the plugin we have.
@@ -880,6 +910,7 @@ class H5P_Plugin {
       'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
       'title' => $content['title'],
       'displayOptions' => $core->getDisplayOptionsForView($content['disable'], $author_id),
+      'metadata' => $content['metadata'],
       'contentUserData' => array(
         0 => array(
           'state' => '{}'
@@ -1072,6 +1103,7 @@ class H5P_Plugin {
     $current_user = wp_get_current_user();
 
     $core = $this->get_h5p_instance('core');
+    $h5p = $this->get_h5p_instance('interface');
     $settings = array(
       'baseUrl' => get_site_url(),
       'url' => $this->get_h5p_url(),
@@ -1087,7 +1119,8 @@ class H5P_Plugin {
       ),
       'hubIsEnabled' => get_option('h5p_hub_is_enabled', TRUE) == TRUE,
       'reportingIsEnabled' => (get_option('h5p_enable_lrs_content_types', FALSE) === '1') ? TRUE : FALSE,
-      'mathDisplayConfig' => defined('H5P_MATHDISPLAY_CONFIG') ? H5P_MATHDISPLAY_CONFIG : NULL,
+      'libraryConfig' => $h5p->getLibraryConfig(),
+      'crossorigin' => defined('H5P_CROSSORIGIN') ? H5P_CROSSORIGIN : null,
     );
 
     if ($current_user->ID) {

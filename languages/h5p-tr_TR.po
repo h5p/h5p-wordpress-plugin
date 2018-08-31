@@ -1,0 +1,1371 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: H5P\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-03 14:02+0100\n"
+"PO-Revision-Date: 2018-01-03 14:48+0100\n"
+"Last-Translator: yonetici <yanityazmayin@gmail.com>\n"
+"Language-Team: Turkish\n"
+"Language: tr_TR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.5\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
+"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"t\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: Desktop/h5p-wordpress-plugin-master\n"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:158
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:653
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:215
+msgid "Title"
+msgstr "Başlık"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:162
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:657
+msgid "Content type"
+msgstr "İçerik türü"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:167
+msgid "Author"
+msgstr "Yazar"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:172
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:662
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:102
+#: Desktop/h5p-wordpress-plugin-master/admin/views/show-content.php:39
+msgid "Tags"
+msgstr "Etiketler"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:177
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:667
+msgid "Last modified"
+msgstr "En son değiştirme"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:181
+msgid "ID"
+msgstr "ID"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:200
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:675
+#: Desktop/h5p-wordpress-plugin-master/admin/views/select-content.php:31
+msgid "No H5P content available. You must upload or create new content."
+msgstr "H5P içeriği yok. Yeni içerik yükleyin ya da oluşturun."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:244
+msgid "User"
+msgstr "Kullanıcı"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:248
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:958
+msgid "Score"
+msgstr "Puan"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:252
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:962
+msgid "Maximum Score"
+msgstr "En yüksek puan"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:256
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:966
+msgid "Opened"
+msgstr "Açıldı"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:260
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:970
+msgid "Finished"
+msgstr "Bitirildi"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:263
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:973
+msgid "Time spent"
+msgstr "Harcanan zaman"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:266
+msgid "There are no logged results for this content."
+msgstr "Bu içerik için giriş yapmış kullanıcı yok."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:283
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:147
+msgid "Unknown task."
+msgstr "Tanınmayan görev."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:310
+msgid "You are not allowed to edit this content."
+msgstr "Bu içeriği düzenleme yetkiniz yok."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:332
+msgid "Invalid confirmation code, not deleting."
+msgstr "Onay kodu geçersiz olduğu için silinmiyor."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:512
+msgid "Invalid library."
+msgstr "Geçersiz kitaplık."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:519
+msgid "No such library."
+msgstr "Böyle bir kitaplık yok."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:536
+msgid "Invalid parameters."
+msgstr "Parametreler geçersiz."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:585
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:608
+#, php-format
+msgid "Missing %s."
+msgstr "%s eksik."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:613
+msgid "Title is too long. Must be 256 letters or shorter."
+msgstr "Başlık çok uzun. En fazla 256 karakter olabilir."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:630
+msgid "Insert interactive content"
+msgstr "Etkileşimsel içerik kat"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:632
+msgid "Add H5P"
+msgstr "H5P ekle"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:795
+#, php-format
+msgid "%s ago"
+msgstr "%s önce"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:849
+msgid "Insert"
+msgstr "Kat"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:881
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:21
+#: Desktop/h5p-wordpress-plugin-master/admin/views/show-content.php:17
+msgid "Results"
+msgstr "Sonuçlar"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:890
+#: Desktop/h5p-wordpress-plugin-master/admin/views/content-results.php:18
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:18
+#: Desktop/h5p-wordpress-plugin-master/admin/views/show-content.php:20
+msgid "Edit"
+msgstr "Düzenle"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-content-admin.php:985
+msgid "Are you sure you wish to delete this content?"
+msgstr "Bu içeriği silmek istediğinize emin misiniz?"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:62
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:61
+msgid "Delete"
+msgstr "Sil"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:65
+msgid "Content Upgrade"
+msgstr "İçerik Güncelleme"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:102
+#, php-format
+msgid "Cannot find library with id: %d."
+msgstr "%d kimliğiyle kitaplık bulunamadı."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:167
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:379
+msgid "N/A"
+msgstr "Erişilebilir değil"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:168
+msgid "View library details"
+msgstr "Kitaplık ayrıntılarına bak"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:169
+msgid "Delete library"
+msgstr "Kitaplığı sil"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:170
+msgid "Upgrade library content"
+msgstr "Kitaplık içeriğini güncelle"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:216
+msgid "Restricted"
+msgstr "Kısıtlı"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:218
+msgid "Contents"
+msgstr "İçerik"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:222
+msgid "Contents using it"
+msgstr "Kullanan içerik"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:226
+msgid "Libraries using it"
+msgstr "Kullanan kitaplıklar"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:229
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:51
+msgid "Actions"
+msgstr "Eylemler"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:308
+msgid ""
+"This Library is used by content or other libraries and can therefore not be "
+"deleted."
+msgstr ""
+"Bu kitaplık içerik ya da başka kitaplıklar tarafından kullanıldığı için "
+"silinemez."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:344
+msgid "No content is using this library"
+msgstr "Bu kitaplığı kullanan içerik yok"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:345
+msgid "Content using this library"
+msgstr "Bu kitaplığı kullanan içerik"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:346
+msgid "Elements per page"
+msgstr "Sayfa başına unsur"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:347
+msgid "Filter content"
+msgstr "İçeriği filtrele"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:348
+msgid "Page $x of $y"
+msgstr "Sayfa $x / $y"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:376
+msgid "Version"
+msgstr "Sürüm"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:377
+msgid "Fullscreen"
+msgstr "Tam ekran"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:377
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:378
+msgid "Yes"
+msgstr "Evet"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:377
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:378
+msgid "No"
+msgstr "Hayır"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:378
+msgid "Content library"
+msgstr "İçerik kitaplığı"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:379
+msgid "Used by"
+msgstr "Kullanan"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:379
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:430
+#, php-format
+msgid "1 content"
+msgid_plural "%d contents"
+msgstr[0] "1 içerik"
+msgstr[1] "%d içerik"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:419
+msgid "There are no available upgrades for this library."
+msgstr "Bu kitaplık için yükseltme yok."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:426
+msgid "There's no content instances to upgrade."
+msgstr "Yükseltilecek içerik yok."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:437
+#, php-format
+msgid "You are about to upgrade %s. Please select upgrade version."
+msgstr "%s yükseltmesi yapılacak. Yükseltme Sürümünü seçin."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:438
+msgid "Upgrading to %ver..."
+msgstr "%ver yükseltmesi yapılıyor ..."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:439
+msgid "An error occurred while processing parameters:"
+msgstr "Parametreler işlenirken bir sorun oluştu:"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:440
+msgid "Could not load data for library %lib."
+msgstr "%lib kitaplığından veriler yüklenemedi."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:441
+msgid "Could not upgrade content %id:"
+msgstr "%id içeriği yükseltilemedi:"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:442
+msgid "Could not load upgrades script for %lib."
+msgstr "%lib için yükseltme yazılımı yüklenemedi."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:443
+msgid "Parameters are broken."
+msgstr "Parametreler bozuk."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:444
+#, php-format
+msgid "You have successfully upgraded %s."
+msgstr "%s yükseltmesi başarıyla tamamlandı."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:444
+msgid "Return"
+msgstr "Geri dön"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:454
+msgid "Upgrade"
+msgstr "Yükselt"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:529
+msgid ""
+"Not all content has gotten their cache rebuilt. This is required to be able "
+"to delete libraries, and to display how many contents that uses the library."
+msgstr ""
+"İçeriğin tamamı için önbellek yeniden oluşturulmadı. Bu işlem kitaplıkları "
+"silmek ve kitaplığı kullanan kaç içerik olduğunu görmek için gerekli."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:530
+#, php-format
+msgid "1 content need to get its cache rebuilt."
+msgid_plural "%d contents needs to get their cache rebuilt."
+msgstr[0] "1 içeriğin önbelleğinin yeniden oluşturulması gerekiyor."
+msgstr[1] "%d içeriğin önbelleğinin yeniden oluşturulması gerekiyor."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:531
+msgid "Rebuild cache"
+msgstr "Önbelleği yeniden oluştur"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:543
+msgid "Error, invalid security token!"
+msgstr "Hata; güvenlik bilgisi yanlış!"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:549
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:644
+msgid "Error, missing library!"
+msgstr "Hata; eksik kitaplık!"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:561
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:650
+msgid "Error, invalid library!"
+msgstr "Hata; geçersiz kitaplık!"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-library-admin.php:667
+msgid "Error, could not library semantics!"
+msgstr "Hata; kitaplık semantiği bulunamadı!"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:229
+msgid "Content unavailable."
+msgstr "İçerik mevcut değil."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:279
+msgid "Thank you for choosing H5P."
+msgstr "H5P yazılımını seçtiğiniz için teşekkür ederiz."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:281
+#, php-format
+msgid ""
+"Check out our <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
+"page for inspiration."
+msgstr ""
+"Bir fikir edinmek için <a href=\"%s\" target=\"_blank\">Örnekler ve Dosya "
+"İndirmeler</a> sayfasına gidin."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:282
+#, php-format
+msgid ""
+"H5P fetches content types directly from the H5P Hub. In order to do this, "
+"the H5P plugin will communicate with the Hub once a day to fetch information "
+"about new and updated content types. It will send in anonymous data to the "
+"Hub about H5P usage. Read more at <a href=\"%s\">the plugin communication "
+"page at H5P.org</a>."
+msgstr ""
+"H5P, H5P Hub ortamından içerik türlerini doğrudan alır. Bunu yapmak için, "
+"H5P eklentisi yeni içerik türleri ve güncellemeler hakkında bilgi toplama "
+"amacıyla Hub ile günde bir kez letişim kurar. H5P kullanımı hakkında H5P Hub "
+"ortamına anonim bilgi iletir. Daha fazla bilgi için <a href=\"%s\">H5P.org "
+"sitesinde içerik iletişim sayfası</a>nı okuyun."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:286
+msgid "Thank you for staying up to date with H5P."
+msgstr "H5P yazılımıyla iletişimi sürdürdüğünüz için teşekkürler."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:294
+#, php-format
+msgid ""
+"You should <strong>upgrade your H5P content types!</strong> The old content "
+"types still work, but the authoring tool's look and feel is greatly improved "
+"with the new content types. Here's some more info about <a href=\"%s\" "
+"target=\"_blank\">upgrading the content types</a>."
+msgstr ""
+"<strong>H5P içerik türlerini güncellemelisiniz!</strong> Eski içerik türü "
+"işlemeyi sürdürür ama içerik oluşturma gereci yeni türlerde çok daha "
+"gelişmiş olur. <a href=\"%s\" target=\"_blank\">İçerik türlerini güncelleme</"
+"a> konusunda daha fazla bilgi."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:300
+msgid ""
+"H5P now fetches content types directly from the H5P Hub. In order to do "
+"this, the H5P plugin will communicate with H5P.org once per day to fetch "
+"information about new and updated content types. It will send in anonymous "
+"data to the hub about H5P usage. You may disable the data contribution and/"
+"or the H5P Hub in the H5P settings."
+msgstr ""
+"H5P, H5P Hub ortamından içerik türlerini doğrudan alıyor. Bunu yapmak için, "
+"H5P eklentisi yeni içerik türleri ve güncellemeler hakkında bilgi toplama "
+"amacıyla H5P.org ile günde bir kez letişim kurar. H5P kullanımı hakkında H5P "
+"Hub ortamına anonim bilgi iletir. H5P ayarlarından veri paylaşımını ve/veya "
+"Hub kullanımını kapatabilirsiniz."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:313
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:46
+#, php-format
+msgid ""
+"If you need any help you can always file a <a href=\"%s\" target=\"_blank"
+"\">Support Request</a>, check out our <a href=\"%s\" target=\"_blank"
+"\">Forum</a> or join the conversation in the <a href=\"%s\" target=\"_blank"
+"\">H5P Community Chat</a>."
+msgstr ""
+"Yardım gerektiğinde <a href=\"%s\" target=\"_blank\">Yardım Desteği</a>ne "
+"başvurabilir, <a href=\"%s\" target=\"_blank\">Forum</a> bölümüne gidebilir "
+"ya da <a href=\"%s\" target=\"_blank\">H5P Topluluk Sohbeti</a>ne "
+"katılabilirsiniz."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:355
+#: Desktop/h5p-wordpress-plugin-master/public/class-h5p-plugin.php:658
+msgid "H5P Content"
+msgstr "H5P İçeriği"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:358
+msgid "All H5P Content"
+msgstr "Tüm H5P İçeriği"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:361
+msgid "Add New"
+msgstr "Yeni Ekle"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:367
+msgid "Libraries"
+msgstr "Kitaplıklar"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:374
+#: Desktop/h5p-wordpress-plugin-master/admin/views/my-results.php:14
+msgid "My Results"
+msgstr "Sonuçlarım"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:472
+msgid "Confirmation action"
+msgstr "Onay eylemi"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:473
+msgid "Do you still want to enable the hub ?"
+msgstr "Hub devreye sokulsun mu?"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:474
+msgid "Cancel"
+msgstr "İptal"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:475
+msgid "Confirm"
+msgstr "Onayla"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:685
+msgid "Invalid content"
+msgstr "İçerik geçersiz"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:689
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:1102
+msgid "Invalid security token"
+msgstr "Güvenlik bilgisi geçersiz"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:918
+msgid "Loading data."
+msgstr "Veriler yükleniyor."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:919
+msgid "Failed to load data."
+msgstr "Veriler yüklenemedi."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:920
+msgid "There's no data available that matches your criteria."
+msgstr "Ölçütünüze uyan veri mevcut değil."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:921
+msgid "Page $current of $total"
+msgstr "Sayfa $current / $total"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:922
+msgid "Next page"
+msgstr "Sonraki sayfa"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:923
+msgid "Previous page"
+msgstr "Önceki sayfa"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:924
+msgid "Search"
+msgstr "Ara"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:925
+msgid "Remove"
+msgstr "Kaldır"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:954
+msgid "Content"
+msgstr "İçerik"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/class-h5p-plugin-admin.php:976
+msgid "There are no logged results for your user."
+msgstr "Kullanıcınız için kaydedilmiş sonuç yok."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/content-results.php:15
+#, php-format
+msgid "Results for \"%s\""
+msgstr "\"%s\" için sonuçlar"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/content-results.php:16
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:19
+msgid "View"
+msgstr "Bak"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/content-results.php:22
+#: Desktop/h5p-wordpress-plugin-master/admin/views/contents.php:16
+#: Desktop/h5p-wordpress-plugin-master/admin/views/libraries.php:73
+#: Desktop/h5p-wordpress-plugin-master/admin/views/my-results.php:16
+msgid "Waiting for JavaScript."
+msgstr "JavaScript bekleniyor."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/contents.php:14
+msgid "Add new"
+msgstr "Yeni ekle"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/libraries.php:16
+msgid "Content Type Cache"
+msgstr "İçerik Türü Önbelleği"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/libraries.php:20
+msgid ""
+"Making sure the content type cache is up to date will ensure that you can "
+"view, download and use the latest libraries. This is different from updating "
+"the libraries themselves."
+msgstr ""
+"İçerik türleri önbelleği güncel olduğunda en yeni kitaplıklar görülebilir, "
+"indirilebilir ve kullanılabilir. Bu işlem kitaplıkların kendilerini "
+"güncellemekten farklıdır."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/libraries.php:24
+msgid "Last update"
+msgstr "En son güncelleme"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/libraries.php:45
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:63
+msgid "Update"
+msgstr "Güncelle"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/libraries.php:51
+msgid "Upload Libraries"
+msgstr "Kitaplıkları Yükle"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/libraries.php:55
+msgid ""
+"Here you can upload new libraries or upload updates to existing libraries. "
+"Files uploaded here must be in the .h5p file format."
+msgstr ""
+"Burada yeni kitaplıklar yükleyebilir ya da mevcut kitaplıkları "
+"yükleyebilirsiniz. Buraya yüklenen dosyalar .h5p formatında olmalı."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/libraries.php:58
+msgid "Only update existing libraries"
+msgstr "Yalnızca mevcut kitaplıkları güncelle"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/libraries.php:61
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:37
+msgid "Disable file extension check"
+msgstr "Eklenti kontrolünü devreden çıkar"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/libraries.php:62
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:38
+msgid ""
+"Warning! This may have security implications as it allows for uploading php "
+"files. That in turn could make it possible for attackers to execute "
+"malicious code on your site. Please make sure you know exactly what you're "
+"uploading."
+msgstr ""
+"Dikkat! PHP dosyaları yüklenebileceği için güvenlik sorunu oluşturabilir! "
+"Saldırganlar sitenize zararlı kodlar yükleyebilir. Ne yüklediğinizden emin "
+"olmalısınız."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/libraries.php:68
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:53
+msgid "Upload"
+msgstr "Yükle"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/libraries.php:72
+msgid "Installed Libraries"
+msgstr "Yüklü Kitaplıklar"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/library-content-upgrade.php:15
+#, php-format
+msgid "Upgrade %s %d.%d.%d content"
+msgstr "%s %d.%d.%d içeriğini yükselt"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/library-content-upgrade.php:19
+msgid "Please enable JavaScript."
+msgstr "JavaScript devrede olmalı."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/library-delete.php:16
+msgid "Are you sure you wish to delete this H5P library?"
+msgstr "Bu H5P kitaplığını silmek istediğinize emin misiniz?"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/library-delete.php:18
+msgid "Do it!"
+msgstr "Yap!"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:30
+msgid "Enter title here"
+msgstr "Başlığı buraya yazın"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:42
+msgid "Waiting for javascript..."
+msgstr "Javascript bekleniyor .."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:45
+#, php-format
+#| msgid ""
+#| "Unfortunately, we were unable to automatically install the default "
+#| "content types. You must manually download the content types you wish to "
+#| "use from the <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
+#| "page, and then upload them through the <a href=\"%s\">Libraries</a> page."
+msgid ""
+"It looks like there are no content types installed. You can get the ones you "
+"want by using the small 'Download' button in the lower left corner on any "
+"example from the <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
+"page and then you upload the file here."
+msgstr ""
+"Hiçbir içerik türü yüklü değil. You can get the ones you want by using the "
+"small 'Download' button in the lower left corner on any example from the <a "
+"href=\"%s\" target=\"_blank\">Örnekler ve İndirmeler</a> sayfasından "
+"herhangi bir örneğin sol alt köşesindeki 'İndir' tuşunu kullanarak yeni "
+"türleri alabilir ve buraya yükleyebilirsiniz."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:54
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:63
+msgid "Create"
+msgstr "Oluştur"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:68
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:101
+msgid "Toggle panel"
+msgstr "Paneli aç/kapat"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:69
+msgid "Display Options"
+msgstr "Gösterme Seçenekleri"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:73
+msgid "Display toolbar below content"
+msgstr "İçeriğin altında araç çubuğunu göster"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:80
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:36
+msgid "Display Download button"
+msgstr "İndirme düğmesini göster"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:86
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:61
+msgid "Display Embed button"
+msgstr "Katma düğmesini göster"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:92
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:86
+msgid "Display Copyright button"
+msgstr "Telif hakkı düğmesini göster"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/new-content.php:105
+msgid "Separate tags with commas"
+msgstr "Etiketleri virgülle ayırın"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:17
+msgid "Settings saved."
+msgstr "Ayarlar kaydedildi."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:24
+msgid "Toolbar Below Content"
+msgstr "İçeriğin Altında Araç Çubuğu"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:28
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:49
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:74
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:90
+msgid "Controlled by author - on by default"
+msgstr "Yazarın seçimine bağlı - varsayılan değer, açık"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:31
+msgid ""
+"By default, a toolbar with 4 buttons is displayed below each interactive "
+"content."
+msgstr ""
+"Varsayılan değer olarak, iletişimsel içeriğin altında 4 düğme içerek araç "
+"çubuğu yer alır."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:40
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:65
+msgid "Never"
+msgstr "Asla"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:43
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:68
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:99
+msgid "Always"
+msgstr "Her zaman"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:46
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:71
+msgid "Only for editors"
+msgstr "Yalnızca editörler için"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:52
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:77
+msgid "Controlled by author - off by default"
+msgstr "Yazarın seçimine bağlı - varsayılan değer, kapalı"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:56
+msgid ""
+"Setting this to 'Never' will reduce the amount of disk space required for "
+"interactive content."
+msgstr "'Asla' seçilirse etkileşimsel içerik için gereken dik alanı azalır."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:81
+msgid "Setting this to 'Never' will disable already existing embed codes."
+msgstr "'Asla' seçilirse mevcut katma kodları devre dışı kalır."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:95
+msgid "Display About H5P button"
+msgstr "H5P hakkında bilgi göster"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:104
+msgid "User Results"
+msgstr "Kullanıcı Sonuçları"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:108
+msgid "Log results for signed in users"
+msgstr "Giriş yapmış kullanıcılar için sonuçları sakla"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:113
+msgid "Save Content State"
+msgstr "İçerik Durumunu Kaydet"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:117
+msgid "Allow logged-in users to resume tasks"
+msgstr ""
+"Giriş yapmış kullanıcıların kaldıkları yerden devam etmelerine izin ver"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:120
+msgid "Auto-save frequency (in seconds)"
+msgstr "Kendiliğinden kaydetme sıklığı (saniye olarak)"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:126
+msgid "Add Content Method"
+msgstr "İçerik Yöntemi ekle"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:129
+msgid ""
+"When adding H5P content to posts and pages using the \"Add H5P\" button:"
+msgstr ""
+"İletilere ve sayfalara \"H5P Ekle\" tuşunu kullanarak H5P içeriği eklerken:"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:136
+msgid "Reference content by id"
+msgstr "ID cinsinden referans içerik"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:144
+#, php-format
+msgid "Reference content by <a href=\"%s\" target=\"_blank\">slug</a>"
+msgstr "<a href=\"%s“ target=„_blank\">Slug</a> cinsinden referans içerik"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:150
+msgid "Content Types"
+msgstr "İçerik Türleri"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:154
+msgid "Enable LRS dependent content types"
+msgstr "LRS bağımlı içerik türlerini etkinleştir"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:157
+msgid ""
+"Makes it possible to use content types that rely upon a Learning Record "
+"Store to function properly, like the Questionnaire content type."
+msgstr ""
+"Anket gibi, bir Learning Record Store kullanımını gerektiren türlerin "
+"sorunsuz kullanılmasını sağlar."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:166
+msgid "Use H5P Hub"
+msgstr "H5P Hub Kulan"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:169
+msgid ""
+"It's strongly encouraged to keep this option <strong>enabled</strong>. The "
+"H5P Hub provides an easy interface for getting new content types and keeping "
+"existing content types up to date. In the future, it will also make it "
+"easier to share and reuse content. If this option is disabled you'll have to "
+"install and update content types through file upload forms."
+msgstr ""
+"Bu seçeneğin <strong>devrede</strong> olması önerilir. H5P Hub yoluyla yeni "
+"içerik türleri kolayca yüklenebilir ve güncellenebilir. Gelecekte, içeriğin "
+"paylaşılması ve yeniden kullanımı da daha kolay hale getirilecek. Hub "
+"devrede değilse içerik türlerini örnek dosyaları yükleyerek alabilirsiniz."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:184
+msgid "Usage Statistics"
+msgstr "Kullanım İstatistikleri"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:188
+msgid "Automatically contribute usage statistics"
+msgstr "Otomatik olarak kullanım istatistikleri katkıda bulun"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/settings.php:191
+#, php-format
+msgid ""
+"Usage statistics numbers will automatically be reported to help the "
+"developers better understand how H5P is used and to determine potential "
+"areas of improvement. Read more about which <a href=\"%s\" target=\"_blank"
+"\">data is collected on h5p.org</a>."
+msgstr ""
+"Kullanım istatistikleri yazalımı geliştirenlere H5P kllanımı hakkında bilgi "
+"sağlamak ve geliştirilmesi gereken alanları saptamak için güncel veri "
+"sağlar. <a href=\"%s\" target=\"_blank\">H5P.org tarafından hangi bilgilerin "
+"toplandığını okuyun</a>."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/show-content.php:30
+msgid "Shortcode"
+msgstr "Kısa kod"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/show-content.php:32
+msgid "What's next?"
+msgstr "Yeni neler var?"
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/show-content.php:33
+msgid ""
+"You can use the following shortcode to insert this interactive content into "
+"posts, pages, widgets, templates etc."
+msgstr ""
+"Bu etkileşimsel içeriği iletilere, sayfalara, gereçlere, şablonlara ve "
+"benzerlerine katmak için bu kısa kodu kullanabilirsiniz."
+
+#: Desktop/h5p-wordpress-plugin-master/admin/views/show-content.php:42
+msgid "No tags"
+msgstr "Etiket yok"
+
+#: Desktop/h5p-wordpress-plugin-master/public/class-h5p-plugin.php:767
+msgid "Missing H5P identifier."
+msgstr "H5P tanımlayıcı eksik."
+
+#: Desktop/h5p-wordpress-plugin-master/public/class-h5p-plugin.php:775
+#, php-format
+msgid "Cannot find H5P content with id: %d."
+msgstr "%d bilgisi ile H5P içeriği bulunamadı."
+
+#: Desktop/h5p-wordpress-plugin-master/public/class-h5p-plugin.php:801
+#, php-format
+msgid "Database error: %s."
+msgstr "Veritabanı hatası: %s."
+
+#: Desktop/h5p-wordpress-plugin-master/public/class-h5p-plugin.php:805
+#, php-format
+msgid "Cannot find H5P content with slug: %s."
+msgstr "Slug %s içeren H5P içeriği bulunamadı."
+
+#: Desktop/h5p-wordpress-plugin-master/public/class-h5p-wordpress.php:616
+msgid "Invalid json in semantics for %library"
+msgstr "%library semantiğinde geçersiz json"
+
+#~ msgid "%s new update is available!"
+#~ msgid_plural "%s new updates are available!"
+#~ msgstr[0] "%s yeni güncelleme mevcut!"
+#~ msgstr[1] "%s yeni güncelleme mevcut!"
+
+#~ msgid "A valid content folder is missing"
+#~ msgstr "Geçerli bir içerik klasörü eksik."
+
+#~ msgid "A valid main h5p.json file is missing"
+#~ msgstr "Geçerli bir ana h5p.json dosyası eksik"
+
+#~ msgid "Action bar"
+#~ msgstr "Eylem çubuğu"
+
+#~ msgid "Added %new new H5P libraries and updated %old old."
+#~ msgstr "%new yeni H5P kitaplık eklendi ve %old eski kitaplık güncellendi."
+
+#~ msgid "Added %new new H5P libraries."
+#~ msgstr "%new yeni H5P kitaplığı eklendi."
+
+#~ msgid ""
+#~ "Allows you to upload, create, share and use rich interactive content on "
+#~ "your WordPress site."
+#~ msgstr ""
+#~ "WordPress sitenizde zengin etkileşimsel içerik yüklemenize, oluşturmanıza "
+#~ "ve paylaşmanıza olanak sağlar"
+
+#~ msgid "Attribution"
+#~ msgstr "Attribution"
+
+#~ msgid "Attribution-NoDerivs"
+#~ msgstr "Attribution-NoDerivs"
+
+#~ msgid "Attribution-NonCommercial"
+#~ msgstr "Attribution-NonCommercial"
+
+#~ msgid "Attribution-NonCommercial-NoDerivs"
+#~ msgstr "Attribution-NonCommercial-NoDerivs"
+
+#~ msgid "Attribution-NonCommercial-ShareAlike"
+#~ msgstr "Attribution-NonCommercial-ShareAlike"
+
+#~ msgid "Attribution-ShareAlike"
+#~ msgstr "Attribution-ShareAlike"
+
+#~ msgid ""
+#~ "By default, H5P is set up to automatically fetch information regarding "
+#~ "Content Type updates from H5P.org. When doing so, H5P will also "
+#~ "contribute anonymous usage data to aid the development of H5P. This "
+#~ "behaviour can be altered through the <a href=\"%s\">Settings</a> page."
+#~ msgstr ""
+#~ "Varsayılan değer olarak, H5P yazılımı H5P.org adresinden İçerik Türleri "
+#~ "ile ilgili güncellemeleri aramakta. Bunu yaparken H5P ayrıca H5P "
+#~ "gelişimine yardımcı olacak anonim bilgi toplar. Bunu değiştirmek "
+#~ "isterseniz <a href=\"%s\">Ayarlar</a> sayfasına gidin."
+
+#~ msgid "Can't read the property %property in %library"
+#~ msgstr "%library içinde %property okunamadı"
+
+#~ msgid ""
+#~ "Check off \"Only update existing libraries\" and click the <em>Upload</"
+#~ "em> button."
+#~ msgstr ""
+#~ "\"Yalnızca mevcut kitaplıkları güncelle\" seçeneğini devreden çıkarın ve "
+#~ "<em>Yükle</em> yazısını tıklayın."
+
+#~ msgid "Close"
+#~ msgstr "Kapat"
+
+#~ msgid "Content type upgrades are here!"
+#~ msgstr "İçerik türü yükseltmeleri mevcut!"
+
+#~ msgid "Copyright"
+#~ msgstr "Telif Hakkı"
+
+#~ msgid "Copyright information"
+#~ msgstr "Telif bilgisi"
+
+#~ msgid "Could not copy file."
+#~ msgstr "Dosya kopyalanamadı."
+
+#~ msgid ""
+#~ "Could not find library.json file with valid json format for library %name"
+#~ msgstr ""
+#~ "%name kitaplığı için geçerli json formatında library.json bulunamadı"
+
+#~ msgid "Could not find or parse the content.json file"
+#~ msgstr "İçerik .json dosyası bulunamadı ya da işlenemedi"
+
+#~ msgid "Could not parse the main h5p.json file"
+#~ msgstr "Ana h5p.json dosyası işlenemedi"
+
+#~ msgid "Created"
+#~ msgstr "Oluşturuldu"
+
+#~ msgid "Disable fullscreen"
+#~ msgstr "Tam ekranı devreden çıkar"
+
+#~ msgid ""
+#~ "Disabling this option will prevent your site from fetching the newest H5P "
+#~ "updates."
+#~ msgstr ""
+#~ "Bu seçenek devre dışı bırakılırsa siteniz en yeni H5P güncellemelerinden "
+#~ "mahrum kalır."
+
+#~ msgid "Display action bar and frame"
+#~ msgstr "Eylem çubuğunu ve çerçeveyi göster"
+
+#~ msgid "Download"
+#~ msgstr "İndir"
+
+#~ msgid "Download %s."
+#~ msgstr "%s indirilsin."
+
+#~ msgid "Download & Update"
+#~ msgstr "İndir ve Güncelle"
+
+#~ msgid "Download the H5P file from the %s page."
+#~ msgstr "%s sayfasından H5P dosyasını indirin."
+
+#~ msgid "Download this content as a H5P file."
+#~ msgstr "Bu içeriği bir H5P dosyası olarak indir."
+
+#~ msgid "Embed"
+#~ msgstr "Kat"
+
+#~ msgid "External communication"
+#~ msgstr "Harici iletişim"
+
+#~ msgid "Fetch information about updates for your H5P content types"
+#~ msgstr "H5P içerik türleriniz için yükseltme bilgisi arayın"
+
+#~ msgid ""
+#~ "File \"%filename\" not allowed. Only files with the following extensions "
+#~ "are allowed: %files-allowed."
+#~ msgstr ""
+#~ "\"%filename\" dosya adı kullanılamaz. Yalnızca %files-allowed uzantılı "
+#~ "dosyalar kullanılabilir."
+
+#~ msgid "File is not an image."
+#~ msgstr "Bu bir resim dosyası değil."
+
+#~ msgid "File not found on server. Check file upload settings."
+#~ msgstr "Dosya sunucuda bulunamadı. Yükleme ayarlarını kontrol edin."
+
+#~ msgid "File type isn't allowed."
+#~ msgstr "Dosya türüne izin yok."
+
+#~ msgid "General Public License"
+#~ msgstr "General Public License"
+
+#~ msgid ""
+#~ "H5P internal error: unknown content type \"@type\" in semantics. Removing "
+#~ "content!"
+#~ msgstr ""
+#~ "H5P dahili hatası: semantikte bilinmeyen içerik türü \"@type\". İçerik "
+#~ "kaldırılıyor!"
+
+#~ msgid "Here is a short guide to get you started:"
+#~ msgstr "Başlamadan önce kısa bir rehber:"
+
+#~ msgid "Hide advanced"
+#~ msgstr "İleri düzey seçenekleri gizle"
+
+#~ msgid ""
+#~ "I wish to aid in the development of H5P by contributing anonymous usage "
+#~ "data"
+#~ msgstr ""
+#~ "Anonim kullanıcı verileri yoluyla H5P gelişimine katkı sağlamak istiyorum."
+
+#~ msgid ""
+#~ "If you've just upgraded you plugin, you should install the <a href=\"%s\" "
+#~ "target=\"_blank\">lastest version</a> of your content types."
+#~ msgstr ""
+#~ "Eklentiyi yeni yükselttiyseniz içerik tipleriniz için <a href=\"%s\" "
+#~ "target=\"_blank\">en yeni sürüm</a>ü yüklemelisiniz."
+
+#~ msgid "Illegal option %option in %library"
+#~ msgstr "%option seçeneği %library için geçersiz"
+
+#~ msgid ""
+#~ "In order to take advantage of this plugin you must first select and "
+#~ "download the H5P content types you wish to use."
+#~ msgstr ""
+#~ "Bu eklentiyi kullanmak için önce kullanmak istediğiniz H5P içeriğini "
+#~ "seçip indirmelisiniz."
+
+#~ msgid ""
+#~ "Include this script on your website if you want dynamic sizing of the "
+#~ "embedded content:"
+#~ msgstr ""
+#~ "Katılan içeriğin dinamik boyutlandırılması için web sitenize bu kodu "
+#~ "ekleyin:"
+
+#~ msgid "Installed"
+#~ msgstr "Yüklü"
+
+#~ msgid "Invalid audio file format. Use mp3 or wav."
+#~ msgstr ""
+#~ "Ses dosyası türü geçersiz. Kullanılabilecek dosya türü mp3 ya da wav."
+
+#~ msgid "Invalid content folder"
+#~ msgstr "Geçersiz içerik dizini"
+
+#~ msgid "Invalid data provided for %property in %library"
+#~ msgstr "%property için %library kitaplığında geçersiz veri"
+
+#~ msgid "Invalid data provided for %property in %library. Boolean expected."
+#~ msgstr "%property için %library kitaplığında geçersiz veri. Boolean olmalı."
+
+#~ msgid "Invalid field type."
+#~ msgstr "Dosya türü geçersiz."
+
+#~ msgid "Invalid image file format. Use jpg, png or gif."
+#~ msgstr ""
+#~ "Dosya türü geçersiz. Kullanılabilecek dosya türleri jpg, png ya da gif."
+
+#~ msgid "Invalid language file %file in library %library"
+#~ msgstr "%library kitaplığında geçersiz dil dosyası: %file"
+
+#~ msgid ""
+#~ "Invalid language file %languageFile has been included in the library %name"
+#~ msgstr "%name kitaplığında geçersiz dil dosyası: %languageFile"
+
+#~ msgid "Invalid library name: %name"
+#~ msgstr "Kitaplık adı geçersiz: %name"
+
+#~ msgid "Invalid security token. Please reload the editor."
+#~ msgstr "Güvenlik bilgisi yanlış. Editörü yeniden yükleyin"
+
+#~ msgid "Invalid selected option in multiselect."
+#~ msgstr "Birden fazla seçenekte seçenek geçersiz."
+
+#~ msgid "Invalid selected option in select."
+#~ msgstr "Tek seçenekte seçenek geçersiz."
+
+#~ msgid "Invalid semantics.json file has been included in the library %name"
+#~ msgstr "%name kitaplığında geçersiz semantics.json dosyası"
+
+#~ msgid "Invalid video file format. Use mp4 or webm."
+#~ msgstr ""
+#~ "Video dosyası türü geçersiz. Kullanılabilecek dosya türü mp4 ya da webm."
+
+#~ msgid ""
+#~ "Library directory name must match machineName or machineName-majorVersion."
+#~ "minorVersion (from library.json). (Directory: %directoryName , "
+#~ "machineName: %machineName, majorVersion: %majorVersion, minorVersion: "
+#~ "%minorVersion)"
+#~ msgstr ""
+#~ "Kitaplık dizin adı machineName ya da machineName-majorVersion."
+#~ "minorVersion (library.json üzerinden) ile uyumlu olmalı. (Dizin: "
+#~ "%directoryName , machineName: %machineName, majorVersion: %majorVersion, "
+#~ "minorVersion: %minorVersion)"
+
+#~ msgid ""
+#~ "Library used in content is not a valid library according to semantics"
+#~ msgstr ""
+#~ "İçerikte kullanılan kitaplık semantiğe göre geçerli bir kitaplık değil."
+
+#~ msgid "License"
+#~ msgstr "Lisans"
+
+#~ msgid "Missing dependency @dep required by @lib."
+#~ msgstr "Eksik @dep @lib için gerekli."
+
+#~ msgid "Missing required library @library"
+#~ msgstr "Gerekli @library kitaplığı eksik"
+
+#~ msgid "No copyright information available for this content."
+#~ msgstr "Bu içerik için telif hakkı bilgisi yok."
+
+#~ msgid ""
+#~ "Note that the libraries may exist in the file you uploaded, but you're "
+#~ "not allowed to upload new libraries. Contact the site administrator about "
+#~ "this."
+#~ msgstr ""
+#~ "Kitaplıklar yüklediğiniz dosyada var olabilir ama yeni kitaplıklar "
+#~ "yüklemenize izin yok. Bu konuda site yöneticisiyle iletişim kurun."
+
+#~ msgid ""
+#~ "Provided string is not valid according to regexp in semantics. (value: "
+#~ "\"%value\", regexp: \"%regexp\")"
+#~ msgstr ""
+#~ "Sağlanan dizge semantikteki regexp ifadesine göre geçerli değil (değer: "
+#~ "\"%value\", regexp: \"%regexp\")"
+
+#~ msgid "Public Domain"
+#~ msgstr "Public Domain"
+
+#~ msgid "Public Domain Dedication and Licence"
+#~ msgstr "Public Domain Dedication and Licence"
+
+#~ msgid "Public Domain Mark"
+#~ msgstr "Public Domain İşareti"
+
+#~ msgid "Rights of use"
+#~ msgstr "Kullanım hakkı"
+
+#~ msgid "Select the downloaded <em> %s</em> file in the form below."
+#~ msgstr "İndirilen <em> %s</em> dosyasını aşağıdaki formdan bulun."
+
+#~ msgid "Show advanced"
+#~ msgstr "İleri düzey seçenekleri göster"
+
+#~ msgid "Size"
+#~ msgstr "Boyut"
+
+#~ msgid "Source"
+#~ msgstr "Kaynak"
+
+#~ msgid "The file \"%file\" is missing from library: \"%name\""
+#~ msgstr "\"%file\" dosyası kitaplıkta yok: \"%name\""
+
+#~ msgid ""
+#~ "The file you uploaded is not a valid HTML5 Package (It does not have the ."
+#~ "h5p file extension)"
+#~ msgstr ""
+#~ "Yüklediğiniz düsya geçerli bir HTML 5 paketi değil (uzantısı .h5p değil)"
+
+#~ msgid ""
+#~ "The file you uploaded is not a valid HTML5 Package (We are unable to "
+#~ "unzip it)"
+#~ msgstr ""
+#~ "Yüklediğiniz düsya geçerli bir HTML 5 paketi değil (dosya açılamadı)"
+
+#~ msgid "The following libraries are outdated and should be upgraded:"
+#~ msgstr "Bu kitaplıklar eski ve güncellenmeleri gerekiyor:"
+
+#~ msgid ""
+#~ "The library \"%libraryName\" requires H5P %requiredVersion, but only H5P "
+#~ "%coreApi is installed."
+#~ msgstr ""
+#~ "\"%libraryName\" kitaplığı H5P %requiredVersion gerektiriyor ama yalnızca "
+#~ "H5P %coreApi yüklü."
+
+#~ msgid "The main h5p.json file is not valid"
+#~ msgstr "Ana h5p.json dosyası geçerli değil"
+
+#~ msgid "The most recent version was released on <strong>%s</strong>."
+#~ msgstr "En son sürüm <strong>%s</strong> tarihinde yayınlandı."
+
+#~ msgid ""
+#~ "The page also list the different changelogs, where you can read about the "
+#~ "new features introduced and the issues that have been fixed."
+#~ msgstr ""
+#~ "Bu sayfada farklı değişiklik dosyaları da bulunmakta: getirilen "
+#~ "yenilikleri tanıyabilir ve nelerin onarıldığını görebilirsiniz."
+
+#~ msgid "The required property %property is missing from %library"
+#~ msgstr "Gerekli %property %library kitaplığında mevcut değil"
+
+#~ msgid "The version you're running is from <strong>%s</strong>."
+#~ msgstr "Sürümünüz <strong>%s</strong> tarihinden."
+
+#~ msgid "There are updates available for your H5P content types."
+#~ msgstr "H5P içerik türleriniz için güncellemeler var."
+
+#~ msgid "This content has changed since you last used it."
+#~ msgstr "Son kullanmanızdan bu yana bu içerik değişti."
+
+#~ msgid "Thumbnail"
+#~ msgstr "Küçük resim"
+
+#~ msgid "To upgrade all the installed libraries, do the following:"
+#~ msgstr "Yüklü tüm kitaplıkları güncellemek için şu işlemi yapın:"
+
+#~ msgid "Unable to copy file tree."
+#~ msgstr "Dosya dizini kopyalanamadı."
+
+#~ msgid "Unable to create content directory."
+#~ msgstr "İçerik dizini oluşturulamadı."
+
+#~ msgid "Unable to create directory."
+#~ msgstr "Dizin oluşturulamadı."
+
+#~ msgid "Unable to get field type."
+#~ msgstr "Alan türü alınamadı."
+
+#~ msgid "Unable to write to the content directory."
+#~ msgstr "İçerik dizinine yazılamadı."
+
+#~ msgid "Unable to write to the exports directory."
+#~ msgstr "Dışarı aktarımlar dizinine yazılamadı."
+
+#~ msgid "Unable to write to the libraries directory."
+#~ msgstr "Kitaplıklar dizinine yazılamadı."
+
+#~ msgid "Unable to write to the temporary directory."
+#~ msgstr "Geçici dizine yazılamadı."
+
+#~ msgid "Undisclosed"
+#~ msgstr "Belirtilmemiş"
+
+#~ msgid ""
+#~ "Unfortunately, we were unable to update your installed content types. You "
+#~ "must manually download the update from <a href=\"%s\" target=\"_blank"
+#~ "\">H5P.org</a>, and then upload it through the <em>Upload Libraries</em> "
+#~ "section. If you need futher assistance, please file a <a href=\"%s\" "
+#~ "target=\"_blank\">support request</a> or check out our <a href=\"%s\" "
+#~ "target=\"_blank\">forum</a>."
+#~ msgstr ""
+#~ "Yükle içerik türleriniz güncellenemedi. <a href=\"%s\" target=\"_blank"
+#~ "\">H5P.org</a> adresinden güncellemeyi elle indirip <em>Kitaplıkları "
+#~ "Yükle</em> bölümünden yüklemeniz gerekiyor. Daha fazla yardım gerekirse "
+#~ "<a href=\"%s\" target=\"_blank\">yardım talebi</a>nde bulunun ya da <a "
+#~ "href=\"%s\" target=\"_blank\">forum</a>a bakın."
+
+#~ msgid "Update All Libraries"
+#~ msgstr "Tüm Kitaplıkları Güncelle"
+
+#~ msgid "Updated %old H5P libraries."
+#~ msgstr "%old H5P kitaplığı güncellendi."
+
+#~ msgid "User Tracking"
+#~ msgstr "Kullanıcı İzleme"
+
+#~ msgid "View copyright information for this content."
+#~ msgstr "Bu içeriğin telif hakkı bilgisine bakın."
+
+#~ msgid "View the embed code for this content."
+#~ msgstr "Bu içerik için katma koduna bakın."
+
+#~ msgid "Visit H5P.org to check out more cool content."
+#~ msgstr "Daha fazla içerik için H5P.org sitesini ziyaret edin."
+
+#~ msgid ""
+#~ "We've automatically installed the default content types for your "
+#~ "convenience. You can now <a href=\"%s\">start creating</a> your own "
+#~ "interactive content!"
+#~ msgstr ""
+#~ "Kullanmanız için içerik türleri kendiliğinden yüklendi. Artık kendi "
+#~ "etkileşimsel içeriğinizi <a href=\"%s\">oluşturmaya başlayabilirsiniz</a>!"
+
+#~ msgid "Year"
+#~ msgstr "Yıl"
+
+#~ msgid "Year(s)"
+#~ msgstr "Yıl"
+
+#~ msgid ""
+#~ "You can read about why it's important to update and the benefits from "
+#~ "doing so on the <a href=\"%s\" target=\"_blank\">Why Update H5P</a> page."
+#~ msgstr ""
+#~ "<a href=\"%s\" target=\"_blank\">H5P Neden Güncellenmeli</a> sayfasında "
+#~ "güncellemenin neden gerektiği ve bunun faydaları konusunda daha fazla "
+#~ "bilgi mevcut."
+
+#~ msgid ""
+#~ "You can read more about <a href=\"%s\" target=\"_blank\">which data is "
+#~ "collected</a> on h5p.org."
+#~ msgstr ""
+#~ "H5P.org sitesinde <a href=„%s“ target=„_blank“>hangi verilerin "
+#~ "toplandığı</a> hakkında daha fazla bilgi mevcut."
+
+#~ msgid ""
+#~ "You can use the button below to automatically download and update all of "
+#~ "your content types."
+#~ msgstr ""
+#~ "Kendiliğinden indirme ve tüm içerik türlerinizi güncelleme için aşağıdaki "
+#~ "tuşu kullanabilrsiniz."
+
+#~ msgid ""
+#~ "You should head over to the <a href=\"%s\">Libraries</a> page and update "
+#~ "your content types to the latest version."
+#~ msgstr ""
+#~ "En son sürümü kullanmak için <a href=\"%s\">Kitaplıklar</a> bölümüne "
+#~ "geçip içerik türlerinizi güncellemelisiniz."
+
+#~ msgid ""
+#~ "You will have to manually download the Content Type updates from H5P.org "
+#~ "and then upload them to your site."
+#~ msgstr ""
+#~ "İçerik Tipi güncellemelerini H5P.org sitesinden elle indirip sitenize "
+#~ "kendiniz yüklemek zorunda kalacaksınız."
+
+#~ msgid "You'll be starting over."
+#~ msgstr "Baştan başlanacak."
+
+#~ msgid "Your PHP version does not support ZipArchive."
+#~ msgstr "PHP sürümünüz ZipArchive desteklemiyor."
+
+#~ msgid "ago"
+#~ msgstr "önce"
