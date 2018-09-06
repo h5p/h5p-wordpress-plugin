@@ -262,7 +262,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             'preloaded_css' => $preloadedCss,
             'drop_library_css' => $dropLibraryCss,
             'semantics' => $library['semantics'],
-            'has_icon' => $library['hasIcon'] ? 1 : 0
+            'has_icon' => $library['hasIcon'] ? 1 : 0,
+            'add_to' => isset($library['addTo']) ? json_encode($library['addTo']) : NULL
           ),
           array(
             '%s',
@@ -277,7 +278,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             '%s',
             '%d',
             '%s',
-            '%d'
+            '%d',
+            '%s'
           )
         );
       $library['libraryId'] = $wpdb->insert_id;
@@ -295,7 +297,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             'preloaded_css' => $preloadedCss,
             'drop_library_css' => $dropLibraryCss,
             'semantics' => $library['semantics'],
-            'has_icon' => $library['hasIcon'] ? 1 : 0
+            'has_icon' => $library['hasIcon'] ? 1 : 0,
+            'add_to' => isset($library['addTo']) ? json_encode($library['addTo']) : NULL
           ),
           array('id' => $library['libraryId']),
           array(
@@ -308,7 +311,8 @@ class H5PWordPress implements H5PFrameworkInterface {
             '%s',
             '%d',
             '%s',
-            '%d'
+            '%d',
+            '%s'
           ),
           array('%d')
         );
@@ -1226,8 +1230,21 @@ class H5PWordPress implements H5PFrameworkInterface {
    * @return array
    */
   public function loadAddons() {
+    global $wpdb;
     // Load addons
-    return array();
+    // If there are several versions of the same addon, pick the newest one
+    return $wpdb->get_results(
+       "SELECT l1.id as libraryId, l1.name as machineName,
+              l1.major_version as majorVersion, l1.minor_version as minorVersion,
+              l1.patch_version as patchVersion, l1.add_to as addTo
+        FROM {$wpdb->prefix}h5p_libraries AS l1
+        LEFT JOIN {$wpdb->prefix}h5p_libraries AS l2
+          ON l1.name = l2.name AND
+            (l1.major_version < l2.major_version OR
+              (l1.major_version = l2.major_version AND
+               l1.minor_version < l2.minor_version))
+        WHERE l1.add_to IS NOT NULL AND l2.name IS NULL", ARRAY_A
+    );
   }
 
   /**
@@ -1237,6 +1254,6 @@ class H5PWordPress implements H5PFrameworkInterface {
    * @return array
    */
   public function getLibraryConfig($libraries = NULL) {
-     return NULL;
+     return defined('H5P_LIBRARY_CONFIG') ? H5P_LIBRARY_CONFIG : NULL;
   }
 }

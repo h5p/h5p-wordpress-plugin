@@ -277,6 +277,7 @@ class H5P_Plugin {
       tutorial_url VARCHAR(1023) NOT NULL,
       has_icon INT UNSIGNED NOT NULL DEFAULT 0,
       metadata TINYINT UNSIGNED NOT NULL DEFAULT 1,
+      add_to TEXT DEFAULT NULL,
       PRIMARY KEY  (id),
       KEY name_version (name,major_version,minor_version,patch_version),
       KEY runnable (runnable)
@@ -1103,6 +1104,7 @@ class H5P_Plugin {
     $current_user = wp_get_current_user();
 
     $core = $this->get_h5p_instance('core');
+    $h5p = $this->get_h5p_instance('interface');
     $settings = array(
       'baseUrl' => get_site_url(),
       'url' => $this->get_h5p_url(),
@@ -1118,6 +1120,7 @@ class H5P_Plugin {
       ),
       'hubIsEnabled' => get_option('h5p_hub_is_enabled', TRUE) == TRUE,
       'reportingIsEnabled' => (get_option('h5p_enable_lrs_content_types', FALSE) === '1') ? TRUE : FALSE,
+      'libraryConfig' => $h5p->getLibraryConfig(),
       'crossorigin' => defined('H5P_CROSSORIGIN') ? H5P_CROSSORIGIN : null,
     );
 
