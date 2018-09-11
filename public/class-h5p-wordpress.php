@@ -263,6 +263,7 @@ class H5PWordPress implements H5PFrameworkInterface {
             'drop_library_css' => $dropLibraryCss,
             'semantics' => $library['semantics'],
             'has_icon' => $library['hasIcon'] ? 1 : 0,
+            'metadata'=> $library['metadata'] ? 1 : 0,
             'add_to' => isset($library['addTo']) ? json_encode($library['addTo']) : NULL
           ),
           array(
@@ -278,6 +279,7 @@ class H5PWordPress implements H5PFrameworkInterface {
             '%s',
             '%d',
             '%s',
+            '%d',
             '%d',
             '%s'
           )
