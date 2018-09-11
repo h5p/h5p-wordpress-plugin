@@ -1236,7 +1236,8 @@ class H5PWordPress implements H5PFrameworkInterface {
     return $wpdb->get_results(
        "SELECT l1.id as libraryId, l1.name as machineName,
               l1.major_version as majorVersion, l1.minor_version as minorVersion,
-              l1.patch_version as patchVersion, l1.add_to as addTo
+              l1.patch_version as patchVersion, l1.add_to as addTo,
+              l1.preloaded_js as preloadedJs, l1.preloaded_css as preloadedCss
         FROM {$wpdb->prefix}h5p_libraries AS l1
         LEFT JOIN {$wpdb->prefix}h5p_libraries AS l2
           ON l1.name = l2.name AND
