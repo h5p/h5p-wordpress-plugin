@@ -53,12 +53,26 @@ var ns = H5PEditor;
       $type.filter('input[value="create"]').attr('checked', true).change();
     }
 
-    $('#h5p-content-form').submit(function () {
+    $('#h5p-content-form').submit(function (event) {
       if (h5peditor !== undefined) {
         var params = h5peditor.getParams();
+
+        // Validate mandatory main title. Prevent submitting if that's not set.
+        // Deliberatly doing it after getParams(), so that any other validation
+        // problems are also revealed
+        if (!h5peditor.isMainTitleSet()) {
+          return event.preventDefault();
+        }
+
         if (params !== undefined) {
+          // Set main library
           $library.val(h5peditor.getLibrary());
+
+          // Set params
           $params.val(JSON.stringify(params));
+
+          // TODO - Calculate & set max score
+          // $maxscore.val(h5peditor.getMaxScore(params.params));
         }
       }
     });
