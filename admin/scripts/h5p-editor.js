@@ -1,3 +1,5 @@
+var ns = H5PEditor;
+
 (function ($) {
   H5PEditor.init = function () {
     H5PEditor.$ = H5P.jQuery;
