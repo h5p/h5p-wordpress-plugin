@@ -429,42 +429,23 @@ class H5PWordPress implements H5PFrameworkInterface {
 
     $metadata = (array)$content['metadata'];
     $table = $wpdb->prefix . 'h5p_contents';
-    $data = array(
+
+    $format = array();
+    $data = array_merge(\H5PMetadata::toDBArray($metadata, true, $format), array(
       'updated_at' => current_time('mysql', 1),
-      'title' => $metadata['title'], // TODO: Add validation error if title is missing...
       'parameters' => $content['params'],
       'embed_type' => 'div', // TODO: Determine from library?
       'library_id' => $content['library']['libraryId'],
       'filtered' => '',
-      'disable' => $content['disable'],
-      'authors' => empty($metadata['authors']) ? NULL : json_encode($metadata['authors']),
-      'source' => empty($metadata['source']) ? NULL : $metadata['source'],
-      'year_from' => empty($metadata['yearFrom']) ? NULL : $metadata['yearFrom'],
-      'year_to' => empty($metadata['yearTo']) ? NULL : $metadata['yearTo'],
-      'license' => empty($metadata['license']) ? NULL : $metadata['license'],
-      'license_version' => empty($metadata['licenseVersion']) ? NULL : $metadata['licenseVersion'],
-      'license_extras' => empty($metadata['licenseExtras']) ? NULL : $metadata['licenseExtras'],
-      'author_comments' => empty($metadata['authorComments']) ? NULL : $metadata['authorComments'],
-      'changes' => empty($metadata['changes']) ? NULL : json_encode($metadata['changes'])
-    );
-    $format = array(
-      '%s',
-      '%s',
-      '%s',
-      '%s',
-      '%d',
-      '%s',
-      '%d',
-      '%s',
-      '%s',
-      '%d',
-      '%d',
-      '%s',
-      '%s',
-      '%s',
-      '%s',
-      '%s',
-    );
+      'disable' => $content['disable']
+    ));
+
+    $format[] = '%s'; // updated_at
+    $format[] = '%s'; // parameters
+    $format[] = '%s'; // embed_type
+    $format[] = '%d'; // library_id
+    $format[] = '%s'; // filtered
+    $format[] = '%d'; // disable
 
     if (!isset($content['id'])) {
       // Insert new content

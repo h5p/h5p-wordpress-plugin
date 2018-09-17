@@ -20,6 +20,7 @@ function h5p_autoloader($class) {
       'H5PFileStorage' => 'h5p-php-library/h5p-file-storage.interface.php',
       'H5PDefaultStorage' => 'h5p-php-library/h5p-default-storage.class.php',
       'H5PEventBase' => 'h5p-php-library/h5p-event-base.class.php',
+      'H5PMetadata' => 'h5p-php-library/h5p-metadata.class.php',
 
       // Editor
       'H5peditor' => 'h5p-editor-php-library/h5peditor.class.php',
