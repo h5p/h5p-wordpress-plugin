@@ -1,3 +1,4 @@
+/* globals H5PDataView send_to_editor tb_remove tb_show */
 // Create content results data view
 (function ($) {
 
