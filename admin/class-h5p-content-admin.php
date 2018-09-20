@@ -442,7 +442,7 @@ class H5PContentAdmin {
 
     // Prepare form
     $library = $this->get_input('library', $contentExists ? H5PCore::libraryToString($this->content['library']) : 0);
-    $parameters = $this->get_input('parameters', $contentExists ? $core->filterParameters($this->content) : '{}');
+    $parameters = $this->get_input('parameters', '{"params":' . ($contentExists ? $core->filterParameters($this->content) : '{}') . ',"metadata":' . json_encode($this->content['metadata']) . '}');
 
     // Determine upload or create
     if (!$hubIsEnabled && !$contentExists && !$this->has_libraries()) {
@@ -453,9 +453,6 @@ class H5PContentAdmin {
       $upload = (filter_input(INPUT_POST, 'action') === 'upload');
       $examplesHint = FALSE;
     }
-
-    // Avoid decoding parameters again...
-    $parameters = '{"params":' . $parameters . ',"metadata":' . json_encode($this->content['metadata']) . '}';
 
     // Filter/escape parameters, double escape that is...
     $safe_text = wp_check_invalid_utf8($parameters);
