@@ -57,14 +57,14 @@ var ns = H5PEditor;
       if (h5peditor !== undefined) {
         var params = h5peditor.getParams();
 
-        // Validate mandatory main title. Prevent submitting if that's not set.
-        // Deliberatly doing it after getParams(), so that any other validation
-        // problems are also revealed
-        if (!h5peditor.isMainTitleSet()) {
-          return event.preventDefault();
-        }
-
-        if (params !== undefined) {
+        if (params.params !== undefined) {
+          // Validate mandatory main title. Prevent submitting if that's not set.
+          // Deliberatly doing it after getParams(), so that any other validation
+          // problems are also revealed
+          if (!h5peditor.isMainTitleSet()) {
+            return event.preventDefault();
+          }
+          
           // Set main library
           $library.val(h5peditor.getLibrary());
 
