@@ -246,6 +246,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     if (!isset($library['hasIcon'])) {
       $library['hasIcon'] = 0;
     }
+
     if ($new) {
       $wpdb->insert(
           $wpdb->prefix . 'h5p_libraries',
@@ -263,7 +264,7 @@ class H5PWordPress implements H5PFrameworkInterface {
             'drop_library_css' => $dropLibraryCss,
             'semantics' => $library['semantics'],
             'has_icon' => $library['hasIcon'] ? 1 : 0,
-            'metadata'=> $library['metadata'] ? 1 : 0,
+            'metadata_settings'=> $library['metadataSettings'],
             'add_to' => isset($library['addTo']) ? json_encode($library['addTo']) : NULL
           ),
           array(
@@ -300,6 +301,7 @@ class H5PWordPress implements H5PFrameworkInterface {
             'drop_library_css' => $dropLibraryCss,
             'semantics' => $library['semantics'],
             'has_icon' => $library['hasIcon'] ? 1 : 0,
+            'metadata_settings'=> $library['metadataSettings'],
             'add_to' => isset($library['addTo']) ? json_encode($library['addTo']) : NULL
           ),
           array('id' => $library['libraryId']),
