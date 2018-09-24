@@ -576,7 +576,7 @@ class H5PLibraryAdmin {
         $upgraded = json_decode($param);
 
         $format = array();
-        $fields = array_merge(\H5PMetadata::toDBArray($upgraded->metadata, true, $format), array(
+        $fields = array_merge(\H5PMetadata::toDBArray($upgraded->metadata, false, $format), array(
           'updated_at' => current_time('mysql', 1),
           'parameters' => json_encode($upgraded->params),
           'library_id' => $to_library->id,
