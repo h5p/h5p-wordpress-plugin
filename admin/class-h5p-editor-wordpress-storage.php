@@ -123,6 +123,9 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
         }
       }
 
+      // Convert from string to object
+      $library->metadataSettings = json_decode($library->metadataSettings);
+
       // Check to see if content type should be restricted
       $library->restricted = $super_user ? FALSE : ($library->restricted === '1' ? TRUE : FALSE);
 
