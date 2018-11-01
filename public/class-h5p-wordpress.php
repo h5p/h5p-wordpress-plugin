@@ -433,7 +433,7 @@ class H5PWordPress implements H5PFrameworkInterface {
     $table = $wpdb->prefix . 'h5p_contents';
 
     $format = array();
-    $data = array_merge(\H5PMetadata::toDBArray($metadata, true, $format), array(
+    $data = array_merge(\H5PMetadata::toDBArray($metadata, true, true, $format), array(
       'updated_at' => current_time('mysql', 1),
       'parameters' => $content['params'],
       'embed_type' => 'div', // TODO: Determine from library?
