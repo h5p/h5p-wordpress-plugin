@@ -68,50 +68,15 @@ class H5PPrivacyPolicy {
     );
 
     // Intentionally using no identifier here, as this is a WordPress headline.
-    $content = "<h2>" . __("What personal data we collect and why we collect it") . '</h2>';
-    $content .= "<h3>" . strtoupper(__($this->plugin_slug, $this->plugin_slug)) . "</h3>";
-    $content .= '<p style="font-weight: bold">';
-    $content .= __('Suggested text ("We" and "our" mean "you", not "us"!):', $this->plugin_slug);
-    $content .= "</p>";
-    $content .= "<p>";
-    $content .= sprintf(
-      __("We may process and store personal data about your interactions using %s.", $this->plugin_slug),
-      $link_xapi
-    ) . " ";
-    $content .= __("We use the data to learn about how well the interactions are designed and how it could be adapted to improve the usability and your learning outcomes.", $this->plugin_slug) . " ";
-    $content .= __("The data is processed and stored [on our platform|on an external platform] until further notice.");
-    $content .= "</p>";
-    $content .= "<p>";
-    $content .= __("We may store the results of your interactions on our platform until further notice.", $this->plugin_slug) . " ";
-    $content .= __("The results may contain your score, the maximum score possible, when you started, when you finished, and how much time you used.", $this->plugin_slug) . " ";
-    $content .= __("We use the results to learn about how well you performed and to help us give you feedback.", $this->plugin_slug);
-    $content .= "</p>";
-    $content .= "<p>";
-    $content .= __("We may store interactive content that you create on our platform.", $this->plugin_slug) . " ";
-    $content .= __("We also may send anonymized reports about content creation without any personal data to the plugin creators.", $this->plugin_slug) . " ";
-    $content .= sprintf(
-      __("Please consult the %s page for details.", $this->plugin_slug),
-      $link_h5p_tracking
-    );
-    $content .= "</p>";
-    $content .= "<p>";
-    $content .= __("If you use interactive content that contains a video that is hosted on YouTube, YouTube will set cookies on your computer.", $this->plugin_slug) . " ";
-    $content .= __("YouTube uses these cookies to help them and their partners to analyze the traffic to their websites.", $this->plugin_slug) . " ";
-    $content .= sprintf(
-      __("Please consult %s for details.", $this->plugin_slug),
-      $link_google
-    ) . " ";
-    $content .= __("It is our legitimate interest to use YouTube, because we we need their services for our interactive content and would not be able to provide you with the video content and features otherwise.", $this->plugin_slug);
-    $content .= "</p>";
-    $content .= "<p>";
-    $content .= __("If you use interactive content that contains a Twitter feed, Twitter will set a cookie on your computer.", $this->plugin_slug) . " ";
-    $content .= __("Twitter uses these cookies to help them and their partners to make their advertizing more relevant to you.", $this->plugin_slug) . " ";
-    $content .= sprintf(
-      __("Please consult %s for details.", $this->plugin_slug),
-      $link_twitter
-    ) . " ";
-    $content .= __("It is our legitimate interest to use Twitter, because we need their services for our interactive content and would not be able to provide you with it otherwise.", $this->plugin_slug);
-    $content .= "</p>";
+    $content  = '<h2>' . __("What personal data we collect and why we collect it") . '</h2>';
+    $content .= '<h3>' . strtoupper(__($this->plugin_slug, $this->plugin_slug)) . '</h3>';
+    $content .= '<p class="privacy-policy-tutorial"><strong>' . __('Suggested text ("We" and "our" mean "you", not "us"!):', $this->plugin_slug) . '</strong></p>';
+    $content .= '<p class="privacy-policy-tutorial">' . sprintf(__("We may process and store personal data about your interactions using %s. We use the data to learn about how well the interactions are designed and how it could be adapted to improve the usability and your learning outcomes. The data is processed and stored [on our platform|on an external platform] until further notice.", $this->plugin_slug), $link_xapi) . '</p>';
+    $content .= '<p class="privacy-policy-tutorial">' . __("We may store the results of your interactions on our platform until further notice. The results may contain your score, the maximum score possible, when you started, when you finished, and how much time you used. We use the results to learn about how well you performed and to help us give you feedback.", $this->plugin_slug) . '</p>';
+    $content .= '<p class="privacy-policy-tutorial">' . sprintf(__("We may store interactive content that you create on our platform. We also may send anonymized reports about content creation without any personal data to the plugin creators. Please consult the %s page for details.", $this->plugin_slug), $link_h5p_tracking) . '</p>';
+    $content .= '<p class="privacy-policy-tutorial">' . sprintf(__("If you use interactive content that contains a video that is hosted on YouTube, YouTube will set cookies on your computer. YouTube uses these cookies to help them and their partners to analyze the traffic to their websites. Please consult %s for details. It is our legitimate interest to use YouTube, because we we need their services for our interactive content and would not be able to provide you with their video content features otherwise.", $this->plugin_slug), $link_google) . '</p>';
+    $content .= '<p class="privacy-policy-tutorial">' . sprintf(__("If you use interactive content that contains a Twitter feed, Twitter will set a cookie on your computer. Twitter uses these cookies to help them and their partners to make their advertizing more relevant to you. Please consult %s for details. It is our legitimate interest to use Twitter, because we need their services for our interactive content and would not be able to provide you with it otherwise.", $this->plugin_slug), $link_twitter) . '</p>';
+    $content .= '<p class="privacy-policy-tutorial">' . sprintf(__("If you use interactive content that contains speech recognition, Google Cloud will process your voice for converting it to text. Please consult %s for details. It is our legitimate interest to use Google Cloud, because we we need their services for our interactive content and would not be able to provide you with speech recognition features otherwise.", $this->plugin_slug), $link_google) . '</p>';
 
     wp_add_privacy_policy_content($this->plugin_slug, wp_kses_post(wpautop($content, false)));
   }

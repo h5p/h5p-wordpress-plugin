@@ -291,7 +291,7 @@ class H5PContentAdmin {
    */
   public function process_new_content() {
     $plugin = H5P_Plugin::get_instance();
-    
+
     $consent = filter_input(INPUT_POST, 'consent', FILTER_VALIDATE_BOOLEAN);
     if ($consent !== NULL && !get_option('h5p_has_request_user_consent', FALSE) && current_user_can('manage_options')) {
       check_admin_referer('h5p_consent', 'can_has'); // Verify form
@@ -355,7 +355,6 @@ class H5PContentAdmin {
       elseif (isset($_FILES['h5p_file']) && $_FILES['h5p_file']['error'] === 0) {
         // Create new content if none exists
         $content = ($this->content === NULL ? array('disable' => H5PCore::DISABLE_NONE) : $this->content);
-        $content['title'] = $this->get_input_title();
         $content['uploaded'] = true;
         $this->get_disabled_content_features($core, $content);
 
@@ -442,9 +441,8 @@ class H5PContentAdmin {
     $core = $plugin->get_h5p_instance('core');
 
     // Prepare form
-    $title = $this->get_input('title', $contentExists ? $this->content['title'] : '');
     $library = $this->get_input('library', $contentExists ? H5PCore::libraryToString($this->content['library']) : 0);
-    $parameters = $this->get_input('parameters', $contentExists ? $core->filterParameters($this->content) : '{}');
+    $parameters = $this->get_input('parameters', '{"params":' . ($contentExists ? $core->filterParameters($this->content) : '{}') . ',"metadata":' . json_encode((object)$this->content['metadata']) . '}');
 
     // Determine upload or create
     if (!$hubIsEnabled && !$contentExists && !$this->has_libraries()) {
@@ -533,12 +531,6 @@ class H5PContentAdmin {
       return FALSE;
     }
 
-    // Get title
-    $content['title'] = $this->get_input_title();
-    if ($content['title'] === NULL) {
-      return FALSE;
-    }
-
     // Check parameters
     $content['params'] = $this->get_input('parameters');
     if ($content['params'] === NULL) {
@@ -550,6 +542,21 @@ class H5PContentAdmin {
       return FALSE;
     }
 
+    $content['params'] = json_encode($params->params);
+    $content['metadata'] = $params->metadata;
+
+    // Trim title and check length
+    $trimmed_title = empty($content['metadata']->title) ? '' : trim($content['metadata']->title);
+    if ($trimmed_title === '') {
+      H5P_Plugin_Admin::set_error(sprintf(__('Missing %s.', $this->plugin_slug), 'title'));
+      return FALSE;
+    }
+
+    if (strlen($trimmed_title) > 255) {
+      H5P_Plugin_Admin::set_error(__('Title is too long. Must be 256 letters or shorter.', $this->plugin_slug));
+      return FALSE;
+    }
+
     // Set disabled features
     $this->get_disabled_content_features($core, $content);
 
@@ -558,8 +565,7 @@ class H5PContentAdmin {
 
     // Move images and find all content dependencies
     $editor = $this->get_h5peditor_instance();
-    $editor->processParameters($content['id'], $content['library'], $params, $oldLibrary, $oldParams);
-    //$content['params'] = json_encode($params);
+    $editor->processParameters($content['id'], $content['library'], $params->params, $oldLibrary, $oldParams);
     return $content['id'];
   }
 
@@ -601,33 +607,6 @@ class H5PContentAdmin {
     }
 
     return $value;
-  }
-
-  /**
-   * Get input post data field title. Validates.
-   *
-   * @since 1.1.0
-   * @return string
-   */
-  public function get_input_title() {
-    $title = $this->get_input('title');
-    if ($title === NULL) {
-      return NULL;
-    }
-
-    // Trim title and check length
-    $trimmed_title = trim($title);
-    if ($trimmed_title === '') {
-      H5P_Plugin_Admin::set_error(sprintf(__('Missing %s.', $this->plugin_slug), 'title'));
-      return NULL;
-    }
-
-    if (strlen($trimmed_title) > 255) {
-      H5P_Plugin_Admin::set_error(__('Title is too long. Must be 256 letters or shorter.', $this->plugin_slug));
-      return NULL;
-    }
-
-    return $trimmed_title;
   }
 
   /**
@@ -994,6 +973,7 @@ class H5PContentAdmin {
       'ajaxPath' => admin_url('admin-ajax.php?token=' . wp_create_nonce('h5p_editor_ajax') . '&action=h5p_'),
       'libraryUrl' => plugin_dir_url('h5p/h5p-editor-php-library/h5peditor.class.php'),
       'copyrightSemantics' => $content_validator->getCopyrightSemantics(),
+      'metadataSemantics' => $content_validator->getMetadataSemantics(),
       'assets' => $assets,
       'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug),
       'apiVersion' => H5PCore::$coreApi

@@ -484,9 +484,9 @@ class H5PLibraryAdmin {
     $start = microtime(TRUE);
 
     $contents = $wpdb->get_results(
-        "SELECT id
-          FROM {$wpdb->prefix}h5p_contents
-          WHERE filtered = ''"
+      "SELECT id
+        FROM {$wpdb->prefix}h5p_contents
+        WHERE filtered = ''"
     );
 
     $done = 0;
@@ -552,10 +552,10 @@ class H5PLibraryAdmin {
 
     // Get the library we're upgrading to
     $to_library = $wpdb->get_row($wpdb->prepare(
-        "SELECT id, name, major_version, minor_version
-          FROM {$wpdb->prefix}h5p_libraries
-          WHERE id = %d",
-        filter_input(INPUT_POST, 'libraryId')
+      "SELECT id, name, major_version, minor_version
+        FROM {$wpdb->prefix}h5p_libraries
+        WHERE id = %d",
+      filter_input(INPUT_POST, 'libraryId')
     ));
     if (!$to_library) {
       print __('Error, invalid library!', $this->plugin_slug);
@@ -573,32 +573,33 @@ class H5PLibraryAdmin {
       // Update params.
       $params = json_decode($params);
       foreach ($params as $id => $param) {
+        $upgraded = json_decode($param);
+
+        $format = array();
+        $fields = array_merge(\H5PMetadata::toDBArray($upgraded->metadata, false, false, $format), array(
+          'updated_at' => current_time('mysql', 1),
+          'parameters' => json_encode($upgraded->params),
+          'library_id' => $to_library->id,
+          'filtered' => ''
+        ));
+
+        $format[] = '%s'; // updated_at
+        $format[] = '%s'; // parameters
+        $format[] = '%d'; // library_id
+        $format[] = '%s'; // filtered
+
         $wpdb->update(
-            $wpdb->prefix . 'h5p_contents',
-            array(
-              'updated_at' => current_time('mysql', 1),
-              'parameters' => $param,
-              'library_id' => $to_library->id,
-              'filtered' => ''
-            ),
-            array(
-              'id' => $id
-            ),
-            array(
-              '%s',
-              '%s',
-              '%d',
-              '%s'
-            ),
-            array(
-              '%d'
-            )
+          $wpdb->prefix . 'h5p_contents',
+          $fields,
+          array('id' => $id),
+          $format,
+          array('%d')
         );
 
         // Log content upgrade successful
         new H5P_Event('content', 'upgrade',
-            $id, $wpdb->get_var($wpdb->prepare("SELECT title FROM {$wpdb->prefix}h5p_contents WHERE id = %d", $id)),
-            $to_library->name, $to_library->major_version . '.' . $to_library->minor_version);
+          $id, $wpdb->get_var($wpdb->prepare("SELECT title FROM {$wpdb->prefix}h5p_contents WHERE id = %d", $id)),
+          $to_library->name, $to_library->major_version . '.' . $to_library->minor_version);
       }
     }
 
@@ -610,16 +611,20 @@ class H5PLibraryAdmin {
     $out->left = $interface->getNumContent($library_id);
 
     if ($out->left) {
-      // Find the 10 first contents using library and add to params
+      // Find the 40 first contents using library and add to params
       $contents = $wpdb->get_results($wpdb->prepare(
-          "SELECT id, parameters
+          "SELECT id, parameters AS params, title, authors, source, license,
+                  license_version, license_extras, year_from, year_to, changes,
+                  author_comments
             FROM {$wpdb->prefix}h5p_contents
             WHERE library_id = %d
             LIMIT 40",
           $library_id
       ));
       foreach ($contents as $content) {
-        $out->params[$content->id] = $content->parameters;
+        $out->params[$content->id] =
+          '{"params":' . $content->params .
+          ',"metadata":' . \H5PMetadata::toJSON($content) . '}';
       }
     }
 

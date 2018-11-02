@@ -1,3 +1,5 @@
+var ns = H5PEditor;
+
 (function ($) {
   H5PEditor.init = function () {
     H5PEditor.$ = H5P.jQuery;
@@ -9,6 +11,7 @@
 
     // Semantics describing what copyright information can be stored for media.
     H5PEditor.copyrightSemantics = H5PIntegration.editor.copyrightSemantics;
+    H5PEditor.metadataSemantics = H5PIntegration.editor.metadataSemantics;
 
     // Required styles and scripts for the editor
     H5PEditor.assets = H5PIntegration.editor.assets;
@@ -50,12 +53,26 @@
       $type.filter('input[value="create"]').attr('checked', true).change();
     }
 
-    $('#h5p-content-form').submit(function () {
+    $('#h5p-content-form').submit(function (event) {
       if (h5peditor !== undefined) {
         var params = h5peditor.getParams();
-        if (params !== undefined) {
+
+        if (params.params !== undefined) {
+          // Validate mandatory main title. Prevent submitting if that's not set.
+          // Deliberatly doing it after getParams(), so that any other validation
+          // problems are also revealed
+          if (!h5peditor.isMainTitleSet()) {
+            return event.preventDefault();
+          }
+          
+          // Set main library
           $library.val(h5peditor.getLibrary());
+
+          // Set params
           $params.val(JSON.stringify(params));
+
+          // TODO - Calculate & set max score
+          // $maxscore.val(h5peditor.getMaxScore(params.params));
         }
       }
     });
