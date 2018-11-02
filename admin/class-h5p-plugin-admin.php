@@ -555,7 +555,13 @@ class H5P_Plugin_Admin {
     rename($_FILES['h5p_file']['tmp_name'], $interface->getUploadedH5pPath());
 
     $skipContent = ($content === NULL);
-    if ($validator->isValidPackage($skipContent, $only_upgrade) && ($skipContent || $content['title'] !== NULL)) {
+    if ($validator->isValidPackage($skipContent, $only_upgrade)) {
+
+      if (!$skipContent && (empty($content['metadata']) || empty($content['metadata']['title']))) {
+        // Fix for legacy content upload to work.
+        // Fetch title from h5p.json or use a default string if not available
+        $content['metadata']['title'] = empty($validator->h5pC->mainJsonData['title']) ? 'Uploaded Content' : $validator->h5pC->mainJsonData['title'];
+      }
 
       if (function_exists('check_upload_size')) {
         // Check file sizes before continuing!
