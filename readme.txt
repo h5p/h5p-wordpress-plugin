@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 5.0
-Stable tag: 1.11.0
+Stable tag: 1.11.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -403,3 +403,6 @@ Added brazilian portuguese translation in H5PEditor. Big thanks to Juliano Navro
 Updated Turkish translations in H5PEditor. Big thanks to Adem Özgür
 Fix appropriate separator for AJAX URLs in H5PEditor. Big thanks to Miika Langille
 Minor bug fixes and improvements to H5PEditor and Core
+
+= 1.11.1 =
+Fixed serious bug when loading editor translations for some languages.
