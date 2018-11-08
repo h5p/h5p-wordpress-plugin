@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 5.0
-Stable tag: 1.11.1
+Stable tag: 1.11.2
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -406,3 +406,6 @@ Minor bug fixes and improvements to H5PEditor and Core
 
 = 1.11.1 =
 Fixed serious bug when loading editor translations for some languages.
+
+= 1.11.2 =
+Fix compatibility with PHP <5.4
