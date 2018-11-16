@@ -99,6 +99,9 @@ class H5P_Plugin {
 
     // Add menu options to admin bar.
     add_action('admin_bar_menu', array($this, 'admin_bar'), 999);
+
+    // REST API
+    add_action('rest_api_init', array($this, 'rest_api_init'));
   }
 
   /**
@@ -1304,5 +1307,128 @@ class H5P_Plugin {
         DELETE FROM {$wpdb->prefix}h5p_events
 		          WHERE created_at < %d
         ", $older_than));
+  }
+
+  /**
+   * Defines REST API callbacks
+   *
+   * @since 1.11.3
+   */
+  public function rest_api_init() {
+    register_rest_route('h5p/v1', '/post/(?P<id>\d+)', array(
+      'methods' => 'GET',
+      'callback' => array($this, 'rest_api_post'),
+      'args' => array(
+        'id' => array(
+          'validate_callback' => function ($param, $request, $key) {
+            return $param == intval($param);
+          }
+        ),
+      ),
+      'permission_callback' => function () {
+        return apply_filters('h5p_rest_api_post_permission', current_user_can('edit_others_h5p_contents'));
+      }
+    ) );
+  }
+
+  /**
+   * REST API callback for getting H5Ps used in post.
+   *
+   * @since 1.11.3
+   * @param WP_REST_Request $request
+   * @return array with objects containing 'id' and 'url'
+   */
+  public function rest_api_post(WP_REST_Request $request) {
+    global $wpdb;
+
+    // Find post + check export
+    $post = get_post($request->get_param('id'));
+    if (empty($post) || !get_option('h5p_export', TRUE)) {
+      return array(); // Post not found or export not enabled.
+    }
+
+    // Find all 'h5p' shortcodes in the post
+    $ids = array();
+    $matches = array();
+    $pattern = get_shortcode_regex();
+    if (preg_match_all('/' . $pattern . '/s', $post->post_content, $matches) && array_key_exists(2, $matches) && in_array('h5p', $matches[2])) {
+      foreach ($matches[2] as $key => $type) {
+        if ($type !== 'h5p') {
+          continue;
+        }
+
+        $attr = shortcode_parse_atts($matches[3][$key]);
+        if (intval($attr['id']) == $attr['id']) {
+          $ids[] = $attr['id'];
+        }
+      }
+    }
+
+    // Look up H5P IDs
+    $results = $wpdb->get_results(
+      "SELECT hc.id,
+              hc.slug
+        FROM {$wpdb->prefix}h5p_contents hc
+        WHERE id IN (" . implode(',', $ids) . ")"
+    );
+
+    // Format output
+    $data = array();
+    foreach ($results as $h5p) {
+      $data[] = (object) array(
+        'id' => $h5p->id,
+        'url' => $this->get_h5p_url(true) . '/exports/' . ($h5p->slug ? $h5p->slug . '-' : '') . $h5p->id . '.h5p'
+      );
+    }
+    return $data;
+  }
+
+  /**
+   * Download and add H5P content from given url.
+   *
+   * NOTE: Be sure to check the user's permission before calling this function!
+   * NOTE: Will not check disk quotas before adding content.
+   *
+   * @since 1.11.3
+   * @param string $url
+   * @return int ID of new content
+   */
+  public function fetch_h5p($url) {
+    // Override core permission checks
+    $core = $this->get_h5p_instance('core');
+    $core->mayUpdateLibraries(TRUE);
+
+    // Download .h5p file
+    $path = $core->h5pF->getUploadedH5pPath();
+    $response = $core->h5pF->fetchExternalData($url, NULL, TRUE, empty($path) ? TRUE : $path);
+    if (!$response) {
+      throw new Exception('Unable to download .h5p file');
+    }
+
+    // Validate file
+    $validator = $this->get_h5p_instance('validator');
+    if (!$validator->isValidPackage()) {
+      @unlink($core->h5pF->getUploadedH5pPath());
+      throw new Exception('Failed validating .h5p file');
+    }
+
+    // Create content
+    $content = array(
+      'disable' => H5PCore::DISABLE_NONE,
+      'metadata' => array(
+        // Fetch title from h5p.json or use a default string if not available
+        'title' => empty($validator->h5pC->mainJsonData['title']) ? 'Uploaded Content' : $validator->h5pC->mainJsonData['title']
+      )
+    );
+
+    // Save content
+    $storage = new H5PStorage($core->h5pF, $core);
+    $storage->savePackage($content);
+
+    // Clear cached value for dirsize.
+    delete_transient('dirsize_cache');
+
+    // Return new content ID
+    return $storage->contentId;
   }
 }
