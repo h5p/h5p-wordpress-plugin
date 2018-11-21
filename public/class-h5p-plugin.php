@@ -1325,10 +1325,24 @@ class H5P_Plugin {
           }
         ),
       ),
-      'permission_callback' => function () {
-        return apply_filters('h5p_rest_api_post_permission', current_user_can('edit_others_h5p_contents'));
-      }
-    ) );
+      'permission_callback' => array($this, 'rest_api_permission')
+    ));
+
+    register_rest_route('h5p/v1', 'all', array(
+      'methods' => 'GET',
+      'callback' => array($this, 'rest_api_all'),
+      'permission_callback' => array($this, 'rest_api_permission')
+    ));
+  }
+
+  /**
+   * REST API permission callback.
+   *
+   * @since 1.11.3
+   * @return boolean
+   */
+  public function rest_api_permission() {
+    return apply_filters('h5p_rest_api_all_permission', current_user_can('edit_others_h5p_contents'));
   }
 
   /**
@@ -1339,8 +1353,6 @@ class H5P_Plugin {
    * @return array with objects containing 'id' and 'url'
    */
   public function rest_api_post(WP_REST_Request $request) {
-    global $wpdb;
-
     // Find post + check export
     $post = get_post($request->get_param('id'));
     if (empty($post) || !get_option('h5p_export', TRUE)) {
@@ -1364,20 +1376,56 @@ class H5P_Plugin {
       }
     }
 
+    return $this->get_h5p_exports_list($ids);
+  }
+
+  /**
+   * REST API callback for getting all H5Ps.
+   *
+   * NOTE: No pagination or limit.
+   *
+   * @since 1.11.3
+   * @param WP_REST_Request $request
+   * @return array with objects containing 'id' and 'url'
+   */
+  public function rest_api_all(WP_REST_Request $request) {
+    // Check export
+    if (!get_option('h5p_export', TRUE)) {
+      return array(); // Export not enabled.
+    }
+
+    return $this->get_h5p_exports_list();
+  }
+
+  /**
+   * Get list of H5Ps with ID and download URL.
+   *
+   * @since 1.11.3
+   * @param array $ids=NULL
+   * @return array with objects containing id,url
+   */
+  public function get_h5p_exports_list($ids = NULL) {
+    global $wpdb;
+
+    // Determine where part of SQL
+    $where = ($ids ? "WHERE id IN (" . implode(',', $ids) . ")"  : '');
+
     // Look up H5P IDs
     $results = $wpdb->get_results(
       "SELECT hc.id,
               hc.slug
         FROM {$wpdb->prefix}h5p_contents hc
-        WHERE id IN (" . implode(',', $ids) . ")"
+             {$where}"
     );
 
     // Format output
     $data = array();
+    $baseurl = $this->get_h5p_url(true);
     foreach ($results as $h5p) {
+      $slug = ($h5p->slug ? $h5p->slug . '-' : '');
       $data[] = (object) array(
         'id' => $h5p->id,
-        'url' => $this->get_h5p_url(true) . '/exports/' . ($h5p->slug ? $h5p->slug . '-' : '') . $h5p->id . '.h5p'
+        'url' => "{$baseurl}/exports/{$slug}{$h5p->id}.h5p"
       );
     }
     return $data;
