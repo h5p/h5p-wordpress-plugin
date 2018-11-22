@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 5.0
-Stable tag: 1.11.2
+Stable tag: 1.11.3
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -409,3 +409,8 @@ Fixed serious bug when loading editor translations for some languages.
 
 = 1.11.2 =
 Fix compatibility with PHP <5.4
+
+= 1.11.3 =
+Fix "common fields" issue when switching between content types.
+Fix resizing bug for iframe embeds.
+Fix issue with temporary files.
