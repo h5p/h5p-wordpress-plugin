@@ -1376,7 +1376,7 @@ class H5P_Plugin {
       }
     }
 
-    return $this->get_h5p_exports_list($ids);
+    return rest_ensure_response($this->get_h5p_exports_list($ids));
   }
 
   /**
@@ -1394,7 +1394,7 @@ class H5P_Plugin {
       return array(); // Export not enabled.
     }
 
-    return $this->get_h5p_exports_list();
+    return rest_ensure_response($this->get_h5p_exports_list());
   }
 
   /**
@@ -1423,7 +1423,7 @@ class H5P_Plugin {
     $baseurl = $this->get_h5p_url(true);
     foreach ($results as $h5p) {
       $slug = ($h5p->slug ? $h5p->slug . '-' : '');
-      $data[] = (object) array(
+      $data[] = array(
         'id' => $h5p->id,
         'url' => "{$baseurl}/exports/{$slug}{$h5p->id}.h5p"
       );
