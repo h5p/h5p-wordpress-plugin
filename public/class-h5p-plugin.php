@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.11.2';
+  const VERSION = '1.11.3';
 
   /**
    * The Unique identifier for this plugin.
@@ -446,6 +446,8 @@ class H5P_Plugin {
     $pre_1102 = ($v->major < 1 || ($v->major === 1 && $v->minor < 10) ||
                  ($v->major === 1 && $v->minor === 10 && $v->patch < 2)); // < 1.10.2
     $pre_1110 = ($v->major < 1 || ($v->major === 1 && $v->minor < 11)); // < 1.11.0
+    $pre_1113 = ($v->major < 1 || ($v->major === 1 && $v->minor < 11) ||
+                 ($v->major === 1 && $v->minor === 11 && $v->patch < 3)); // < 1.11.3
 
     // Run version specific updates
     if ($pre_120) {
@@ -472,6 +474,14 @@ class H5P_Plugin {
       self::drop_column("{$wpdb->prefix}h5p_contents", 'author');
       self::drop_column("{$wpdb->prefix}h5p_contents", 'keywords');
       self::drop_column("{$wpdb->prefix}h5p_contents", 'description');
+    }
+
+    if ($pre_1113 && !$pre_1110) { // 1.11.0, 1.11.1 or 1.11.2
+      // There are no tmpfiles in content folders, cleanup
+      $wpdb->query($wpdb->prepare(
+          "DELETE FROM {$wpdb->prefix}h5p_tmpfiles
+            WHERE path LIKE '%s'",
+          "%/h5p/content/%"));
     }
 
     // Keep track of which version of the plugin we have.
