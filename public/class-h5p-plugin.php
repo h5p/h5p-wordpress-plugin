@@ -102,6 +102,9 @@ class H5P_Plugin {
 
     // REST API
     add_action('rest_api_init', array($this, 'rest_api_init'));
+
+    // Removes all H5P data for this blog
+    add_action('delete_blog', array($this, 'delete_blog'));
   }
 
   /**
@@ -1489,5 +1492,110 @@ class H5P_Plugin {
 
     // Return new content ID
     return $storage->contentId;
+  }
+
+  /**
+   * Removes all H5P data for the given blog
+   *
+   * @since 1.11.4
+   * @param int $blog_id
+   */
+  public function delete_blog($blog_id) {
+    $original_blog_id = get_current_blog_id();
+    switch_to_blog($blog_id);
+    self::uninstall();
+    switch_to_blog($original_blog_id);
+  }
+
+  /**
+   * WARNING! Removes all H5P data for the current site/blog.
+   *
+   * @since 1.11.4
+   */
+  public static function uninstall() {
+    global $wpdb;
+
+    // Drop tables
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents");
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents_libraries");
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents_user_data");
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_contents_tags");
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_tags");
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_results");
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries");
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_libraries");
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_languages");
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_libraries_cachedassets");
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_counters");
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_events");
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_tmpfiles");
+
+    // Remove settings
+    delete_option('h5p_version');
+    delete_option('h5p_frame');
+    delete_option('h5p_export');
+    delete_option('h5p_embed');
+    delete_option('h5p_copyright');
+    delete_option('h5p_icon');
+    delete_option('h5p_track_user');
+    delete_option('h5p_minitutorial');
+    delete_option('h5p_library_updates');
+    delete_option('h5p_ext_communication');
+    delete_option('h5p_save_content_state');
+    delete_option('h5p_save_content_frequency');
+    delete_option('h5p_update_available');
+    delete_option('h5p_current_update');
+    delete_option('h5p_update_available_path');
+    delete_option('h5p_insert_method');
+    delete_option('h5p_last_info_print');
+    delete_option('h5p_multisite_capabilities');
+    delete_option('h5p_site_type');
+    delete_option('h5p_enable_lrs_content_types');
+    delete_option('h5p_site_key');
+    delete_option('h5p_content_type_cache_updated_at');
+    delete_option('h5p_check_h5p_requirements');
+    delete_option('h5p_hub_is_enabled');
+    delete_option('h5p_send_usage_statistics');
+    delete_option('h5p_has_request_user_consent');
+
+    // Clean out file dirs.
+    $upload_dir = wp_upload_dir();
+    $path = $upload_dir['basedir'] . '/h5p';
+
+    // Remove these regardless of their content.
+    foreach (array('tmp', 'temp', 'libraries', 'content', 'exports', 'editor', 'cachedassets') as $directory) {
+      self::recursive_unlink($path . '/' . $directory);
+    }
+
+    // Only remove development dir if it's empty.
+    $dir = $path . '/development';
+    if (is_dir($dir) && count(scandir($dir)) === 2) {
+      rmdir($dir);
+    }
+
+    // Remove parent if empty.
+    if (is_dir($path) && count(scandir($path)) === 2) {
+      rmdir($path);
+    }
+  }
+
+  /**
+  * Recursively remove file or directory.
+  *
+  * @since 1.11.4
+  * @param string $file
+  */
+  public static function recursive_unlink($file) {
+    if (is_dir($file)) {
+      // Remove all files in dir.
+      $subfiles = array_diff(scandir($file), array('.','..'));
+      foreach ($subfiles as $subfile)  {
+        self::recursive_unlink($file . '/' . $subfile);
+      }
+      rmdir($file);
+    }
+    elseif (file_exists($file)) {
+      unlink($file);
+    }
   }
 }
