@@ -46,17 +46,17 @@ class H5P_Plugin {
    * Instance of H5P WordPress Framework Interface.
    *
    * @since 1.0.0
-   * @var \H5PWordPress
+   * @var \H5PWordPress[]
    */
-  protected static $interface = null;
+  protected static $interface = array();
 
   /**
    * Instance of H5P Core.
    *
    * @since 1.0.0
-   * @var \H5PCore
+   * @var \H5PCore[]
    */
-  protected static $core = null;
+  protected static $core = array();
 
   /**
    * JavaScript settings to add for H5Ps.
@@ -783,26 +783,27 @@ class H5P_Plugin {
    * @return \H5PWordPress|\H5PCore|\H5PContentValidator|\H5PExport|\H5PStorage|\H5PValidator
    */
   public function get_h5p_instance($type) {
-    if (self::$interface === null) {
-      self::$interface = new H5PWordPress();
+    $id = get_current_blog_id();
+    if (empty(self::$interface[$id])) {
+      self::$interface[$id] = new H5PWordPress();
       $language = $this->get_language();
-      self::$core = new H5PCore(self::$interface, $this->get_h5p_path(), $this->get_h5p_url(), $language, get_option('h5p_export', TRUE));
-      self::$core->aggregateAssets = !(defined('H5P_DISABLE_AGGREGATION') && H5P_DISABLE_AGGREGATION === true);
+      self::$core[$id] = new H5PCore(self::$interface[$id], $this->get_h5p_path(), $this->get_h5p_url(), $language, get_option('h5p_export', TRUE));
+      self::$core[$id]->aggregateAssets = !(defined('H5P_DISABLE_AGGREGATION') && H5P_DISABLE_AGGREGATION === true);
     }
 
     switch ($type) {
       case 'validator':
-        return new H5PValidator(self::$interface, self::$core);
+        return new H5PValidator(self::$interface[$id], self::$core[$id]);
       case 'storage':
-        return new H5PStorage(self::$interface, self::$core);
+        return new H5PStorage(self::$interface[$id], self::$core[$id]);
       case 'contentvalidator':
-        return new H5PContentValidator(self::$interface, self::$core);
+        return new H5PContentValidator(self::$interface[$id], self::$core[$id]);
       case 'export':
-        return new H5PExport(self::$interface, self::$core);
+        return new H5PExport(self::$interface[$id], self::$core[$id]);
       case 'interface':
-        return self::$interface;
+        return self::$interface[$id];
       case 'core':
-        return self::$core;
+        return self::$core[$id];
     }
   }
 
