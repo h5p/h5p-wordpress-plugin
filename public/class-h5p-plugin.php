@@ -735,24 +735,28 @@ class H5P_Plugin {
    */
   public function get_h5p_url($absolute = FALSE) {
     static $url;
-
     if (!$url) {
+      $url = array();
+    }
+
+    $id = get_current_blog_id();
+    if (empty($url[$id])) {
       $upload_dir = wp_upload_dir();
 
       // Absolute urls are used to enqueue assets.
-      $url = array('abs' => $upload_dir['baseurl'] . '/h5p');
+      $url[$id] = array('abs' => $upload_dir['baseurl'] . '/h5p');
 
       // Relative URLs are used to support both http and https in iframes.
-      $url['rel'] = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $url['abs']);
+      $url[$id]['rel'] = '/' . preg_replace('/^[^:]+:\/\/[^\/]+\//', '', $url[$id]['abs']);
 
       // Check for HTTPS
-      if (is_ssl() && substr($url['abs'], 0, 5) !== 'https') {
+      if (is_ssl() && substr($url[$id]['abs'], 0, 5) !== 'https') {
         // Update protocol
-        $url['abs'] = 'https' . substr($url['abs'], 4);
+        $url[$id]['abs'] = 'https' . substr($url[$id]['abs'], 4);
       }
     }
 
-    return $absolute ? $url['abs'] : $url['rel'];
+    return $absolute ? $url[$id]['abs'] : $url[$id]['rel'];
   }
 
   /**
