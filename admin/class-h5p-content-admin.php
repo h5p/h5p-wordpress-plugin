@@ -560,8 +560,14 @@ class H5PContentAdmin {
     // Set disabled features
     $this->get_disabled_content_features($core, $content);
 
-    // Save new content
-    $content['id'] = $core->saveContent($content);
+    try {
+      // Save new content
+      $content['id'] = $core->saveContent($content);
+    }
+    catch (Exception $e) {
+      H5P_Plugin_Admin::set_error($e->getMessage());
+      return;
+    }
 
     // Move images and find all content dependencies
     $editor = $this->get_h5peditor_instance();
