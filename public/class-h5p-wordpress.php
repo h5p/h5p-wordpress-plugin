@@ -845,13 +845,15 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements getNumContent().
    */
-  public function getNumContent($library_id) {
+  public function getNumContent($library_id, $skip = NULL) {
     global $wpdb;
+    $skip_query = empty($skip) ? '' : " AND id NOT IN ($skip)";
 
     return (int) $wpdb->get_var($wpdb->prepare(
       "SELECT COUNT(id)
-        FROM {$wpdb->prefix}h5p_contents
-        WHERE library_id = %d",
+         FROM {$wpdb->prefix}h5p_contents
+        WHERE library_id = %d
+              {$skip_query}",
       $library_id
     ));
   }
