@@ -441,6 +441,7 @@ class H5PLibraryAdmin {
         'errorContent' => __('Could not upgrade content %id:', $this->plugin_slug),
         'errorScript' => __('Could not load upgrades script for %lib.', $this->plugin_slug),
         'errorParamsBroken' => __('Parameters are broken.', $this->plugin_slug),
+        'errorLibrary' => __('Missing required library %lib.', $this->plugin_slug),
         'errorTooHighVersion' => __('Parameters contain %used while only %supported or earlier are supported.', $this->plugin_slug),
         'errorNotSupported' => __('Parameters contain %used which is not supported.', $this->plugin_slug),
         'done' => sprintf(__('You have successfully upgraded %s.', $this->plugin_slug), $contents_plural) . ($return ? '<br/><a href="' . $return . '">' . __('Return', $this->plugin_slug) . '</a>' : ''),
@@ -688,10 +689,6 @@ class H5PLibraryAdmin {
     $core = $plugin->get_h5p_instance('core');
 
     $library->semantics = $core->loadLibrarySemantics($library->name, $library->version->major, $library->version->minor);
-    if ($library->semantics === NULL) {
-      print __('Error, could not library semantics!', $this->plugin_slug);
-      exit;
-    }
 
     // TODO: Library development mode
 //    if ($core->development_mode & H5PDevelopment::MODE_LIBRARY) {
