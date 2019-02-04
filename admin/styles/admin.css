@@ -232,6 +232,9 @@
 .no-content-types-hint > p {
   font-size: 1.125em
 }
+.content-upgrade-log {
+  color: red;
+}
 
 @media screen and (max-width: 782px) {
   .wrap h2 {

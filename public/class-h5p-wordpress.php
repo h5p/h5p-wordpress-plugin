@@ -845,13 +845,15 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements getNumContent().
    */
-  public function getNumContent($library_id) {
+  public function getNumContent($library_id, $skip = NULL) {
     global $wpdb;
+    $skip_query = empty($skip) ? '' : " AND id NOT IN ($skip)";
 
     return (int) $wpdb->get_var($wpdb->prepare(
       "SELECT COUNT(id)
-        FROM {$wpdb->prefix}h5p_contents
-        WHERE library_id = %d",
+         FROM {$wpdb->prefix}h5p_contents
+        WHERE library_id = %d
+              {$skip_query}",
       $library_id
     ));
   }
@@ -1241,5 +1243,24 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function getLibraryConfig($libraries = NULL) {
      return defined('H5P_LIBRARY_CONFIG') ? H5P_LIBRARY_CONFIG : NULL;
+  }
+
+  /**
+   * Implements libraryHasUpgrade
+   */
+  public function libraryHasUpgrade($library) {
+    global $wpdb;
+
+    return $wpdb->get_var($wpdb->prepare(
+        "SELECT id
+          FROM {$wpdb->prefix}h5p_libraries
+          WHERE name = '%s'
+          AND (major_version > %d
+               OR (major_version = %d AND minor_version > %d))",
+        $library['machineName'],
+        $library['majorVersion'],
+        $library['majorVersion'],
+        $library['minorVersion']
+    )) !== NULL;
   }
 }

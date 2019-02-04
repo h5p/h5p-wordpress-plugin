@@ -1143,6 +1143,8 @@ class H5P_Plugin {
       'reportingIsEnabled' => (get_option('h5p_enable_lrs_content_types', FALSE) === '1') ? TRUE : FALSE,
       'libraryConfig' => $h5p->getLibraryConfig(),
       'crossorigin' => defined('H5P_CROSSORIGIN') ? H5P_CROSSORIGIN : null,
+      'pluginCacheBuster' => '?v=' . self::VERSION,
+      'libraryUrl' => plugins_url('h5p/h5p-php-library/js')
     );
 
     if ($current_user->ID) {

@@ -441,6 +441,9 @@ class H5PLibraryAdmin {
         'errorContent' => __('Could not upgrade content %id:', $this->plugin_slug),
         'errorScript' => __('Could not load upgrades script for %lib.', $this->plugin_slug),
         'errorParamsBroken' => __('Parameters are broken.', $this->plugin_slug),
+        'errorLibrary' => __('Missing required library %lib.', $this->plugin_slug),
+        'errorTooHighVersion' => __('Parameters contain %used while only %supported or earlier are supported.', $this->plugin_slug),
+        'errorNotSupported' => __('Parameters contain %used which is not supported.', $this->plugin_slug),
         'done' => sprintf(__('You have successfully upgraded %s.', $this->plugin_slug), $contents_plural) . ($return ? '<br/><a href="' . $return . '">' . __('Return', $this->plugin_slug) . '</a>' : ''),
         'library' => array(
           'name' => $library->name,
@@ -603,23 +606,41 @@ class H5PLibraryAdmin {
       }
     }
 
+    // Determine if any content has been skipped during the process
+    $skipped = filter_input(INPUT_POST, 'skipped');
+    if ($skipped !== NULL) {
+      $out->skipped = json_decode($skipped);
+
+      // Clean up input, only numbers
+      foreach ($skipped as $i => $id) {
+        $skipped[$i] = intval($id);
+      }
+      $skipped = implode(',', $out->skipped);
+    }
+    else {
+      $out->skipped = array();
+    }
+
     // Prepare our interface
     $plugin = H5P_Plugin::get_instance();
     $interface = $plugin->get_h5p_instance('interface');
 
     // Get number of contents for this library
-    $out->left = $interface->getNumContent($library_id);
+    $out->left = $interface->getNumContent($library_id, $skipped);
 
     if ($out->left) {
+      $skip_query = empty($skipped) ? '' : " AND id NOT IN ($skipped)";
+
       // Find the 40 first contents using library and add to params
       $contents = $wpdb->get_results($wpdb->prepare(
-          "SELECT id, parameters AS params, title, authors, source, license,
-                  license_version, license_extras, year_from, year_to, changes,
-                  author_comments
-            FROM {$wpdb->prefix}h5p_contents
-            WHERE library_id = %d
-            LIMIT 40",
-          $library_id
+        "SELECT id, parameters AS params, title, authors, source, license,
+                license_version, license_extras, year_from, year_to, changes,
+                author_comments
+           FROM {$wpdb->prefix}h5p_contents
+          WHERE library_id = %d
+                {$skip_query}
+          LIMIT 40",
+        $library_id
       ));
       foreach ($contents as $content) {
         $out->params[$content->id] =
@@ -668,10 +689,6 @@ class H5PLibraryAdmin {
     $core = $plugin->get_h5p_instance('core');
 
     $library->semantics = $core->loadLibrarySemantics($library->name, $library->version->major, $library->version->minor);
-    if ($library->semantics === NULL) {
-      print __('Error, could not library semantics!', $this->plugin_slug);
-      exit;
-    }
 
     // TODO: Library development mode
 //    if ($core->development_mode & H5PDevelopment::MODE_LIBRARY) {
