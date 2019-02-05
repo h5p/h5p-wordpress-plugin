@@ -523,6 +523,11 @@ class H5PContentAdmin {
       $core->h5pF->setErrorMessage(__('Invalid library.', $this->plugin_slug));
       return FALSE;
     }
+    if ($core->h5pF->libraryHasUpgrade($content['library'])) {
+      // We do not allow storing old content due to security concerns
+      $core->h5pF->setErrorMessage(__('Something unexpected happened. We were unable to save this content.', $this->plugin_slug));
+      return FALSE;
+    }
 
     // Check if library exists.
     $content['library']['libraryId'] = $core->h5pF->getLibraryId($content['library']['machineName'], $content['library']['majorVersion'], $content['library']['minorVersion']);

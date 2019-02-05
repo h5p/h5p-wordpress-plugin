@@ -556,16 +556,29 @@ class H5P_Plugin_Admin {
 
     $skipContent = ($content === NULL);
     if ($validator->isValidPackage($skipContent, $only_upgrade)) {
+      $tmpDir = $interface->getUploadedH5pFolderPath();
 
-      if (!$skipContent && (empty($content['metadata']) || empty($content['metadata']['title']))) {
-        // Fix for legacy content upload to work.
-        // Fetch title from h5p.json or use a default string if not available
-        $content['metadata']['title'] = empty($validator->h5pC->mainJsonData['title']) ? 'Uploaded Content' : $validator->h5pC->mainJsonData['title'];
+      if (!$skipContent) {
+        foreach ($validator->h5pC->mainJsonData['preloadedDependencies'] as $dep) {
+          if ($dep['machineName'] === $validator->h5pC->mainJsonData['mainLibrary']) {
+            if ($validator->h5pF->libraryHasUpgrade($dep)) {
+              // We do not allow storing old content due to security concerns
+              $interface->setErrorMessage(__("You're trying to upload content of an older version of H5P. Please upgrade the content on the server it originated from and try to upload again or turn on the H5P Hub to have this server upgrade it for your automaticall.", $this->plugin_slug));
+              H5PCore::deleteFileTree($tmpDir);
+              return FALSE;
+            }
+          }
+        }
+
+        if (empty($content['metadata']) || empty($content['metadata']['title'])) {
+          // Fix for legacy content upload to work.
+          // Fetch title from h5p.json or use a default string if not available
+          $content['metadata']['title'] = empty($validator->h5pC->mainJsonData['title']) ? 'Uploaded Content' : $validator->h5pC->mainJsonData['title'];
+        }
       }
 
       if (function_exists('check_upload_size')) {
         // Check file sizes before continuing!
-        $tmpDir = $interface->getUploadedH5pFolderPath();
         $error = self::check_upload_sizes($tmpDir);
         if ($error !== NULL) {
           // Didn't meet space requirements, cleanup tmp dir.
