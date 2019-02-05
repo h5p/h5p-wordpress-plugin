@@ -612,8 +612,8 @@ class H5PLibraryAdmin {
       $out->skipped = json_decode($skipped);
 
       // Clean up input, only numbers
-      foreach ($skipped as $i => $id) {
-        $skipped[$i] = intval($id);
+      foreach ($out->skipped as $i => $id) {
+        $out->skipped[$i] = intval($id);
       }
       $skipped = implode(',', $out->skipped);
     }

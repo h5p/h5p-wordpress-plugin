@@ -1256,7 +1256,8 @@ class H5PWordPress implements H5PFrameworkInterface {
           FROM {$wpdb->prefix}h5p_libraries
           WHERE name = '%s'
           AND (major_version > %d
-               OR (major_version = %d AND minor_version > %d))",
+           OR (major_version = %d AND minor_version > %d))
+        LIMIT 1",
         $library['machineName'],
         $library['majorVersion'],
         $library['majorVersion'],
