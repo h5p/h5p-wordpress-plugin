@@ -1041,7 +1041,7 @@ class H5PContentAdmin {
 
       $editor->ajax->action(H5PEditorEndpoints::SINGLE_LIBRARY, $name,
         $major_version, $minor_version, $plugin->get_language(), '',
-        $plugin->get_h5p_path()
+        $plugin->get_h5p_path(), filter_input(INPUT_GET, 'default-language')
       );
 
       // Log library load
@@ -1064,6 +1064,17 @@ class H5PContentAdmin {
 
     $editor = $this->get_h5peditor_instance();
     $editor->ajax->action(H5PEditorEndpoints::CONTENT_TYPE_CACHE, $token);
+    exit;
+  }
+
+  /**
+   * Get translations
+   */
+  public function ajax_translations() {
+    $language = filter_input(INPUT_GET, 'language', FILTER_SANITIZE_STRING);
+
+    $editor = $this->get_h5peditor_instance();
+    $editor->ajax->action(H5PEditorEndpoints::TRANSLATIONS, $language);
     exit;
   }
 

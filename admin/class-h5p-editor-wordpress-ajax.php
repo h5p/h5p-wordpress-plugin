@@ -106,4 +106,37 @@ class H5PEditorWordPressAjax implements H5PEditorAjaxInterface {
   public function validateEditorToken($token) {
     return wp_verify_nonce($token, 'h5p_editor_ajax');
   }
+
+  /**
+   * Get translations for a language for a list of libraries
+   *
+   * @param array $libraries An array of libraries, in the form "<machineName> <majorVersion>.<minorVersion>
+   * @param string $language_code
+   * @return array
+   */
+  public function getTranslations($libraries, $language_code) {
+    global $wpdb;
+
+    $querylibs = '';
+    foreach ($libraries as $lib) {
+      $querylibs .= (empty($querylibs) ? '' : ',') . '%s';
+    }
+
+    array_unshift($libraries, $language_code);
+
+    $result = $wpdb->get_results($wpdb->prepare(
+      "SELECT hll.translation, CONCAT(hl.name, ' ', hl.major_version, '.', hl.minor_version) AS lib
+         FROM {$wpdb->prefix}h5p_libraries hl
+         JOIN {$wpdb->prefix}h5p_libraries_languages hll ON hll.library_id = hl.id
+        WHERE hll.language_code = %s
+          AND CONCAT(hl.name, ' ', hl.major_version, '.', hl.minor_version) IN ({$querylibs})",
+      $libraries
+    ));
+
+    $translations = array();
+    foreach ($result as $row) {
+      $translations[$row->lib] = $row->translation;
+    }
+    return $translations;
+  }
 }

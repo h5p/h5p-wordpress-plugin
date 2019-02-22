@@ -32,6 +32,36 @@ class H5PEditorWordPressStorage implements H5peditorStorage {
   }
 
   /**
+   * Load a list of available language codes from the database.
+   *
+   * @param string $machineName The machine readable name of the library(content type)
+   * @param int $majorVersion Major part of version number
+   * @param int $minorVersion Minor part of version number
+   * @return array List of possible language codes
+   */
+  public function getAvailableLanguages($machineName, $majorVersion, $minorVersion) {
+    global $wpdb;
+
+    $results = $wpdb->get_results($wpdb->prepare(
+      "SELECT hll.language_code
+         FROM {$wpdb->prefix}h5p_libraries_languages hll
+         JOIN {$wpdb->prefix}h5p_libraries hl
+           ON hll.library_id = hl.id
+        WHERE hl.name = %s
+          AND hl.major_version = %d
+          AND hl.minor_version = %d",
+      $machineName, $majorVersion, $minorVersion
+    ));
+
+    $codes = array('en'); // Semantics is 'en' by default.
+    foreach ($results as $result) {
+      $codes[] = $result->language_code;
+    }
+
+    return $codes;
+  }
+
+  /**
    * "Callback" for mark the given file as a permanent file.
    * Used when saving content that has new uploaded files.
    *
