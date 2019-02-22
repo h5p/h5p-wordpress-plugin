@@ -208,6 +208,7 @@ class H5P_Plugin {
       license_extras LONGTEXT NULL,
       author_comments LONGTEXT NULL,
       changes LONGTEXT NULL,
+      default_language VARCHAR(32) NULL,
       PRIMARY KEY  (id)
     ) {$charset};");
 

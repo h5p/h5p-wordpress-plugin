@@ -698,6 +698,7 @@ class H5PWordPress implements H5PFrameworkInterface {
               , hc.license_extras AS licenseExtras
               , hc.author_comments AS authorComments
               , hc.changes AS changes
+              , hc.default_language AS defaultLanguage
         FROM {$wpdb->prefix}h5p_contents hc
         JOIN {$wpdb->prefix}h5p_libraries hl ON hl.id = hc.library_id
         WHERE hc.id = %d",
@@ -706,7 +707,7 @@ class H5PWordPress implements H5PFrameworkInterface {
       );
 
     $content['metadata'] = array();
-    $metadata_structure = array('title', 'authors', 'source', 'yearFrom', 'yearTo', 'license', 'licenseVersion', 'licenseExtras', 'authorComments', 'changes');
+    $metadata_structure = array('title', 'authors', 'source', 'yearFrom', 'yearTo', 'license', 'licenseVersion', 'licenseExtras', 'authorComments', 'changes', 'defaultLanguage');
     foreach ($metadata_structure as $property) {
       if (!empty($content[$property])) {
         if ($property === 'authors' || $property === 'changes') {
