@@ -1234,6 +1234,9 @@ class H5PWordPress implements H5PFrameworkInterface {
                l1.minor_version < l2.minor_version))
         WHERE l1.add_to IS NOT NULL AND l2.name IS NULL", ARRAY_A
     );
+
+    // NOTE: These are treated as library objects but are missing the following properties:
+    // title, embed_types, drop_library_css, fullscreen, runnable, semantics, has_icon
   }
 
   /**
