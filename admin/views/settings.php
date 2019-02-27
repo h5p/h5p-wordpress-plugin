@@ -33,7 +33,7 @@
           </td>
         </tr>
         <tr valign="top" class="h5p-toolbar-option">
-          <th scope="row"><?php _e("Display Download button", $this->plugin_slug); ?></th>
+          <th scope="row"><?php _e("Allow download", $this->plugin_slug); ?></th>
           <td>
             <select id="export-button" name="download">
               <option value="<?php echo H5PDisplayOptionBehaviour::NEVER_SHOW; ?>" <?php if ($download == H5PDisplayOptionBehaviour::NEVER_SHOW): ?>selected="selected"<?php endif; ?>>

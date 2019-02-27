@@ -71,9 +71,9 @@
             <?php if (isset($display_options[H5PCore::DISPLAY_OPTION_DOWNLOAD]) || isset($display_options[H5PCore::DISPLAY_OPTION_EMBED]) || isset($display_options[H5PCore::DISPLAY_OPTION_COPYRIGHT])) : ?>
               <div class="h5p-action-bar-buttons-settings">
                 <?php if (isset($display_options[H5PCore::DISPLAY_OPTION_DOWNLOAD])): ?>
-                  <label>
+                  <label title="<?php _e("If checked a reuse button will always be displayed for this content and allow users to download the content as an .h5p file", $this->plugin_slug); ?>">
                     <input name="download" type="checkbox" value="true"<?php if ($display_options[H5PCore::DISPLAY_OPTION_DOWNLOAD]): ?> checked="checked"<?php endif; ?>/>
-                    <?php _e("Display Download button", $this->plugin_slug); ?>
+                    <?php _e("Allow users to download the content", $this->plugin_slug); ?>
                   </label>
                 <?php endif; ?>
                 <?php if (isset($display_options[H5PCore::DISPLAY_OPTION_EMBED])): ?>
