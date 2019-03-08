@@ -73,6 +73,8 @@ class H5P_Plugin {
    * @since 1.0.0
    */
   private function __construct() {
+    global $wp_version;
+
     // Load plugin text domain
     add_action('init', array($this, 'load_plugin_textdomain'));
 
@@ -104,7 +106,13 @@ class H5P_Plugin {
     add_action('rest_api_init', array($this, 'rest_api_init'));
 
     // Removes all H5P data for this blog
-    add_action('delete_blog', array($this, 'delete_blog'));
+    if (version_compare($wp_version, '5.1', '>=')) {
+      add_action('wp_delete_site', array($this, 'delete_site'));
+    }
+    else {
+      // Deprecated since 5.1
+      add_action('delete_blog', array($this, 'delete_blog'));
+    }
   }
 
   /**
@@ -1512,6 +1520,16 @@ class H5P_Plugin {
     switch_to_blog($blog_id);
     self::uninstall();
     switch_to_blog($original_blog_id);
+  }
+
+  /**
+   * Removes all H5P data for the given blog
+   *
+   * @since 1.13.0
+   * @param int $blog_id
+   */
+  public function delete_site($site) {
+    $this->delete_blog($site->id);
   }
 
   /**
