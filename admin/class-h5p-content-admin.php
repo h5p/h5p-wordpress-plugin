@@ -987,7 +987,8 @@ class H5PContentAdmin {
       'metadataSemantics' => $content_validator->getMetadataSemantics(),
       'assets' => $assets,
       'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug),
-      'apiVersion' => H5PCore::$coreApi
+      'apiVersion' => H5PCore::$coreApi,
+      'language' => $language
     );
 
     if ($id !== NULL) {
