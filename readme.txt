@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 5.1
-Stable tag: 1.13.0
+Stable tag: 1.13.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -432,3 +432,6 @@ Added automated upgrade of content on save.
 Improved error handling for content upgrade.
 Added support for language switching in editor.
 Added a new reuse dialog for download or copy of content in view.
+
+= 1.13.1 =
+Fix correct default language not always loading.
