@@ -245,6 +245,11 @@
     margin-right: -12px;
     margin-left: -10px;
   }
+  .h5p-semi-fullscreen.h5p-iframe-wrapper,
+  .h5p-semi-fullscreen.h5p-content {
+    margin-right: 0;
+    margin-left: 0;
+  }
 }
 @media screen and (max-width: 960px) {
   #h5p-content-form,
