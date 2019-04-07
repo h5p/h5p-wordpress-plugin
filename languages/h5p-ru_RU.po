@@ -189,7 +189,7 @@ msgstr "Нет данных, соответствующих вашим крит�
 
 #: admin/class-h5p-plugin-admin.php:850
 msgid "Page $current of $total"
-msgstr "Страница $текущий из $всего"
+msgstr "Страница $current из $total"
 
 #: admin/class-h5p-plugin-admin.php:851
 msgid "Next page"
@@ -545,7 +545,7 @@ msgstr "Не удалось создать директорию контента
 #: admin/class-h5p-content-admin.php:591 admin/class-h5p-content-admin.php:614
 #, php-format
 msgid "Missing %s."
-msgstr "Отсутствие %s."
+msgstr "Отсутствует %s."
 
 #: admin/class-h5p-content-admin.php:619
 msgid "Title is too long. Must be 256 letters or shorter."
@@ -752,7 +752,7 @@ msgstr "Сохранить состояние контента"
 
 #: admin/views/settings.php:85
 msgid "Allow logged-in users to resume tasks"
-msgstr "Разрешить зарегистрированным пользователям возобновление задач"
+msgstr "Разрешить зарегистрированным пользователям возобновлять задачи"
 
 #: admin/views/settings.php:88
 msgid "Auto-save frequency (in seconds)"
@@ -831,7 +831,7 @@ msgstr ""
 
 #: admin/views/libraries.php:33
 msgid "Download & Update"
-msgstr "\vЗагрузка и обновление"
+msgstr "Загрузка и Обновление"
 
 #: admin/views/libraries.php:38
 msgid "Upload Libraries"
@@ -1036,7 +1036,7 @@ msgstr ""
 
 #: h5p-php-library/h5p.classes.php:3574
 msgid "Copyright information"
-msgstr "информация о Copyright"
+msgstr "Информация о Copyright"
 
 #: h5p-php-library/h5p.classes.php:3593
 msgid "Year(s)"
