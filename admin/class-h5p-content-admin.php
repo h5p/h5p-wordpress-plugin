@@ -289,7 +289,7 @@ class H5PContentAdmin {
    *
    * @since 1.1.0
    */
-  public function process_new_content() {
+  public function process_new_content($echo_on_success = NULL) {
     $plugin = H5P_Plugin::get_instance();
 
     $consent = filter_input(INPUT_POST, 'consent', FILTER_VALIDATE_BOOLEAN);
@@ -366,7 +366,12 @@ class H5PContentAdmin {
       if ($result) {
         $content['id'] = $result;
         $this->set_content_tags($content['id'], filter_input(INPUT_POST, 'tags'));
-        wp_safe_redirect(admin_url('admin.php?page=h5p&task=show&id=' . $result));
+	      if ($echo_on_success === NULL) {
+          wp_safe_redirect(admin_url('admin.php?page=h5p&task=show&id=' . $result));
+        }
+        else {
+          echo $echo_on_success;
+        }
         exit;
       }
     }
@@ -428,7 +433,7 @@ class H5PContentAdmin {
    *
    * @since 1.1.0
    */
-  public function display_new_content_page() {
+  public function display_new_content_page($custom_view = NULL) {
     if (!get_option('h5p_has_request_user_consent', FALSE) && current_user_can('manage_options')) {
       // Get the user to enable the Hub before creating content
       return include_once('views/user-consent.php');
@@ -461,7 +466,9 @@ class H5PContentAdmin {
 
     $display_options = $core->getDisplayOptionsForEdit($contentExists ? $this->content['disable'] : NULL);
 
-    include_once('views/new-content.php');
+    // allows for customization of the editor's view
+    include_once(is_null($custom_view) || $custom_view === '' ? 'views/new-content.php' : $custom_view);
+
     $this->add_editor_assets($contentExists ? $this->content['id'] : NULL);
     H5P_Plugin_Admin::add_script('jquery', 'h5p-php-library/js/jquery.js');
     H5P_Plugin_Admin::add_script('disable', 'h5p-php-library/js/h5p-display-options.js');
