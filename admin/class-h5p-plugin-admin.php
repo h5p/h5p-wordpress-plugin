@@ -130,19 +130,19 @@ class H5P_Plugin_Admin {
   /**
    * Display a form for adding and editing h5p content.
    *
-   * @since 1.8.3
+   * @since 1.14.0
    */
   public function display_new_content_page($custom_view = NULL) {
-    $this->content->display_new_content_page($custom_view);	  
+    $this->content->display_new_content_page($custom_view);
   }
-  
+
   /**
    * Display a form for adding and editing h5p content.
    *
-   * @since 1.8.3
+   * @since 1.14.0
    */
   public function process_new_content($echo_on_success = NULL) {
-    $this->content->process_new_content($echo_on_success);	  
+    $this->content->process_new_content($echo_on_success);
   }
 
   /**
