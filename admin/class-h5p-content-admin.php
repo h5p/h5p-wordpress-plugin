@@ -1120,4 +1120,18 @@ class H5PContentAdmin {
     $plugin_admin = H5P_Plugin_Admin::get_instance();
     $plugin_admin->print_results($id);
   }
+
+  /**
+   * Handle filtering of parameters through AJAX.
+   *
+   * @since 1.14.0
+   */
+  public function ajax_filter() {
+    $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING);
+    $libraryParameters = filter_input(INPUT_POST, 'libraryParameters');
+
+    $editor = $this->get_h5peditor_instance();
+    $editor->ajax->action(H5PEditorEndpoints::FILTER, $token, $libraryParameters);
+    exit;
+  }
 }

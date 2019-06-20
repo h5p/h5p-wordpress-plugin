@@ -90,6 +90,7 @@ class H5P_Plugin_Admin {
     add_action('wp_ajax_h5p_files', array($this->content, 'ajax_files'));
     add_action('wp_ajax_h5p_content-type-cache', array($this->content, 'ajax_content_type_cache'));
     add_action('wp_ajax_h5p_translations', array($this->content, 'ajax_translations'));
+    add_action('wp_ajax_h5p_filter', array($this->content, 'ajax_filter'));
 
     // AJAX for rebuilding all content caches
     add_action('wp_ajax_h5p_rebuild_cache', array($this->library, 'ajax_rebuild_cache'));
