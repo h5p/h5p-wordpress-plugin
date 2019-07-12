@@ -824,10 +824,15 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements clearFilteredParameters().
    */
-  public function clearFilteredParameters($library_id) {
+  public function clearFilteredParameters($library_ids) {
     global $wpdb;
 
-    $wpdb->update($wpdb->prefix . 'h5p_contents', array('filtered' => NULL), array('library_id' => $library_id), array('%s'), array('%d'));
+    $wpdb->query($wpdb->prepare(
+      "UPDATE {$wpdb->prefix}h5p_contents
+          SET filtered = NULL
+        WHERE library_id IN (%s)",
+      implode(',', $library_ids))
+    );
   }
 
   /**
