@@ -56,7 +56,7 @@
           <?php if ($this->content !== NULL): ?>
             <a class="submitdelete deletion" href="<?php print wp_nonce_url(admin_url('admin.php?page=h5p_new&id=' . $this->content['id']), 'deleting_h5p_content', 'delete'); ?>"><?php esc_html_e('Delete') ?></a>
           <?php endif; ?>
-          <input type="submit" name="submit-button" value="<?php $this->content === NULL ? esc_html_e('Create', $this->plugin_slug) : esc_html_e('Update')?>"class="button button-primary button-large"/>
+          <input type="submit" name="submit-button" value="<?php $this->content === NULL ? esc_html_e('Create', $this->plugin_slug) : esc_html_e('Update')?>" class="button button-primary button-large"/>
         </div>
       </div>
       <?php if (isset($display_options['frame'])): ?>
