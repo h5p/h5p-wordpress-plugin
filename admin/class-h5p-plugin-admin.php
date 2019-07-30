@@ -394,7 +394,7 @@ class H5P_Plugin_Admin {
     $h5p_content = __('H5P Content', $this->plugin_slug);
     add_menu_page($h5p_content, $h5p_content, 'edit_h5p_contents', $this->plugin_slug, array($this->content, 'display_contents_page'), 'none');
 
-    $all_h5p_content = __('All H5P Content', $this->plugin_slug);
+    $all_h5p_content = (current_user_can('view_others_h5p_contents') == true) ? __('All H5P Content', $this->plugin_slug) : __('My H5P Content', $this->plugin_slug);
     add_submenu_page($this->plugin_slug, $all_h5p_content, $all_h5p_content, 'edit_h5p_contents', $this->plugin_slug, array($this->content, 'display_contents_page'));
 
     $add_new = __('Add New', $this->plugin_slug);
