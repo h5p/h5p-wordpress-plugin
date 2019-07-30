@@ -37,6 +37,9 @@ foreach ($all_roles as $role_name => $role_info) {
   if (isset($role_info['capabilities']['edit_h5p_contents'])) {
     $role->remove_cap('edit_h5p_contents');
   }
+  if (isset($role_info['capabilities']['view_others_h5p_contents'])) {
+    $role->remove_cap('view_others_h5p_contents');
+  }
   if (isset($role_info['capabilities']['view_h5p_results'])) {
     $role->remove_cap('view_h5p_results');
   }

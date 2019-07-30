@@ -463,6 +463,7 @@ class H5P_Plugin {
     $pre_1110 = ($v->major < 1 || ($v->major === 1 && $v->minor < 11)); // < 1.11.0
     $pre_1113 = ($v->major < 1 || ($v->major === 1 && $v->minor < 11) ||
                  ($v->major === 1 && $v->minor === 11 && $v->patch < 3)); // < 1.11.3
+    $pre_1140 = ($v->major < 1 || ($v->major === 1 && $v->minor < 14)); // < 1.14.0
 
     // Run version specific updates
     if ($pre_120) {
@@ -473,6 +474,11 @@ class H5P_Plugin {
       // Do not run if upgrade_120 runs
       // Does only add the new permissions
       self::upgrade_180();
+    }
+    elseif ($pre_1140) {
+      // Do not run if upgrade_120 runs
+      // Does only add the new permissions
+      self::upgrade_1140();
     }
 
     if ($pre_180) {
@@ -581,6 +587,26 @@ class H5P_Plugin {
   }
 
   /**
+   * Add new permission for viewing others content
+   *
+   * @since 1.14.0
+   * @global \WP_Roles $wp_roles
+   */
+  public static function upgrade_1140() {
+    global $wp_roles;
+    if (!isset($wp_roles)) {
+      $wp_roles = new WP_Roles();
+    }
+
+    $all_roles = $wp_roles->roles;
+    foreach ($all_roles as $role_name => $role_info) {
+      $role = get_role($role_name);
+
+      self::map_capability($role, $role_info, 'edit_others_pages', 'view_others_h5p_contents');
+    }
+  }
+
+  /**
    * Remove duplicate keys that might have been created by a bug in dbDelta.
    *
    * @since 1.2.0
@@ -631,6 +657,7 @@ class H5P_Plugin {
       self::map_capability($role, $role_info, 'manage_options', 'manage_h5p_libraries');
       self::map_capability($role, $role_info, 'edit_others_pages', 'install_recommended_h5p_libraries');
       self::map_capability($role, $role_info, 'edit_others_pages', 'edit_others_h5p_contents');
+      self::map_capability($role, $role_info, 'edit_others_pages', 'view_others_h5p_contents');
       self::map_capability($role, $role_info, 'edit_posts', 'edit_h5p_contents');
       self::map_capability($role, $role_info, 'read', 'view_h5p_results');
     }
