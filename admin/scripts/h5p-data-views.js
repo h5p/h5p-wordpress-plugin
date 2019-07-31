@@ -1,12 +1,14 @@
 /* globals H5PDataView send_to_editor tb_remove tb_show */
 // Create content results data view
+var H5PDataViewInstances = [];
+
 (function ($) {
 
   /**
    * @private
    */
   var createDataView = function (dataView, wrapper, loaded) {
-    new H5PDataView(
+    return new H5PDataView(
       wrapper,
       dataView.source,
       dataView.headers,
@@ -35,7 +37,7 @@
         $wrapper = $('<div id="h5p-insert-content"/>').appendTo('#TB_ajaxContent');
 
         var reportUrl = H5PIntegration.dataViews[id].source.replace('h5p_insert_content', 'h5p_inserted');
-        createDataView(H5PIntegration.dataViews[id], $wrapper.get(0), function () {
+        H5PDataViewInstances[id] = createDataView(H5PIntegration.dataViews[id], $wrapper.get(0), function () {
           // Data loaded
           $wrapper.find('.h5p-insert').click(function () {
             // Inserting content
@@ -75,7 +77,7 @@
 
       var wrapper = $('#' + id).get(0);
       if (wrapper !== undefined) {
-        createDataView(H5PIntegration.dataViews[id], wrapper);
+        H5PDataViewInstances[id] = createDataView(H5PIntegration.dataViews[id], wrapper);
       }
     }
   });
