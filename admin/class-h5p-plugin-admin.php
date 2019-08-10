@@ -454,6 +454,9 @@ class H5P_Plugin_Admin {
       $save_content_frequency = filter_input(INPUT_POST, 'save_content_frequency', FILTER_VALIDATE_INT);
       update_option('h5p_save_content_frequency', $save_content_frequency);
 
+      $show_toggle_view_others_h5p_contents = filter_input(INPUT_POST, 'show_toggle_view_others_h5p_contents', FILTER_VALIDATE_INT);
+      update_option('h5p_show_toggle_view_others_h5p_contents', $show_toggle_view_others_h5p_contents);
+
       $insert_method = filter_input(INPUT_POST, 'insert_method', FILTER_SANITIZE_SPECIAL_CHARS);
       update_option('h5p_insert_method', $insert_method);
 
@@ -493,6 +496,7 @@ class H5P_Plugin_Admin {
       $track_user = get_option('h5p_track_user', TRUE);
       $save_content_state = get_option('h5p_save_content_state', FALSE);
       $save_content_frequency = get_option('h5p_save_content_frequency', 30);
+      $show_toggle_view_others_h5p_contents = get_option('h5p_show_toggle_view_others_h5p_contents', 0);
       $insert_method = get_option('h5p_insert_method', 'id');
       $enable_lrs_content_types = get_option('h5p_enable_lrs_content_types', FALSE);
       $enable_hub = get_option('h5p_hub_is_enabled', TRUE);
@@ -982,10 +986,30 @@ class H5P_Plugin_Admin {
         'search' => __('Search', $this->plugin_slug),
         'remove' => __('Remove', $this->plugin_slug),
         'empty' => $empty,
+        'showOwnContentOnly' => __('Show my content only', $this->plugin_slug)
       )
     );
     $plugin = H5P_Plugin::get_instance();
     $settings = array('dataViews' => $data_views);
+
+    // Add toggler for hiding others' content only if user can view others content types
+    $canToggleViewOthersH5PContents = current_user_can('view_others_h5p_contents') ?
+      get_option('h5p_show_toggle_view_others_h5p_contents') :
+    0;
+
+    // Add user object to H5PIntegration
+    $user = wp_get_current_user();
+    if ($user->ID !== 0) {
+      $user = array(
+        'user' => array(
+          'id' => $user->ID,
+          'name' => $user->display_name,
+          'canToggleViewOthersH5PContents' => $canToggleViewOthersH5PContents
+        )
+      );
+      $settings = array_merge( $settings, $user );
+    }
+
     $plugin->print_settings($settings);
 
     // Add JS

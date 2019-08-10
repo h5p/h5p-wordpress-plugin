@@ -122,6 +122,25 @@
             </p>
           </td>
         </tr>
+        </tr>
+        <tr valign="top">
+        <th scope="row"><?php _e("Show toggle switch for others' H5P contents", $this->plugin_slug); ?></th>
+        <td>
+        <select id="show_toggle_view_others_h5p_contents" name="show_toggle_view_others_h5p_contents">
+          <option value="<?php echo H5PDisplayOptionBehaviour::NEVER_SHOW; ?>" <?php if ($show_toggle_view_others_h5p_contents == H5PDisplayOptionBehaviour::NEVER_SHOW): ?>selected="selected"<?php endif; ?>>
+            <?php _e("No", $this->plugin_slug); ?>
+          </option>
+          <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF; ?>" <?php if ($show_toggle_view_others_h5p_contents == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_OFF): ?>selected="selected"<?php endif; ?>>
+            <?php _e("Yes, show all contents by default", $this->plugin_slug); ?>
+          </option>
+          <option value="<?php echo H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON; ?>" <?php if ($show_toggle_view_others_h5p_contents == H5PDisplayOptionBehaviour::CONTROLLED_BY_AUTHOR_DEFAULT_ON): ?>selected="selected"<?php endif; ?>>
+            <?php _e("Yes, show only current user's contents by default", $this->plugin_slug); ?>
+          </option>
+        </select>
+        <p class="h5p-setting-desc">
+          <?php _e("Allow to restrict the view of H5P contents to the current user's content. The setting has no effect if the user is not allowed to see other users' content.", $this->plugin_slug); ?>
+        </p>
+        </td>
         <tr valign="top">
           <th scope="row"><?php _e("Add Content Method", $this->plugin_slug); ?></th>
           <td class="h5p-action-bar-settings">
