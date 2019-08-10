@@ -129,6 +129,21 @@ class H5PContentAdmin {
   }
 
   /**
+   * Permission check. Can the current user view the given content?
+   *
+   * @since 1.14.0
+   * @param array $content
+   * @return boolean
+   */
+  private function current_user_can_view($content) {
+    if (current_user_can('view_others_h5p_contents')) {
+      return TRUE;
+    }
+    $author_id = (int)(is_array($content) ? $content['user_id'] : $content->user_id);
+    return get_current_user_id() === $author_id;
+  }
+
+  /**
    * Permission check. Can the current user view results for the given content?
    *
    * @since 1.2.0
@@ -206,6 +221,13 @@ class H5PContentAdmin {
         return;
 
       case 'show':
+        // Access restriction
+        if ($this->current_user_can_view($this->content) == FALSE) {
+          H5P_Plugin_Admin::set_error(__('You are not allowed to view this content.', $this->plugin_slug));
+          H5P_Plugin_Admin::print_messages();
+          return;
+        }
+
         // Admin preview of H5P content.
         if (is_string($this->content)) {
           H5P_Plugin_Admin::set_error($this->content);
@@ -752,6 +774,11 @@ class H5PContentAdmin {
     $conditions = array();
     if (isset($filters[0])) {
       $conditions[] = array('title', $filters[0], 'LIKE');
+    }
+
+    // Limit query to content types that user is allowed to view
+    if (current_user_can('view_others_h5p_contents') == FALSE) {
+      array_push($conditions, array('user_id', get_current_user_id(), '='));
     }
 
     if ($facets !== NULL) {
