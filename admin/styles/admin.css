@@ -237,6 +237,20 @@
 }
 
 @media screen and (max-width: 782px) {
+  #wpwrap {
+    overflow-x: auto;
+  }
+  .h5p-data-view {
+    margin-top: 1em;
+    min-width: 600px; /* width of next media query in hierarchy */
+  }
+  .h5p-data-view thead th {
+    vertical-align: top;
+    word-wrap: break-word;
+  }
+  .h5p-data-view tbody td, .h5p-data-view tfoot td {
+    display: table-cell!important; /* WP media query has priority */
+  }
   .wrap h2 {
     margin-bottom: 0.25em;
   }
