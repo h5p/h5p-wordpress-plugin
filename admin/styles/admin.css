@@ -249,7 +249,7 @@
     word-wrap: break-word;
   }
   .h5p-data-view tbody td, .h5p-data-view tfoot td {
-    display: table-cell!important; /* WP media query has priority */
+    display: table-cell !important; /* WP media query has priority */
   }
   .wrap h2 {
     margin-bottom: 0.25em;
