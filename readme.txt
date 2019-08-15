@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 5.1
-Stable tag: 1.13.1
+Stable tag: 1.14.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -435,3 +435,9 @@ Added a new reuse dialog for download or copy of content in view.
 
 = 1.13.1 =
 Fix correct default language not always loading.
+
+= 1.14.0 =
+Added fullscreen editing mode
+Added offline support for storing and resubmitting answers
+Allow setting bitrate for video files
+Improved cross origin handling for media files
