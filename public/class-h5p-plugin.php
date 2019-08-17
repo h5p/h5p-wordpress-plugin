@@ -463,7 +463,7 @@ class H5P_Plugin {
     $pre_1110 = ($v->major < 1 || ($v->major === 1 && $v->minor < 11)); // < 1.11.0
     $pre_1113 = ($v->major < 1 || ($v->major === 1 && $v->minor < 11) ||
                  ($v->major === 1 && $v->minor === 11 && $v->patch < 3)); // < 1.11.3
-    $pre_1140 = ($v->major < 1 || ($v->major === 1 && $v->minor < 14)); // < 1.14.0
+    $pre_1150 = ($v->major < 1 || ($v->major === 1 && $v->minor < 14)); // < 1.14.0
 
     // Run version specific updates
     if ($pre_120) {
@@ -475,10 +475,10 @@ class H5P_Plugin {
       // Does only add the new permissions
       self::upgrade_180();
     }
-    elseif ($pre_1140) {
+    elseif ($pre_1150) {
       // Do not run if upgrade_120 runs
       // Does only add the new permissions
-      self::upgrade_1140();
+      self::upgrade_1150();
     }
 
     if ($pre_180) {
@@ -589,10 +589,10 @@ class H5P_Plugin {
   /**
    * Add new permission for viewing others content
    *
-   * @since 1.14.0
+   * @since 1.15.0
    * @global \WP_Roles $wp_roles
    */
-  public static function upgrade_1140() {
+  public static function upgrade_1150() {
     global $wp_roles;
     if (!isset($wp_roles)) {
       $wp_roles = new WP_Roles();
