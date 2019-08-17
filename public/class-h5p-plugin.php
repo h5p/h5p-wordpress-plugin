@@ -463,7 +463,7 @@ class H5P_Plugin {
     $pre_1110 = ($v->major < 1 || ($v->major === 1 && $v->minor < 11)); // < 1.11.0
     $pre_1113 = ($v->major < 1 || ($v->major === 1 && $v->minor < 11) ||
                  ($v->major === 1 && $v->minor === 11 && $v->patch < 3)); // < 1.11.3
-    $pre_1150 = ($v->major < 1 || ($v->major === 1 && $v->minor < 14)); // < 1.14.0
+    $pre_1150 = ($v->major < 1 || ($v->major === 1 && $v->minor < 15)); // < 1.15.0
 
     // Run version specific updates
     if ($pre_120) {
