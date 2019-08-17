@@ -131,7 +131,7 @@ class H5PContentAdmin {
   /**
    * Permission check. Can the current user view the given content?
    *
-   * @since 1.14.0
+   * @since 1.15.0
    * @param array $content
    * @return boolean
    */
