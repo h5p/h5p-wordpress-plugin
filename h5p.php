@@ -22,7 +22,6 @@
  * License:           MIT
  * License URI:       http://opensource.org/licenses/MIT
  * Domain Path:       /languages
- * GitHub Plugin URI: https://github.com/h5p/h5p-wordpress-plugin
  */
 
 // If this file is called directly, abort.
