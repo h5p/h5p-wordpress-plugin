@@ -121,11 +121,29 @@ class H5PContentAdmin {
    * @return boolean
    */
   private function current_user_can_edit($content) {
+    // If you can't edit content, you neither can edit others contents
+    if (!current_user_can('edit_h5p_contents')) {
+      return FALSE;
+    }
     if (current_user_can('edit_others_h5p_contents')) {
       return TRUE;
     }
     $author_id = (int)(is_array($content) ? $content['user_id'] : $content->user_id);
     return get_current_user_id() === $author_id;
+  }
+
+  /**
+   * Permission check. Can the current user view the given content?
+   *
+   * @since 1.15.0
+   * @param array $content
+   * @return boolean
+   */
+  private function current_user_can_view($content) {
+    if (current_user_can('view_h5p_contents')) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -206,6 +224,13 @@ class H5PContentAdmin {
         return;
 
       case 'show':
+        // Access restriction
+        if ($this->current_user_can_view($this->content) == FALSE) {
+          H5P_Plugin_Admin::set_error(__('You are not allowed to view this content.', $this->plugin_slug));
+          H5P_Plugin_Admin::print_messages();
+          return;
+        }
+
         // Admin preview of H5P content.
         if (is_string($this->content)) {
           H5P_Plugin_Admin::set_error($this->content);
