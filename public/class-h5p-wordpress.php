@@ -262,10 +262,12 @@ class H5PWordPress implements H5PFrameworkInterface {
             'preloaded_js' => $preloadedJs,
             'preloaded_css' => $preloadedCss,
             'drop_library_css' => $dropLibraryCss,
+            'tutorial_url' => '', // NOT NULL, has to be there
             'semantics' => $library['semantics'],
             'has_icon' => $library['hasIcon'] ? 1 : 0,
             'metadata_settings'=> $library['metadataSettings'],
             'add_to' => isset($library['addTo']) ? json_encode($library['addTo']) : NULL
+            // Missing? created_at, updated_at
           ),
           array(
             '%s',
