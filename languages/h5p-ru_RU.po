@@ -137,7 +137,7 @@ msgstr ""
 
 #: admin/class-h5p-plugin-admin.php:352 admin/class-h5p-plugin-admin.php:362
 msgid "Unable to download H5P content types."
-msgstr "Можете скачать H5P типы контента."
+msgstr "Невозможно скачать H5P типы контента."
 
 #: admin/class-h5p-plugin-admin.php:398 public/class-h5p-plugin.php:505
 msgid "H5P Content"
@@ -288,7 +288,7 @@ msgstr "Контент использующий"
 
 #: admin/class-h5p-library-admin.php:238
 msgid "Libraries using it"
-msgstr "Библиотека использующая"
+msgstr "Библиотека использующая это"
 
 #: admin/class-h5p-library-admin.php:241 admin/views/new-content.php:45
 msgid "Actions"
@@ -347,11 +347,11 @@ msgstr ""
 
 #: admin/class-h5p-library-admin.php:381
 msgid "No content is using this library"
-msgstr "Содержимое этой библиотеки не используется"
+msgstr "Нет контента, использующего эту библиотеку"
 
 #: admin/class-h5p-library-admin.php:382
 msgid "Content using this library"
-msgstr "Содержимое, используемое этой библиотекой"
+msgstr "Контент, использующий эту библиотеку"
 
 #: admin/class-h5p-library-admin.php:383
 msgid "Elements per page"
@@ -387,7 +387,7 @@ msgstr "Контент библиотеки"
 
 #: admin/class-h5p-library-admin.php:416
 msgid "Used by"
-msgstr "Используется"
+msgstr "Используемый"
 
 #: admin/class-h5p-library-admin.php:416 admin/class-h5p-library-admin.php:467
 #, php-format
@@ -441,11 +441,11 @@ msgstr "Вы успешно обновили %s."
 
 #: admin/class-h5p-library-admin.php:481
 msgid "Return"
-msgstr "Возврат"
+msgstr "Вернуться"
 
 #: admin/class-h5p-library-admin.php:491
 msgid "Upgrade"
-msgstr "Обновление"
+msgstr "Обновить"
 
 #: admin/class-h5p-library-admin.php:566
 msgid ""
@@ -485,7 +485,7 @@ msgstr "Ошибка, неверная семантика библиотеки!"
 
 #: admin/class-h5p-content-admin.php:167 admin/class-h5p-content-admin.php:665
 msgid "Content type"
-msgstr "Тип содержания"
+msgstr "Тип контента"
 
 #: admin/class-h5p-content-admin.php:172 h5p-php-library/h5p.classes.php:3586
 #: public/class-h5p-plugin.php:915
@@ -641,7 +641,7 @@ msgstr "Панель переключения"
 
 #: admin/views/new-content.php:63
 msgid "Display Options"
-msgstr "Настройки показа"
+msgstr "Настройки отображения"
 
 #: admin/views/new-content.php:67 admin/views/settings.php:42
 msgid "Display buttons (download, embed and copyright)"
@@ -653,7 +653,7 @@ msgstr "Кнопка загрузки"
 
 #: admin/views/new-content.php:78 admin/views/settings.php:54
 msgid "Embed button"
-msgstr "Размещение кнопки"
+msgstr "Вставить кнопку"
 
 #: admin/views/new-content.php:84 admin/views/settings.php:60
 msgid "Copyright button"
@@ -736,7 +736,7 @@ msgstr "Панель действий"
 
 #: admin/views/settings.php:66
 msgid "About H5P button"
-msgstr "О кнопке H5P"
+msgstr "Кнопка о H5P"
 
 #: admin/views/settings.php:72
 msgid "User Results"
@@ -784,7 +784,7 @@ msgstr "Вы уверены, что хотите удалить эту библ�
 
 #: admin/views/library-delete.php:18
 msgid "Do it!"
-msgstr "Сделай это!"
+msgstr "Сделать это!"
 
 #: admin/views/libraries.php:17
 msgid "Update All Libraries"
@@ -855,7 +855,7 @@ msgstr "Установить библиотеки"
 
 #: h5p-php-library/h5p.classes.php:683
 msgid "Your PHP version does not support ZipArchive."
-msgstr "Ваша версия PHPне поддерживает ZipArchive."
+msgstr "Ваша версия PHP не поддерживает ZipArchive."
 
 #: h5p-php-library/h5p.classes.php:696
 msgid ""
@@ -902,7 +902,7 @@ msgstr ""
 
 #: h5p-php-library/h5p.classes.php:813
 msgid "A valid content folder is missing"
-msgstr "папка допустимого контента отсутствует"
+msgstr "Папка допустимого контента отсутствует"
 
 #: h5p-php-library/h5p.classes.php:817
 msgid "A valid main h5p.json file is missing"
@@ -1163,7 +1163,7 @@ msgstr "Год"
 
 #: public/class-h5p-plugin.php:919
 msgid "Thumbnail"
-msgstr "Эскиз"
+msgstr "Миниатюра"
 
 #: public/class-h5p-plugin.php:920
 msgid "No copyright information available for this content."
