@@ -691,6 +691,11 @@ class H5PContentAdmin {
           'facet' => TRUE
         ),
         (object) array(
+          'text' => __('Author', $this->plugin_slug),
+          'sortable' => TRUE,
+          'facet' => TRUE
+        ),
+        (object) array(
           'text' => __('Tags', $this->plugin_slug),
           'sortable' => FALSE,
           'facet' => TRUE
@@ -706,7 +711,7 @@ class H5PContentAdmin {
       array(true),
       __("No H5P content available. You must upload or create new content.", $this->plugin_slug),
       (object) array(
-        'by' => 3,
+        'by' => 4,
         'dir' => 0
       )
     );
@@ -764,7 +769,7 @@ class H5PContentAdmin {
 
     // Different fields for insert
     if ($insert) {
-      $fields = array('title', 'content_type', 'tags', 'updated_at', 'id', 'content_type_id', 'slug');
+      $fields = array('title', 'content_type', 'user_name', 'tags', 'updated_at', 'id', 'user_id', 'content_type_id', 'slug');
     }
     else {
       $fields = array('title', 'content_type', 'user_name', 'tags', 'updated_at', 'id', 'user_id', 'content_type_id');
@@ -880,6 +885,10 @@ class H5PContentAdmin {
       array(
         'id' => $result->content_type_id,
         'title' => esc_html($result->content_type)
+      ),
+      array(
+        'id' => $result->user_id,
+        'title' => esc_html($result->user_name)
       ),
       $this->format_tags($result->tags),
       $this->format_time($result->updated_at),

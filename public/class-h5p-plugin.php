@@ -389,6 +389,7 @@ class H5P_Plugin {
     add_option('h5p_save_content_state', FALSE);
     add_option('h5p_save_content_frequency', 30);
     add_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
+    add_option('h5p_show_toggle_view_others_h5p_contents', 0);
     add_option('h5p_content_type_cache_updated_at', 0);
     add_option('h5p_check_h5p_requirements', FALSE);
     add_option('h5p_hub_is_enabled', FALSE);
@@ -1596,6 +1597,7 @@ class H5P_Plugin {
     delete_option('h5p_ext_communication');
     delete_option('h5p_save_content_state');
     delete_option('h5p_save_content_frequency');
+    delete_option('h5p_show_toggle_view_others_h5p_contents');
     delete_option('h5p_update_available');
     delete_option('h5p_current_update');
     delete_option('h5p_update_available_path');
