@@ -140,10 +140,19 @@ class H5PContentAdmin {
    * @return boolean
    */
   private function current_user_can_view($content) {
-    if (current_user_can('view_h5p_contents')) {
-      return true;
+    // If user is allowed to view others' contents, can also see content in general
+    if (current_user_can('view_others_h5p_contents')) {
+      return TRUE;
     }
-    return false;
+
+    // User mustn't see content
+    if (! current_user_can('view_h5p_contents')) {
+      return FALSE;
+    }
+    
+    // Does content belong to current user?
+    $author_id = (int)(is_array($content) ? $content['user_id'] : $content->user_id);
+    return get_current_user_id() === $author_id;
   }
 
   /**
@@ -694,6 +703,11 @@ class H5PContentAdmin {
           'facet' => TRUE
         ),
         (object) array(
+          'text' => __('Author', $this->plugin_slug),
+          'sortable' => TRUE,
+          'facet' => TRUE
+        ),
+        (object) array(
           'text' => __('Tags', $this->plugin_slug),
           'sortable' => FALSE,
           'facet' => TRUE
@@ -709,7 +723,7 @@ class H5PContentAdmin {
       array(true),
       __("No H5P content available. You must upload or create new content.", $this->plugin_slug),
       (object) array(
-        'by' => 3,
+        'by' => 4,
         'dir' => 0
       )
     );
@@ -767,7 +781,7 @@ class H5PContentAdmin {
 
     // Different fields for insert
     if ($insert) {
-      $fields = array('title', 'content_type', 'tags', 'updated_at', 'id', 'content_type_id', 'slug');
+      $fields = array('title', 'content_type', 'user_name', 'tags', 'updated_at', 'id', 'user_id', 'content_type_id', 'slug');
     }
     else {
       $fields = array('title', 'content_type', 'user_name', 'tags', 'updated_at', 'id', 'user_id', 'content_type_id');
@@ -777,6 +791,11 @@ class H5PContentAdmin {
     $conditions = array();
     if (isset($filters[0])) {
       $conditions[] = array('title', $filters[0], 'LIKE');
+    }
+
+    // Limit query to content types that user is allowed to view
+    if (current_user_can('view_others_h5p_contents') == FALSE) {
+      array_push($conditions, array('user_id', get_current_user_id(), '='));
     }
 
     if ($facets !== NULL) {
@@ -878,6 +897,10 @@ class H5PContentAdmin {
       array(
         'id' => $result->content_type_id,
         'title' => esc_html($result->content_type)
+      ),
+      array(
+        'id' => $result->user_id,
+        'title' => esc_html($result->user_name)
       ),
       $this->format_tags($result->tags),
       $this->format_time($result->updated_at),
