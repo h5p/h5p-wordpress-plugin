@@ -140,16 +140,16 @@ class H5PContentAdmin {
    * @return boolean
    */
   private function current_user_can_view($content) {
+    // If you can't view content, you neither can view others contents
+    if (! current_user_can('view_h5p_contents')) {
+      return FALSE;
+    }
+
     // If user is allowed to view others' contents, can also see content in general
     if (current_user_can('view_others_h5p_contents')) {
       return TRUE;
     }
 
-    // User mustn't see content
-    if (! current_user_can('view_h5p_contents')) {
-      return FALSE;
-    }
-    
     // Does content belong to current user?
     $author_id = (int)(is_array($content) ? $content['user_id'] : $content->user_id);
     return get_current_user_id() === $author_id;
