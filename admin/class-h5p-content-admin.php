@@ -121,6 +121,10 @@ class H5PContentAdmin {
    * @return boolean
    */
   private function current_user_can_edit($content) {
+    // If you can't edit content, you neither can edit others contents
+    if (!current_user_can('edit_h5p_contents')) {
+      return FALSE;
+    }
     if (current_user_can('edit_others_h5p_contents')) {
       return TRUE;
     }
@@ -136,9 +140,17 @@ class H5PContentAdmin {
    * @return boolean
    */
   private function current_user_can_view($content) {
+    // If you can't view content, you neither can view others contents
+    if (! current_user_can('view_h5p_contents')) {
+      return FALSE;
+    }
+
+    // If user is allowed to view others' contents, can also see content in general
     if (current_user_can('view_others_h5p_contents')) {
       return TRUE;
     }
+
+    // Does content belong to current user?
     $author_id = (int)(is_array($content) ? $content['user_id'] : $content->user_id);
     return get_current_user_id() === $author_id;
   }

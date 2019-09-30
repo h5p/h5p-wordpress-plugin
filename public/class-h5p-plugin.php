@@ -602,7 +602,7 @@ class H5P_Plugin {
     $all_roles = $wp_roles->roles;
     foreach ($all_roles as $role_name => $role_info) {
       $role = get_role($role_name);
-
+      self::map_capability($role, $role_info, 'read', 'view_h5p_contents');
       self::map_capability($role, $role_info, 'edit_others_pages', 'view_others_h5p_contents');
     }
   }
@@ -660,6 +660,7 @@ class H5P_Plugin {
       self::map_capability($role, $role_info, 'edit_others_pages', 'edit_others_h5p_contents');
       self::map_capability($role, $role_info, 'edit_others_pages', 'view_others_h5p_contents');
       self::map_capability($role, $role_info, 'edit_posts', 'edit_h5p_contents');
+      self::map_capability($role, $role_info, 'read', 'view_h5p_contents');
       self::map_capability($role, $role_info, 'read', 'view_h5p_results');
     }
 
