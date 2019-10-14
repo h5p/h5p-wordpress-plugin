@@ -282,6 +282,7 @@ class H5PWordPress implements H5PFrameworkInterface {
             '%s',
             '%d',
             '%s',
+            '%s',
             '%d',
             '%d',
             '%s'
