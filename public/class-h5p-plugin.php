@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.14.1';
+  const VERSION = '1.15.0';
 
   /**
    * The Unique identifier for this plugin.
@@ -471,15 +471,16 @@ class H5P_Plugin {
       // Re-assign all permissions
       self::upgrade_120();
     }
-    elseif ($pre_180) {
-      // Do not run if upgrade_120 runs
-      // Does only add the new permissions
-      self::upgrade_180();
-    }
-    elseif ($pre_1150) {
-      // Do not run if upgrade_120 runs
-      // Does only add the new permissions
-      self::upgrade_1150();
+    else {
+      // Do not run if upgrade_120 runs (since that remaps all the permissions)
+      if ($pre_180) {
+        // Does only add new permissions
+        self::upgrade_180();
+      }
+      if ($pre_1150) {
+        // Does only add new permissions
+        self::upgrade_1150();
+      }
     }
 
     if ($pre_180) {

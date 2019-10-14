@@ -444,3 +444,12 @@ Improved cross origin handling for media files
 
 = 1.14.1 =
 Fix invalid finnish language issue in core
+
+= 1.15.0 =
+Removed GitHub URL to prevent Update plugins using it and download the plugin without dependencies.
+Added capabilities for viewing h5p content. Thanks Otacke.
+Fixed missing NOT NULL causing errors on some configurations.
+Improved list layout for narrow screens. Thanks Otacke.
+Change how focus effect is applied when only using mouse cursor.
+Minor accessibility improvements to editor.
+Updated language files. Big thanks to all the contributors.
