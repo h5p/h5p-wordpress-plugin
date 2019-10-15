@@ -280,12 +280,12 @@ class H5PWordPress implements H5PFrameworkInterface {
             '%s',
             '%s',
             '%s',
+            '%s',
+            '%s',
+            '%s',
             '%d',
             '%s',
             '%s',
-            '%d',
-            '%d',
-            '%s'
           )
         );
       $library['libraryId'] = $wpdb->insert_id;
@@ -316,9 +316,10 @@ class H5PWordPress implements H5PFrameworkInterface {
             '%s',
             '%s',
             '%s',
-            '%d',
+            '%s',
             '%s',
             '%d',
+            '%s',
             '%s'
           ),
           array('%d')
