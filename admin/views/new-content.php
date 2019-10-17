@@ -12,7 +12,7 @@
 
 <div class="wrap">
   <h2>
-    <?php if ($this->content === NULL): ?>
+    <?php if ($this->content === NULL || is_string($this->content)): ?>
       <?php print esc_html(get_admin_page_title()); ?>
     <?php else: ?>
       <?php esc_html_e('Edit', $this->plugin_slug); ?> <em><?php print esc_html($this->content['title']); ?></em>
@@ -53,7 +53,7 @@
           <?php wp_nonce_field('h5p_content', 'yes_sir_will_do'); ?>
         </div>
         <div id="major-publishing-actions" class="submitbox">
-          <?php if ($this->content !== NULL): ?>
+          <?php if ($this->content !== NULL && !is_string($this->content)): ?>
             <a class="submitdelete deletion" href="<?php print wp_nonce_url(admin_url('admin.php?page=h5p_new&id=' . $this->content['id']), 'deleting_h5p_content', 'delete'); ?>"><?php esc_html_e('Delete') ?></a>
           <?php endif; ?>
           <input type="submit" name="submit-button" value="<?php $this->content === NULL ? esc_html_e('Create', $this->plugin_slug) : esc_html_e('Update')?>" class="button button-primary button-large"/>

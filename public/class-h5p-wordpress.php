@@ -710,18 +710,20 @@ class H5PWordPress implements H5PFrameworkInterface {
         ARRAY_A
       );
 
-    $content['metadata'] = array();
-    $metadata_structure = array('title', 'authors', 'source', 'yearFrom', 'yearTo', 'license', 'licenseVersion', 'licenseExtras', 'authorComments', 'changes', 'defaultLanguage');
-    foreach ($metadata_structure as $property) {
-      if (!empty($content[$property])) {
-        if ($property === 'authors' || $property === 'changes') {
-          $content['metadata'][$property] = json_decode($content[$property]);
-        }
-        else {
-          $content['metadata'][$property] = $content[$property];
-        }
-        if ($property !== 'title') {
-          unset($content[$property]); // Unset all except title
+    if ($content !== NULL) {
+      $content['metadata'] = array();
+      $metadata_structure = array('title', 'authors', 'source', 'yearFrom', 'yearTo', 'license', 'licenseVersion', 'licenseExtras', 'authorComments', 'changes', 'defaultLanguage');
+      foreach ($metadata_structure as $property) {
+        if (!empty($content[$property])) {
+          if ($property === 'authors' || $property === 'changes') {
+            $content['metadata'][$property] = json_decode($content[$property]);
+          }
+          else {
+            $content['metadata'][$property] = $content[$property];
+          }
+          if ($property !== 'title') {
+            unset($content[$property]); // Unset all except title
+          }
         }
       }
     }

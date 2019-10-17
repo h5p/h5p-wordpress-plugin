@@ -481,7 +481,7 @@ class H5PContentAdmin {
 
     // Prepare form
     $library = $this->get_input('library', $contentExists ? H5PCore::libraryToString($this->content['library']) : 0);
-    $parameters = $this->get_input('parameters', '{"params":' . ($contentExists ? $core->filterParameters($this->content) : '{}') . ',"metadata":' . json_encode((object)$this->content['metadata']) . '}');
+    $parameters = $this->get_input('parameters', '{"params":' . ($contentExists ? $core->filterParameters($this->content) : '{}') . ',"metadata":' . ($contentExists ? json_encode((object)$this->content['metadata']) : '{}') . '}');
 
     // Determine upload or create
     if (!$hubIsEnabled && !$contentExists && !$this->has_libraries()) {
