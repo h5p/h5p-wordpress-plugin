@@ -1520,13 +1520,18 @@ class H5P_Plugin {
       throw new Exception('Failed validating .h5p file');
     }
 
+    // Prepare metadata
+    $metadata = empty($validator->h5pC->mainJsonData) ? array() : $validator->h5pC->mainJsonData;
+
+    // Use a default string if title from h5p.json is not available
+    if (empty($metadata['title'])) {
+      $metadata['title'] = 'Uploaded Content';
+    }
+
     // Create content
     $content = array(
       'disable' => H5PCore::DISABLE_NONE,
-      'metadata' => array(
-        // Fetch title from h5p.json or use a default string if not available
-        'title' => empty($validator->h5pC->mainJsonData['title']) ? 'Uploaded Content' : $validator->h5pC->mainJsonData['title']
-      )
+      'metadata' => $metadata,
     );
 
     // Save content
