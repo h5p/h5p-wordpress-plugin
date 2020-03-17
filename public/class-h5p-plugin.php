@@ -808,6 +808,10 @@ class H5P_Plugin {
   public function get_h5p_save_content_storages() {
     $save_content_storages = array();
 
+    if (get_option('h5p_save_content_state', FALSE) != TRUE) {
+      return $save_content_storages;
+    }
+
     $option = get_option('h5p_save_content_storages', FALSE);
 
     if (($option & H5PSaveContentStorages::DATABASE) === H5PSaveContentStorages::DATABASE) {
