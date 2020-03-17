@@ -818,7 +818,7 @@ class H5P_Plugin {
       $save_content_storages['database'] = TRUE;
     }
     if (($option & H5PSaveContentStorages::LOCALSTORAGE) === H5PSaveContentStorages::LOCALSTORAGE) {
-      $save_content_storages['localStorage'] = TRUE;
+      $save_content_storages['localStorage'] = 'WP-bid-' . get_current_blog_id() . '-';
     }
 
     return $save_content_storages;
