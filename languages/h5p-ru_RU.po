@@ -209,15 +209,15 @@ msgstr "Удалить"
 
 #: admin/class-h5p-plugin-admin.php:883
 msgid "Content"
-msgstr "Содержание"
+msgstr "Контент"
 
 #: admin/class-h5p-plugin-admin.php:887 admin/class-h5p-content-admin.php:253
 msgid "Score"
-msgstr "Баллы "
+msgstr "Оценка"
 
 #: admin/class-h5p-plugin-admin.php:891 admin/class-h5p-content-admin.php:257
 msgid "Maximum Score"
-msgstr "Максимальный балл"
+msgstr "Максимальная оценка"
 
 #: admin/class-h5p-plugin-admin.php:895 admin/class-h5p-content-admin.php:261
 msgid "Opened"
@@ -383,7 +383,7 @@ msgstr "Нет"
 
 #: admin/class-h5p-library-admin.php:415
 msgid "Content library"
-msgstr "Контент библиотеки"
+msgstr "Библиотека контента"
 
 #: admin/class-h5p-library-admin.php:416
 msgid "Used by"
@@ -592,7 +592,7 @@ msgstr "Файл не найден на сервере. Проверьте на�
 #: admin/views/content-results.php:15
 #, php-format
 msgid "Results for \"%s\""
-msgstr "результаты из \"%s\""
+msgstr "результаты для \"%s\""
 
 #: admin/views/content-results.php:16 admin/views/new-content.php:19
 msgid "View"
@@ -698,7 +698,7 @@ msgstr "Настройки сохранены."
 
 #: admin/views/settings.php:23
 msgid "External communication"
-msgstr "Внешняя связь"
+msgstr "Внешнее взаимодействие"
 
 #: admin/views/settings.php:27
 msgid ""
@@ -870,8 +870,8 @@ msgid ""
 "The file you uploaded is not a valid HTML5 Package (We are unable to unzip "
 "it)"
 msgstr ""
-"The file you uploaded is not a valid HTML5 Package (We are unable to unzip "
-"it)"
+"Файл, который вы загрузили, не является допустимым HTML5 пакетом (Мы не можем извлечь "
+"его)"
 
 #: h5p-php-library/h5p.classes.php:733
 msgid "Could not parse the main h5p.json file"
@@ -976,7 +976,7 @@ msgstr "Требуемое свойство %property отсутствует в 
 
 #: h5p-php-library/h5p.classes.php:1204
 msgid "Illegal option %option in %library"
-msgstr "Незаконный вариант %option в %library"
+msgstr "Недопустимый параметр %option в %library"
 
 #: h5p-php-library/h5p.classes.php:1431
 msgid "Added %new new H5P libraries and updated %old old."
@@ -1208,7 +1208,7 @@ msgid "Created"
 msgstr "Создано"
 
 msgid "User Tracking"
-msgstr "Отслеживание Пользователя"
+msgstr "Отслеживание пользователя"
 
 msgid "Library updates"
 msgstr "Обновления библиотеки"
