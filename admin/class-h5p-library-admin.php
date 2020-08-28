@@ -636,7 +636,7 @@ class H5PLibraryAdmin {
       $contents = $wpdb->get_results($wpdb->prepare(
         "SELECT id, parameters AS params, title, authors, source, license,
                 license_version, license_extras, year_from, year_to, changes,
-                author_comments, default_language
+                author_comments, default_language, a11y_title
            FROM {$wpdb->prefix}h5p_contents
           WHERE library_id = %d
                 {$skip_query}
