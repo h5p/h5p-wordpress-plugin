@@ -962,7 +962,6 @@ class H5P_Plugin {
     $author_id = (int)(is_array($content) ? $content['user_id'] : $content->user_id);
 
 	  $metadata = $content['metadata'];
-	  $language = isset($metadata['defaultLanguage']) ? $metadata['defaultLanguage'] : 'en';
     $title = isset($metadata['a11yTitle'])
       ? $metadata['a11yTitle']
       : (isset($metadata['title'])
@@ -976,7 +975,7 @@ class H5P_Plugin {
       'jsonContent' => $safe_parameters,
       'fullScreen' => $content['library']['fullscreen'],
       'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . ($content['slug'] ? $content['slug'] . '-' : '') . $content['id'] . '.h5p' : '',
-      'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen" lang="' . $language . '" title="' . $title . '"></iframe>',
+      'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen" title="' . $title . '"></iframe>',
       'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '" charset="UTF-8"></script>',
       'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
       'title' => $content['title'],
@@ -1052,16 +1051,13 @@ class H5P_Plugin {
       return '<div class="h5p-content" data-content-id="' . $content['id'] . '"></div>';
     }
     else {
-      $language = isset($content['metadata']['defaultLanguage'])
-        ? $content['metadata']['defaultLanguage']
-        : 'en';
       $title = isset($content['metadata']['a11yTitle'])
         ? $content['metadata']['a11yTitle']
         : (isset($content['metadata']['title'])
           ? $content['metadata']['title']
           : ''
         );
-      return '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" lang="' . $language . '" title="' . $title . '"></iframe></div>';
+      return '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" title="' . $title . '"></iframe></div>';
     }
   }
 
