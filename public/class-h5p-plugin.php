@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.15.0';
+  const VERSION = '1.16.0';
 
   /**
    * The Unique identifier for this plugin.
@@ -224,6 +224,7 @@ class H5P_Plugin {
       author_comments LONGTEXT NULL,
       changes LONGTEXT NULL,
       default_language VARCHAR(32) NULL,
+      a11y_title VARCHAR(255) NULL,
       PRIMARY KEY  (id)
     ) {$charset};");
 
@@ -967,18 +968,26 @@ class H5P_Plugin {
     // Getting author's user id
     $author_id = (int)(is_array($content) ? $content['user_id'] : $content->user_id);
 
+	  $metadata = $content['metadata'];
+    $title = isset($metadata['a11yTitle'])
+      ? $metadata['a11yTitle']
+      : (isset($metadata['title'])
+        ? $metadata['title']
+        : ''
+      );
+
     // Add JavaScript settings for this content
     $settings = array(
       'library' => H5PCore::libraryToString($content['library']),
       'jsonContent' => $safe_parameters,
       'fullScreen' => $content['library']['fullscreen'],
       'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . ($content['slug'] ? $content['slug'] . '-' : '') . $content['id'] . '.h5p' : '',
-      'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
+      'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen" title="' . $title . '"></iframe>',
       'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '" charset="UTF-8"></script>',
       'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
       'title' => $content['title'],
       'displayOptions' => $core->getDisplayOptionsForView($content['disable'], $author_id),
-      'metadata' => $content['metadata'],
+      'metadata' => $metadata,
       'contentUserData' => array(
         0 => array(
           'state' => '{}'
@@ -1056,8 +1065,15 @@ class H5P_Plugin {
       else {
         $h5p_http_feature_policy = 'allow="' . self::$h5p_http_feature_policy . '"';
       }
+  
+      $title = isset($content['metadata']['a11yTitle'])
+        ? $content['metadata']['a11yTitle']
+        : (isset($content['metadata']['title'])
+          ? $content['metadata']['title']
+          : ''
+        );
 
-      return '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no"' . $h5p_http_feature_policy . '></iframe></div>';
+      return '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" title="' . $title . ' ' . $h5p_http_feature_policy . '"></iframe></div>';
     }
   }
 

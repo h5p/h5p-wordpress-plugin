@@ -193,7 +193,9 @@ class H5P_Plugin_Admin {
         }
 
         if ($embed_allowed) {
-          $lang = $plugin->get_language();
+          $lang = isset($content['metadata']['defaultLanguage'])
+            ? $content['metadata']['defaultLanguage']
+            : $plugin->get_language();
           $cache_buster = '?ver=' . H5P_Plugin::VERSION;
 
           // Get core settings
