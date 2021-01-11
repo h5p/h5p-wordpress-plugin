@@ -481,11 +481,11 @@ msgstr "Грешка, невалидна библиотека!"
 
 #: admin/class-h5p-library-admin.php:704
 msgid "Error, could not library semantics!"
-msgstr "Ошибка, неверная семантика библиотеки!"
+msgstr "Грешка в семантиката на библиотеката!"
 
 #: admin/class-h5p-content-admin.php:167 admin/class-h5p-content-admin.php:665
 msgid "Content type"
-msgstr "Тип содержания"
+msgstr "Тип съдържание"
 
 #: admin/class-h5p-content-admin.php:172 h5p-php-library/h5p.classes.php:3586
 #: public/class-h5p-plugin.php:915
@@ -509,7 +509,7 @@ msgstr "ID"
 #: admin/views/select-content.php:31
 msgid "No H5P content available. You must upload or create new content."
 msgstr ""
-"Няма  H5P съдържание. Трябва да заредите съществуващо или да създадете ново "
+"Няма съдържание. Трябва да заредите съществуващо или да създадете ново "
 "съдържание."
 
 #: admin/class-h5p-content-admin.php:249
@@ -518,11 +518,11 @@ msgstr "Потребител"
 
 #: admin/class-h5p-content-admin.php:271
 msgid "There are no logged results for this content."
-msgstr "Няма записани резултати за това съдържание."
+msgstr "Няма намерени резултати с това съдържание."
 
 #: admin/class-h5p-content-admin.php:315
 msgid "You are not allowed to edit this content."
-msgstr "Не можете да разкодирате това съдържание."
+msgstr "Нямате право да редактирате това съдържание."
 
 #: admin/class-h5p-content-admin.php:337
 msgid "Invalid confirmation code, not deleting."
@@ -555,11 +555,11 @@ msgstr "Името е твърде дълго. Трябва да бъде 256 с
 
 #: admin/class-h5p-content-admin.php:637
 msgid "Insert H5P Content"
-msgstr "Вмъкване на H5P съдържание"
+msgstr "Вмъкване на съдържание"
 
 #: admin/class-h5p-content-admin.php:638
 msgid "Add H5P"
-msgstr "Добавяне на H5P"
+msgstr "Добавяне"
 
 #: admin/class-h5p-content-admin.php:802
 msgid "ago"
@@ -585,13 +585,12 @@ msgstr "Сигурни ли сте, че искате да изтриете то
 
 #: admin/class-h5p-content-admin.php:1045
 msgid "Invalid security token. Please reload the editor."
-msgstr "Недопустим токън за сигурност. Моля, презаредете редактора."
+msgstr "Недопустим token за сигурност. Моля, презаредете редактора."
 
 #: admin/class-h5p-content-admin.php:1062
 msgid "File not found on server. Check file upload settings."
 msgstr ""
-"Файлът не е намерен на сървъра. Проверете настройките за зареждане на "
-"файлове."
+"Файлът не е намерен на сървъра. Проверете настройките за качване на файлове."
 
 #: admin/views/content-results.php:15
 #, php-format
@@ -609,11 +608,11 @@ msgstr "Изчаква се JavaScript."
 
 #: admin/views/new-content.php:30
 msgid "Enter title here"
-msgstr "Тук въведете заглавие"
+msgstr "Въведете заглавие тук"
 
 #: admin/views/new-content.php:37 admin/views/libraries.php:48
 msgid "Disable file extension check"
-msgstr "Деактивиране на проверка за разширения на файлове"
+msgstr "Деактивиране на проверката за разширения на файлове"
 
 #: admin/views/new-content.php:38 admin/views/libraries.php:49
 msgid ""
@@ -742,7 +741,7 @@ msgstr "Лента с действия"
 
 #: admin/views/settings.php:66
 msgid "About H5P button"
-msgstr "Бутон За H5P"
+msgstr "Бутон за H5P"
 
 #: admin/views/settings.php:72
 msgid "User Results"
@@ -758,7 +757,7 @@ msgstr "Запазване на състоянието на съдържание
 
 #: admin/views/settings.php:85
 msgid "Allow logged-in users to resume tasks"
-msgstr "Разрешаване на регистрираните потребители да възобновят задачите"
+msgstr "Разрешаване на влезлите потребители да започнат задачит отново"
 
 #: admin/views/settings.php:88
 msgid "Auto-save frequency (in seconds)"
@@ -782,7 +781,7 @@ msgstr "Свързано съдържание по id"
 #: admin/views/settings.php:112
 #, php-format
 msgid "Reference content by <a href=\"%s\" target=\"_blank\">slug</a>"
-msgstr "Свързано съдържание по <a href=\"%s\" target=\"_blank\">шаблон</a>"
+msgstr "Свързано съдържание по <a href=\"%s\" target=\"_blank\">slug</a>"
 
 #: admin/views/library-delete.php:16
 msgid "Are you sure you wish to delete this H5P library?"
@@ -1120,7 +1119,7 @@ msgstr "Грешка в базата данни: %s."
 #: public/class-h5p-plugin.php:651
 #, php-format
 msgid "Cannot find H5P content with slug: %s."
-msgstr "Не може да бъде намерено H5P съдържание с шаблон: %s."
+msgstr "Не може да бъде намерено H5P съдържание с slug: %s."
 
 #: public/class-h5p-plugin.php:904
 msgid "Disable fullscreen"
