@@ -1060,7 +1060,7 @@ class H5P_Plugin {
         $h5p_content = '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" title="' . $title . '"></iframe></div>';
     }
 
-    return apply_filters('print_h5p_content', $h5p_content);
+    return apply_filters('print_h5p_content', $h5p_content, $content);
   }
 
   /**
