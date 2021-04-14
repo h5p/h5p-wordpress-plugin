@@ -1055,7 +1055,7 @@ class H5P_Plugin {
     }
 
     if ($embed === 'div') {
-      return '<div class="h5p-content" data-content-id="' . $content['id'] . '"></div>';
+        $h5p_content_wrapper =  '<div class="h5p-content" data-content-id="' . $content['id'] . '"></div>';
     }
     else {
       // Set HTTP feature policy attribute
@@ -1073,8 +1073,10 @@ class H5P_Plugin {
           : ''
         );
 
-      return '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" title="' . $title . ' ' . $h5p_http_feature_policy . '"></iframe></div>';
+      $h5p_content_wrapper = '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" title="' . $title . ' ' . $h5p_http_feature_policy . '"></iframe></div>';
     }
+
+    return apply_filters('print_h5p_content', $h5p_content_wrapper, $content);
   }
 
   /**
