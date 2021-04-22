@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.15.1';
+  const VERSION = '1.15.2';
 
   /**
    * The Unique identifier for this plugin.
@@ -217,7 +217,7 @@ class H5P_Plugin {
       author_comments LONGTEXT NULL,
       changes LONGTEXT NULL,
       default_language VARCHAR(32) NULL,
-      a11y_title VARCHAR(255) NULL, 
+      a11y_title VARCHAR(255) NULL,
       PRIMARY KEY  (id)
     ) {$charset};");
 
