@@ -3,8 +3,8 @@ Contributors: icc0rz, fnoks, falcon28
 Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
-Tested up to: 5.5
-Stable tag: 1.15.0
+Tested up to: 5.7.1
+Stable tag: 1.15.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -453,3 +453,9 @@ Improved list layout for narrow screens. Thanks Otacke.
 Change how focus effect is applied when only using mouse cursor.
 Minor accessibility improvements to editor.
 Updated language files. Big thanks to all the contributors.
+
+= 1.15.1 =
+Fixed PHP version 8 compatibility
+Allow for separate accessibility title for content
+Updated translations
+Improved attribute filtering performance
