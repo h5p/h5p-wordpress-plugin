@@ -1147,7 +1147,7 @@ class H5PWordPress implements H5PFrameworkInterface {
         return current_user_can('manage_h5p_libraries');
 
       case H5PPermission::INSTALL_RECOMMENDED:
-        current_user_can('install_recommended_h5p_libraries');
+        return current_user_can('install_recommended_h5p_libraries');
 
     }
     return FALSE;
