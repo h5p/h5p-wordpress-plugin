@@ -197,6 +197,34 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function getLibraryUsage($id, $skipContent = FALSE) {
     global $wpdb;
 
+    /*
+     * There may be direct circular dependencies between a content type and its
+     * editor that might lead to a library not being deletable. Check all
+     * editor dependencies for only having a dependency to the library itself.
+     * No check vice versa, because deleting the editor for a content type
+     * would still allow to choose the content from the H5P Hub with the editor
+     * widget then missing.
+     */
+    $editor_dependencies = $wpdb->get_col($wpdb->prepare(
+      "SELECT required_library_id
+      FROM {$wpdb->prefix}h5p_libraries_libraries
+      WHERE library_id = %d AND dependency_type = %s",
+      $id, 'editor'
+    ));
+
+    $hasCircularEditorDependency = array_reduce($editor_dependencies, function ($isCircle, $editor_library_id) use ($id, $wpdb) {
+      if ($isCircle) {
+        return TRUE; // Found already
+      }
+
+      return (intval($wpdb->get_var($wpdb->prepare(
+        "SELECT COUNT(*)
+        FROM {$wpdb->prefix}h5p_libraries_libraries
+        WHERE library_id = %d AND required_library_id = %d AND dependency_type = %s",
+        intval($editor_library_id), $id, 'preloaded'
+      ))) === 1);
+    }, FALSE);
+
     return array(
       'content' => $skipContent ? -1 : intval($wpdb->get_var($wpdb->prepare(
           "SELECT COUNT(distinct c.id)
@@ -211,7 +239,8 @@ class H5PWordPress implements H5PFrameworkInterface {
           FROM {$wpdb->prefix}h5p_libraries_libraries
           WHERE required_library_id = %d",
           $id)
-        ))
+        )),
+      'hasCircularEditorDepencendy' => $hasCircularEditorDependency
     );
   }
 
