@@ -201,6 +201,7 @@ class H5PLibraryAdmin {
           'numContent' => $contents_count === 0 ? '' : $contents_count,
           'numContentDependencies' => $usage['content'] < 1 ? '' : $usage['content'],
           'numLibraryDependencies' => $usage['libraries'] === 0 ? '' : $usage['libraries'],
+          'hasCircularEditorDepencendy' => $usage['hasCircularEditorDepencendy'],
           'upgradeUrl' => $upgradeUrl,
           'detailsUrl' => admin_url('admin.php?page=h5p_libraries&task=show&id=' . $library->id),
           'deleteUrl' => admin_url('admin.php?page=h5p_libraries&task=delete&id=' . $library->id)
@@ -304,7 +305,8 @@ class H5PLibraryAdmin {
 
       // Check if this library can be deleted
       $usage = $interface->getLibraryUsage($library->id, $interface->getNumNotFiltered() ? TRUE : FALSE);
-      if ($usage['content'] !== 0 || $usage['libraries'] !== 0) {
+      $delete_circular_editor_dependency = $usage['hasCircularEditorDepencendy'] && $usage['content'] === 0 && $usage['libraries'] === 1;
+      if (!$delete_circular_editor_dependency && ($usage['content'] !== 0 || $usage['libraries'] !== 0)) {
         H5P_Plugin_Admin::set_error(__('This Library is used by content or other libraries and can therefore not be deleted.', $this->plugin_slug));
         return; // Nope
       }
