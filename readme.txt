@@ -3,8 +3,8 @@ Contributors: icc0rz, fnoks, falcon28
 Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
-Tested up to: 5.7.1
-Stable tag: 1.15.2
+Tested up to: 5.7.2
+Stable tag: 1.15.3
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -462,3 +462,6 @@ Improved attribute filtering performance
 
 = 1.15.2 =
 Fixed inconsistent variable naming
+
+= 1.15.3 =
+Update CKEditor to the latest 4.x version.
