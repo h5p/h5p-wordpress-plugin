@@ -67,6 +67,13 @@ class H5P_Plugin {
   protected static $settings = null;
 
   /**
+   * Default settings for HTTP Feature Policy.
+   *
+   * @var string
+   */
+  protected static $h5p_http_feature_policy = 'accelerometer *; autoplay *; camera *; fullscreen *; geolocation *; gyroscope *; magnetometer *; microphone *;';
+
+  /**
    * Initialize the plugin by setting localization and loading public scripts
    * and styles.
    *
@@ -1051,13 +1058,22 @@ class H5P_Plugin {
         $h5p_content_wrapper =  '<div class="h5p-content" data-content-id="' . $content['id'] . '"></div>';
     }
     else {
+      // Set HTTP feature policy attribute
+      if ( defined( 'H5P_HTTP_FEATURE_POLICY' ) && H5P_HTTP_FEATURE_POLICY ) {
+        $h5p_http_feature_policy = 'allow="' . H5P_HTTP_FEATURE_POLICY . '"';
+      }
+      else {
+        $h5p_http_feature_policy = 'allow="' . self::$h5p_http_feature_policy . '"';
+      }
+  
       $title = isset($content['metadata']['a11yTitle'])
         ? $content['metadata']['a11yTitle']
         : (isset($content['metadata']['title'])
           ? $content['metadata']['title']
           : ''
         );
-        $h5p_content_wrapper = '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" title="' . $title . '"></iframe></div>';
+
+      $h5p_content_wrapper = '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" title="' . $title . ' ' . $h5p_http_feature_policy . '"></iframe></div>';
     }
 
     return apply_filters('print_h5p_content', $h5p_content_wrapper, $content);
