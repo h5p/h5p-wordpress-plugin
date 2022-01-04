@@ -886,14 +886,16 @@ class H5P_Plugin_Admin {
     $joins = '';
     $query_args = array();
 
+    $append_user_name = false;
+
     // Add extra fields and joins for the different result lists
     if ($content_id === NULL) {
       $extra_fields .= " hr.content_id, hc.title AS content_title,";
       $joins .= " LEFT JOIN {$wpdb->prefix}h5p_contents hc ON hr.content_id = hc.id";
     }
     if ($user_id === NULL) {
-      $extra_fields .= " hr.user_id, u.display_name AS user_name,";
-      $joins .= " LEFT JOIN {$wpdb->users} u ON hr.user_id = u.ID";
+      $extra_fields .= " hr.user_id";
+      $append_user_name = true;
     }
 
     // Add filters
@@ -914,7 +916,7 @@ class H5P_Plugin_Admin {
     $query_args[] = $offset;
     $query_args[] = $limit;
 
-    return $wpdb->get_results($wpdb->prepare(
+    $results = $wpdb->get_results($wpdb->prepare(
       "SELECT hr.id,
               {$extra_fields}
               hr.score,
@@ -929,6 +931,53 @@ class H5P_Plugin_Admin {
         LIMIT %d, %d",
       $query_args
     ));
+
+    if ( $append_user_name ) {
+      $results = $this->append_user_name( $results );
+    }
+
+	return $results;
+  }
+
+  /**
+   * Appends user name to query results by fetching from user table.
+   *
+   * @since xxx
+   * @return array
+   */
+  protected function append_user_name( $results ) {
+    // Collect all user IDs to process in a single query.
+    $user_ids = [];
+    foreach ( $results as $result ) {
+      if ( ! isset( $result->user_id ) ) {
+        continue;
+      }
+
+      $user_ids[] = $result->user_id;
+    }
+
+    $wp_users = get_users(
+      array(
+        'include' => array_unique( $user_ids ),
+      )
+    );
+
+    // If no users are found, there's nothing to do.
+    if ( ! $wp_users ) {
+      return $results;
+    }
+
+    // We can fetch items from the now primed cache.
+    foreach ( $results as &$result ) {
+      if ( ! isset( $result->user_id ) ) {
+        continue;
+      }
+
+      $userdata = get_userdata( $result->user_id );
+      $result->user_name = $userdata->display_name;
+    }
+
+    return $results;
   }
 
   /**

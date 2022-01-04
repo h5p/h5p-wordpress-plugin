@@ -27,6 +27,10 @@ class H5PContentQuery {
     'IN' => " IN (%s)"
   );
 
+  private $user_fields = [
+    'user_name' => 'display_name',
+  ];
+
   // Valid fields and their true database names
   private $valid_fields = array(
     'id' => array('hc', 'id'),
@@ -36,12 +40,11 @@ class H5PContentQuery {
     'slug' => array('hc', 'slug', TRUE),
     'created_at' => array('hc', 'created_at'),
     'updated_at' => array('hc', 'updated_at'),
-    'user_id' => array('u', 'ID'),
-    'user_name' => array('u', 'display_name', TRUE),
+    'user_id' => array('hc', 'user_id'),
     'tags' =>  array('t', 'GROUP_CONCAT(DISTINCT CONCAT(t.id,\',\',t.name) ORDER BY t.id SEPARATOR \';\')')
   );
 
-  private $fields, $join, $where, $where_args, $order_by, $limit, $limit_args;
+  private $fields, $fields_raw, $join, $where, $where_args, $order_by, $limit, $limit_args;
 
   /**
    * Constructor
@@ -62,7 +65,6 @@ class H5PContentQuery {
     $this->base_table = "{$wpdb->prefix}h5p_contents hc";
     $this->valid_joins = array(
       'hl' => " LEFT JOIN {$wpdb->prefix}h5p_libraries hl ON hl.id = hc.library_id",
-      'u' => " LEFT JOIN {$wpdb->users} u ON hc.user_id = u.ID",
       't' => " LEFT JOIN {$wpdb->prefix}h5p_contents_tags ct ON ct.content_id = hc.id
                LEFT JOIN {$wpdb->prefix}h5p_tags t ON ct.tag_id = t.id
                LEFT JOIN {$wpdb->prefix}h5p_contents_tags ct2 ON ct2.content_id = hc.id"
@@ -71,8 +73,14 @@ class H5PContentQuery {
     $this->join = array();
 
     // Start adding fields
+    $this->fields_raw = $fields;
     $this->fields = '';
     foreach ($fields as $field) {
+      // User fields are handled separately.
+      if ( isset( $this->user_fields[ $field ] ) ) {
+        continue;
+      }
+
       $valid_field = $this->get_valid_field($field);
       $table = $valid_field[0];
 
@@ -216,7 +224,9 @@ class H5PContentQuery {
       $query = $wpdb->prepare($query, $args);
     }
 
-    return $wpdb->get_results($query);
+    $results = $wpdb->get_results( $query );
+
+    return $this->append_user_data( $results );
   }
 
   /**
@@ -238,5 +248,54 @@ class H5PContentQuery {
       $query = $wpdb->prepare($query, $this->where_args);
     }
     return (int) $wpdb->get_var($query);
+  }
+
+  /**
+   * Appends user data to query results by fetching from user table.
+   *
+   * @since xxx
+   * @return array
+   */
+  protected function append_user_data( $results ) {
+    // If no user fields were requested, we can bail.
+    if ( ! array_intersect( $this->fields_raw, array_keys( $this->user_fields ) ) ) {
+      return $results;
+    }
+
+    // Collect all user IDs to process in a single query.
+    $user_ids = [];
+    foreach ( $results as $result ) {
+      if ( ! isset( $result->user_id ) ) {
+        continue;
+      }
+
+      $user_ids[] = $result->user_id;
+    }
+
+    $wp_users = get_users(
+      array(
+        'include' => array_unique( $user_ids ),
+      )
+    );
+
+    // If no users are found, there's nothing to do.
+	if ( ! $wp_users ) {
+      return $results;
+    }
+
+    // We can fetch items from the now primed cache.
+    foreach ( $results as &$result ) {
+      if ( ! isset( $result->user_id ) ) {
+        continue;
+      }
+
+      $userdata = get_userdata( $result->user_id );
+
+      if ( in_array( 'user_name', $this->fields_raw, true ) ) {
+        $result->user_name = $userdata->display_name;
+	  }
+	}
+
+    return $results;
   }
 }
