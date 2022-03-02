@@ -125,7 +125,7 @@ msgstr "Voeg H5P toe"
 #: admin/class-h5p-content-admin.php:793
 #, php-format
 msgid "%s ago"
-msgstr "%s geleden
+msgstr "%s geleden"
 
 #: admin/class-h5p-content-admin.php:847
 msgid "Insert"
