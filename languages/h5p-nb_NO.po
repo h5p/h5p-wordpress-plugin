@@ -1999,13 +1999,6 @@ msgstr ""
 #~ msgstr "Fyll inn tittel"
 
 #~ msgid ""
-#~ "Allows you to upload, create, share and use rich interactive content on "
-#~ "your WordPress site."
-#~ msgstr ""
-#~ "Gjør det mulig for deg å laste opp, lage, dele og bruke rikt interaktivt "
-#~ "innhold på din WordPress-side."
-
-#~ msgid ""
 #~ "Usage statistics numbers will automatically be reported to help the "
 #~ "developers better understand how H5P is used and to determine potential "
 #~ "areas of improvement."
