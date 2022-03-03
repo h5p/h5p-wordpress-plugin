@@ -756,7 +756,7 @@ msgid ""
 "By default, a toolbar with 4 buttons is displayed below each interactive "
 "content."
 msgstr "Standaard wordt de activiteitenbalk met 4 knoppen getoond onder elke interactieve "
-"inhoud"." 
+"inhoud."
 
 #: admin/views/settings.php:53 admin/views/settings.php:78
 msgid "Never"
@@ -779,12 +779,12 @@ msgstr "Gecontroleerd door de auteur - Standaar uit"
 msgid ""
 "Setting this to 'Never' will reduce the amount of disk space required for "
 "interactive content."
-msgstr "Door deze instelling op "Nooit" te zetten, zal de benodigde schijfruimte verminderen 
-" van de interactieve inhoud."
+msgstr "Door deze instelling op 'Nooit' te zetten, zal de benodigde schijfruimte verminderen "
+"van de interactieve inhoud."
 
 #: admin/views/settings.php:94
 msgid "Setting this to 'Never' will disable already existing embed codes."
-msgstr "Door deze instelling op "Nooit" te zetten, schakel je bestaande insluitcodes uit."
+msgstr "Door deze instelling op 'Nooit' te zetten, schakel je bestaande insluitcodes uit."
 
 #: admin/views/settings.php:108
 msgid "Display About H5P button"
