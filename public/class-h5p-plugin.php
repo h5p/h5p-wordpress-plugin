@@ -71,7 +71,7 @@ class H5P_Plugin {
    *
    * @var string
    */
-  protected static $h5p_http_feature_policy = 'accelerometer *; autoplay *; camera *; fullscreen *; geolocation *; gyroscope *; magnetometer *; microphone *;';
+  protected static $h5p_http_feature_policy = 'accelerometer *; autoplay *; camera *; clipboard-write *; fullscreen *; geolocation *; gyroscope *; magnetometer *; microphone *;';
 
   /**
    * Initialize the plugin by setting localization and loading public scripts
