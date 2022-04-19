@@ -131,7 +131,7 @@ Fixed wrong sorting on insert H5P media pop-up.
 Other minor bug fixes and adjustments.
 
 = 1.5.2 =
-Added italian language support to the editor, and update plugin translation. (big thanks to yeu for both of theses!)
+Added italian language support to the editor, and update plugin translation. (big thanks to yeu for both of these!)
 Fixed editor list bugs. One where you can't order list items downwards.
 Fixed so that libraries are loaded according to weight in the editor.
 Improved the external event dispatcher. Now the this arg should be correct.
@@ -140,7 +140,7 @@ Fixed issue where the about H5P button disappears from content.
 Minor improvement to content output filtering
 
 = 1.5.3 =
-Imporved error handling when uploading H5P libraries, courtesy of community user limikael.
+Improved error handling when uploading H5P libraries, courtesy of community user limikael.
 Created separate class for querying H5P content in case other plugins wish to use it.
 Updated hooks for altering semantics, parameters, scripts and styles. See http://h5p.org/wordpress-customization for more information.
 Fixed actor for xAPI events.
@@ -277,7 +277,7 @@ Increases H5P API version to 1.12
 Fixed untranslatable string, big thanks to Joseph Rezeau for finding and fixing these.
 
 = 1.7.9 =
-Fix compability with PHP <5.4
+Fix compatibility with PHP <5.4
 Big thanks to andyrandom at drupal.org for providing the fix.
 
 = 1.7.10 =
@@ -308,7 +308,7 @@ Minor improvements and bug fixes
 Removed functions dependendant on PHP >5.4.
 
 = 1.8.3 =
-Fixed support for combining header styles with other text formating options.
+Fixed support for combining header styles with other text formatting options.
 Added .wav files to whitelist.
 Added video quality naming option (currently, only used by Interactive Video).
 Only allow for a single video source when using YouTube (others doesn't work).
@@ -342,7 +342,7 @@ Improved the YouTube regexp matching pattern. Big thanks to Otacke!
 Improved copyright button for media fields.
 Improved editor number fields to support feedback ranges.
 Improved editor number fields error messages to be consistent with other fields.
-Removed update button in H5P Hub when the users doesn't have access to upated libraries.
+Removed update button in H5P Hub when the users doesn't have access to updated libraries.
 Other minor editor improvements.
 Fixed support for absolute URLs for content types embedded through div.
 
