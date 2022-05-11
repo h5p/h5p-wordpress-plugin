@@ -957,8 +957,8 @@ class H5P_Plugin {
         $feature_policy_value = $feature_policy_name . ' \'' . $feature_policy_value . '\'';
       }
     );
-    
-    return 0 === count( $h5p_http_feature_policy_list ) ? '' : 'allow="' . implode( ';', $h5p_http_feature_policy_list ) . '"';
+
+    return is_array( $h5p_http_feature_policy_list ) && 0 === count( $h5p_http_feature_policy_list ) ? '' : 'allow="' . implode( ';', $h5p_http_feature_policy_list ) . '"';
   }
 
   /**
