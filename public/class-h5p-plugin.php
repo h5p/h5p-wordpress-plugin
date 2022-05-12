@@ -71,7 +71,17 @@ class H5P_Plugin {
    *
    * @var string
    */
-  protected static $h5p_http_feature_policy = 'accelerometer *; autoplay *; camera *; clipboard-write *; fullscreen *; geolocation *; gyroscope *; magnetometer *; microphone *;';
+  protected static $h5p_http_feature_policy = array(
+    'accelerometer' => '*',
+    'autoplay' => '*',
+    'camera' => '*',
+    'clipboard-write' => '*',
+    'fullscreen' => '*',
+    'geolocation' => '*',
+    'gyroscope' => '*',
+    'magnetometer' => '*',
+    'microphone' => '*'
+  );
 
   /**
    * Initialize the plugin by setting localization and loading public scripts
@@ -939,11 +949,16 @@ class H5P_Plugin {
    */
   public function get_http_feature_policy_property() {
     // Set HTTP feature policy attribute
-    if ( defined( 'H5P_HTTP_FEATURE_POLICY' ) && H5P_HTTP_FEATURE_POLICY ) {
-      return 'allow="' . H5P_HTTP_FEATURE_POLICY . '"';
-    }
+    $h5p_http_feature_policy_list = apply_filters( 'h5p_h5p_http_feature_policy', defined( 'H5P_HTTP_FEATURE_POLICY' ) && H5P_HTTP_FEATURE_POLICY ? H5P_HTTP_FEATURE_POLICY : self::$h5p_http_feature_policy );
+    
+    array_walk(
+      $h5p_http_feature_policy_list,
+      function( &$feature_policy_value, $feature_policy_name ) {
+        $feature_policy_value = $feature_policy_name . ' \'' . $feature_policy_value . '\'';
+      }
+    );
 
-    return 'allow="' . self::$h5p_http_feature_policy . '"';
+    return is_array( $h5p_http_feature_policy_list ) && 0 === count( $h5p_http_feature_policy_list ) ? '' : 'allow="' . implode( ';', $h5p_http_feature_policy_list ) . '"';
   }
 
   /**
