@@ -17,6 +17,12 @@ var ns = H5PEditor;
     // Required styles and scripts for the editor
     H5PEditor.assets = H5PIntegration.editor.assets;
 
+    // Content Hub
+    H5PEditor.enableContentHub = H5PIntegration.editor.enableContentHub;
+    H5PIntegration.Hub = {
+      contentSearchUrl: H5PIntegration.editor.hub.contentSearchUrl
+    };
+
     // Required for assets
     H5PEditor.baseUrl = '';
 

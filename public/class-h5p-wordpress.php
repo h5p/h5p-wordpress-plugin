@@ -597,26 +597,30 @@ class H5PWordPress implements H5PFrameworkInterface {
         ARRAY_A
       );
 
-    $dependencies = $wpdb->get_results($wpdb->prepare(
-        "SELECT hl.name as machineName, hl.major_version as majorVersion, hl.minor_version as minorVersion, hll.dependency_type as dependencyType
-        FROM {$wpdb->prefix}h5p_libraries_libraries hll
-        JOIN {$wpdb->prefix}h5p_libraries hl ON hll.required_library_id = hl.id
-        WHERE hll.library_id = %d",
-        $library['libraryId'])
-      );
-    foreach ($dependencies as $dependency) {
-      $library[$dependency->dependencyType . 'Dependencies'][] = array(
-        'machineName' => $dependency->machineName,
-        'majorVersion' => $dependency->majorVersion,
-        'minorVersion' => $dependency->minorVersion,
-      );
-    }
-    if ($this->isInDevMode()) {
-      $semantics = $this->getSemanticsFromFile($library['machineName'], $library['majorVersion'], $library['minorVersion']);
-      if ($semantics) {
-        $library['semantics'] = $semantics;
+    // TODO: Fix independent of OER-Hub
+    if (!empty($library)) {
+      $dependencies = $wpdb->get_results($wpdb->prepare(
+          "SELECT hl.name as machineName, hl.major_version as majorVersion, hl.minor_version as minorVersion, hll.dependency_type as dependencyType
+          FROM {$wpdb->prefix}h5p_libraries_libraries hll
+          JOIN {$wpdb->prefix}h5p_libraries hl ON hll.required_library_id = hl.id
+          WHERE hll.library_id = %d",
+          $library['libraryId'])
+        );
+      foreach ($dependencies as $dependency) {
+        $library[$dependency->dependencyType . 'Dependencies'][] = array(
+          'machineName' => $dependency->machineName,
+          'majorVersion' => $dependency->majorVersion,
+          'minorVersion' => $dependency->minorVersion,
+        );
+      }
+      if ($this->isInDevMode()) {
+        $semantics = $this->getSemanticsFromFile($library['machineName'], $library['majorVersion'], $library['minorVersion']);
+        if ($semantics) {
+          $library['semantics'] = $semantics;
+        }
       }
     }
+
     return $library;
   }
 
@@ -704,6 +708,9 @@ class H5PWordPress implements H5PFrameworkInterface {
               , hc.changes AS changes
               , hc.default_language AS defaultLanguage
               , hc.a11y_title AS a11yTitle
+              , hc.shared AS shared
+              , hc.synced AS synced
+              , hc.content_hub_id AS contentHubId
         FROM {$wpdb->prefix}h5p_contents hc
         JOIN {$wpdb->prefix}h5p_libraries hl ON hl.id = hc.library_id
         WHERE hc.id = %d",
@@ -913,35 +920,132 @@ class H5PWordPress implements H5PFrameworkInterface {
   }
 
   /**
-   * Implements fetchExternalData
+   * Function to multipart encode a uploaded file.
+   *
+   * @param string $name The form data name.
+   * @param string $filepath Path to file location (tmp_name).
+   * @param string $filename Original file name (as posted).
+   * @param string $mimetype Original mime type (as posted).
+   *
+   * @return string A string with the mimetype and the file.
    */
-  public function fetchExternalData($url, $data = NULL, $blocking = TRUE, $stream = NULL) {
+  function h5p_multipart_enc_file($name, $filepath, $filename, $mimetype = 'application/octet-stream') {
+    if (substr($filepath, 0, 1) === '@') {
+      $filepath = substr($filepath, 1);
+    }
+    $data  = "Content-Disposition: form-data; name=\"$name\"; filename=\"$filename\"\r\n"; // "file" key.
+    $data .= "Content-Transfer-Encoding: binary\r\n";
+    $data .= "Content-Type: $mimetype\r\n\r\n";
+
+    $data .= file_get_contents($filepath) . "\r\n";
+    return $data;
+  }
+
+  /**
+   * Function to encode text data.
+   *
+   * @param string $name The name of the field.
+   * @param string $value The value of the field.
+   * @return string A string encoded text data.
+   */
+  function h5p_multipart_enc_text($name, $value){
+    return "Content-Disposition: form-data; name=\"$name\"\r\n\r\n$value\r\n"; // TODO: Should we be using rawurlencode ?
+  }
+
+  /**
+   * Implements fetchExternalData.
+   *
+   * @param  string  $url  Where you want to get or send data.
+   * @param  array  $data  Data to post to the URL.
+   * @param  bool  $blocking  Set to 'FALSE' to instantly time out (fire and forget).
+   * @param  string  $stream  Path to where the file should be saved.
+   * @param  bool  $fullData  Return additional response data such as headers and potentially other data
+   * @param  array  $headers Headers to send
+   *
+   * @return string|array The content (response body), or an array with data. NULL if something went wrong
+   */
+  public function fetchExternalData($url, $data = NULL, $blocking = TRUE, $stream = NULL, $fullData = FALSE, $headers = [], $files = [], $method = 'POST') {
     @set_time_limit(0);
     $options = array(
       'timeout' => !empty($blocking) ? 30 : 0.01,
       'stream' => !empty($stream),
-      'filename' => !empty($stream) ? $stream : FALSE
+      'filename' => !empty($stream) ? $stream : FALSE,
+      'headers' => $headers
     );
 
-    if ($data !== NULL) {
-      // Post
+    if (!empty($files)) {
+      // TODO: Is this required on WordPress? Better option?
+
+      // We have to use multipart form-data encoding with boundary since the
+      // old drupal http client does not natively support posting files
+      $boundary = md5(uniqid('', TRUE));
+      $options['method'] = $method;
+      $encoded_data = '';
+      foreach ($data as $key => $value) {
+        if (empty($value)) {
+          continue;
+        }
+
+        if (is_array($value)) {
+          foreach ($value as $val) {
+            $encoded_data .= "--" . $boundary . "\r\n";
+            $encoded_data .= $this->h5p_multipart_enc_text($key . '[]', $val);
+          }
+        }
+        else {
+          $encoded_data .= "--" . $boundary . "\r\n";
+          $encoded_data .= $this->h5p_multipart_enc_text($key, $value);
+        }
+      }
+
+      // TODO: Should we check $_FILES[]['size'] (+ combiend size) before trying to post something we know is too large?
+      foreach ($files as $name => $file) {
+        if ($file === NULL) {
+          continue;
+        }
+        elseif (is_array($file['name'])) {
+          // Array of files uploaded (multiple)
+          for ($i = 0; $i < count($file['name']); $i++) {
+            $encoded_data .= "--" . $boundary . "\r\n";
+            $encoded_data .= $this->h5p_multipart_enc_file($name . '[]', $file['tmp_name'][$i], $file['name'][$i], $file['type'][$i]);
+          }
+        }
+        else {
+          // Single file
+          $encoded_data .= "--" . $boundary . "\r\n";
+          $encoded_data .= $this->h5p_multipart_enc_file($name, $file['tmp_name'], $file['name'], $file['type']);
+        }
+      }
+
+      $encoded_data .= "--" . $boundary . "--";
+      $options['body'] = $encoded_data;
+      $options['headers'] = array_merge(array(
+        'Content-Type' => 'multipart/form-data; boundary=' . $boundary
+      ), $options['headers']);
+    }
+    elseif (!empty($data)) {
+      $options['method'] = $method;
+      $options['headers'] = array_merge(array(
+        'Content-Type' => 'application/x-www-form-urlencoded'
+      ), $options['headers']);
       $options['body'] = $data;
-      $response = wp_remote_post($url, $options);
+    }
+
+    if (!empty($options['filename']) && empty($data)) {
+      $response = wp_safe_remote_get($url, $options);
     }
     else {
-      // Get
-
-      if (empty($options['filename'])) {
-        // Support redirects
-        $response = wp_remote_get($url);
-      }
-      else {
-        // Use safe when downloading files
-        $response = wp_safe_remote_get($url, $options);
-      }
+      $response = wp_remote_request($url, $options);
     }
 
-    if (is_wp_error($response)) {
+    if ($fullData) {
+      return [
+        'status' => intval($response['response']['code']),
+        'data' => isset($response['body']) ? $response['body'] : NULL,
+        'headers' => isset($response['headers']) ? $response['headers'] : NULL
+      ];
+    }
+    else if (is_wp_error($response)) {
       $this->setErrorMessage($response->get_error_message(), 'failed-fetching-external-data');
       return FALSE;
     }
@@ -1280,5 +1384,114 @@ class H5PWordPress implements H5PFrameworkInterface {
         $library['majorVersion'],
         $library['minorVersion']
     )) !== NULL;
+  }
+
+  /**
+   * Implements replaceContentHubMetadataCache
+   *
+   * @param JsonSerializable $metadata Metadata as received from content hub
+   * @param string $lang Language in ISO 639-1
+   *
+   * @return mixed
+   */
+  public function replaceContentHubMetadataCache($metadata, $lang = 'en') {
+    global $wpdb;
+
+    $count = $wpdb->get_var($wpdb->prepare(
+      "SELECT COUNT(*)
+        FROM {$wpdb->prefix}h5p_content_hub_metadata_cache
+        WHERE language = '%s'
+      LIMIT 1",
+      $lang
+    ));
+
+    if ($count === '0') {
+      $result = $wpdb->insert(
+        "{$wpdb->prefix}h5p_content_hub_metadata_cache",
+        array(
+          'language' => $lang,
+          'json' => $metadata
+        ),
+        array('%s', '%s')
+      );
+    }
+    else {
+      $result = $wpdb->update(
+        "{$wpdb->prefix}h5p_content_hub_metadata_cache",
+        array('json' => $metadata),
+        array('language' => $lang),
+        array('%s'),
+        array('%s')
+      );
+    }
+  }
+
+  /**
+   * Implements libraryHasUpgrade
+   * Get content hub metadata cache as json from db
+   *
+   * @param  string  $lang
+   *
+   * @return JsonSerializable|NULL
+   */
+  public function getContentHubMetadataCache($lang = 'en') {
+    global $wpdb;
+
+    return $wpdb->get_var($wpdb->prepare(
+      "SELECT json
+        FROM {$wpdb->prefix}h5p_content_hub_metadata_cache
+        WHERE language = '%s'
+      LIMIT 1",
+      $lang
+    ));
+  }
+
+  /**
+   * Get when content hub metadata cache was last checked
+   *
+   * @param  string  $lang ISO 639-1 lang code
+   *
+   * @return string|NULL Returns time in RFC 7231 format
+   */
+  public function getContentHubMetadataChecked($lang = 'en') {
+    global $wpdb;
+
+    $results = $wpdb->get_var($wpdb->prepare(
+      "SELECT last_checked
+        FROM {$wpdb->prefix}h5p_content_hub_metadata_cache
+        WHERE language = '%s'
+      LIMIT 1",
+      $lang
+    ));
+
+    if (!empty($results)) {
+      $time = new DateTime();
+      $time->setTimestamp($results);
+      $results = $time->format("D, d M Y H:i:s \G\M\T");
+    }
+
+    return $results;
+  }
+
+  /**
+   * Set when content hub metadata cache was last checked.
+   *
+   * @param  int|NULL $time UNIX timestamp for when last check
+   * @param  string $lang ISO 639-1 lang code
+   *
+   * @return bool
+   */
+  public function setContentHubMetadataChecked($time, $lang = 'en') {
+    global $wpdb;
+
+    $result = $wpdb->update(
+      "{$wpdb->prefix}h5p_content_hub_metadata_cache",
+      array('last_checked' => $time),
+      array('language' => $lang),
+      array('%d'),
+      array('%s')
+    );
+
+    return TRUE;
   }
 }

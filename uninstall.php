@@ -46,6 +46,15 @@ foreach ($all_roles as $role_name => $role_info) {
   if (isset($role_info['capabilities']['view_h5p_results'])) {
     $role->remove_cap('view_h5p_results');
   }
+  if (isset($role_info['capabilities']['manage_h5p_content_hub_registration'])) {
+    $role->remove_cap('manage_h5p_content_hub_registration');
+  }
+  if (isset($role_info['capabilities']['share_h5p_contents'])) {
+    $role->remove_cap('share_h5p_contents');
+  }
+  if (isset($role_info['capabilities']['share_others_h5p_contents'])) {
+    $role->remove_cap('share_others_h5p_contents');
+  }
 }
 
 global $wpdb;
