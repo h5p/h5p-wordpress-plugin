@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 5.8.3
-Stable tag: 1.15.4
+Stable tag: 1.15.5
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -468,3 +468,6 @@ Update CKEditor to the latest 4.x version.
 
 = 1.15.4 =
 Update CKEditor to 4.17.1
+
+= 1.15.5 =
+Update regexp to handle edge cases
