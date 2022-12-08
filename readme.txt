@@ -470,4 +470,6 @@ Update CKEditor to the latest 4.x version.
 Update CKEditor to 4.17.1
 
 = 1.15.5 =
-Update regexp to handle edge cases
+Improve data loading by fetching user data in a separate query rather than joining wp_users. This will allow for storing data across multiple databases.
+Updated regexp to handle edge cases
+Updated translations
