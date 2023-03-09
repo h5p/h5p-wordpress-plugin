@@ -4,21 +4,22 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/h5p-wordpress-"
 "plugin-master\n"
 "POT-Creation-Date: 2022-03-02 16:26:07+00:00\n"
-"PO-Revision-Date: 2019-04-08 19:14+0200\n"
-"Last-Translator: Joseph Rézeau aka 'Papi Jo' <joseph@rezeau.org>\n"
-"Language-Team: Français\n"
+"PO-Revision-Date: 2023-02-23 16:01+0000\n"
+"Last-Translator: Albane Coeurquetin <albane@instantnetwork.org>\n"
+"Language-Team: French <https://translate-h5p.tk/weblate/projects/h5p/"
+"wordpress-plugin/fr/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.14.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.2.1\n"
-"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
-"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
-"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
-"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
-"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;__"
+":1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;_x"
+":1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;esc_attr__:"
+"1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;esc_html_x:1,2c;comm"
+"ents_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Loco-Target-Locale: fr_FR\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -61,7 +62,7 @@ msgstr ""
 
 #: admin/class-h5p-content-admin.php:238
 msgid "You are not allowed to view this content."
-msgstr ""
+msgstr "Vous n'êtes pas autorisé à voir ce contenu."
 
 #: admin/class-h5p-content-admin.php:278
 msgid "User"
@@ -440,7 +441,7 @@ msgstr "Toutes les activités H5P"
 
 #: admin/class-h5p-plugin-admin.php:399
 msgid "My H5P Content"
-msgstr ""
+msgstr "Mon contenu H5P"
 
 #: admin/class-h5p-plugin-admin.php:402
 msgid "Add New"
@@ -507,7 +508,7 @@ msgstr "Retirer"
 
 #: admin/class-h5p-plugin-admin.php:991
 msgid "Show my content only"
-msgstr ""
+msgstr "Afficher uniquement mon contenu"
 
 #: admin/class-h5p-plugin-admin.php:1038 admin/class-h5p-privacy-policy.php:256
 #: admin/class-h5p-privacy-policy.php:311
@@ -951,14 +952,15 @@ msgstr "Fréquence de sauvegarde automatique (en secondes)"
 #: admin/views/settings.php:127
 msgid "Show toggle switch for others' H5P contents"
 msgstr ""
+"Afficher l'interrupteur à bascule pour le contenu des H5P d'autres personnes"
 
 #: admin/views/settings.php:134
 msgid "Yes, show all contents by default"
-msgstr ""
+msgstr "Oui, afficher tous les contenus par défaut"
 
 #: admin/views/settings.php:137
 msgid "Yes, show only current user's contents by default"
-msgstr ""
+msgstr "Oui, ne montrer que le contenu de l'utilisateur actuel par défaut"
 
 #: admin/views/settings.php:141
 msgid ""
@@ -966,6 +968,9 @@ msgid ""
 "The setting has no effect if the user is not allowed to see other users' "
 "content."
 msgstr ""
+"Permet de restreindre l'affichage du contenu de l'H5P au contenu de "
+"l'utilisateur actuel. Ce paramètre n'a aucun effet si l'utilisateur n'est "
+"pas autorisé à voir le contenu des autres utilisateurs."
 
 #: admin/views/settings.php:145
 msgid "Add Content Method"
@@ -1127,25 +1132,27 @@ msgstr "Impossible de trouver l'activité H5P ayant ce slug : %s."
 
 #. Plugin Name of the plugin/theme
 msgid "H5P"
-msgstr ""
+msgstr "H5P"
 
 #. Plugin URI of the plugin/theme
 msgid "http://h5p.org/wordpress"
-msgstr ""
+msgstr "http://h5p.org/wordpress"
 
 #. Description of the plugin/theme
 msgid ""
 "Allows you to upload, create, share and use rich interactive content on your "
 "WordPress site."
 msgstr ""
+"Vous permet de télécharger, de créer, de partager et d'utiliser un contenu "
+"interactif riche sur votre site WordPress."
 
 #. Author of the plugin/theme
 msgid "Joubel"
-msgstr ""
+msgstr "Joubel"
 
 #. Author URI of the plugin/theme
 msgid "http://joubel.com"
-msgstr ""
+msgstr "http://joubel.com"
 
 #~ msgid "Confirmation action"
 #~ msgstr "Confirmer l'action"

@@ -4,21 +4,22 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/h5p-wordpress-"
 "plugin-master\n"
 "POT-Creation-Date: 2022-03-02 16:26:07+00:00\n"
-"PO-Revision-Date: 2018-06-28 13:16+0200\n"
-"Last-Translator: Joseph Rézeau <joseph@rezeau.org>\n"
-"Language-Team: omnias<omnias@eg.ibm.com>\n"
-"Language: ar\n"
+"PO-Revision-Date: 2023-02-23 16:01+0000\n"
+"Last-Translator: Albane Coeurquetin <albane@instantnetwork.org>\n"
+"Language-Team: Arabic <https://translate-h5p.tk/weblate/projects/h5p/"
+"wordpress-plugin/ar/>\n"
+"Language: ar_AR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.14.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.0.8\n"
-"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
-"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
-"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
-"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
-"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;__"
+":1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;_x"
+":1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;esc_attr__:"
+"1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;esc_html_x:1,2c;comm"
+"ents_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Loco-Target-Locale: fr_FR\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -59,7 +60,7 @@ msgstr "لا يتوفر محتوى H5P. يجب عليك تحميل أو إنشا
 
 #: admin/class-h5p-content-admin.php:238
 msgid "You are not allowed to view this content."
-msgstr ""
+msgstr "غير مسموح لك بمشاهدة دليل تأليف المحتوى ذلك."
 
 #: admin/class-h5p-content-admin.php:278
 msgid "User"
@@ -112,7 +113,7 @@ msgstr "مكتبة غير صالحة."
 
 #: admin/class-h5p-content-admin.php:569
 msgid "Something unexpected happened. We were unable to save this content."
-msgstr ""
+msgstr "حدث شيء غير متوقع، ولم نتمكن من حفظ دليل تأليف المحتوى هذا."
 
 #: admin/class-h5p-content-admin.php:576
 msgid "No such library."
@@ -132,7 +133,7 @@ msgstr "العنوان طويل جدا. يجب أن يكون 256 حرفًا أو
 
 #: admin/class-h5p-content-admin.php:674
 msgid "Insert interactive content"
-msgstr ""
+msgstr "أدرج محتوى تفاعلي"
 
 #: admin/class-h5p-content-admin.php:676
 msgid "Add H5P"
@@ -304,16 +305,18 @@ msgstr "المعلمات مكسورة."
 
 #: admin/class-h5p-library-admin.php:444
 msgid "Missing required library %lib."
-msgstr ""
+msgstr "فقدان المكتبة المطلوبة %."
 
 #: admin/class-h5p-library-admin.php:445
 msgid ""
 "Parameters contain %used while only %supported or earlier are supported."
 msgstr ""
+"تحتوي المعايير على نسبة مئوية ٪ مستخدمة، بينما النسبة المئوية ٪ فقط مدعومة "
+"أو مدعومة مسبقاً."
 
 #: admin/class-h5p-library-admin.php:446
 msgid "Parameters contain %used which is not supported."
-msgstr ""
+msgstr "تحتوي المعايير على نسبة مئوية% مستخدمة غير مدعومة."
 
 #: admin/class-h5p-library-admin.php:447
 msgid "You have successfully upgraded %s."
@@ -371,6 +374,8 @@ msgid ""
 "Check out our <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
 "page for inspiration."
 msgstr ""
+"أنت جاهز <a href=\"٪s\"> لبدء إنشاء </a> محتوى تفاعلي. تحقق من صفحة <a href="
+"\"٪s\" target=\"_blank\"> أمثلة وتنزيلات </a> للحصول على أفكار ملهمة."
 
 #: admin/class-h5p-plugin-admin.php:311
 msgid "Thank you for staying up to date with H5P."
@@ -396,6 +401,10 @@ msgid ""
 "data to the hub about H5P usage. You may disable the data contribution and/"
 "or the H5P Hub in the H5P settings."
 msgstr ""
+"يجلب H5P الآن أنواع المحتوى مباشرة من H5P Hub. للقيام بذلك، سيتواصل المكون "
+"الإضافي H5P مع H5P.org مرة واحدة يومياً لجلب معلومات حول أنواع المحتوى "
+"الجديدة والمحدثة، سيرسل بيانات مجهولة إلى المركز حول استخدام H5P. يمكنك "
+"تعطيل مساهمة البيانات و / أو H5P Hub من إعدادات H5P."
 
 #: admin/class-h5p-plugin-admin.php:338 admin/views/new-content.php:42
 msgid ""
@@ -419,7 +428,7 @@ msgstr "كل محتوى H5P"
 
 #: admin/class-h5p-plugin-admin.php:399
 msgid "My H5P Content"
-msgstr ""
+msgstr "محتوى منصة H5P الخاص بي"
 
 #: admin/class-h5p-plugin-admin.php:402
 msgid "Add New"
@@ -439,6 +448,9 @@ msgid ""
 "the content on the server it originated from and try to upload again or turn "
 "on the H5P Hub to have this server upgrade it for your automaticall."
 msgstr ""
+"أنت تحاول تحميل محتوى إصدار أقدم من منصة H5P، الرجاء ترقية المحتوى على "
+"الخادم الذي تم إنشاء المحتوى منه ومحاولة التحميل مرة أخرى أو تشغيل H5P Hub، "
+"لجعل هذا الخادم يقوم بترقيته إلى جهازك تلقائياً."
 
 #: admin/class-h5p-plugin-admin.php:749
 msgid "Invalid content"
@@ -482,7 +494,7 @@ msgstr "إزالة"
 
 #: admin/class-h5p-plugin-admin.php:991
 msgid "Show my content only"
-msgstr ""
+msgstr "إظهار المحتوى الخاص بي فقط"
 
 #: admin/class-h5p-plugin-admin.php:1038 admin/class-h5p-privacy-policy.php:256
 #: admin/class-h5p-privacy-policy.php:311
@@ -496,27 +508,27 @@ msgstr "لا توجد نتائج مسجلة لمستخدمك."
 
 #: admin/class-h5p-privacy-policy.php:55
 msgid "xAPI"
-msgstr ""
+msgstr "واجهات الإدارة"
 
 #: admin/class-h5p-privacy-policy.php:59
 msgid "H5P tracking information"
-msgstr ""
+msgstr "معلومات تَتَبُع لمنصة H5P"
 
 #: admin/class-h5p-privacy-policy.php:63
 msgid "Google's Privacy policy"
-msgstr ""
+msgstr "سياسة خصوصية جوجل"
 
 #: admin/class-h5p-privacy-policy.php:67
 msgid "Twitter's Privacy policy"
-msgstr ""
+msgstr "سياسة خصوصية تويتر"
 
 #: admin/class-h5p-privacy-policy.php:71
 msgid "What personal data we collect and why we collect it"
-msgstr ""
+msgstr "ما هي البيانات الشخصية التي نجمعها ولماذا نجمعها"
 
 #: admin/class-h5p-privacy-policy.php:73
 msgid "Suggested text (\"We\" and \"our\" mean \"you\", not \"us\"!):"
-msgstr ""
+msgstr "النص المقترح (\"نحن\" و \"لنا\" تعني \"أنت\" وليس \"نحن\"!):"
 
 #: admin/class-h5p-privacy-policy.php:74
 msgid ""
@@ -526,6 +538,10 @@ msgid ""
 "data is processed and stored [on our platform|on an external platform] until "
 "further notice."
 msgstr ""
+"قد نقوم بمعالجة وتخزين البيانات الشخصية الخاصة بتفاعلاتك باستخدام ٪ s. "
+"نستخدم البيانات للتعرف على كيفية تصميم التفاعلات بشكل جيد، وكيف يمكن تكييفها "
+"لتحسين قابلية الاستخدام ونتائج التعلم الخاصة بك. تتم معالجة البيانات "
+"وتخزينها [على منصتنا|على منصة خارجية] حتى إشعار آخر."
 
 #: admin/class-h5p-privacy-policy.php:75
 msgid ""
@@ -535,6 +551,10 @@ msgid ""
 "results to learn about how well you performed and to help us give you "
 "feedback."
 msgstr ""
+"قد نقوم بتخزين نتائج تفاعلاتك على منصتنا حتى إشعار آخر، وقد تحتوي النتائج "
+"على درجاتك، وأعلى درجة ممكنة، ومتى بدأت، ومتى انتهيت، ومقدار الوقت الذي "
+"استغرقته. نستخدم النتائج للتعرف على مدى جودة أدائك، ولمساعدتنا على تقديم "
+"ملاحظات لك."
 
 #: admin/class-h5p-privacy-policy.php:76
 msgid ""
@@ -542,6 +562,9 @@ msgid ""
 "may send anonymized reports about content creation without any personal data "
 "to the plugin creators. Please consult the %s page for details."
 msgstr ""
+"قد نقوم بتخزين المحتوى التفاعلي الذي تقوم بإنشائه على منصتنا، وقد نرسل أيضاً "
+"تقارير مجهولة المصدر حول إنشاء المحتوى دون أي بيانات شخصية إلى منشئي المكون "
+"الإضافي. برجاء مراجعة صفحة رمز الاسم ٪ s للحصول على التفاصيل."
 
 #: admin/class-h5p-privacy-policy.php:77
 msgid ""
@@ -553,6 +576,12 @@ msgid ""
 "and would not be able to provide you with their video content features "
 "otherwise."
 msgstr ""
+"إذا كنت تستخدم محتوى تفاعلياً يحتوي على مقطع فيديو مضيف على YouTube، فسيقوم "
+"YouTube بتعيين ملفات تعريف الارتباط على جهاز الكمبيوتر الخاص بك. يستخدم "
+"YouTube ملفات تعريف الارتباط هذه لمساعدتهم وشركائهم في تحليل حركة البيانات "
+"إلى مواقعهم على الويب. الرجاء مراجعة رمز الاسم ٪ s للحصول على التفاصيل. من "
+"مصلحتنا المشروعة استخدام YouTube، لأننا نحتاج إلى خدماتهم للمحتوى التفاعلي "
+"الخاص بنا ولن نتمكن من تزويدك بميزات محتوى الفيديو الخاصة بهم بخلاف ذلك."
 
 #: admin/class-h5p-privacy-policy.php:78
 msgid ""
@@ -563,6 +592,12 @@ msgid ""
 "because we need their services for our interactive content and would not be "
 "able to provide you with it otherwise."
 msgstr ""
+"إذا كنت تستخدم محتوى تفاعلياً يحتوي على موجز تويتر، فسيقوم تويتر بتعيين ملف "
+"تعريف الارتباط على جهاز الكمبيوتر الخاص بك. يستخدم تويتر ملفات تعريف "
+"الارتباط هذه لمساعدتهم وشركائهم في جعل إعلاناتهم أكثر ملاءمة. الرجاء مراجعة "
+"رمز الاسم ٪ s للحصول على التفاصيل. من مصلحتنا المشروعة استخدام تويتر لأننا "
+"نحتاج إلى خدماتهم للمحتوى التفاعلي الخاص بنا ولن نتمكن من توفيره لك بطريق "
+"أخرى."
 
 #: admin/class-h5p-privacy-policy.php:79
 msgid ""
@@ -572,84 +607,88 @@ msgid ""
 "we need their services for our interactive content and would not be able to "
 "provide you with speech recognition features otherwise."
 msgstr ""
+"إذا كنت تستخدم محتوى تفاعليًا يحتوي على خاصية التعرف الصوتي، فسيقوم «جوجل "
+"كلاود» بمعالجة صوتك لتحويله إلى نص. الرجاء مراجعة ٪s للحصول على التفاصيل. من "
+"مصلحتنا المشروعة استخدام «جوجل كلاود»، لأننا نحتاج إلى خدماتهم للمحتوى "
+"التفاعلي الخاص بنا ولن نتمكن من تزويدك بميزات التعرف الصوتي بخلاف ذلك."
 
 #: admin/class-h5p-privacy-policy.php:260
 #: admin/class-h5p-privacy-policy.php:315
 #: admin/class-h5p-privacy-policy.php:377
 #: admin/class-h5p-privacy-policy.php:443
 msgid "User ID"
-msgstr ""
+msgstr "اسم المستخدم"
 
 #: admin/class-h5p-privacy-policy.php:319
 msgid "Subcontent ID"
-msgstr ""
+msgstr "معرّف المحتوى الفرعي"
 
 #: admin/class-h5p-privacy-policy.php:323
 msgid "Data ID"
-msgstr ""
+msgstr "معرف البيانات"
 
 #: admin/class-h5p-privacy-policy.php:327
 msgid "Data"
-msgstr ""
+msgstr "البيانات"
 
 #: admin/class-h5p-privacy-policy.php:331
 msgid "Preload"
-msgstr ""
+msgstr "التحميل المسبق"
 
 #: admin/class-h5p-privacy-policy.php:335
 msgid "Invalidate"
-msgstr ""
+msgstr "إبطال الفعالية"
 
 #: admin/class-h5p-privacy-policy.php:339
 #: admin/class-h5p-privacy-policy.php:439
 msgid "Updated at"
-msgstr ""
+msgstr "تم التحديث في"
 
 #: admin/class-h5p-privacy-policy.php:346
 msgid "Saved content state"
-msgstr ""
+msgstr "حالة دليل تأليف المحتوى المحفوظ"
 
 #: admin/class-h5p-privacy-policy.php:381
 #: admin/class-h5p-privacy-policy.php:435
 msgid "Created at"
-msgstr ""
+msgstr "تم الإنشاء في"
 
 #: admin/class-h5p-privacy-policy.php:385
 msgid "Type"
-msgstr ""
+msgstr "النوع"
 
 #: admin/class-h5p-privacy-policy.php:389
 msgid "Sub type"
-msgstr ""
+msgstr "النوع الفرعي"
 
 #: admin/class-h5p-privacy-policy.php:397
 #: admin/class-h5p-privacy-policy.php:447
 msgid "Library"
-msgstr ""
+msgstr "المكتبة"
 
 #: admin/class-h5p-privacy-policy.php:404
 msgid "Events"
-msgstr ""
+msgstr "الفعاليات"
 
 #: admin/class-h5p-privacy-policy.php:451
 msgid "Parameters"
-msgstr ""
+msgstr "المعايير"
 
 #: admin/class-h5p-privacy-policy.php:455
 msgid "Filtered parameters"
-msgstr ""
+msgstr "المعايير المٌصَفاة"
 
 #: admin/class-h5p-privacy-policy.php:459
 msgid "Slug"
-msgstr ""
+msgstr "بطئ"
 
 #: admin/class-h5p-privacy-policy.php:463
 msgid "Embed type"
-msgstr ""
+msgstr "نوع التضمين"
 
 #: admin/class-h5p-privacy-policy.php:467
 msgid "Disable"
-msgstr ""
+msgstr "تعطيل"
 
 #: admin/views/content-results.php:15
 msgid "Results for \"%s\""
@@ -670,7 +709,7 @@ msgstr "اضف جديد"
 
 #: admin/views/libraries.php:16
 msgid "Content Type Cache"
-msgstr ""
+msgstr "نوع محتوى ذاكرة التخزين المؤقتة"
 
 #: admin/views/libraries.php:20
 msgid ""
@@ -678,10 +717,12 @@ msgid ""
 "view, download and use the latest libraries. This is different from updating "
 "the libraries themselves."
 msgstr ""
+"التأكد من أن نوع محتوى ذاكرة التخزين المؤقت محدث، سيضمن لك إمكانية عرض، و "
+"تنزيل، و استخدام أحدث المكتبات و هذا يختلف عن تحديث المكتبات نفسها."
 
 #: admin/views/libraries.php:24
 msgid "Last update"
-msgstr ""
+msgstr "التحديث الأخير"
 
 #: admin/views/libraries.php:45 admin/views/new-content.php:59
 msgid "Update"
@@ -753,6 +794,10 @@ msgid ""
 "example from the <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
 "page and then you upload the file here."
 msgstr ""
+"يبدو أنه لا يوجد أنواع محتوى مثبتة. يمكنك الحصول على المحتوى الذي تريد من "
+"خلال الضغط على الزر الصغير 'تنزيل' الواقع بالزاوية اليسرى السفلية لأي مثال "
+"من <a href=\"%s\" target=\"_blank\" أمثلة وتنزيلات صفحة </a> و من ثم تقوم "
+"بتحميل الملف هنا."
 
 #: admin/views/new-content.php:50 admin/views/new-content.php:59
 msgid "Create"
@@ -768,29 +813,31 @@ msgstr "خيارات العرض"
 
 #: admin/views/new-content.php:69
 msgid "Display toolbar below content"
-msgstr ""
+msgstr "عرض شريط الأدوات أسفل المحتوى"
 
 #: admin/views/new-content.php:74
 msgid ""
 "If checked a reuse button will always be displayed for this content and "
 "allow users to download the content as an .h5p file"
 msgstr ""
+"إذا تم التحقق من زر إعادة الاستخدام سيتيح عرض هذا المحتوى بشكل دائم و السماح "
+"للمستخدمين بتنزيل المحتوي بصيغة ملف h5p"
 
 #: admin/views/new-content.php:76
 msgid "Allow users to download the content"
-msgstr ""
+msgstr "السماح للمستخدمين بتنزيل المحتوى"
 
 #: admin/views/new-content.php:82 admin/views/settings.php:61
 msgid "Display Embed button"
-msgstr ""
+msgstr "عرض زر التضمين"
 
 #: admin/views/new-content.php:88 admin/views/settings.php:86
 msgid "Display Copyright button"
-msgstr ""
+msgstr "عرض زر حقوق الملكية"
 
 #: admin/views/new-content.php:101
 msgid "Separate tags with commas"
-msgstr ""
+msgstr "فصل الكلمات الدليلية بفواصل"
 
 #: admin/views/settings.php:17
 msgid "Settings saved."
@@ -803,48 +850,49 @@ msgstr "شريط الأدوات أدناه المحتوى"
 #: admin/views/settings.php:28 admin/views/settings.php:49
 #: admin/views/settings.php:74 admin/views/settings.php:90
 msgid "Controlled by author - on by default"
-msgstr ""
+msgstr "تحت إشراف المؤلف- مفعل تلقائيا"
 
 #: admin/views/settings.php:31
 msgid ""
 "By default, a toolbar with 4 buttons is displayed below each interactive "
 "content."
-msgstr ""
+msgstr "يظهر أسفل كل محتوي تفاعلي شريط أدوات به 4 أزار تلقائيا."
 
 #: admin/views/settings.php:36
 msgid "Allow download"
-msgstr ""
+msgstr "السماح بالتحميل"
 
 #: admin/views/settings.php:40 admin/views/settings.php:65
 msgid "Never"
-msgstr ""
+msgstr "أبداً"
 
 #: admin/views/settings.php:43 admin/views/settings.php:68
 #: admin/views/settings.php:99
 msgid "Always"
-msgstr ""
+msgstr "دائمًا"
 
 #: admin/views/settings.php:46 admin/views/settings.php:71
 msgid "Only for editors"
-msgstr ""
+msgstr "مخصص للمحررين فقط"
 
 #: admin/views/settings.php:52 admin/views/settings.php:77
 msgid "Controlled by author - off by default"
-msgstr ""
+msgstr "تحت إشراف المؤلف- غير مفعل تلقائيا"
 
 #: admin/views/settings.php:56
 msgid ""
 "Setting this to 'Never' will reduce the amount of disk space required for "
 "interactive content."
 msgstr ""
+"إعداد هذا على 'مطلقا' سيقلص مقدار مساحة القرص المطلوبة للمحتوى التفاعلي."
 
 #: admin/views/settings.php:81
 msgid "Setting this to 'Never' will disable already existing embed codes."
-msgstr ""
+msgstr "إعداد هذا على 'مطلقا' سيقوم بتعطيل الرموز التضمنية الموجودة بالفعل."
 
 #: admin/views/settings.php:95
 msgid "Display About H5P button"
-msgstr ""
+msgstr "عرض حول زر منصة H5P"
 
 #: admin/views/settings.php:104
 msgid "User Results"
@@ -856,7 +904,7 @@ msgstr "نتائج السجل للمستخدمين المسجلين"
 
 #: admin/views/settings.php:113
 msgid "Save Content State"
-msgstr ""
+msgstr "حفظ حالة المحتوى"
 
 #: admin/views/settings.php:117
 msgid "Allow logged-in users to resume tasks"
@@ -868,15 +916,15 @@ msgstr "حفظ تلقائي للحفظ (بالثواني)"
 
 #: admin/views/settings.php:127
 msgid "Show toggle switch for others' H5P contents"
-msgstr ""
+msgstr "إظهار مفتاح التبديل لمحتويات منصة H5P الأخرى"
 
 #: admin/views/settings.php:134
 msgid "Yes, show all contents by default"
-msgstr ""
+msgstr "نعم، اظهر جميع المحتويات تلقائيا"
 
 #: admin/views/settings.php:137
 msgid "Yes, show only current user's contents by default"
-msgstr ""
+msgstr "نعم، اظهر محتويات المستخدمين الحاليين فقط تلقائيا"
 
 #: admin/views/settings.php:141
 msgid ""
@@ -884,10 +932,12 @@ msgid ""
 "The setting has no effect if the user is not allowed to see other users' "
 "content."
 msgstr ""
+"السماح بتقييد عرض محتويات منصة H5P لعرض محتوى المستخدم الحالي، هذا الإعداد "
+"لن يؤثر إذا لم يتم السماح للمستخدم برؤية محتويات المستخدمين الأخرى."
 
 #: admin/views/settings.php:145
 msgid "Add Content Method"
-msgstr ""
+msgstr "إضافة أسلوب تأليف المحتوى"
 
 #: admin/views/settings.php:148
 msgid ""
@@ -906,21 +956,23 @@ msgstr ""
 
 #: admin/views/settings.php:169
 msgid "Content Types"
-msgstr ""
+msgstr "أنواع المحتوى"
 
 #: admin/views/settings.php:173
 msgid "Enable LRS dependent content types"
-msgstr ""
+msgstr "تمكين أنواع المحتوى المعتمد على مخزن سجل التعلم"
 
 #: admin/views/settings.php:176
 msgid ""
 "Makes it possible to use content types that rely upon a Learning Record "
 "Store to function properly, like the Questionnaire content type."
 msgstr ""
+"يقوم بجعل استخدام أنواع محتوى تعتمد على مخزن سجل التعلم ممكنا للعمل بشكل "
+"أفضل، مثل نوع المحتوى الاستبياني."
 
 #: admin/views/settings.php:185
 msgid "Use H5P Hub"
-msgstr ""
+msgstr "استخدم مركز منصة H5P"
 
 #: admin/views/settings.php:188
 msgid ""
@@ -930,14 +982,19 @@ msgid ""
 "easier to share and reuse content. If this option is disabled you'll have to "
 "install and update content types through file upload forms."
 msgstr ""
+"من المقترح بشدة الإبقاء على هذا الإعداد<strong>enabled</strong>. تتيح منصة "
+"H5P واجهة سهلة للحصول على أنواع محتوى جديدة و استمرارية تحديث المحتوى "
+"الموجود. كذلك ستسهل مشاركة و إعادة استخدام المحتوى بالمستقبل، و لكن إذا تم "
+"تعطيل هذا الإعداد فسيجب عليك تثبيت و تحديث أنواع المحتوى من خلال نماذج ملفات "
+"التحميل."
 
 #: admin/views/settings.php:203
 msgid "Usage Statistics"
-msgstr ""
+msgstr "إحصاءات الاستخدام"
 
 #: admin/views/settings.php:207
 msgid "Automatically contribute usage statistics"
-msgstr ""
+msgstr "المساهمة في إحصاءات الاستخدام تلقائيًا"
 
 #: admin/views/settings.php:210
 msgid ""
@@ -946,6 +1003,9 @@ msgid ""
 "areas of improvement. Read more about which <a href=\"%s\" target=\"_blank"
 "\">data is collected on h5p.org</a>."
 msgstr ""
+"سيتم التبليغ تلقائيًا بأعداد إحصاءات الاستخدام لمساعدة المطورين لفهم كيف يتم "
+"استخدام منصة H5P بشكل أفضل، و تحديد أفضل الطرق لتحسين الموقع. اقرأ المزيد عن "
+"بيانات <a href=\"%s\" target=\"_blank\"> المجمعة على موقع h5p.org</a>."
 
 #: admin/views/show-content.php:30
 msgid "Shortcode"
@@ -969,19 +1029,22 @@ msgstr "بدون علامات"
 
 #: admin/views/user-consent.php:15
 msgid "Before you start"
-msgstr ""
+msgstr "قبل أن تبدأ"
 
 #: admin/views/user-consent.php:19
 msgid ""
 "To be able to start creating interactive content you must first install at "
 "least one content type."
 msgstr ""
+"يجب عليك تثبيت محتوى واحد على الأقل لتتمكن من البدء بإنشاء محتوى تفاعلي."
 
 #: admin/views/user-consent.php:20
 msgid ""
 "The H5P Hub is here to simplify this process by automatically installing the "
 "content types you choose and providing updates for those already installed."
 msgstr ""
+"إن ملتقى منصة H5P هنا لتبسيط هذه العملية من خلال تثبيت المحتوى الذي تختاره "
+"تلقائيًا، و كذلك توفير التحديثات لذاك المحتوي المثبت بالفعل."
 
 #: admin/views/user-consent.php:22
 msgid ""
@@ -992,14 +1055,20 @@ msgid ""
 "        You can read more on <a href=\"%s\" target=\"_blank\">the plugin "
 "communication page</a>."
 msgstr ""
+"لكي تتمكن منصة H5P من فعل هذا فيجب التواصل مع موقع H5P.org.<br/>\n"
+"                                                                          . "
+"فهذا سيتيح ل H5P.org بتزويدها بالمعلومات المجهولة عن كيف يتم استخدام المنصة، "
+"نحن نطلب موافقتك قبل البدء.<br/>\n"
+"         يمكنك قراءة المزيد عبر موقع  <a href=\"%s\" target=\"_blank\"> مدخل "
+"صفحة التواصل</a>."
 
 #: admin/views/user-consent.php:26
 msgid "I consent, give me the Hub!"
-msgstr ""
+msgstr "أوافق، امنحني الملتقى!"
 
 #: admin/views/user-consent.php:27
 msgid "I disapprove"
-msgstr ""
+msgstr "أعترض"
 
 #: public/class-h5p-plugin.php:867
 msgid "Missing H5P identifier."
@@ -1019,25 +1088,27 @@ msgstr "لا يمكن العثور على محتوى H5P بالقدوة: % s."
 
 #. Plugin Name of the plugin/theme
 msgid "H5P"
-msgstr ""
+msgstr "H5P"
 
 #. Plugin URI of the plugin/theme
 msgid "http://h5p.org/wordpress"
-msgstr ""
+msgstr "http://h5p.org/wordpress"
 
 #. Description of the plugin/theme
 msgid ""
 "Allows you to upload, create, share and use rich interactive content on your "
 "WordPress site."
 msgstr ""
+"يسمح لك بتحميل و إنشاء و مشاركة و استخدام محتوى تفاعلي قوي على موقعك بمنصة "
+"WordPress."
 
 #. Author of the plugin/theme
 msgid "Joubel"
-msgstr ""
+msgstr "شركة Joubel"
 
 #. Author URI of the plugin/theme
 msgid "http://joubel.com"
-msgstr ""
+msgstr "http://joubel.com"
 
 #~ msgid "Insert H5P Content"
 #~ msgstr "أدخل محتوى H5P"
