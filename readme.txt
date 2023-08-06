@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 5.8.3
-Stable tag: 1.15.4
+Stable tag: 1.15.6
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -468,3 +468,12 @@ Update CKEditor to the latest 4.x version.
 
 = 1.15.4 =
 Update CKEditor to 4.17.1
+
+= 1.15.5 =
+Improve data loading by fetching user data in a separate query rather than joining wp_users. This will allow for storing data across multiple databases.
+Updated regexp to handle edge cases
+Updated translations
+
+= 1.15.6 =
+Fix bug when loading user result lists.
+Improve cleanup of exported files on delete.
