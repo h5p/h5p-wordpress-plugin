@@ -272,14 +272,24 @@ class H5PContentQuery {
       $user_ids[] = $result->user_id;
     }
 
+    // Fail early, as prompting get_users with empty array will fetch all users
+    if ( empty( $user_ids ) ) {
+      return $results;
+    }
+
+    /*
+     * Only used to determine whether there is any WP user for any $user_ids,
+     * so only requesting ID to prevent memory issues
+     */
     $wp_users = get_users(
       array(
         'include' => array_unique( $user_ids ),
+        'fields' => array('ID'),
       )
     );
 
     // If no users are found, there's nothing to do.
-	if ( ! $wp_users ) {
+  	if ( ! $wp_users ) {
       return $results;
     }
 
@@ -293,8 +303,8 @@ class H5PContentQuery {
 
       if ( in_array( 'user_name', $this->fields_raw, true ) ) {
         $result->user_name = $userdata->display_name;
-	  }
-	}
+      }
+    }
 
     return $results;
   }

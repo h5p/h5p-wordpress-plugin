@@ -925,7 +925,7 @@ class H5PContentAdmin {
       ),
       array(
         'id' => $result->user_id,
-        'title' => esc_html($result->user_name)
+        'title' => empty( $result->user_name ) ? '' : esc_html($result->user_name)
       ),
       $this->format_tags($result->tags),
       $this->format_time($result->updated_at),
