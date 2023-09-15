@@ -766,6 +766,9 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements getOption().
    */
   public function getOption($name, $default = FALSE) {
+    if($name === 'content_type_cache_updated_at') {
+      return get_site_option('h5p_' . $name, $default);
+    }
     if ($name === 'site_uuid') {
       $name = 'h5p_site_uuid'; // Make up for old core bug
     }
@@ -780,13 +783,20 @@ class H5PWordPress implements H5PFrameworkInterface {
     if ($name === 'site_uuid') {
       $name = 'h5p_site_uuid'; // Make up for old core bug
     }
+
+    //Build function name that will be called
+    $function_suffix = '_option';
+    if($name === 'content_type_cache_updated_at') {
+      $function_suffix = '_site_option';
+    }
+
     $var = $this->getOption($name);
     $name = 'h5p_' . $name; // Always prefix to avoid conflicts
     if ($var === FALSE) {
-      add_option($name, $value);
+      call_user_func('add' . $function_suffix, $name, $value);
     }
     else {
-      update_option($name, $value);
+      call_user_func('update' . $function_suffix, $name, $value);
     }
   }
 
