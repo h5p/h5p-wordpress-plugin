@@ -11,6 +11,14 @@ class H5PWordPress implements H5PFrameworkInterface {
   private $messages = array('error' => array(), 'info' => array());
 
   /**
+   * Keys that should be stored as a network setting
+   *
+   * @since 1.15.7
+   * @var array
+   */
+  private $networkSettings = array( 'content_type_cache_updated_at' );
+
+  /**
    * Implements setErrorMessage
    */
   public function setErrorMessage($message, $code = NULL) {
@@ -766,7 +774,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    * Implements getOption().
    */
   public function getOption($name, $default = FALSE) {
-    if($name === 'content_type_cache_updated_at') {
+    if(in_array($name, $this->networkSettings)) {
       return get_site_option('h5p_' . $name, $default);
     }
     if ($name === 'site_uuid') {
@@ -784,19 +792,23 @@ class H5PWordPress implements H5PFrameworkInterface {
       $name = 'h5p_site_uuid'; // Make up for old core bug
     }
 
-    //Build function name that will be called
-    $function_suffix = '_option';
-    if($name === 'content_type_cache_updated_at') {
-      $function_suffix = '_site_option';
-    }
-
     $var = $this->getOption($name);
-    $name = 'h5p_' . $name; // Always prefix to avoid conflicts
-    if ($var === FALSE) {
-      call_user_func('add' . $function_suffix, $name, $value);
-    }
-    else {
-      call_user_func('update' . $function_suffix, $name, $value);
+    if(in_array($name, $this->networkSettings)) {
+      $name = 'h5p_' . $name; // Always prefix to avoid conflicts
+      if ($var === FALSE) {
+        add_site_option($name, $value);
+      }
+      else {
+        update_site_option($name, $value);
+      }
+    } else {
+      $name = 'h5p_' . $name; // Always prefix to avoid conflicts
+      if ($var === FALSE) {
+        add_option($name, $value);
+      }
+      else {
+        update_option($name, $value);
+      }
     }
   }
 
