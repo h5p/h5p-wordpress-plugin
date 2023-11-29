@@ -131,16 +131,26 @@ class H5PContentQuery {
     // Sort by
     $this->order_by = '';
     if ($order_by !== NULL) {
-      $field = $this->get_valid_field($order_by);
 
-      // Add join
-      $this->add_join($field[0]);
-
-      $dir = ($reverse_order ? TRUE : FALSE);
-      if (isset($field[2])) {
-        $dir = !$dir; // Reverse ordering of text fields
+      // This is merely a workaround for WP user data now being queried
+      // separately instead of in a join. Whatever function using order_by will
+      // need to handle this. This should probably be refactored completely.
+      if ( isset( $this->user_fields[ $order_by ] ) ) {
+        $this->order_by_user_field = $order_by;
+        $this->reverse_order = $reverse_order;
       }
-      $this->order_by .= " ORDER BY {$field[0]}.{$field[1]} " . ($dir ? 'ASC' : 'DESC');
+      else {
+        $field = $this->get_valid_field($order_by);
+
+        // Add join
+        $this->add_join($field[0]);
+
+        $dir = ($reverse_order ? TRUE : FALSE);
+        if (isset($field[2])) {
+          $dir = !$dir; // Reverse ordering of text fields
+        }
+        $this->order_by .= " ORDER BY {$field[0]}.{$field[1]} " . ($dir ? 'ASC' : 'DESC');
+      }
     }
 
     // Add joins
@@ -225,8 +235,17 @@ class H5PContentQuery {
     }
 
     $results = $wpdb->get_results( $query );
+    $results = $this->append_user_data( $results );
 
-    return $this->append_user_data( $results );
+    if ( isset( $this->order_by_user_field ) ) {
+      $results = $this->order_results_by(
+        $results,
+        $this->order_by_user_field,
+        $this->reverse_order
+      );
+    }
+
+    return $results;
   }
 
   /**
@@ -295,6 +314,44 @@ class H5PContentQuery {
         $result->user_name = $userdata->display_name;
 	  }
 	}
+
+    return $results;
+  }
+
+  /**
+   * Order results by a given property.
+   *
+   * @param array $results  Array of objects to sort.
+   * @param string $order_by  Property to sort by.
+   * @param bool $reverse_order Whether to reverse the order.
+   * @since xxx
+   * @return array
+   */
+  protected function order_results_by(
+    $results, $order_by, $reverse_order = FALSE
+  ) {
+    if (!isset($order_by)) {
+      return $results;
+    }
+
+    usort($results, function($a, $b) use ($order_by, $reverse_order) {
+      if (!isset($a->$order_by) || !isset($b->$order_by)) {
+        return 0; // No sorting possible, because property is missing.
+      }
+
+      $a = $a->$order_by;
+      $b = $b->$order_by;
+
+      if ($a == $b) {
+        return 0;
+      }
+
+      if ($reverse_order) {
+        return ($a < $b) ? 1 : -1;
+      }
+
+      return ($a < $b) ? -1 : 1;
+    });
 
     return $results;
   }
