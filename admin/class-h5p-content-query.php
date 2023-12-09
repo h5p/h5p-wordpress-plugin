@@ -159,16 +159,30 @@ class H5PContentQuery {
     // Limit
     $this->limit = '';
     $this->limit_args = array();
+
     if ($limit !== NULL) {
-      $this->limit .= ' LIMIT';
+      // This is merely a workaround for WP user data now being queried
+      // separately instead of in a join. Whatever function using limit will
+      // need to handle this. This should probably be refactored completely.
+      if ( isset( $this->user_fields[ $order_by ] ) ) {
+        $this->limit_user_field_args = array();
 
-      if ($offset !== NULL) {
-        $this->limit .= ' %d,';
-        $this->limit_args[] = $offset;
+        if ($offset !== NULL) {
+          $this->limit_user_field_args[] = $offset;
+          $this->limit_user_field_args[] = $limit;
+        }
       }
+      else {
+        $this->limit .= ' LIMIT';
 
-      $this->limit .= ' %d';
-      $this->limit_args[] = $limit;
+        if ($offset !== NULL) {
+          $this->limit .= ' %d,';
+          $this->limit_args[] = $offset;
+        }
+
+        $this->limit .= ' %d';
+        $this->limit_args[] = $limit;
+      }
     }
   }
 
@@ -237,11 +251,21 @@ class H5PContentQuery {
     $results = $wpdb->get_results( $query );
     $results = $this->append_user_data( $results );
 
+    // Manually order results if we're ordering by a user field.
     if ( isset( $this->order_by_user_field ) ) {
       $results = $this->order_results_by(
         $results,
         $this->order_by_user_field,
         $this->reverse_order
+      );
+    }
+
+    // Manually limit results if we're ordering by a user field.
+    if ( isset( $this->limit_user_field_args ) ) {
+      $results = $this->limit_results(
+        $results,
+        $this->limit_user_field_args[0],
+        $this->limit_user_field_args[1]
       );
     }
 
@@ -354,5 +378,16 @@ class H5PContentQuery {
     });
 
     return $results;
+  }
+
+  /**
+   * Limit results to a given range.
+   *
+   * @param array $results  Array of objects to limit.
+   * @param int $offset  Offset to start at.
+   * @param int $limit  Number of items to return.
+   */
+  protected function limit_results( $results = array(), $offset = 0, $limit ) {
+    return array_slice( $results, $offset, $limit );
   }
 }
