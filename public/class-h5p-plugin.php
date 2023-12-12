@@ -388,6 +388,7 @@ class H5P_Plugin {
     add_option('h5p_icon', TRUE);
     add_option('h5p_track_user', TRUE);
     add_option('h5p_save_content_state', FALSE);
+    add_option('h5p_use_system_temp_dir', FALSE);
     add_option('h5p_save_content_frequency', 30);
     add_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
     add_option('h5p_show_toggle_view_others_h5p_contents', 0);
