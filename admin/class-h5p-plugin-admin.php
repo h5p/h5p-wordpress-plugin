@@ -896,6 +896,7 @@ class H5P_Plugin_Admin {
     if ($user_id === NULL) {
       $extra_fields .= " hr.user_id,";
       $append_user_name = true;
+      $joins .= " LEFT JOIN {$wpdb->prefix}users u ON hr.user_id = u.ID";
     }
 
     // Add filters
