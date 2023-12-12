@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/h5p-wordpress-"
 "plugin-master\n"
 "POT-Creation-Date: 2022-03-02 16:26:07+00:00\n"
-"PO-Revision-Date: 2023-02-25 17:01+0000\n"
+"PO-Revision-Date: 2023-10-29 14:54+0000\n"
 "Last-Translator: Oliver Tacke <o.tacke@posteo.de>\n"
 "Language-Team: German <https://translate-h5p.tk/weblate/projects/h5p/"
 "wordpress-plugin/de/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 5.0.2\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noo"
 "p:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;es"
 "c_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;t\n"
@@ -110,7 +110,7 @@ msgstr "Ungültige Bibliothek."
 
 #: admin/class-h5p-content-admin.php:569
 msgid "Something unexpected happened. We were unable to save this content."
-msgstr ""
+msgstr "Unerwarteter Fehler: Der Inhalt konnte nicht gespeichert werden."
 
 #: admin/class-h5p-content-admin.php:576
 msgid "No such library."
@@ -130,7 +130,7 @@ msgstr "Titel zu lang. Höchstens 256 Zeichen."
 
 #: admin/class-h5p-content-admin.php:674
 msgid "Insert interactive content"
-msgstr ""
+msgstr "Interaktiven Inhalt einfügen"
 
 #: admin/class-h5p-content-admin.php:676
 msgid "Add H5P"
@@ -303,16 +303,18 @@ msgstr "Parameter defekt."
 
 #: admin/class-h5p-library-admin.php:444
 msgid "Missing required library %lib."
-msgstr ""
+msgstr "Es fehlt die erforderliche Bibliothek %lib."
 
 #: admin/class-h5p-library-admin.php:445
 msgid ""
 "Parameters contain %used while only %supported or earlier are supported."
 msgstr ""
+"Die Parameter enthalten %used, allerdings werden nur %supported und ältere "
+"unterstützt."
 
 #: admin/class-h5p-library-admin.php:446
 msgid "Parameters contain %used which is not supported."
-msgstr ""
+msgstr "Die Parameter enthalten %used, die allerdings nicht unterstützt werden."
 
 #: admin/class-h5p-library-admin.php:447
 msgid "You have successfully upgraded %s."
@@ -371,6 +373,9 @@ msgid ""
 "Check out our <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
 "page for inspiration."
 msgstr ""
+"Du kannst jetzt interaktive Inhalte <a href=\"%s\">anlegen</a>. Auf unserer "
+"Seite mit <a href=\"%s\" target=\"_blank\">Beispielen und Downloads</a> "
+"findest du einige Anregungen."
 
 #: admin/class-h5p-plugin-admin.php:311
 msgid "Thank you for staying up to date with H5P."
@@ -383,6 +388,11 @@ msgid ""
 "with the new content types. Here's some more info about <a href=\"%s\" "
 "target=\"_blank\">upgrading the content types</a>."
 msgstr ""
+"Du solltest <strong>deine H5P-Inhaltstypen aktualisieren!</strong> Alte "
+"Versionen funktionieren zwar weiterhin, aber das Design des Editors wurde "
+"durch die neuen Inhaltstypen erheblich verbessert. Hier findest du weitere "
+"Informationen zum <a href=\"%s\" target=\"_blank\">Aktualisieren der "
+"Inhaltstypen</a>."
 
 #: admin/class-h5p-plugin-admin.php:325
 msgid ""

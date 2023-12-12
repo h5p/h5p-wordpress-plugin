@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/h5p-wordpress-"
 "plugin-master\n"
 "POT-Creation-Date: 2022-03-02 16:26:07+00:00\n"
-"PO-Revision-Date: 2023-04-22 09:53+0000\n"
+"PO-Revision-Date: 2023-10-28 10:54+0000\n"
 "Last-Translator: Gintarė <gintare.lose@ktu.lt>\n"
 "Language-Team: Lithuanian <https://translate-h5p.tk/weblate/projects/h5p/"
 "wordpress-plugin/lt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > "
 "19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? "
 "1 : 2);\n"
-"X-Generator: Weblate 4.16.4\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: admin/class-h5p-content-admin.php:185 admin/class-h5p-content-admin.php:697
 #: admin/class-h5p-library-admin.php:215 admin/class-h5p-privacy-policy.php:431
@@ -189,168 +189,174 @@ msgstr "Apribota"
 
 #: admin/class-h5p-library-admin.php:218 admin/class-h5p-privacy-policy.php:479
 msgid "Contents"
-msgstr ""
+msgstr "Turinys"
 
 #: admin/class-h5p-library-admin.php:222
 msgid "Contents using it"
-msgstr ""
+msgstr "Turinys naudoja"
 
 #: admin/class-h5p-library-admin.php:226
 msgid "Libraries using it"
-msgstr ""
+msgstr "Biblioteka naudoja"
 
 #: admin/class-h5p-library-admin.php:229 admin/views/new-content.php:47
 msgid "Actions"
-msgstr ""
+msgstr "Veiksmai"
 
 #: admin/class-h5p-library-admin.php:308
 msgid "This Library is used by content or other libraries and can therefore not be deleted."
 msgstr ""
+"Šią biblioteką naudoja turinys ar kitos bibliotekos, todėl jos negalima "
+"ištrinti."
 
 #: admin/class-h5p-library-admin.php:344
 msgid "No content is using this library"
-msgstr ""
+msgstr "Joks turinys nenaudoja šios bibliotekos"
 
 #: admin/class-h5p-library-admin.php:345
 msgid "Content using this library"
-msgstr ""
+msgstr "Turinys naudojantis šią biblioteką"
 
 #: admin/class-h5p-library-admin.php:346
 msgid "Elements per page"
-msgstr ""
+msgstr "Puslapyje elementų"
 
 #: admin/class-h5p-library-admin.php:347
 msgid "Filter content"
-msgstr ""
+msgstr "Turinio filtras"
 
 #: admin/class-h5p-library-admin.php:348
 msgid "Page $x of $y"
-msgstr ""
+msgstr "Puslapis $x iš $y"
 
 #: admin/class-h5p-library-admin.php:376
 msgid "Version"
-msgstr ""
+msgstr "Versija"
 
 #: admin/class-h5p-library-admin.php:377
 msgid "Fullscreen"
-msgstr ""
+msgstr "Pilno ekrano režimas"
 
 #: admin/class-h5p-library-admin.php:377 admin/class-h5p-library-admin.php:378
 msgid "Yes"
-msgstr ""
+msgstr "Taip"
 
 #: admin/class-h5p-library-admin.php:377 admin/class-h5p-library-admin.php:378
 #: admin/views/settings.php:131
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #: admin/class-h5p-library-admin.php:378
 msgid "Content library"
-msgstr ""
+msgstr "Turinio biblioteka"
 
 #: admin/class-h5p-library-admin.php:379
 msgid "Used by"
-msgstr ""
+msgstr "Naudoja"
 
 #: admin/class-h5p-library-admin.php:379 admin/class-h5p-library-admin.php:430
 msgid "1 content"
 msgid_plural "%d contents"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d turinys"
+msgstr[1] "%d turiniai"
+msgstr[2] "%d turiniai"
 
 #: admin/class-h5p-library-admin.php:419
 msgid "There are no available upgrades for this library."
-msgstr ""
+msgstr "Šiai bibliotekai nėra galimų atnaujinimų"
 
 #: admin/class-h5p-library-admin.php:426
 msgid "There's no content instances to upgrade."
-msgstr ""
+msgstr "Nereikia atnaujinti turinio"
 
 #: admin/class-h5p-library-admin.php:437
 msgid "You are about to upgrade %s. Please select upgrade version."
-msgstr ""
+msgstr "Jūs ruošiatės atnaujinti %s. Pasirinkite atnaujinimo versiją."
 
 #: admin/class-h5p-library-admin.php:438
 msgid "Upgrading to %ver..."
-msgstr ""
+msgstr "Atnaujinama į %ver..."
 
 #: admin/class-h5p-library-admin.php:439
 msgid "An error occurred while processing parameters:"
-msgstr ""
+msgstr "Apdorojant parametrus įvyko klaida:"
 
 #: admin/class-h5p-library-admin.php:440
 msgid "Could not load data for library %lib."
-msgstr ""
+msgstr "Nebuvo įkelti duomenų į biblioteką %lib."
 
 #: admin/class-h5p-library-admin.php:441
 msgid "Could not upgrade content %id:"
-msgstr ""
+msgstr "Nepavyko atnaujinti %id turinio:"
 
 #: admin/class-h5p-library-admin.php:442
 msgid "Could not load upgrades script for %lib."
-msgstr ""
+msgstr "Nepavyko įkelti %lib atnaujinimo skripto."
 
 #: admin/class-h5p-library-admin.php:443
 msgid "Parameters are broken."
-msgstr ""
+msgstr "Parametrai pažeisti"
 
 #: admin/class-h5p-library-admin.php:444
 msgid "Missing required library %lib."
-msgstr ""
+msgstr "Trūksta būtinos bibliotekos %lib."
 
 #: admin/class-h5p-library-admin.php:445
 msgid "Parameters contain %used while only %supported or earlier are supported."
-msgstr ""
+msgstr "Parametrai yra %used, o palaikomi tik % arba ankstesni."
 
 #: admin/class-h5p-library-admin.php:446
 msgid "Parameters contain %used which is not supported."
-msgstr ""
+msgstr "Parametruose yra %used, kurie nepalaikomi."
 
 #: admin/class-h5p-library-admin.php:447
 msgid "You have successfully upgraded %s."
-msgstr ""
+msgstr "Sėkmingai atnaujinote %s."
 
 #: admin/class-h5p-library-admin.php:447
 msgid "Return"
-msgstr ""
+msgstr "Grįžti"
 
 #: admin/class-h5p-library-admin.php:457
 msgid "Upgrade"
-msgstr ""
+msgstr "Atnaujinti"
 
 #: admin/class-h5p-library-admin.php:532
 msgid "Not all content has gotten their cache rebuilt. This is required to be able to delete libraries, and to display how many contents that uses the library."
 msgstr ""
+"Ne viso turinio talpykla buvo atkurta. Tai reikalinga norint ištrinti "
+"bibliotekas ir parodyti, kiek turinio naudoja biblioteką."
 
 #: admin/class-h5p-library-admin.php:533
 msgid "1 content need to get its cache rebuilt."
 msgid_plural "%d contents needs to get their cache rebuilt."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 turiniui reikia atstatyti talpyklą."
+msgstr[1] "%d turiniams reikia atstatyti talpyklą."
+msgstr[2] "%d turiniams reikia atstatyti talpyklą."
 
 #: admin/class-h5p-library-admin.php:534
 msgid "Rebuild cache"
-msgstr ""
+msgstr "Atkurti laikinąją cache talpyklą"
 
 #: admin/class-h5p-library-admin.php:546
 msgid "Error, invalid security token!"
-msgstr ""
+msgstr "Klaida, netinkamas saugos prieigos raktas!"
 
 #: admin/class-h5p-library-admin.php:552 admin/class-h5p-library-admin.php:671
 msgid "Error, missing library!"
-msgstr ""
+msgstr "Klaida, trūksta bibliotekos!"
 
 #: admin/class-h5p-library-admin.php:564 admin/class-h5p-library-admin.php:677
 msgid "Error, invalid library!"
-msgstr ""
+msgstr "Klaida, netinkama biblioteka!"
 
 #: admin/class-h5p-plugin-admin.php:255
 msgid "Content unavailable."
-msgstr ""
+msgstr "Turinys nepasiekiamas."
 
 #: admin/class-h5p-plugin-admin.php:305
 msgid "Thank you for choosing H5P."
-msgstr ""
+msgstr "Dėkojame, kad pasirinkote H5P."
 
 #: admin/class-h5p-plugin-admin.php:307
 msgid "You are ready to <a href=\"%s\">start creating</a> interactive content. Check out our <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> page for inspiration."
@@ -358,7 +364,7 @@ msgstr ""
 
 #: admin/class-h5p-plugin-admin.php:311
 msgid "Thank you for staying up to date with H5P."
-msgstr ""
+msgstr "Dėkojame, kad nuolat atnaujinate H5P."
 
 #: admin/class-h5p-plugin-admin.php:319
 msgid "You should <strong>upgrade your H5P content types!</strong> The old content types still work, but the authoring tool's look and feel is greatly improved with the new content types. Here's some more info about <a href=\"%s\" target=\"_blank\">upgrading the content types</a>."
@@ -374,27 +380,27 @@ msgstr ""
 
 #: admin/class-h5p-plugin-admin.php:396 public/class-h5p-plugin.php:753
 msgid "H5P Content"
-msgstr ""
+msgstr "H5P turinys"
 
 #: admin/class-h5p-plugin-admin.php:399
 msgid "All H5P Content"
-msgstr ""
+msgstr "Visas H5P turinys"
 
 #: admin/class-h5p-plugin-admin.php:399
 msgid "My H5P Content"
-msgstr ""
+msgstr "Mano H5P turinys"
 
 #: admin/class-h5p-plugin-admin.php:402
 msgid "Add New"
-msgstr ""
+msgstr "Pridėti naują"
 
 #: admin/class-h5p-plugin-admin.php:408
 msgid "Libraries"
-msgstr ""
+msgstr "Bibliotekos"
 
 #: admin/class-h5p-plugin-admin.php:415 admin/views/my-results.php:14
 msgid "My Results"
-msgstr ""
+msgstr "Mano rezultatai"
 
 #: admin/class-h5p-plugin-admin.php:592
 msgid "You're trying to upload content of an older version of H5P. Please upgrade the content on the server it originated from and try to upload again or turn on the H5P Hub to have this server upgrade it for your automaticall."
@@ -402,81 +408,81 @@ msgstr ""
 
 #: admin/class-h5p-plugin-admin.php:749
 msgid "Invalid content"
-msgstr ""
+msgstr "Netinkamas turinys"
 
 #: admin/class-h5p-plugin-admin.php:753 admin/class-h5p-plugin-admin.php:1186
 msgid "Invalid security token"
-msgstr ""
+msgstr "Neteisingas saugos prieigos raktas"
 
 #: admin/class-h5p-plugin-admin.php:982
 msgid "Loading data."
-msgstr ""
+msgstr "Įkeliami duomenys."
 
 #: admin/class-h5p-plugin-admin.php:983
 msgid "Failed to load data."
-msgstr ""
+msgstr "Nepavyko įkelti duomenų."
 
 #: admin/class-h5p-plugin-admin.php:984
 msgid "There's no data available that matches your criteria."
-msgstr ""
+msgstr "Nėra duomenų, kurie atitiktų jūsų kriterijus."
 
 #: admin/class-h5p-plugin-admin.php:985
 msgid "Page $current of $total"
-msgstr ""
+msgstr "Puslapis $current  iš $total"
 
 #: admin/class-h5p-plugin-admin.php:986
 msgid "Next page"
-msgstr ""
+msgstr "Kitas puslapis"
 
 #: admin/class-h5p-plugin-admin.php:987
 msgid "Previous page"
-msgstr ""
+msgstr "Ankstesnis puslapis"
 
 #: admin/class-h5p-plugin-admin.php:988
 msgid "Search"
-msgstr ""
+msgstr "Ieškoti"
 
 #: admin/class-h5p-plugin-admin.php:989
 msgid "Remove"
-msgstr ""
+msgstr "Pašalinti"
 
 #: admin/class-h5p-plugin-admin.php:991
 msgid "Show my content only"
-msgstr ""
+msgstr "Rodyti tik mano turinį"
 
 #: admin/class-h5p-plugin-admin.php:1038 admin/class-h5p-privacy-policy.php:256
 #: admin/class-h5p-privacy-policy.php:311
 #: admin/class-h5p-privacy-policy.php:393
 msgid "Content"
-msgstr ""
+msgstr "Turinys"
 
 #: admin/class-h5p-plugin-admin.php:1060
 msgid "There are no logged results for your user."
-msgstr ""
+msgstr "Nėra jūsų naudotojo registruotų rezultatų."
 
 #: admin/class-h5p-privacy-policy.php:55
 msgid "xAPI"
-msgstr ""
+msgstr "xAPI"
 
 #: admin/class-h5p-privacy-policy.php:59
 msgid "H5P tracking information"
-msgstr ""
+msgstr "H5P sekimo informacija"
 
 #: admin/class-h5p-privacy-policy.php:63
 msgid "Google's Privacy policy"
-msgstr ""
+msgstr "„Google“ privatumo politika"
 
 #: admin/class-h5p-privacy-policy.php:67
 msgid "Twitter's Privacy policy"
-msgstr ""
+msgstr "„Twitter“ privatumo politika"
 
 #: admin/class-h5p-privacy-policy.php:71
 msgid "What personal data we collect and why we collect it"
-msgstr ""
+msgstr "Kokius asmens duomenis renkame ir kodėl juos renkame"
 
 #: admin/class-h5p-privacy-policy.php:73
 msgid "Suggested text (\"We\" and \"our\" mean \"you\", not \"us\"!):"
-msgstr ""
+msgstr "Siūlomas tekstas („Mes“ ir „mūsų“ reiškia „tu“, o ne „mes“!):"
 
 #: admin/class-h5p-privacy-policy.php:74
 msgid "We may process and store personal data about your interactions using %s. We use the data to learn about how well the interactions are designed and how it could be adapted to improve the usability and your learning outcomes. The data is processed and stored [on our platform|on an external platform] until further notice."
@@ -507,23 +513,23 @@ msgstr ""
 #: admin/class-h5p-privacy-policy.php:377
 #: admin/class-h5p-privacy-policy.php:443
 msgid "User ID"
-msgstr ""
+msgstr "Naudotojo ID"
 
 #: admin/class-h5p-privacy-policy.php:319
 msgid "Subcontent ID"
-msgstr ""
+msgstr "Subturinio ID"
 
 #: admin/class-h5p-privacy-policy.php:323
 msgid "Data ID"
-msgstr ""
+msgstr "Duomenų ID"
 
 #: admin/class-h5p-privacy-policy.php:327
 msgid "Data"
-msgstr ""
+msgstr "Duomenys"
 
 #: admin/class-h5p-privacy-policy.php:331
 msgid "Preload"
-msgstr ""
+msgstr "Išankstinis užkrovimas"
 
 #: admin/class-h5p-privacy-policy.php:335
 msgid "Invalidate"
@@ -532,41 +538,41 @@ msgstr ""
 #: admin/class-h5p-privacy-policy.php:339
 #: admin/class-h5p-privacy-policy.php:439
 msgid "Updated at"
-msgstr ""
+msgstr "Atnaujinta a"
 
 #: admin/class-h5p-privacy-policy.php:346
 msgid "Saved content state"
-msgstr ""
+msgstr "Išsaugota turinio būsena"
 
 #: admin/class-h5p-privacy-policy.php:381
 #: admin/class-h5p-privacy-policy.php:435
 msgid "Created at"
-msgstr ""
+msgstr "Sukurta"
 
 #: admin/class-h5p-privacy-policy.php:385
 msgid "Type"
-msgstr ""
+msgstr "Tipas"
 
 #: admin/class-h5p-privacy-policy.php:389
 msgid "Sub type"
-msgstr ""
+msgstr "Sub tipas"
 
 #: admin/class-h5p-privacy-policy.php:397
 #: admin/class-h5p-privacy-policy.php:447
 msgid "Library"
-msgstr ""
+msgstr "Biblioteka"
 
 #: admin/class-h5p-privacy-policy.php:404
 msgid "Events"
-msgstr ""
+msgstr "Įvykiai"
 
 #: admin/class-h5p-privacy-policy.php:451
 msgid "Parameters"
-msgstr ""
+msgstr "Parametrai"
 
 #: admin/class-h5p-privacy-policy.php:455
 msgid "Filtered parameters"
-msgstr ""
+msgstr "Filtruoti parametrai"
 
 #: admin/class-h5p-privacy-policy.php:459
 msgid "Slug"
@@ -574,28 +580,28 @@ msgstr ""
 
 #: admin/class-h5p-privacy-policy.php:463
 msgid "Embed type"
-msgstr ""
+msgstr "Įterpimo tipas"
 
 #: admin/class-h5p-privacy-policy.php:467
 msgid "Disable"
-msgstr ""
+msgstr "Išjungta"
 
 #: admin/views/content-results.php:15
 msgid "Results for \"%s\""
-msgstr ""
+msgstr "\"%s\" rezultatai"
 
 #: admin/views/content-results.php:16 admin/views/new-content.php:19
 msgid "View"
-msgstr ""
+msgstr "Peržiūrėti"
 
 #: admin/views/content-results.php:22 admin/views/contents.php:16
 #: admin/views/libraries.php:73 admin/views/my-results.php:16
 msgid "Waiting for JavaScript."
-msgstr ""
+msgstr "Laukiama \"JavaScript\"."
 
 #: admin/views/contents.php:14
 msgid "Add new"
-msgstr ""
+msgstr "Pridėti naują"
 
 #: admin/views/libraries.php:16
 msgid "Content Type Cache"
@@ -607,15 +613,15 @@ msgstr ""
 
 #: admin/views/libraries.php:24
 msgid "Last update"
-msgstr ""
+msgstr "Paskutinis atnaujinimas"
 
 #: admin/views/libraries.php:45 admin/views/new-content.php:59
 msgid "Update"
-msgstr ""
+msgstr "Atnaujinti"
 
 #: admin/views/libraries.php:51
 msgid "Upload Libraries"
-msgstr ""
+msgstr "Įkelti bibliotekas"
 
 #: admin/views/libraries.php:55
 msgid "Here you can upload new libraries or upload updates to existing libraries. Files uploaded here must be in the .h5p file format."
@@ -623,11 +629,11 @@ msgstr ""
 
 #: admin/views/libraries.php:58
 msgid "Only update existing libraries"
-msgstr ""
+msgstr "Atnaujinti tik esamas bibliotekas"
 
 #: admin/views/libraries.php:61 admin/views/new-content.php:33
 msgid "Disable file extension check"
-msgstr ""
+msgstr "Išjungti failų plėtinių tikrinimą"
 
 #: admin/views/libraries.php:62 admin/views/new-content.php:34
 msgid "Warning! This may have security implications as it allows for uploading php files. That in turn could make it possible for attackers to execute malicious code on your site. Please make sure you know exactly what you're uploading."
@@ -635,7 +641,7 @@ msgstr ""
 
 #: admin/views/libraries.php:68 admin/views/new-content.php:49
 msgid "Upload"
-msgstr ""
+msgstr "Įkelti"
 
 #: admin/views/libraries.php:72
 msgid "Installed Libraries"
