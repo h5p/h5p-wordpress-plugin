@@ -368,6 +368,7 @@ class H5PContentAdmin {
               $this->content['library']['name'],
               $this->content['library']['majorVersion'] . '.' . $this->content['library']['minorVersion']);
 
+          $this->content = NULL;
           wp_safe_redirect(admin_url('admin.php?page=h5p'));
           return;
         }
