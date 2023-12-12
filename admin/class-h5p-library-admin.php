@@ -239,7 +239,7 @@ class H5PLibraryAdmin {
     H5P_Plugin_Admin::add_script('library-list', 'h5p-php-library/js/h5p-library-list.js');
 
     // Load content type cache time
-    $last_update = get_option('h5p_content_type_cache_updated_at', '');
+    $last_update = get_site_option('h5p_content_type_cache_updated_at', '');
     $hubOn = get_option('h5p_hub_is_enabled', TRUE);
 
     include_once('views/libraries.php');
