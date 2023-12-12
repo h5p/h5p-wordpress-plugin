@@ -956,9 +956,19 @@ class H5P_Plugin_Admin {
       $user_ids[] = $result->user_id;
     }
 
+    // Fail early, as prompting get_users with empty array will fetch all users
+    if ( empty( $user_ids ) ) {
+      return $results;
+    }
+
+    /*
+     * Only used to determine whether there is any WP user for any $user_ids,
+     * so only requesting ID to prevent memory issues
+     */
     $wp_users = get_users(
       array(
         'include' => array_unique( $user_ids ),
+        'fields' => array('ID'),
       )
     );
 
