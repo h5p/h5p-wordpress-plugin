@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: H5P 1.15.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/h5p-wordpress-plugin-master\n"
 "POT-Creation-Date: 2022-03-02 16:26:07+00:00\n"
-"PO-Revision-Date: 2024-01-04 15:32+0100\n"
+"PO-Revision-Date: 2024-01-05 10:05+0100\n"
 "Last-Translator: Albane Coeurquetin <albane@instantnetwork.org>\n"
 "Language-Team: Portuguese (Portugal) <https://translate-h5p.tk/weblate/projects/h5p/wordpress-plugin/pt_PT/>\n"
 "Language: pt_PT\n"
@@ -405,7 +405,7 @@ msgstr "Não existe conteúdo disponível que preencha os seus critérios."
 
 #: admin/class-h5p-plugin-admin.php:985
 msgid "Page $current of $total"
-msgstr "Página $atual de $total"
+msgstr "Página $current de $total"
 
 #: admin/class-h5p-plugin-admin.php:986
 msgid "Next page"
