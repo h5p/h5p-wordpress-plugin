@@ -47,6 +47,13 @@ class H5P_Plugin_Admin {
    */
   private $library = NULL;
 
+    /**
+     * Keep track of the current privacy policy.
+     *
+     * @since 1.1.0
+     */
+  private $privacy = NULL;
+
   /**
    * Initialize the plugin by loading admin scripts & styles and adding a
    * settings page and menu.
@@ -59,7 +66,7 @@ class H5P_Plugin_Admin {
 
     // Prepare admin pages / sections
     $this->content = new H5PContentAdmin($this->plugin_slug);
-    $this->library = new H5PLibraryAdmin($this->plugin_slug);
+    $this->library = new H5PLibrar  yAdmin($this->plugin_slug);
     $this->privacy = new H5PPrivacyPolicy($this->plugin_slug);
 
     // Initialize admin area.
