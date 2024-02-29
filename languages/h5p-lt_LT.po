@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/h5p-wordpress-"
 "plugin-master\n"
 "POT-Creation-Date: 2022-03-02 16:26:07+00:00\n"
-"PO-Revision-Date: 2023-10-28 10:54+0000\n"
+"PO-Revision-Date: 2024-01-24 13:55+0000\n"
 "Last-Translator: Gintarė <gintare.lose@ktu.lt>\n"
 "Language-Team: Lithuanian <https://translate-h5p.tk/weblate/projects/h5p/"
 "wordpress-plugin/lt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > "
 "19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? "
 "1 : 2);\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: admin/class-h5p-content-admin.php:185 admin/class-h5p-content-admin.php:697
 #: admin/class-h5p-library-admin.php:215 admin/class-h5p-privacy-policy.php:431
@@ -533,7 +533,7 @@ msgstr "Išankstinis užkrovimas"
 
 #: admin/class-h5p-privacy-policy.php:335
 msgid "Invalidate"
-msgstr ""
+msgstr "Negaliojantis"
 
 #: admin/class-h5p-privacy-policy.php:339
 #: admin/class-h5p-privacy-policy.php:439
@@ -605,7 +605,7 @@ msgstr "Pridėti naują"
 
 #: admin/views/libraries.php:16
 msgid "Content Type Cache"
-msgstr ""
+msgstr "Turinio tipo talpykla"
 
 #: admin/views/libraries.php:20
 msgid "Making sure the content type cache is up to date will ensure that you can view, download and use the latest libraries. This is different from updating the libraries themselves."
@@ -645,27 +645,27 @@ msgstr "Įkelti"
 
 #: admin/views/libraries.php:72
 msgid "Installed Libraries"
-msgstr ""
+msgstr "Įdiegtos bibliotekos"
 
 #: admin/views/library-content-upgrade.php:15
 msgid "Upgrade %s %d.%d.%d content"
-msgstr ""
+msgstr "Atnaujinti %s %d.%d.%d turinį"
 
 #: admin/views/library-content-upgrade.php:19
 msgid "Please enable JavaScript."
-msgstr ""
+msgstr "Prašome įjungti JavaScript."
 
 #: admin/views/library-delete.php:16
 msgid "Are you sure you wish to delete this H5P library?"
-msgstr ""
+msgstr "Ar tikrai norite ištrinti šią H5P biblioteką?"
 
 #: admin/views/library-delete.php:18
 msgid "Do it!"
-msgstr ""
+msgstr "Padaryk tai!"
 
 #: admin/views/new-content.php:38
 msgid "Waiting for javascript..."
-msgstr ""
+msgstr "Laukiama javascript..."
 
 #: admin/views/new-content.php:41
 msgid "It looks like there are no content types installed. You can get the ones you want by using the small 'Download' button in the lower left corner on any example from the <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> page and then you upload the file here."
@@ -673,7 +673,7 @@ msgstr ""
 
 #: admin/views/new-content.php:50 admin/views/new-content.php:59
 msgid "Create"
-msgstr ""
+msgstr "Kurti"
 
 #: admin/views/new-content.php:64 admin/views/new-content.php:97
 msgid "Toggle panel"
@@ -681,11 +681,11 @@ msgstr ""
 
 #: admin/views/new-content.php:65
 msgid "Display Options"
-msgstr ""
+msgstr "Rodymo parinktys"
 
 #: admin/views/new-content.php:69
 msgid "Display toolbar below content"
-msgstr ""
+msgstr "Rodyti įrankių juostą po turiniu"
 
 #: admin/views/new-content.php:74
 msgid "If checked a reuse button will always be displayed for this content and allow users to download the content as an .h5p file"
@@ -693,27 +693,27 @@ msgstr ""
 
 #: admin/views/new-content.php:76
 msgid "Allow users to download the content"
-msgstr ""
+msgstr "Leisti naudotojams atsisiųsti turinį"
 
 #: admin/views/new-content.php:82 admin/views/settings.php:61
 msgid "Display Embed button"
-msgstr ""
+msgstr "Rodyti įterpimo (Embed) mygtuką"
 
 #: admin/views/new-content.php:88 admin/views/settings.php:86
 msgid "Display Copyright button"
-msgstr ""
+msgstr "Rodyti autorių teisių (Copyright) mygtuką"
 
 #: admin/views/new-content.php:101
 msgid "Separate tags with commas"
-msgstr ""
+msgstr "Atskirti žymas kableliais"
 
 #: admin/views/settings.php:17
 msgid "Settings saved."
-msgstr ""
+msgstr "Nustatymai išsaugoti."
 
 #: admin/views/settings.php:24
 msgid "Toolbar Below Content"
-msgstr ""
+msgstr "Įrankių juosta po turiniu"
 
 #: admin/views/settings.php:28 admin/views/settings.php:49
 #: admin/views/settings.php:74 admin/views/settings.php:90
@@ -726,20 +726,20 @@ msgstr ""
 
 #: admin/views/settings.php:36
 msgid "Allow download"
-msgstr ""
+msgstr "Leisti atsisiųsti"
 
 #: admin/views/settings.php:40 admin/views/settings.php:65
 msgid "Never"
-msgstr ""
+msgstr "Niekada"
 
 #: admin/views/settings.php:43 admin/views/settings.php:68
 #: admin/views/settings.php:99
 msgid "Always"
-msgstr ""
+msgstr "Visada"
 
 #: admin/views/settings.php:46 admin/views/settings.php:71
 msgid "Only for editors"
-msgstr ""
+msgstr "Tik redaktoriams"
 
 #: admin/views/settings.php:52 admin/views/settings.php:77
 msgid "Controlled by author - off by default"
@@ -755,19 +755,19 @@ msgstr ""
 
 #: admin/views/settings.php:95
 msgid "Display About H5P button"
-msgstr ""
+msgstr "Rodyti „Apie H5P“ mygtuką"
 
 #: admin/views/settings.php:104
 msgid "User Results"
-msgstr ""
+msgstr "Naudotojo rezultatai"
 
 #: admin/views/settings.php:108
 msgid "Log results for signed in users"
-msgstr ""
+msgstr "Prisijungusių naudotojų žurnalo rezultatai"
 
 #: admin/views/settings.php:113
 msgid "Save Content State"
-msgstr ""
+msgstr "Išsaugoti turinio būseną"
 
 #: admin/views/settings.php:117
 msgid "Allow logged-in users to resume tasks"
@@ -775,7 +775,7 @@ msgstr ""
 
 #: admin/views/settings.php:120
 msgid "Auto-save frequency (in seconds)"
-msgstr ""
+msgstr "Automatinio išsaugojimo dažnis (sekundėmis)"
 
 #: admin/views/settings.php:127
 msgid "Show toggle switch for others' H5P contents"
@@ -795,7 +795,7 @@ msgstr ""
 
 #: admin/views/settings.php:145
 msgid "Add Content Method"
-msgstr ""
+msgstr "Pridėti turinio metodą"
 
 #: admin/views/settings.php:148
 msgid "When adding H5P content to posts and pages using the \"Add H5P\" button:"
@@ -811,7 +811,7 @@ msgstr ""
 
 #: admin/views/settings.php:169
 msgid "Content Types"
-msgstr ""
+msgstr "Turinio tipai"
 
 #: admin/views/settings.php:173
 msgid "Enable LRS dependent content types"
@@ -823,7 +823,7 @@ msgstr ""
 
 #: admin/views/settings.php:185
 msgid "Use H5P Hub"
-msgstr ""
+msgstr "Naudoti H5P Hub'ą"
 
 #: admin/views/settings.php:188
 msgid "It's strongly encouraged to keep this option <strong>enabled</strong>. The H5P Hub provides an easy interface for getting new content types and keeping existing content types up to date. In the future, it will also make it easier to share and reuse content. If this option is disabled you'll have to install and update content types through file upload forms."
@@ -831,11 +831,11 @@ msgstr ""
 
 #: admin/views/settings.php:203
 msgid "Usage Statistics"
-msgstr ""
+msgstr "Naudojimo statistika"
 
 #: admin/views/settings.php:207
 msgid "Automatically contribute usage statistics"
-msgstr ""
+msgstr "Automatiškai pateikite naudojimo statistiką"
 
 #: admin/views/settings.php:210
 msgid "Usage statistics numbers will automatically be reported to help the developers better understand how H5P is used and to determine potential areas of improvement. Read more about which <a href=\"%s\" target=\"_blank\">data is collected on h5p.org</a>."
@@ -843,11 +843,11 @@ msgstr ""
 
 #: admin/views/show-content.php:30
 msgid "Shortcode"
-msgstr ""
+msgstr "Trumpasis kodas"
 
 #: admin/views/show-content.php:32
 msgid "What's next?"
-msgstr ""
+msgstr "Kas toliau?"
 
 #: admin/views/show-content.php:33
 msgid "You can use the following shortcode to insert this interactive content into posts, pages, widgets, templates etc."
@@ -855,11 +855,11 @@ msgstr ""
 
 #: admin/views/show-content.php:42
 msgid "No tags"
-msgstr ""
+msgstr "Nėra žymių"
 
 #: admin/views/user-consent.php:15
 msgid "Before you start"
-msgstr ""
+msgstr "Prieš pradedant"
 
 #: admin/views/user-consent.php:19
 msgid "To be able to start creating interactive content you must first install at least one content type."
@@ -878,15 +878,15 @@ msgstr ""
 
 #: admin/views/user-consent.php:26
 msgid "I consent, give me the Hub!"
-msgstr ""
+msgstr "Sutinku, duokite man Hub'ą!"
 
 #: admin/views/user-consent.php:27
 msgid "I disapprove"
-msgstr ""
+msgstr "Nesutinku"
 
 #: public/class-h5p-plugin.php:867
 msgid "Missing H5P identifier."
-msgstr ""
+msgstr "Trūksta H5P identifikatoriaus."
 
 #: public/class-h5p-plugin.php:875
 msgid "Cannot find H5P content with id: %d."
@@ -894,27 +894,29 @@ msgstr ""
 
 #: public/class-h5p-plugin.php:901
 msgid "Database error: %s."
-msgstr ""
+msgstr "Duomenų bazės klaida: %s."
 
 #: public/class-h5p-plugin.php:905
 msgid "Cannot find H5P content with slug: %s."
-msgstr ""
+msgstr "Nepavyksta rasti H5P turinio su slug: %s."
 
 #. Plugin Name of the plugin/theme
 msgid "H5P"
-msgstr ""
+msgstr "H5P"
 
 #. Plugin URI of the plugin/theme
 msgid "http://h5p.org/wordpress"
-msgstr ""
+msgstr "http://h5p.org/wordpress"
 
 #. Description of the plugin/theme
 msgid "Allows you to upload, create, share and use rich interactive content on your WordPress site."
 msgstr ""
+"Leidžia įkelti, kurti, bendrinti ir naudoti turtingą interaktyvų turinį "
+"\"WordPress\" svetainėje."
 
 #. Author of the plugin/theme
 msgid "Joubel"
-msgstr ""
+msgstr "Joubel"
 
 #. Author URI of the plugin/theme
 msgid "http://joubel.com"
