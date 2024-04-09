@@ -405,7 +405,7 @@ msgstr "Não existe conteúdo disponível que preencha os seus critérios."
 
 #: admin/class-h5p-plugin-admin.php:985
 msgid "Page $current of $total"
-msgstr "Página $atual de $total"
+msgstr "Página $current de $total"
 
 #: admin/class-h5p-plugin-admin.php:986
 msgid "Next page"
