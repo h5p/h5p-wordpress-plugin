@@ -218,6 +218,9 @@ class H5P_Plugin {
       changes LONGTEXT NULL,
       default_language VARCHAR(32) NULL,
       a11y_title VARCHAR(255) NULL,
+      shared TINYINT UNSIGNED NOT NULL DEFAULT 0,
+      synced TINYINT UNSIGNED NULL,
+      content_hub_id BIGINT UNSIGNED NULL,
       PRIMARY KEY  (id)
     ) {$charset};");
 
@@ -380,6 +383,12 @@ class H5P_Plugin {
       KEY created_at (created_at)
     ) {$charset};");
 
+    dbDelta("CREATE TABLE {$wpdb->prefix}h5p_content_hub_metadata_cache (
+      language VARCHAR(31) UNIQUE NOT NULL,
+      json LONGTEXT NULL,
+      last_checked INT UNSIGNED NULL
+    ) {$charset};");
+
     // Add default setting options
     add_option('h5p_frame', TRUE);
     add_option('h5p_export', TRUE);
@@ -466,6 +475,8 @@ class H5P_Plugin {
     $pre_1113 = ($v->major < 1 || ($v->major === 1 && $v->minor < 11) ||
                  ($v->major === 1 && $v->minor === 11 && $v->patch < 3)); // < 1.11.3
     $pre_1150 = ($v->major < 1 || ($v->major === 1 && $v->minor < 15)); // < 1.15.0
+    $pre_1155 = ($v->major < 1 || ($v->major === 1 && $v->minor < 15) ||
+                 ($v->major === 1 && $v->minor === 15 && $v->patch < 5)); // < 1.15.5
 
     // Run version specific updates
     if ($pre_120) {
@@ -481,6 +492,10 @@ class H5P_Plugin {
       if ($pre_1150) {
         // Does only add new permissions
         self::upgrade_1150();
+      }
+      if ($pre_1155) {
+        // Does only add new permissions
+        self::upgrade_1155();
       }
     }
 
@@ -610,6 +625,27 @@ class H5P_Plugin {
   }
 
   /**
+   * Add new permissions for content hub registration and content sharing.
+   *
+   * @since 1.15.5
+   * @global \WP_Roles $wp_roles
+   */
+  public static function upgrade_1155() {
+    global $wp_roles;
+    if (!isset($wp_roles)) {
+      $wp_roles = new WP_Roles();
+    }
+
+    $all_roles = $wp_roles->roles;
+    foreach ($all_roles as $role_name => $role_info) {
+      $role = get_role($role_name);
+      self::map_capability($role, $role_info, 'manage_options', 'manage_h5p_content_hub_registration');
+      self::map_capability($role, $role_info, 'edit_others_h5p_contents', 'share_others_h5p_contents');
+      self::map_capability($role, $role_info, 'edit_h5p_contents', 'share_h5p_contents');
+    }
+  }
+
+  /**
    * Remove duplicate keys that might have been created by a bug in dbDelta.
    *
    * @since 1.2.0
@@ -658,9 +694,12 @@ class H5P_Plugin {
         self::map_capability($role, $role_info, 'install_plugins', 'disable_h5p_security');
       }
       self::map_capability($role, $role_info, 'manage_options', 'manage_h5p_libraries');
+      self::map_capability($role, $role_info, 'manage_options', 'manage_h5p_content_hub_registration');
       self::map_capability($role, $role_info, 'edit_others_pages', 'install_recommended_h5p_libraries');
       self::map_capability($role, $role_info, 'edit_others_pages', 'edit_others_h5p_contents');
+      self::map_capability($role, $role_info, 'edit_others_pages', 'share_others_h5p_contents');
       self::map_capability($role, $role_info, 'edit_posts', 'edit_h5p_contents');
+      self::map_capability($role, $role_info, 'edit_posts', 'share_h5p_contents');
       self::map_capability($role, $role_info, 'read', 'view_others_h5p_contents');
       self::map_capability($role, $role_info, 'read', 'view_h5p_contents');
       self::map_capability($role, $role_info, 'read', 'view_h5p_results');
@@ -1607,6 +1646,7 @@ class H5P_Plugin {
     $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_counters");
     $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_events");
     $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_tmpfiles");
+    $wpdb->query("DROP TABLE {$wpdb->prefix}h5p_content_hub_metadata_cache");
 
     // Remove settings
     delete_option('h5p_version');
