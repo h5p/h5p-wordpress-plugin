@@ -937,7 +937,7 @@ class H5PWordPress implements H5PFrameworkInterface {
   /**
    * Implements fetchExternalData
    */
-  public function fetchExternalData($url, $data = NULL, $blocking = TRUE, $stream = NULL) {
+  public function fetchExternalData($url, $data = NULL, $blocking = TRUE, $stream = NULL, $fullData = FALSE, $headers = array(), $files = array(), $method = 'POST') {
     @set_time_limit(0);
     $options = array(
       'timeout' => !empty($blocking) ? 30 : 0.01,
@@ -1303,4 +1303,10 @@ class H5PWordPress implements H5PFrameworkInterface {
         $library['minorVersion']
     )) !== NULL;
   }
+
+  // Content hub not implemented in Wordpress, ignore abstract functions
+  public function replaceContentHubMetadataCache($metadata, $lang) { return []; }
+  public function getContentHubMetadataCache($lang = 'en') { die('Called'); return json_encode([]); }
+  public function getContentHubMetadataChecked($lang = 'en') {return []; }
+  public function setContentHubMetadataChecked($time, $lang = 'en') { return []; }
 }
