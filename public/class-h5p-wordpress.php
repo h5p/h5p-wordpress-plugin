@@ -100,9 +100,13 @@ class H5PWordPress implements H5PFrameworkInterface {
     static $dir;
 
     if (is_null($dir)) {
-      $plugin = H5P_Plugin::get_instance();
-      $core = $plugin->get_h5p_instance('core');
-      $dir = $core->fs->getTmpPath();
+      if (get_option('h5p_use_system_temp_dir', FALSE)) {
+        $dir = sys_get_temp_dir() . "/" . uniqid('h5p-');
+      } else {
+        $plugin = H5P_Plugin::get_instance();
+        $core = $plugin->get_h5p_instance('core');
+        $dir = $core->fs->getTmpPath();
+      }
     }
 
     return $dir;
@@ -115,11 +119,14 @@ class H5PWordPress implements H5PFrameworkInterface {
     static $path;
 
     if (is_null($path)) {
-      $plugin = H5P_Plugin::get_instance();
-      $core = $plugin->get_h5p_instance('core');
-      $path = $core->fs->getTmpPath() . '.h5p';
+      if (get_option('h5p_use_system_temp_dir', FALSE)) {
+        $path = sys_get_temp_dir() . '/' . uniqid('h5p-')  . '.h5p';
+      } else {
+        $plugin = H5P_Plugin::get_instance();
+        $core = $plugin->get_h5p_instance('core');
+        $path = $core->fs->getTmpPath() . '.h5p';
+      }
     }
-
     return $path;
   }
 

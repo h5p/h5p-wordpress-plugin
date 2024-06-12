@@ -465,6 +465,9 @@ class H5P_Plugin_Admin {
       $enable_lrs_content_types = filter_input(INPUT_POST, 'enable_lrs_content_types', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_enable_lrs_content_types', $enable_lrs_content_types);
 
+      $use_system_temp_dir = filter_input(INPUT_POST, 'use_system_temp_dir', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_use_system_temp_dir', $use_system_temp_dir);
+
       // TODO: Make it possible to change site key
 //      $site_key = filter_input(INPUT_POST, 'site_key', FILTER_SANITIZE_SPECIAL_CHARS);
 //      if (preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $site_key)) {
@@ -497,6 +500,7 @@ class H5P_Plugin_Admin {
       $about = get_option('h5p_icon', TRUE);
       $track_user = get_option('h5p_track_user', TRUE);
       $save_content_state = get_option('h5p_save_content_state', FALSE);
+      $use_system_temp_dir = get_option('h5p_use_system_temp_dir', FALSE);
       $save_content_frequency = get_option('h5p_save_content_frequency', 30);
       $show_toggle_view_others_h5p_contents = get_option('h5p_show_toggle_view_others_h5p_contents', 0);
       $insert_method = get_option('h5p_insert_method', 'id');

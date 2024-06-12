@@ -189,6 +189,16 @@
             </p>
           </td>
         </tr>
+        <tr valign="top">
+          <th scope="row"><?php _e("Temporary Working Directory", $this->plugin_slug); ?></th>
+          <td>
+            <label>
+              <input name="use_system_temp_dir" type="checkbox" value="true"<?php if ($use_system_temp_dir): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Use the system defined temporary space instead of in the plugin directory", $this->plugin_slug); ?>
+            </label>
+          </td>
+        </tr>
+        </tr>
 <!--        <tr valign="top">-->
 <!--          <th scope="row">--><?php //_e("Site Key", $this->plugin_slug); ?><!--</th>-->
 <!--          <td>-->
