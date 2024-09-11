@@ -487,6 +487,8 @@ class H5PWordPress implements H5PFrameworkInterface {
         $content['library']['machineName'],
         $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']);
 
+    do_action('h5p_save_content', $content['id'], $metadata);
+
     return $content['id'];
   }
 
