@@ -127,6 +127,18 @@ msgstr "Отсутствует %s."
 msgid "Title is too long. Must be 256 letters or shorter."
 msgstr "Название слишком длинное. Должно быть 256 символов или меньше."
 
+#: admin/class-h5p-plugin-admin.php:883
+msgid "Content"
+msgstr "Контент"
+
+#: admin/class-h5p-plugin-admin.php:887 admin/class-h5p-content-admin.php:253
+msgid "Score"
+msgstr "Оценка"
+
+#: admin/class-h5p-plugin-admin.php:891 admin/class-h5p-content-admin.php:257
+msgid "Maximum Score"
+msgstr "Максимальная оценка"
+
 #: admin/class-h5p-content-admin.php:674
 msgid "Insert interactive content"
 msgstr ""
@@ -252,7 +264,7 @@ msgstr "Нет"
 
 #: admin/class-h5p-library-admin.php:378
 msgid "Content library"
-msgstr "Контент библиотеки"
+msgstr "Библиотека контента"
 
 #: admin/class-h5p-library-admin.php:379
 msgid "Used by"
@@ -649,7 +661,7 @@ msgstr ""
 
 #: admin/views/content-results.php:15
 msgid "Results for \"%s\""
-msgstr "результаты из \"%s\""
+msgstr "результаты для \"%s\""
 
 #: admin/views/content-results.php:16 admin/views/new-content.php:19
 msgid "View"
@@ -811,6 +823,10 @@ msgstr ""
 #: admin/views/settings.php:36
 msgid "Allow download"
 msgstr ""
+
+#: admin/views/settings.php:23
+msgid "External communication"
+msgstr "Внешнее взаимодействие"
 
 #: admin/views/settings.php:40 admin/views/settings.php:65
 msgid "Never"
@@ -977,6 +993,16 @@ msgid ""
 "The H5P Hub is here to simplify this process by automatically installing the "
 "content types you choose and providing updates for those already installed."
 msgstr ""
+"Файл, который вы загрузили, не является допустимым HTML5 пакетом (Мы не можем извлечь "
+"его)"
+
+#: h5p-php-library/h5p.classes.php:733
+msgid "Could not parse the main h5p.json file"
+msgstr "Не удалось разобрать основной h5p.json файл"
+
+#: h5p-php-library/h5p.classes.php:742
+msgid "The main h5p.json file is not valid"
+msgstr "Основной h5p.json файл не является допустимым"
 
 #: admin/views/user-consent.php:22
 msgid ""
@@ -1053,6 +1079,10 @@ msgstr ""
 
 #~ msgid "File is not an image."
 #~ msgstr "Файл не является изображением."
+
+#: h5p-php-library/h5p.classes.php:1204
+msgid "Illegal option %option in %library"
+msgstr "Недопустимый параметр %option в %library"
 
 #~ msgid "Invalid audio file format. Use mp3 or wav."
 #~ msgstr "Неверный формат аудиофайла. Используйте mp3 or wav."
@@ -1491,6 +1521,9 @@ msgstr ""
 
 #~ msgid "Thumbnail"
 #~ msgstr "Миниатюра"
+
+msgid "User Tracking"
+msgstr "Отслеживание пользователя"
 
 #~ msgid "No copyright information available for this content."
 #~ msgstr "Информация об авторских правах на данный контент отсутствует."
