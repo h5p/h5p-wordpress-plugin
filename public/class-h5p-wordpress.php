@@ -1516,4 +1516,12 @@ class H5PWordPress implements H5PFrameworkInterface {
 
     return TRUE;
   }
+
+  /**
+   * Callback for reset hub data
+   *
+   * @return void
+   */
+  public function resetHubOrganizationData() {
+  }
 }
