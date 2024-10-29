@@ -462,6 +462,9 @@ class H5P_Plugin_Admin {
       $save_content_frequency = filter_input(INPUT_POST, 'save_content_frequency', FILTER_VALIDATE_INT);
       update_option('h5p_save_content_frequency', $save_content_frequency);
 
+      $save_content_storages = filter_input(INPUT_POST, 'save_content_storages', FILTER_VALIDATE_INT);
+      update_option('h5p_save_content_storages', $save_content_storages);
+
       $show_toggle_view_others_h5p_contents = filter_input(INPUT_POST, 'show_toggle_view_others_h5p_contents', FILTER_VALIDATE_INT);
       update_option('h5p_show_toggle_view_others_h5p_contents', $show_toggle_view_others_h5p_contents);
 
@@ -504,6 +507,7 @@ class H5P_Plugin_Admin {
       $track_user = get_option('h5p_track_user', TRUE);
       $save_content_state = get_option('h5p_save_content_state', FALSE);
       $save_content_frequency = get_option('h5p_save_content_frequency', 30);
+      $save_content_storages = get_option('h5p_save_content_storages', 1);
       $show_toggle_view_others_h5p_contents = get_option('h5p_show_toggle_view_others_h5p_contents', 0);
       $insert_method = get_option('h5p_insert_method', 'id');
       $enable_lrs_content_types = get_option('h5p_enable_lrs_content_types', FALSE);
