@@ -936,6 +936,8 @@ class H5P_Plugin {
     global $wpdb;
     $core = $this->get_h5p_instance('core');
 
+    $insert_method = get_option('h5p_insert_method', 'id');
+
     $safe_parameters = $core->filterParameters($content);
     if (has_action('h5p_alter_filtered_parameters')) {
       // Parse the JSON parameters
@@ -969,15 +971,17 @@ class H5P_Plugin {
         : ''
       );
 
+    $identifier = ($insert_method === 'slug' and !empty($content['slug'])) ? 'slug=' . $content['slug'] : 'id=' . $content['id'];
+
     // Add JavaScript settings for this content
     $settings = array(
       'library' => H5PCore::libraryToString($content['library']),
       'jsonContent' => $safe_parameters,
       'fullScreen' => $content['library']['fullscreen'],
       'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . ($content['slug'] ? $content['slug'] . '-' : '') . $content['id'] . '.h5p' : '',
-      'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen" title="' . $title . '"></iframe>',
+      'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&' . $identifier) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen" title="' . $title . '"></iframe>',
       'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '" charset="UTF-8"></script>',
-      'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
+      'url' => admin_url('admin-ajax.php?action=h5p_embed&' . $identifier),
       'title' => $content['title'],
       'displayOptions' => $core->getDisplayOptionsForView($content['disable'], $author_id),
       'metadata' => $metadata,
