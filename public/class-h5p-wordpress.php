@@ -1523,5 +1523,18 @@ class H5PWordPress implements H5PFrameworkInterface {
    * @return void
    */
   public function resetHubOrganizationData() {
+    global $wpdb;
+
+    delete_option('h5p_hub_secret');
+
+    $wpdb->update(
+      "{$wpdb->prefix}h5p_contents",
+      array(
+        'content_hub_id' => NULL,
+        'synced' => NULL,
+        'shared' => 0
+      ),
+      array('1' => '1'), // all rows
+    );
   }
 }
