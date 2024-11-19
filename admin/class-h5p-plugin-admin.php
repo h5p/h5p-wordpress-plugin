@@ -550,7 +550,8 @@ class H5P_Plugin_Admin {
    * @return string
    */
   public function alter_title($admin_title, $title) {
-    $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
+    $page = filter_input(INPUT_GET, 'page');
+    $page = htmlspecialchars($page ?? '', ENT_QUOTES, 'UTF-8');
 
     switch ($page) {
       case 'h5p':
