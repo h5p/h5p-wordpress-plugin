@@ -17,6 +17,7 @@
  */
 class H5PLibraryAdmin {
 
+  use H5PUtils;
   /**
    * @since 1.1.0
    */
@@ -49,7 +50,7 @@ class H5PLibraryAdmin {
    * @return string
    */
   public function alter_title($page, $admin_title, $title) {
-    $task = filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING);
+    $task = $this->sanitize_input('task');
 
     // Find library title
     $show = ($task === 'show');
@@ -111,7 +112,7 @@ class H5PLibraryAdmin {
    * @since 1.1.0
    */
   public function display_libraries_page() {
-    switch (filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING)) {
+    switch ($this->sanitize_input('task')) {
       case NULL:
         $this->display_libraries();
         return;
