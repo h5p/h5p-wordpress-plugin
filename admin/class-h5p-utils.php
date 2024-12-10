@@ -1,18 +1,10 @@
 <?php
-/**
- * H5P Plugin.
- *
- * @package   H5P
- * @author    Joubel <contact@joubel.com>
- * @license   MIT
- * @link      http://joubel.com
- * @copyright 2018 Joubel
- */
 trait H5PUtils {
     /**
-     * Filters and sanitize input replacing FILTER_SANITIZE_STRING
-     * @param string $var_name Name of the variable to sanitize
-     * @return string
+     * Filters and sanitizes input, replacing FILTER_SANITIZE_STRING.
+     *
+     * @param string $var_name Name of the variable to sanitize.
+     * @return string Sanitized value.
      */
     public function sanitize_input($var_name): string
     {
