@@ -326,6 +326,7 @@ class H5PContentQuery {
      */
     $wp_users = get_users(
       array(
+        'blog_id' => null,
         'include' => array_unique( $user_ids ),
         'fields' => array('ID'),
       )
