@@ -109,7 +109,23 @@ class H5PContentQuery {
         if (!isset($filter[0]) || !isset($filter[1])) {
           throw new Exception('Missing filter options.');
         }
+        
+		    // Additional search in field 'parameters'
+		    if ($filter[0] === 'title' && ( !isset($filter[2]) || $filter[2] === 'LIKE' )) {
+			    // Search in title OR in parameters
+			    $this->where .= ($this->where ? ' AND ' : ' WHERE ')
+			    . '('
+			    . "hc.title" . $this->valid_operators['LIKE']
+			    . " OR hc.parameters" . $this->valid_operators['LIKE']
+			    . ')';
 
+			    // Add both terms
+			    $this->where_args[] = $filter[1];
+		    	$this->where_args[] = preg_quote(substr(json_encode($filter[1]), 1, -1));
+
+		    	continue;
+		    }
+		
         $field = $this->get_valid_field($filter[0]);
 
         // Add join
