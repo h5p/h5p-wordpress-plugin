@@ -389,6 +389,7 @@ class H5P_Plugin {
     add_option('h5p_track_user', TRUE);
     add_option('h5p_save_content_state', FALSE);
     add_option('h5p_save_content_frequency', 30);
+    add_option('h5p_save_content_storages', 1);
     add_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
     add_option('h5p_show_toggle_view_others_h5p_contents', 0);
     add_site_option('h5p_content_type_cache_updated_at', 0);
@@ -800,6 +801,31 @@ class H5P_Plugin {
   }
 
   /**
+   * Get the storages for save content state.
+   *
+   * @since 1.15.1
+   * @return string
+   */
+  public function get_h5p_save_content_storages() {
+    $save_content_storages = array();
+
+    if (get_option('h5p_save_content_state', FALSE) != TRUE) {
+      return $save_content_storages;
+    }
+
+    $option = get_option('h5p_save_content_storages', FALSE);
+
+    if (($option & H5PSaveContentStorages::DATABASE) === H5PSaveContentStorages::DATABASE) {
+      $save_content_storages['database'] = TRUE;
+    }
+    if (($option & H5PSaveContentStorages::LOCALSTORAGE) === H5PSaveContentStorages::LOCALSTORAGE) {
+      $save_content_storages['localStorage'] = 'WP-bid-' . get_current_blog_id() . '-';
+    }
+
+    return $save_content_storages;
+  }
+
+  /**
    * Get H5P language code from WordPress.
    *
    * @since 1.0.0
@@ -1191,6 +1217,7 @@ class H5P_Plugin {
         'contentUserData' => admin_url('admin-ajax.php?token=' . wp_create_nonce('h5p_contentuserdata') . '&action=h5p_contents_user_data&content_id=:contentId&data_type=:dataType&sub_content_id=:subContentId')
       ),
       'saveFreq' => get_option('h5p_save_content_state', FALSE) ? get_option('h5p_save_content_frequency', 30) : FALSE,
+      'saveContentStorages' => $this->get_h5p_save_content_storages(),
       'siteUrl' => get_site_url(),
       'l10n' => array(
         'H5P' => $core->getLocalization(),
@@ -1621,6 +1648,7 @@ class H5P_Plugin {
     delete_option('h5p_ext_communication');
     delete_option('h5p_save_content_state');
     delete_option('h5p_save_content_frequency');
+    delete_option('h5p_save_content_storages');
     delete_option('h5p_show_toggle_view_others_h5p_contents');
     delete_option('h5p_update_available');
     delete_option('h5p_current_update');
