@@ -67,6 +67,23 @@ class H5P_Plugin {
   protected static $settings = null;
 
   /**
+   * Default settings for HTTP Feature Policy.
+   *
+   * @var string
+   */
+  protected static $h5p_http_feature_policy = array(
+    'accelerometer' => '*',
+    'autoplay' => '*',
+    'camera' => '*',
+    'clipboard-write' => '*',
+    'fullscreen' => '*',
+    'geolocation' => '*',
+    'gyroscope' => '*',
+    'magnetometer' => '*',
+    'microphone' => '*'
+  );
+
+  /**
    * Initialize the plugin by setting localization and loading public scripts
    * and styles.
    *
@@ -926,6 +943,25 @@ class H5P_Plugin {
   }
 
   /**
+   * Get permission policy property.
+   *
+   * @return string Permission policy.
+   */
+  public function get_http_feature_policy_property() {
+    // Set HTTP feature policy attribute
+    $h5p_http_feature_policy_list = apply_filters( 'h5p_h5p_http_feature_policy', defined( 'H5P_HTTP_FEATURE_POLICY' ) && H5P_HTTP_FEATURE_POLICY ? H5P_HTTP_FEATURE_POLICY : self::$h5p_http_feature_policy );
+    
+    array_walk(
+      $h5p_http_feature_policy_list,
+      function( &$feature_policy_value, $feature_policy_name ) {
+        $feature_policy_value = $feature_policy_name . ' \'' . $feature_policy_value . '\'';
+      }
+    );
+
+    return is_array( $h5p_http_feature_policy_list ) && 0 === count( $h5p_http_feature_policy_list ) ? '' : 'allow="' . implode( ';', $h5p_http_feature_policy_list ) . '"';
+  }
+
+  /**
    * Get settings for given content
    *
    * @since 1.5.0
@@ -969,13 +1005,15 @@ class H5P_Plugin {
         : ''
       );
 
+    $h5p_http_feature_policy = $this->get_http_feature_policy_property();
+
     // Add JavaScript settings for this content
     $settings = array(
       'library' => H5PCore::libraryToString($content['library']),
       'jsonContent' => $safe_parameters,
       'fullScreen' => $content['library']['fullscreen'],
       'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . ($content['slug'] ? $content['slug'] . '-' : '') . $content['id'] . '.h5p' : '',
-      'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen" title="' . $title . '"></iframe>',
+      'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen" title="' . $title . '"' . ' ' . $h5p_http_feature_policy . '></iframe>',
       'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '" charset="UTF-8"></script>',
       'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
       'title' => $content['title'],
@@ -1051,13 +1089,16 @@ class H5P_Plugin {
         $h5p_content_wrapper =  '<div class="h5p-content" data-content-id="' . $content['id'] . '"></div>';
     }
     else {
+      $h5p_http_feature_policy = $this->get_http_feature_policy_property();
+
       $title = isset($content['metadata']['a11yTitle'])
         ? $content['metadata']['a11yTitle']
         : (isset($content['metadata']['title'])
           ? $content['metadata']['title']
           : ''
         );
-        $h5p_content_wrapper = '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" title="' . $title . '"></iframe></div>';
+
+      $h5p_content_wrapper = '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" title="' . $title . '"' . ' ' . $h5p_http_feature_policy . '></iframe></div>';
     }
 
     return apply_filters('print_h5p_content', $h5p_content_wrapper, $content);
