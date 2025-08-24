@@ -806,9 +806,8 @@ class H5P_Plugin {
    * @return string
    */
   public function get_language() {
-    if (defined('WPLANG')) {
-      $language = WPLANG;
-    }
+    $user = wp_get_current_user();
+    $language = get_user_meta($user->ID, 'locale', true);
 
     if (empty($language)) {
       $language = get_option('WPLANG');
