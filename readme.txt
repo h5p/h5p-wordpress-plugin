@@ -3,8 +3,8 @@ Contributors: icc0rz, fnoks, falcon28
 Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
-Tested up to: 5.8.3
-Stable tag: 1.15.4
+Tested up to: 6.6.2
+Stable tag: 1.16.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -468,3 +468,27 @@ Update CKEditor to the latest 4.x version.
 
 = 1.15.4 =
 Update CKEditor to 4.17.1
+
+= 1.15.5 =
+Improve data loading by fetching user data in a separate query rather than joining wp_users. This will allow for storing data across multiple databases.
+Updated regexp to handle edge cases
+Updated translations
+
+= 1.15.6 =
+Fix bug when loading user result lists.
+Improve cleanup of exported files on delete.
+
+= 1.15.7 =
+Change h5p_content_type_cache_updated_at into a network setting. Thanks n-goncalves.
+Fix sorting contents by author. Thanks Otacke.
+Fix query issue in username search in user activity results. Thanks ir4klis.
+Fix permission check for installing recommended libraries only. Thanks Otacke.
+Improved narrow data views. Thanks Otacke.
+Fix potential memory issue. Thanks Otacke.
+Fix not storing empty content state (resume) for some content types.
+Updated translations
+
+= 1.16.0 =
+Upgraded to CKEditor5 in editor.
+Added new expand-collapse feature to the editor.
+Added support for Echo360 video provider.

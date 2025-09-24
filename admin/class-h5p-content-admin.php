@@ -368,6 +368,7 @@ class H5PContentAdmin {
               $this->content['library']['name'],
               $this->content['library']['majorVersion'] . '.' . $this->content['library']['minorVersion']);
 
+          $this->content = NULL;
           wp_safe_redirect(admin_url('admin.php?page=h5p'));
           return;
         }
@@ -924,7 +925,7 @@ class H5PContentAdmin {
       ),
       array(
         'id' => $result->user_id,
-        'title' => esc_html($result->user_name)
+        'title' => empty( $result->user_name ) ? '' : esc_html($result->user_name)
       ),
       $this->format_tags($result->tags),
       $this->format_time($result->updated_at),

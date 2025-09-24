@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.15.4';
+  const VERSION = '1.16.0';
 
   /**
    * The Unique identifier for this plugin.
@@ -391,7 +391,7 @@ class H5P_Plugin {
     add_option('h5p_save_content_frequency', 30);
     add_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
     add_option('h5p_show_toggle_view_others_h5p_contents', 0);
-    add_option('h5p_content_type_cache_updated_at', 0);
+    add_site_option('h5p_content_type_cache_updated_at', 0);
     add_option('h5p_check_h5p_requirements', FALSE);
     add_option('h5p_hub_is_enabled', FALSE);
     add_option('h5p_send_usage_statistics', FALSE);
@@ -1635,7 +1635,7 @@ class H5P_Plugin {
     delete_option('h5p_site_type');
     delete_option('h5p_enable_lrs_content_types');
     delete_option('h5p_site_key');
-    delete_option('h5p_content_type_cache_updated_at');
+    delete_site_option('h5p_content_type_cache_updated_at');
     delete_option('h5p_check_h5p_requirements');
     delete_option('h5p_hub_is_enabled');
     delete_option('h5p_send_usage_statistics');

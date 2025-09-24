@@ -1,161 +1,165 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: H5P\n"
-"POT-Creation-Date: 2017-02-08 09:10+0100\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Qsento\n"
-"Language-Team: \n"
-"Language: nl\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/h5p-wordpress-"
+"plugin-master\n"
+"POT-Creation-Date: 2022-03-02 16:26:07+00:00\n"
+"PO-Revision-Date: 2023-02-13 15:48+0000\n"
+"Last-Translator: René Breedveld <info@qsento.nl>\n"
+"Language-Team: Dutch <https://translate-h5p.tk/weblate/projects/h5p/"
+"wordpress-plugin/nl/>\n"
+"Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
-"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"t\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.1\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noo"
+"p:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;es"
+"c_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;t\n"
 "X-Poedit-Basepath: ..\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: admin/class-h5p-content-admin.php:158 admin/class-h5p-content-admin.php:651
-#: admin/class-h5p-library-admin.php:215 h5p-php-library/h5p.classes.php:3689
-#: public/class-h5p-plugin.php:983
+#: admin/class-h5p-content-admin.php:185 admin/class-h5p-content-admin.php:697
+#: admin/class-h5p-library-admin.php:215 admin/class-h5p-privacy-policy.php:431
 msgid "Title"
 msgstr "Titel"
 
-#: admin/class-h5p-content-admin.php:162 admin/class-h5p-content-admin.php:655
+#: admin/class-h5p-content-admin.php:189 admin/class-h5p-content-admin.php:701
+#: admin/class-h5p-privacy-policy.php:471
 msgid "Content type"
 msgstr "Inhoudstype"
 
-#: admin/class-h5p-content-admin.php:167 h5p-php-library/h5p.classes.php:3696
-#: public/class-h5p-plugin.php:984
+#: admin/class-h5p-content-admin.php:194 admin/class-h5p-content-admin.php:706
 msgid "Author"
 msgstr "Auteur"
 
-#: admin/class-h5p-content-admin.php:172 admin/class-h5p-content-admin.php:660
-#: admin/views/new-content.php:96 admin/views/show-content.php:39
+#: admin/class-h5p-content-admin.php:199 admin/class-h5p-content-admin.php:711
+#: admin/views/new-content.php:98 admin/views/show-content.php:39
 msgid "Tags"
 msgstr "Labels"
 
-#: admin/class-h5p-content-admin.php:177 admin/class-h5p-content-admin.php:665
+#: admin/class-h5p-content-admin.php:204 admin/class-h5p-content-admin.php:716
 msgid "Last modified"
 msgstr "Laatste wijziging"
 
-#: admin/class-h5p-content-admin.php:181
+#: admin/class-h5p-content-admin.php:208 admin/class-h5p-privacy-policy.php:373
+#: admin/class-h5p-privacy-policy.php:427
 msgid "ID"
 msgstr "ID"
 
-#: admin/class-h5p-content-admin.php:200 admin/class-h5p-content-admin.php:673
+#: admin/class-h5p-content-admin.php:227 admin/class-h5p-content-admin.php:724
 #: admin/views/select-content.php:31
 msgid "No H5P content available. You must upload or create new content."
 msgstr ""
-"Geen H5P inhoud beschikbaar. Je moet deze uploaden of nieuwe inhoud creëren"
+"Er is geen H5P inhoud beschikbaar. Je moet deze uploaden of nieuwe inhoud "
+"creëren."
 
-#: admin/class-h5p-content-admin.php:244
+#: admin/class-h5p-content-admin.php:238
+msgid "You are not allowed to view this content."
+msgstr "Je hebt geen toestemming om deze inhoud te bekijken."
+
+#: admin/class-h5p-content-admin.php:278
 msgid "User"
 msgstr "Gebruiker"
 
-#: admin/class-h5p-content-admin.php:248 admin/class-h5p-plugin-admin.php:983
+#: admin/class-h5p-content-admin.php:282 admin/class-h5p-plugin-admin.php:1042
+#: admin/class-h5p-privacy-policy.php:264
 msgid "Score"
 msgstr "Score"
 
-#: admin/class-h5p-content-admin.php:252 admin/class-h5p-plugin-admin.php:987
+#: admin/class-h5p-content-admin.php:286 admin/class-h5p-plugin-admin.php:1046
+#: admin/class-h5p-privacy-policy.php:268
 msgid "Maximum Score"
 msgstr "Maximale score"
 
-#: admin/class-h5p-content-admin.php:256 admin/class-h5p-plugin-admin.php:991
+#: admin/class-h5p-content-admin.php:290 admin/class-h5p-plugin-admin.php:1050
+#: admin/class-h5p-privacy-policy.php:272
 msgid "Opened"
 msgstr "Geopend"
 
-#: admin/class-h5p-content-admin.php:260 admin/class-h5p-plugin-admin.php:995
+#: admin/class-h5p-content-admin.php:294 admin/class-h5p-plugin-admin.php:1054
+#: admin/class-h5p-privacy-policy.php:276
 msgid "Finished"
 msgstr "Beëindigd"
 
-#: admin/class-h5p-content-admin.php:263 admin/class-h5p-plugin-admin.php:998
+#: admin/class-h5p-content-admin.php:297 admin/class-h5p-plugin-admin.php:1057
+#: admin/class-h5p-privacy-policy.php:280
 msgid "Time spent"
 msgstr "Bestede tijd"
 
-#: admin/class-h5p-content-admin.php:266
+#: admin/class-h5p-content-admin.php:300
 msgid "There are no logged results for this content."
-msgstr "Er zijn geen gelogde resultaten voor deze inhoud"
+msgstr "Er zijn geen gelogde resultaten voor deze inhoud."
 
-#: admin/class-h5p-content-admin.php:283 admin/class-h5p-library-admin.php:147
+#: admin/class-h5p-content-admin.php:317 admin/class-h5p-library-admin.php:147
 msgid "Unknown task."
-msgstr "Onbekende taak"
+msgstr "Onbekende taak."
 
-#: admin/class-h5p-content-admin.php:310
+#: admin/class-h5p-content-admin.php:352
 msgid "You are not allowed to edit this content."
-msgstr "Het is niet toegestaan deze inhoud aan te passen"
+msgstr "Het is niet toegestaan deze inhoud aan te passen."
 
-#: admin/class-h5p-content-admin.php:332
+#: admin/class-h5p-content-admin.php:374
 msgid "Invalid confirmation code, not deleting."
-msgstr "Ongeldige bevestigingscode, niet verwijderen"
+msgstr "Ongeldige bevestigingscode, niet verwijderen."
 
-#: admin/class-h5p-content-admin.php:508
+#: admin/class-h5p-content-admin.php:564
 msgid "Invalid library."
-msgstr "Ongeldige bibliotheek"
+msgstr "Ongeldige bibliotheek."
 
-#: admin/class-h5p-content-admin.php:515
+#: admin/class-h5p-content-admin.php:569
+msgid "Something unexpected happened. We were unable to save this content."
+msgstr "Er is iets onverwachts gebeurd. We konden deze inhoud niet opslaan."
+
+#: admin/class-h5p-content-admin.php:576
 msgid "No such library."
 msgstr "Geen dergelijke bibliotheek."
 
-#: admin/class-h5p-content-admin.php:532
+#: admin/class-h5p-content-admin.php:587
 msgid "Invalid parameters."
-msgstr "Ongeldige parameters"
+msgstr "Ongeldige parameters."
 
-#: admin/class-h5p-content-admin.php:581 admin/class-h5p-content-admin.php:604
-#, php-format
+#: admin/class-h5p-content-admin.php:597 admin/class-h5p-content-admin.php:656
 msgid "Missing %s."
 msgstr "Ontbrekend %s."
 
-#: admin/class-h5p-content-admin.php:609
+#: admin/class-h5p-content-admin.php:602
 msgid "Title is too long. Must be 256 letters or shorter."
 msgstr "De titel is te lang. Dit moeten 256 letters of korter zijn."
 
-#: admin/class-h5p-content-admin.php:627
-msgid "Insert H5P Content"
-msgstr "Voeg H5P inhoud toe"
+#: admin/class-h5p-content-admin.php:674
+msgid "Insert interactive content"
+msgstr "Interactieve inhoud invoegen"
 
-#: admin/class-h5p-content-admin.php:628
+#: admin/class-h5p-content-admin.php:676
 msgid "Add H5P"
 msgstr "Voeg H5P toe"
 
-#: admin/class-h5p-content-admin.php:793
-#, php-format
+#: admin/class-h5p-content-admin.php:849
 msgid "%s ago"
 msgstr "%s geleden"
 
-#: admin/class-h5p-content-admin.php:847
+#: admin/class-h5p-content-admin.php:907
 msgid "Insert"
 msgstr "Voeg toe"
 
-#: admin/class-h5p-content-admin.php:879 admin/views/new-content.php:21
-#: admin/views/show-content.php:17
+#: admin/class-h5p-content-admin.php:939 admin/class-h5p-privacy-policy.php:288
+#: admin/views/new-content.php:21 admin/views/show-content.php:17
 msgid "Results"
 msgstr "Resultaten"
 
-#: admin/class-h5p-content-admin.php:888 admin/views/content-results.php:18
+#: admin/class-h5p-content-admin.php:948 admin/views/content-results.php:18
 #: admin/views/new-content.php:18 admin/views/show-content.php:20
 msgid "Edit"
 msgstr "Wijzig"
 
-#: admin/class-h5p-content-admin.php:982
-msgid "Are you sure you wish to delete this content?"
-msgstr "Ben je er zeker van dat deze inhoud verwijderd wordt?"
-
-#: admin/class-h5p-content-admin.php:1035
-msgid "Invalid security token. Please reload the editor."
-msgstr "Ongeldig veiligheidsteken. Laad de editor opnieuw."
-
 #: admin/class-h5p-content-admin.php:1044
-msgid "File not found on server. Check file upload settings."
-msgstr ""
-"Bestand niet gevonden op de server. Controleer de uploadinstelling van het "
-"bestand."
+msgid "Are you sure you wish to delete this content?"
+msgstr "Ben je er zeker van dat deze inhoud wordt verwijderd?"
 
-#: admin/class-h5p-library-admin.php:62 admin/views/new-content.php:55
+#: admin/class-h5p-library-admin.php:62 admin/views/new-content.php:57
 msgid "Delete"
 msgstr "Verwijder"
 
@@ -164,11 +168,10 @@ msgid "Content Upgrade"
 msgstr "Inhoudsupgrade"
 
 #: admin/class-h5p-library-admin.php:102
-#, php-format
 msgid "Cannot find library with id: %d."
 msgstr "Kan de bibliotheek met id: %d niet vinden."
 
-#: admin/class-h5p-library-admin.php:167 admin/class-h5p-library-admin.php:390
+#: admin/class-h5p-library-admin.php:167 admin/class-h5p-library-admin.php:379
 msgid "N/A"
 msgstr "Niet beschikbaar"
 
@@ -178,17 +181,17 @@ msgstr "Bekijk de bibliotheekdetails"
 
 #: admin/class-h5p-library-admin.php:169
 msgid "Delete library"
-msgstr "Verwijder bibliotheek"
+msgstr "Verwijder de bibliotheek"
 
 #: admin/class-h5p-library-admin.php:170
 msgid "Upgrade library content"
-msgstr "Upgrade de bibliotheekinhoud"
+msgstr "Werk de bibliotheekinhoud bij"
 
 #: admin/class-h5p-library-admin.php:216
 msgid "Restricted"
 msgstr "Begrensd"
 
-#: admin/class-h5p-library-admin.php:218
+#: admin/class-h5p-library-admin.php:218 admin/class-h5p-privacy-policy.php:479
 msgid "Contents"
 msgstr "Inhoud"
 
@@ -198,205 +201,214 @@ msgstr "Inhoud gebruiken"
 
 #: admin/class-h5p-library-admin.php:226
 msgid "Libraries using it"
-msgstr "Bibliotheek gebruiken"
+msgstr "De bibliotheken die het gebruiken"
 
-#: admin/class-h5p-library-admin.php:229 admin/views/new-content.php:45
+#: admin/class-h5p-library-admin.php:229 admin/views/new-content.php:47
 msgid "Actions"
 msgstr "Acties"
 
-#: admin/class-h5p-library-admin.php:298
-#, php-format
-msgid ""
-"Unfortunately, we were unable to update your installed content types. You "
-"must manually download the update from <a href=\"%s\" target=\"_blank\">H5P."
-"org</a>, and then upload it through the <em>Upload Libraries</em> section. "
-"If you need futher assistance, please file a <a href=\"%s\" target=\"_blank"
-"\">support request</a> or check out our <a href=\"%s\" target=\"_blank"
-"\">forum</a>."
-msgstr ""
-"Helaas, we zijn niet in staat de geïnstalleeerde inhoud bij te werken. Je "
-"moet de update handmatig downloaden van <a href=\"%s\" target=\"_blank\">H5P."
-"org</a>, and deze dan bijwerken via de <em>Bijwerken biliotheken</em> "
-"sectie.  Als je meer hulp nodig hebt, stuur dan een bestand naar <a href=\"%s"
-"\" target=\"_blank\">support aanvraag</a> of bekijk het <a href=\"%s\" "
-"target=\"_blank\">forum</a>."
-
-#: admin/class-h5p-library-admin.php:319
+#: admin/class-h5p-library-admin.php:308
 msgid ""
 "This Library is used by content or other libraries and can therefore not be "
 "deleted."
 msgstr ""
-"Deze bibliotheek wordt gebruik in andere bibliotheken en kan daarom niet "
-"worden verwijderd."
+"Deze bibliotheek wordt gebruik door de inhoud of andere bibliotheken en kan "
+"daarom niet worden verwijderd."
 
-#: admin/class-h5p-library-admin.php:355
+#: admin/class-h5p-library-admin.php:344
 msgid "No content is using this library"
-msgstr "Uit deze bibliotheek wordt geen inhoud gebruikt"
+msgstr "Er is geen inhoud die deze bibliotheek gebruikt"
 
-#: admin/class-h5p-library-admin.php:356
+#: admin/class-h5p-library-admin.php:345
 msgid "Content using this library"
 msgstr "Er is inhoud die deze bibliotheek gebruikt"
 
-#: admin/class-h5p-library-admin.php:357
+#: admin/class-h5p-library-admin.php:346
 msgid "Elements per page"
 msgstr "Elementen per pagina"
 
-#: admin/class-h5p-library-admin.php:358
+#: admin/class-h5p-library-admin.php:347
 msgid "Filter content"
 msgstr "Filter inhoud"
 
-#: admin/class-h5p-library-admin.php:359
+#: admin/class-h5p-library-admin.php:348
 msgid "Page $x of $y"
 msgstr "Pagina $x van $y"
 
-#: admin/class-h5p-library-admin.php:387
+#: admin/class-h5p-library-admin.php:376
 msgid "Version"
 msgstr "Versie"
 
-#: admin/class-h5p-library-admin.php:388 public/class-h5p-plugin.php:972
+#: admin/class-h5p-library-admin.php:377
 msgid "Fullscreen"
 msgstr "Volledig scherm"
 
-#: admin/class-h5p-library-admin.php:388 admin/class-h5p-library-admin.php:389
+#: admin/class-h5p-library-admin.php:377 admin/class-h5p-library-admin.php:378
 msgid "Yes"
 msgstr "Ja"
 
-#: admin/class-h5p-library-admin.php:388 admin/class-h5p-library-admin.php:389
+#: admin/class-h5p-library-admin.php:377 admin/class-h5p-library-admin.php:378
+#: admin/views/settings.php:131
 msgid "No"
 msgstr "Nee"
 
-#: admin/class-h5p-library-admin.php:389
+#: admin/class-h5p-library-admin.php:378
 msgid "Content library"
 msgstr "Inhoudsopgave bibliotheek"
 
-#: admin/class-h5p-library-admin.php:390
+#: admin/class-h5p-library-admin.php:379
 msgid "Used by"
 msgstr "Gebruikt door"
 
-#: admin/class-h5p-library-admin.php:390 admin/class-h5p-library-admin.php:441
-#, php-format
+#: admin/class-h5p-library-admin.php:379 admin/class-h5p-library-admin.php:430
 msgid "1 content"
 msgid_plural "%d contents"
 msgstr[0] "1 inhoudsopgave"
 msgstr[1] "%d inhoudsopgaves"
 
-#: admin/class-h5p-library-admin.php:430
+#: admin/class-h5p-library-admin.php:419
 msgid "There are no available upgrades for this library."
 msgstr "Er zijn upgrades beschikbaar voor deze bibliotheek."
 
-#: admin/class-h5p-library-admin.php:437
+#: admin/class-h5p-library-admin.php:426
 msgid "There's no content instances to upgrade."
-msgstr "Er is geen inhoud om te upgraden"
+msgstr "Er is geen inhoudsopgave om te upgraden."
 
-#: admin/class-h5p-library-admin.php:448
-#, php-format
+#: admin/class-h5p-library-admin.php:437
 msgid "You are about to upgrade %s. Please select upgrade version."
 msgstr "Je staat op het punt om %s te upgraden. Selecteer de gewenste versie."
 
-#: admin/class-h5p-library-admin.php:449
+#: admin/class-h5p-library-admin.php:438
 msgid "Upgrading to %ver..."
 msgstr "Upgraden naar %ver..."
 
-#: admin/class-h5p-library-admin.php:450
+#: admin/class-h5p-library-admin.php:439
 msgid "An error occurred while processing parameters:"
 msgstr "Er is een fout opgetreden bij de te verwerken parameters:"
 
-#: admin/class-h5p-library-admin.php:451
+#: admin/class-h5p-library-admin.php:440
 msgid "Could not load data for library %lib."
 msgstr "Kan geen gegevens voor bibliotheek %lib laden."
 
-#: admin/class-h5p-library-admin.php:452
+#: admin/class-h5p-library-admin.php:441
 msgid "Could not upgrade content %id:"
 msgstr "Kan de inhoud %id niet upgraden:"
 
-#: admin/class-h5p-library-admin.php:453
+#: admin/class-h5p-library-admin.php:442
 msgid "Could not load upgrades script for %lib."
-msgstr "Kan geen upgrade script %lib laden."
+msgstr "Kan geen upgrade script laden voor %lib."
 
-#: admin/class-h5p-library-admin.php:454
+#: admin/class-h5p-library-admin.php:443
 msgid "Parameters are broken."
-msgstr "De parameters werken niet"
+msgstr "De parameters werken niet."
 
-#: admin/class-h5p-library-admin.php:455
-#, php-format
+#: admin/class-h5p-library-admin.php:444
+msgid "Missing required library %lib."
+msgstr "Vereiste bibliotheek %lib ontbreekt."
+
+#: admin/class-h5p-library-admin.php:445
+msgid ""
+"Parameters contain %used while only %supported or earlier are supported."
+msgstr ""
+"De parameters bevatten %used terwijl alleen %supported of eerder worden "
+"ondersteund."
+
+#: admin/class-h5p-library-admin.php:446
+msgid "Parameters contain %used which is not supported."
+msgstr "De parameters bevatten %used wat niet ondersteund wordt."
+
+#: admin/class-h5p-library-admin.php:447
 msgid "You have successfully upgraded %s."
-msgstr "Je hebt de upgrade %s succesvol geupgraded"
+msgstr "Je hebt %s succesvol geüpgraded."
 
-#: admin/class-h5p-library-admin.php:455
+#: admin/class-h5p-library-admin.php:447
 msgid "Return"
 msgstr "Enter"
 
-#: admin/class-h5p-library-admin.php:465
+#: admin/class-h5p-library-admin.php:457
 msgid "Upgrade"
 msgstr "Upgrade"
 
-#: admin/class-h5p-library-admin.php:540
+#: admin/class-h5p-library-admin.php:532
 msgid ""
 "Not all content has gotten their cache rebuilt. This is required to be able "
 "to delete libraries, and to display how many contents that uses the library."
 msgstr ""
-"Van niet alle inhoud is de cache opnieuw opgebouwd. Dit is noodzakelijk om "
+"Van de totale inhoud is niet alle cache opgebouwd. Dit is noodzakelijk om "
 "alle bibliotheken te verwijderen en om te laten zien hoeveel inhoud de "
-"bibliotheek gebruikt"
+"bibliotheek gebruikt."
 
-#: admin/class-h5p-library-admin.php:541
-#, php-format
+#: admin/class-h5p-library-admin.php:533
 msgid "1 content need to get its cache rebuilt."
 msgid_plural "%d contents needs to get their cache rebuilt."
-msgstr[0] "Er is 1 inhoudsopgave nodig om de cache weer op te bouwen"
+msgstr[0] "Er is 1 inhoudsopgave nodig om de cache weer op te bouwen."
 msgstr[1] "Er zijn %d inhoudsopgaves nodig om de cache weer op te bouwen."
 
-#: admin/class-h5p-library-admin.php:542
+#: admin/class-h5p-library-admin.php:534
 msgid "Rebuild cache"
 msgstr "Cache opnieuw opbouwen"
 
-#: admin/class-h5p-library-admin.php:554
+#: admin/class-h5p-library-admin.php:546
 msgid "Error, invalid security token!"
 msgstr "Fout, ongeldig veiligheidsmerkteken!"
 
-#: admin/class-h5p-library-admin.php:560 admin/class-h5p-library-admin.php:655
+#: admin/class-h5p-library-admin.php:552 admin/class-h5p-library-admin.php:671
 msgid "Error, missing library!"
-msgstr "Fout, bibliotheek ontbreekt!"
+msgstr "Fout, de bibliotheek ontbreekt!"
 
-#: admin/class-h5p-library-admin.php:572 admin/class-h5p-library-admin.php:661
+#: admin/class-h5p-library-admin.php:564 admin/class-h5p-library-admin.php:677
 msgid "Error, invalid library!"
 msgstr "Fout, ongeldige bibliotheek!"
 
-#: admin/class-h5p-library-admin.php:678
-msgid "Error, could not library semantics!"
-msgstr "Fout, de semantiek is niet te archiveren"
-
-#: admin/class-h5p-plugin-admin.php:214
+#: admin/class-h5p-plugin-admin.php:255
 msgid "Content unavailable."
-msgstr "Inhoud is niet beschikbaar."
+msgstr "De inhoud is niet beschikbaar."
 
-#: admin/class-h5p-plugin-admin.php:259
-msgid "Thank you for staying up to date with H5P."
-msgstr "Bedankt dat je up-tot-date blijft met H5P"
+#: admin/class-h5p-plugin-admin.php:305
+msgid "Thank you for choosing H5P."
+msgstr "Bedankt voor het kiezen van H5P."
 
-#: admin/class-h5p-plugin-admin.php:260
-#, php-format
+#: admin/class-h5p-plugin-admin.php:307
 msgid ""
-"Head over to the <a href=\"%s\">Libraries</a> page and update your content "
-"types to the latest version."
-msgstr "Ga nu naar <a href=\"%s\">bibliohteken</a> pagina en werk je inhoudtypes bij "
-"naar de meeste recente versie."
-
-#: admin/class-h5p-plugin-admin.php:261
-#, php-format
-msgid ""
-"By default, H5P is set up to automatically fetch information regarding "
-"Content Type updates from H5P.org. When doing so, H5P will also contribute "
-"anonymous usage data to aid the development of H5P. This behaviour can be "
-"altered through the <a href=\"%s\">Settings</a> page."
+"You are ready to <a href=\"%s\">start creating</a> interactive content. "
+"Check out our <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
+"page for inspiration."
 msgstr ""
-"Standaard zal H5P automatisch informatie op het inhoudstype ophalen van H5P."
-"org. Als dit gebeurt zal H5P ook anonieme dat verzamelen om de ontwikkeling "
-"van H5P te bevorderen. Deze werkwijze kan worden aangepast via <a href=\"%s"
-"\">Innstillinger </a> pagina."
+"Je bent klaar om <a href=\"%s\">start creating</a> interactieve inhoud te "
+"creëren. Controleer onze <a href=\"%s\" target=\"_blank\">Voorbeelden en "
+"download</a> pagina voor inspiratie."
 
-#: admin/class-h5p-plugin-admin.php:262
-#, php-format
+#: admin/class-h5p-plugin-admin.php:311
+msgid "Thank you for staying up to date with H5P."
+msgstr "Bedankt dat je op de hoogte blijft van H5P."
+
+#: admin/class-h5p-plugin-admin.php:319
+msgid ""
+"You should <strong>upgrade your H5P content types!</strong> The old content "
+"types still work, but the authoring tool's look and feel is greatly improved "
+"with the new content types. Here's some more info about <a href=\"%s\" "
+"target=\"_blank\">upgrading the content types</a>."
+msgstr ""
+"Je dient je H5P inhoudstypen <strong>bij te werken!</strong> De oude "
+"inhoudstypen werken nog steeds, maar de lay-out van de auteurstool is sterk "
+"verbeterd met de nieuwe inhoudstypen. Hier vind je meer informatie over <a "
+"href=\"%s\" target=\"_blank\">het bijwerken van de inhoudstypes</a>."
+
+#: admin/class-h5p-plugin-admin.php:325
+msgid ""
+"H5P now fetches content types directly from the H5P Hub. In order to do "
+"this, the H5P plugin will communicate with H5P.org once per day to fetch "
+"information about new and updated content types. It will send in anonymous "
+"data to the hub about H5P usage. You may disable the data contribution and/"
+"or the H5P Hub in the H5P settings."
+msgstr ""
+"H5P haalt nu de inhoudstypes direct op van de H5P-Hub. Om dit te doen zal de "
+"H5P plug-in eenmaal per dag communiceren met H5P.org om informatie op te "
+"halen over nieuwe en bijgewerkte inhoudstypes. Het zal anonieme gegevens "
+"naar de Hub sturen over het gebruik van H5P. Je kunt de gegevensbijdrage en/"
+"of de H5P-Hub uitschakelen in de H5P instellingen."
+
+#: admin/class-h5p-plugin-admin.php:338 admin/views/new-content.php:42
 msgid ""
 "If you need any help you can always file a <a href=\"%s\" target=\"_blank"
 "\">Support Request</a>, check out our <a href=\"%s\" target=\"_blank"
@@ -404,139 +416,290 @@ msgid ""
 "\">H5P Community Chat</a>."
 msgstr ""
 "Als je hulp nodig hebt, dan kun je altijd een <a href=\"%s\" target=\"_blank"
-"\"> sturen naar de Helpdesk</a>, check ons <a href=\"%s\" target=\"_blank"
-"\">forum</a> eller bli med i samtalen på <a href=\"%s\" target=\"_blank"
+"\"> sturen naar de Helpdesk</a>, check ons <a href=\"%s\" target=\"_blank\""
+">forum</a> of neem deel aan het gesprek in de <a href=\"%s\" target=\"_blank"
 "\">H5P Community Chat</a>."
 
-#: admin/class-h5p-plugin-admin.php:270
-#, php-format
-msgid ""
-"Check out our <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
-"page for inspiration."
-msgstr ""
-"Check onze <a href=\"%s\" target=\"_blank\">Voorbeelden en Downloads</a> "
-"pagina voor inspiratie."
-
-#: admin/class-h5p-plugin-admin.php:275
-msgid "Thank you for choosing H5P."
-msgstr "Bedankt voor het kiezen van H5P."
-
-#: admin/class-h5p-plugin-admin.php:280
-#, php-format
-msgid ""
-"Unfortunately, we were unable to automatically install the default content "
-"types. You must manually download the content types you wish to use from the "
-"<a href=\"%s\" target=\"_blank\">Examples and Downloads</a> page, and then "
-"upload them through the <a href=\"%s\">Libraries</a> page."
-msgstr ""
-"Helaas, we waren niet instaat de standaard inhoudstypen automatisch te "
-"installeren. Je moet de gewenste inhoudstypen handmatig downloaden via <a "
-"href=\"%s\" target=\"_blank\">Voorbeelden en Downloads</a> pagina en deze "
-"uploaden via de <a href=\"%s\">bibliotekene</a>pagina."
-
-#: admin/class-h5p-plugin-admin.php:283
-#, php-format
-msgid ""
-"We've automatically installed the default content types for your "
-"convenience. You can now <a href=\"%s\">start creating</a> your own "
-"interactive content!"
-msgstr ""
-"Voor jouw gemak hebben we de standaard inhoudstypen automatisch "
-"geïnstalleerd. Je kunt nu <a href=\"%s\">beginnen met</a> je eigen "
-"interactieve inhoud!"
-
-#: admin/class-h5p-plugin-admin.php:310
-#, php-format
-msgid ""
-"You should <strong>upgrade your H5P content types!</strong> The old content "
-"types still work, but the authoring tool's look and feel is greatly improved "
-"with the new content types. Here's some more info about <a href=\"%s\" "
-"target=\"_blank\">upgrading the content types</a>."
-msgstr "Je dient je H5P inhoudstypen <strong>bij te upgraden!</strong> De oude inhoudstypen "
-"werken nog steeds, maar de de lay-out van de auteurstool is sterk verbeterd "
-"met de nieuwe inhoudstypen. Hier vind je meer informatie over <a href=\"%s\" "
-
-#: admin/class-h5p-plugin-admin.php:376 admin/class-h5p-plugin-admin.php:386
-msgid "Unable to download H5P content types."
-msgstr "Het is niet mogelijk om de H5P inhoudstype te downloaden."
-
-#: admin/class-h5p-plugin-admin.php:426 public/class-h5p-plugin.php:578
+#: admin/class-h5p-plugin-admin.php:396 public/class-h5p-plugin.php:753
 msgid "H5P Content"
 msgstr "H5P inhoud"
 
-#: admin/class-h5p-plugin-admin.php:429
+#: admin/class-h5p-plugin-admin.php:399
 msgid "All H5P Content"
 msgstr "Alle H5P inhoud"
 
-#: admin/class-h5p-plugin-admin.php:432
+#: admin/class-h5p-plugin-admin.php:399
+msgid "My H5P Content"
+msgstr "Mijn H5P inhoud"
+
+#: admin/class-h5p-plugin-admin.php:402
 msgid "Add New"
 msgstr "Voeg een nieuwe toe"
 
-#: admin/class-h5p-plugin-admin.php:441
-#, php-format
-msgid "%s new update is available!"
-msgid_plural "%s new updates are available!"
-msgstr[0] "%s nieuwe versie is beschikbaar!"
-msgstr[1] "%s Nieuwe versies zijn beschikbaar!"
-
-#: admin/class-h5p-plugin-admin.php:442 admin/class-h5p-plugin-admin.php:443
+#: admin/class-h5p-plugin-admin.php:408
 msgid "Libraries"
-msgstr "Biblliotheken"
+msgstr "Bibliotheken"
 
-#: admin/class-h5p-plugin-admin.php:449 admin/views/my-results.php:14
+#: admin/class-h5p-plugin-admin.php:415 admin/views/my-results.php:14
 msgid "My Results"
 msgstr "Mijn resultaten"
 
-#: admin/class-h5p-plugin-admin.php:723
+#: admin/class-h5p-plugin-admin.php:592
+msgid ""
+"You're trying to upload content of an older version of H5P. Please upgrade "
+"the content on the server it originated from and try to upload again or turn "
+"on the H5P Hub to have this server upgrade it for your automaticall."
+msgstr ""
+"Je probeert de inhoud van een oudere versie van H5P te uploaden. Werk de "
+"inhoud op de server bij waar deze vandaan komt en probeer opnieuw te "
+"uploaden of schakel de H5P-Hub in om deze server automatisch te laten "
+"bijwerken."
+
+#: admin/class-h5p-plugin-admin.php:749
 msgid "Invalid content"
 msgstr "Ongeldige inhoud"
 
-#: admin/class-h5p-plugin-admin.php:727 admin/class-h5p-plugin-admin.php:1127
+#: admin/class-h5p-plugin-admin.php:753 admin/class-h5p-plugin-admin.php:1186
 msgid "Invalid security token"
-msgstr "Ongeldig veiligheidsmarkering"
+msgstr "Ongeldige veiligheidsmarkering"
 
-#: admin/class-h5p-plugin-admin.php:943
+#: admin/class-h5p-plugin-admin.php:982
 msgid "Loading data."
 msgstr "Data laden."
 
-#: admin/class-h5p-plugin-admin.php:944
+#: admin/class-h5p-plugin-admin.php:983
 msgid "Failed to load data."
 msgstr "Het is mislukt om data te laden."
 
-#: admin/class-h5p-plugin-admin.php:945
+#: admin/class-h5p-plugin-admin.php:984
 msgid "There's no data available that matches your criteria."
-msgstr "Er zijn geen data beschikbaar dat voldoet aan jouw criteria."
+msgstr "Er zijn geen data beschikbaar die voldoen aan jouw criteria."
 
-#: admin/class-h5p-plugin-admin.php:946
+#: admin/class-h5p-plugin-admin.php:985
 msgid "Page $current of $total"
 msgstr "Pagina $current van $total"
 
-#: admin/class-h5p-plugin-admin.php:947
+#: admin/class-h5p-plugin-admin.php:986
 msgid "Next page"
 msgstr "Volgende pagina"
 
-#: admin/class-h5p-plugin-admin.php:948
+#: admin/class-h5p-plugin-admin.php:987
 msgid "Previous page"
 msgstr "Vorige pagina"
 
-#: admin/class-h5p-plugin-admin.php:949
+#: admin/class-h5p-plugin-admin.php:988
 msgid "Search"
 msgstr "Zoek"
 
-#: admin/class-h5p-plugin-admin.php:950
+#: admin/class-h5p-plugin-admin.php:989
 msgid "Remove"
 msgstr "Verwijder"
 
-#: admin/class-h5p-plugin-admin.php:979
+#: admin/class-h5p-plugin-admin.php:991
+msgid "Show my content only"
+msgstr "Toon alleen mijn inhoud"
+
+#: admin/class-h5p-plugin-admin.php:1038 admin/class-h5p-privacy-policy.php:256
+#: admin/class-h5p-privacy-policy.php:311
+#: admin/class-h5p-privacy-policy.php:393
 msgid "Content"
 msgstr "Inhoud"
 
-#: admin/class-h5p-plugin-admin.php:1001
+#: admin/class-h5p-plugin-admin.php:1060
 msgid "There are no logged results for your user."
 msgstr "Er zijn geen gelogde resultaten voor jouw gebruiker."
 
+#: admin/class-h5p-privacy-policy.php:55
+msgid "xAPI"
+msgstr "xAPI"
+
+#: admin/class-h5p-privacy-policy.php:59
+msgid "H5P tracking information"
+msgstr "H5P traceer informatie"
+
+#: admin/class-h5p-privacy-policy.php:63
+msgid "Google's Privacy policy"
+msgstr "Google's privacybeleid"
+
+#: admin/class-h5p-privacy-policy.php:67
+msgid "Twitter's Privacy policy"
+msgstr "Twitter's privacybeleid"
+
+#: admin/class-h5p-privacy-policy.php:71
+msgid "What personal data we collect and why we collect it"
+msgstr "Welke persoonsgegevens we verzamelen en waarom we ze verzamelen"
+
+#: admin/class-h5p-privacy-policy.php:73
+msgid "Suggested text (\"We\" and \"our\" mean \"you\", not \"us\"!):"
+msgstr ""
+"Voorgestelde tekst (\"Wij\" en \"onze\" betekenen \"u\", niet \"ons\"!):"
+
+#: admin/class-h5p-privacy-policy.php:74
+msgid ""
+"We may process and store personal data about your interactions using %s. We "
+"use the data to learn about how well the interactions are designed and how "
+"it could be adapted to improve the usability and your learning outcomes. The "
+"data is processed and stored [on our platform|on an external platform] until "
+"further notice."
+msgstr ""
+"Wij kunnen persoonsgegevens over je interacties met %s verwerken en opslaan. "
+"We gebruiken de gegevens om te leren over hoe goed de interacties zijn "
+"ontworpen en hoe ze kunnen worden aangepast om de bruikbaarheid en uw "
+"leerresultaten te verbeteren. De gegevens worden tot nader order verwerkt en "
+"opgeslagen [op ons platform | op ons externe platform]."
+
+#: admin/class-h5p-privacy-policy.php:75
+msgid ""
+"We may store the results of your interactions on our platform until further "
+"notice. The results may contain your score, the maximum score possible, when "
+"you started, when you finished, and how much time you used. We use the "
+"results to learn about how well you performed and to help us give you "
+"feedback."
+msgstr ""
+"Wij kunnen de resultaten van je interacties op ons platform tot nader order "
+"opslaan. De resultaten kunnen je score bevatten, de maximaal mogelijke "
+"score, wanneer je begon, wanneer je eindigde en hoeveel tijd je gebruikte. "
+"Wij gebruiken de resultaten om te weten te komen hoe goed je presteerde en "
+"om ons te helpen je feedback te geven."
+
+#: admin/class-h5p-privacy-policy.php:76
+msgid ""
+"We may store interactive content that you create on our platform. We also "
+"may send anonymized reports about content creation without any personal data "
+"to the plugin creators. Please consult the %s page for details."
+msgstr ""
+"Wij kunnen interactieve inhoud opslaan die je op ons platform maakt. We "
+"kunnen ook geanonimiseerde rapporten over het maken van inhoud zonder "
+"persoonlijke gegevens naar de makers van de plug-in sturen. Raadpleeg de "
+"pagina %s voor meer informatie."
+
+#: admin/class-h5p-privacy-policy.php:77
+msgid ""
+"If you use interactive content that contains a video that is hosted on "
+"YouTube, YouTube will set cookies on your computer. YouTube uses these "
+"cookies to help them and their partners to analyze the traffic to their "
+"websites. Please consult %s for details. It is our legitimate interest to "
+"use YouTube, because we we need their services for our interactive content "
+"and would not be able to provide you with their video content features "
+"otherwise."
+msgstr ""
+"Als je interactieve inhoud gebruikt die een video bevat die op YouTube wordt "
+"gehost, plaatst YouTube cookies op jouw computer. YouTube gebruikt deze "
+"cookies om hen en hun partners te helpen het verkeer naar hun websites te "
+"analyseren. Raadpleeg %s voor meer informatie. Het is ons legitieme belang "
+"om YouTube te gebruiken, omdat wij hun diensten nodig hebben voor onze "
+"interactieve inhoud en wij je anders hun video-inhoudsfuncties niet zouden "
+"kunnen aanbieden."
+
+#: admin/class-h5p-privacy-policy.php:78
+msgid ""
+"If you use interactive content that contains a Twitter feed, Twitter will "
+"set a cookie on your computer. Twitter uses these cookies to help them and "
+"their partners to make their advertizing more relevant to you. Please "
+"consult %s for details. It is our legitimate interest to use Twitter, "
+"because we need their services for our interactive content and would not be "
+"able to provide you with it otherwise."
+msgstr ""
+"Als je interactieve inhoud gebruikt die een Twitter-feed bevat, plaatst "
+"Twitter een cookie op jouw computer. Twitter gebruikt deze cookies om hen en "
+"hun partners te helpen hun advertenties relevanter voor je te maken. "
+"Raadpleeg %s voor meer informatie. Het is ons legitieme belang om Twitter te "
+"gebruiken, omdat wij hun diensten nodig hebben voor onze interactieve inhoud "
+"en je deze anders niet zouden kunnen aanbieden."
+
+#: admin/class-h5p-privacy-policy.php:79
+msgid ""
+"If you use interactive content that contains speech recognition, Google "
+"Cloud will process your voice for converting it to text. Please consult %s "
+"for details. It is our legitimate interest to use Google Cloud, because we "
+"we need their services for our interactive content and would not be able to "
+"provide you with speech recognition features otherwise."
+msgstr ""
+"Als je interactieve inhoud gebruikt die spraakherkenning bevat, verwerkt "
+"Google Cloud je stem om deze om te zetten in tekst. Raadpleeg %s voor meer "
+"informatie. Het is ons legitieme belang om Google Cloud te gebruiken, omdat "
+"we hun diensten nodig hebben voor onze interactieve inhoud en we je anders "
+"geen spraakherkenningsfuncties zouden kunnen bieden."
+
+#: admin/class-h5p-privacy-policy.php:260
+#: admin/class-h5p-privacy-policy.php:315
+#: admin/class-h5p-privacy-policy.php:377
+#: admin/class-h5p-privacy-policy.php:443
+msgid "User ID"
+msgstr "Gebruikers-ID"
+
+#: admin/class-h5p-privacy-policy.php:319
+msgid "Subcontent ID"
+msgstr "Subinhoud ID"
+
+#: admin/class-h5p-privacy-policy.php:323
+msgid "Data ID"
+msgstr "Gegevens-ID"
+
+#: admin/class-h5p-privacy-policy.php:327
+msgid "Data"
+msgstr "Gegevens"
+
+#: admin/class-h5p-privacy-policy.php:331
+msgid "Preload"
+msgstr "Reeds ingeladen"
+
+#: admin/class-h5p-privacy-policy.php:335
+msgid "Invalidate"
+msgstr "Ongeldig verklaren"
+
+#: admin/class-h5p-privacy-policy.php:339
+#: admin/class-h5p-privacy-policy.php:439
+msgid "Updated at"
+msgstr "Bijgewerkt op"
+
+#: admin/class-h5p-privacy-policy.php:346
+msgid "Saved content state"
+msgstr "De opgeslagen inhoud staat"
+
+#: admin/class-h5p-privacy-policy.php:381
+#: admin/class-h5p-privacy-policy.php:435
+msgid "Created at"
+msgstr "Gemaakt op"
+
+#: admin/class-h5p-privacy-policy.php:385
+msgid "Type"
+msgstr "Type"
+
+#: admin/class-h5p-privacy-policy.php:389
+msgid "Sub type"
+msgstr "Subtype"
+
+#: admin/class-h5p-privacy-policy.php:397
+#: admin/class-h5p-privacy-policy.php:447
+msgid "Library"
+msgstr "Bilbiotheek"
+
+#: admin/class-h5p-privacy-policy.php:404
+msgid "Events"
+msgstr "Evenementen"
+
+#: admin/class-h5p-privacy-policy.php:451
+msgid "Parameters"
+msgstr "Parameters"
+
+#: admin/class-h5p-privacy-policy.php:455
+msgid "Filtered parameters"
+msgstr "Gefilterde parameters"
+
+#: admin/class-h5p-privacy-policy.php:459
+msgid "Slug"
+msgstr "Slug"
+
+#: admin/class-h5p-privacy-policy.php:463
+msgid "Embed type"
+msgstr "Type insluiten"
+
+#: admin/class-h5p-privacy-policy.php:467
+msgid "Disable"
+msgstr "Uitschakelen"
+
 #: admin/views/content-results.php:15
-#, php-format
 msgid "Results for \"%s\""
 msgstr "Resultaten voor \"%s\""
 
@@ -545,7 +708,7 @@ msgid "View"
 msgstr "Bekijk"
 
 #: admin/views/content-results.php:22 admin/views/contents.php:16
-#: admin/views/libraries.php:60 admin/views/my-results.php:16
+#: admin/views/libraries.php:73 admin/views/my-results.php:16
 msgid "Waiting for JavaScript."
 msgstr "Wacht op JavaScript."
 
@@ -553,75 +716,49 @@ msgstr "Wacht op JavaScript."
 msgid "Add new"
 msgstr "Voeg toe"
 
-#: admin/views/libraries.php:17
-msgid "Update All Libraries"
-msgstr "Werk alle bibliotheken bij"
+#: admin/views/libraries.php:16
+msgid "Content Type Cache"
+msgstr "Cache voor inhoudstypes"
 
 #: admin/views/libraries.php:20
-msgid "There are updates available for your H5P content types."
-msgstr "Er zijn nieuwe H5P inhoudstypes beschikbaar."
-
-#: admin/views/libraries.php:21
-#, php-format
 msgid ""
-"You can read about why it's important to update and the benefits from doing "
-"so on the <a href=\"%s\" target=\"_blank\">Why Update H5P</a> page."
+"Making sure the content type cache is up to date will ensure that you can "
+"view, download and use the latest libraries. This is different from updating "
+"the libraries themselves."
 msgstr ""
-"Je kunt op de <a href=\"%s\" target=\"_blank\">Waarom Update H5P lezen "
-"waarom het belangrijk is om bij te werken en welke voordelen dit heeft  </"
-"a>pagina."
+"Door ervoor te zorgen dat de cache van het inhoudstype up-to-date is, kunt "
+"je de nieuwste bibliotheken bekijken, downloaden en gebruiken. Dit is iets "
+"anders dan het bijwerken van de bibliotheken zelf."
 
-#: admin/views/libraries.php:22
-msgid ""
-"The page also list the different changelogs, where you can read about the "
-"new features introduced and the issues that have been fixed."
-msgstr ""
-"Deze pagina laat ook de verschillende wijzigingslogs zien. Hierin kun je "
-"leze welke nieuwe mogelijkheden er zijn er welke problemen zijn opgelost. "
+#: admin/views/libraries.php:24
+msgid "Last update"
+msgstr "Laatste update"
 
-#: admin/views/libraries.php:25
-#, php-format
-msgid "The version you're running is from <strong>%s</strong>."
-msgstr "De door jou gebruikte versie is van <strong>%s</strong>."
+#: admin/views/libraries.php:45 admin/views/new-content.php:59
+msgid "Update"
+msgstr "Werk bij"
 
-#: admin/views/libraries.php:27
-#, php-format
-msgid "The most recent version was released on <strong>%s</strong>."
-msgstr "De meest recente versie was gelanceerd op <strong>%s</strong>."
-
-#: admin/views/libraries.php:29
-msgid ""
-"You can use the button below to automatically download and update all of "
-"your content types."
-msgstr ""
-"Door gebruik te maken van de download knop onderaan, kun je automatisch alle "
-"inhoudstypes bijwerken."
-
-#: admin/views/libraries.php:33
-msgid "Download & Update"
-msgstr "Bijwerken"
-
-#: admin/views/libraries.php:38
+#: admin/views/libraries.php:51
 msgid "Upload Libraries"
 msgstr "Werk bibliotheken bij"
 
-#: admin/views/libraries.php:42
+#: admin/views/libraries.php:55
 msgid ""
 "Here you can upload new libraries or upload updates to existing libraries. "
 "Files uploaded here must be in the .h5p file format."
 msgstr ""
 "Hier kan je de nieuwe bibliotheken toevoegen en bestaand bijwerken. "
-"Bijgewerkte bestanden moeten in het .h5p formaat zijn. "
+"Bijgewerkte bestanden moeten in het .h5p formaat zijn."
 
-#: admin/views/libraries.php:45
+#: admin/views/libraries.php:58
 msgid "Only update existing libraries"
 msgstr "Alleen bestaande bibliotheken bijwerken"
 
-#: admin/views/libraries.php:48 admin/views/new-content.php:37
+#: admin/views/libraries.php:61 admin/views/new-content.php:33
 msgid "Disable file extension check"
 msgstr "Schakel de extensie controle uit"
 
-#: admin/views/libraries.php:49 admin/views/new-content.php:38
+#: admin/views/libraries.php:62 admin/views/new-content.php:34
 msgid ""
 "Warning! This may have security implications as it allows for uploading php "
 "files. That in turn could make it possible for attackers to execute "
@@ -629,26 +766,25 @@ msgid ""
 "uploading."
 msgstr ""
 "Waarschuwing! Deze handeling veroorzaakt veiligheidsproblemen omdat er php "
-"bestanden kunnen worden geupload. Dit betekent dat hackers kwaadaardige code "
+"bestanden kunnen worden geüpload. Dit betekent dat hackers kwaadaardige code "
 "op je site kunnen plaatsen. Wees er dus absoluut zeker van wat je wilt "
 "uploaden."
 
-#: admin/views/libraries.php:55 admin/views/new-content.php:47
+#: admin/views/libraries.php:68 admin/views/new-content.php:49
 msgid "Upload"
 msgstr "Werk bij"
 
-#: admin/views/libraries.php:59
+#: admin/views/libraries.php:72
 msgid "Installed Libraries"
 msgstr "Geïnstalleerde bibliotheken"
 
 #: admin/views/library-content-upgrade.php:15
-#, php-format
 msgid "Upgrade %s %d.%d.%d content"
-msgstr "Werk bij %s %d.%d.%d-inhoud"
+msgstr "Werk bij %s %d.%d.%d inhoud"
 
 #: admin/views/library-content-upgrade.php:19
 msgid "Please enable JavaScript."
-msgstr "Sta JavaScript toe."
+msgstr "Schakel JavaScript in."
 
 #: admin/views/library-delete.php:16
 msgid "Are you sure you wish to delete this H5P library?"
@@ -658,192 +794,239 @@ msgstr "Ben je er zeker van dat je deze H5P bibliotheek wilt wissen?"
 msgid "Do it!"
 msgstr "Uitvoeren!"
 
-#: admin/views/new-content.php:30
-msgid "Enter title here"
-msgstr "Plaats de titel hier"
-
-#: admin/views/new-content.php:42
+#: admin/views/new-content.php:38
 msgid "Waiting for javascript..."
 msgstr "Wacht op JavaScript..."
 
-#: admin/views/new-content.php:48 admin/views/new-content.php:57
+#: admin/views/new-content.php:41
+msgid ""
+"It looks like there are no content types installed. You can get the ones you "
+"want by using the small 'Download' button in the lower left corner on any "
+"example from the <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
+"page and then you upload the file here."
+msgstr ""
+"Het ziet ernaar uit dat er geen inhoudstypes zijn geïnstalleerd. Je kunt de "
+"gewenste exemplaren verkrijgen via de kleine 'Download'-knop linksonder op "
+"elk voorbeeld van de <a href=\"%s\" target=\"_blank\">Voorbeeld en "
+"downloads</a> pagina and dan upload je het bestand hier."
+
+#: admin/views/new-content.php:50 admin/views/new-content.php:59
 msgid "Create"
 msgstr "Creëer"
 
-#: admin/views/new-content.php:57
-msgid "Update"
-msgstr "Werk bij"
-
-#: admin/views/new-content.php:62 admin/views/new-content.php:95
+#: admin/views/new-content.php:64 admin/views/new-content.php:97
 msgid "Toggle panel"
 msgstr "Vink aan"
 
-#: admin/views/new-content.php:63
+#: admin/views/new-content.php:65
 msgid "Display Options"
 msgstr "Toon opties"
 
-#: admin/views/new-content.php:67
+#: admin/views/new-content.php:69
 msgid "Display toolbar below content"
 msgstr "Toon de activiteitenbalk onder de inhoud"
 
-#: admin/views/new-content.php:74 admin/views/settings.php:49
-msgid "Display Download button"
-msgstr "Toon Download knop"
+#: admin/views/new-content.php:74
+msgid ""
+"If checked a reuse button will always be displayed for this content and "
+"allow users to download the content as an .h5p file"
+msgstr ""
+"Indien aangevinkt zal voor deze inhoud altijd een knop voor hergebruik "
+"worden weergegeven, waarmee gebruikers de inhoud kunnen downloaden als een ."
+"h5p-bestand"
 
-#: admin/views/new-content.php:80 admin/views/settings.php:74
+#: admin/views/new-content.php:76
+msgid "Allow users to download the content"
+msgstr "Gebruikers toestaan de inhoud te downloaden"
+
+#: admin/views/new-content.php:82 admin/views/settings.php:61
 msgid "Display Embed button"
-msgstr "Toon Insluit knop"
+msgstr "Toon Insluitknop"
 
-#: admin/views/new-content.php:86 admin/views/settings.php:99
+#: admin/views/new-content.php:88 admin/views/settings.php:86
 msgid "Display Copyright button"
 msgstr "Toon Copyright knop"
 
-#: admin/views/new-content.php:99
+#: admin/views/new-content.php:101
 msgid "Separate tags with commas"
-msgstr "Splts labels met komma's"
+msgstr "Splits labels met komma's"
 
-#: admin/views/settings.php:16
+#: admin/views/settings.php:17
 msgid "Settings saved."
-msgstr "Instellingen opgeslagen"
+msgstr "Instellingen opgeslagen."
 
-#: admin/views/settings.php:23
-msgid "External communication"
-msgstr "Externe communicatie"
-
-#: admin/views/settings.php:27
-msgid ""
-"I wish to aid in the development of H5P by contributing anonymous usage data"
-msgstr ""
-"Ik wil bijdragen aan de ontwikkeling van H5P door anonieme gebruikersdata te "
-"versturen"
-
-#: admin/views/settings.php:30
-msgid ""
-"Disabling this option will prevent your site from fetching the newest H5P "
-"updates."
-msgstr ""
-"Het deactiveren van deze optie voorkomt het verkrijgen van de nieuwste H5P "
-"updates."
-
-#: admin/views/settings.php:31
-msgid ""
-"You will have to manually download the Content Type updates from H5P.org and "
-"then upload them to your site."
-msgstr ""
-"Je dient handmatig de inhoudstypes van H5P.org te downloaden en deze te "
-"uploaden naar je site."
-
-#: admin/views/settings.php:32
-#, php-format
-msgid ""
-"You can read more about <a href=\"%s\" target=\"_blank\">which data is "
-"collected</a> on h5p.org."
-msgstr ""
-"Je kan meer lezen over  <a href=\"%s\" target=\"_blank\">welke data wordt "
-"verzameld</a> op h5p.org."
-
-#: admin/views/settings.php:37
+#: admin/views/settings.php:24
 msgid "Toolbar Below Content"
 msgstr "Activiteitenbalk onder de inhoud"
 
-#: admin/views/settings.php:41 admin/views/settings.php:62
-#: admin/views/settings.php:87 admin/views/settings.php:103
+#: admin/views/settings.php:28 admin/views/settings.php:49
+#: admin/views/settings.php:74 admin/views/settings.php:90
 msgid "Controlled by author - on by default"
 msgstr "Gecontroleerd door de auteur - standaard aan"
 
-#: admin/views/settings.php:44
+#: admin/views/settings.php:31
 msgid ""
 "By default, a toolbar with 4 buttons is displayed below each interactive "
 "content."
-msgstr "Standaard wordt de activiteitenbalk met 4 knoppen getoond onder elke interactieve "
-"inhoud."
+msgstr ""
+"Standaard wordt de activiteitenbalk met 4 knoppen getoond onder elke "
+"interactieve inhoud."
 
-#: admin/views/settings.php:53 admin/views/settings.php:78
+#: admin/views/settings.php:36
+msgid "Allow download"
+msgstr "Download toestaan"
+
+#: admin/views/settings.php:40 admin/views/settings.php:65
 msgid "Never"
 msgstr "Nooit"
 
-#: admin/views/settings.php:56 admin/views/settings.php:81
-#: admin/views/settings.php:112
+#: admin/views/settings.php:43 admin/views/settings.php:68
+#: admin/views/settings.php:99
 msgid "Always"
 msgstr "Altijd"
 
-#: admin/views/settings.php:59 admin/views/settings.php:84
+#: admin/views/settings.php:46 admin/views/settings.php:71
 msgid "Only for editors"
-msgstr "Alleen voor redeacteuren"
+msgstr "Alleen voor redacteuren"
 
-#: admin/views/settings.php:65 admin/views/settings.php:90
+#: admin/views/settings.php:52 admin/views/settings.php:77
 msgid "Controlled by author - off by default"
-msgstr "Gecontroleerd door de auteur - Standaar uit"
+msgstr "Gecontroleerd door de auteur - Standaard uit"
 
-#: admin/views/settings.php:69
+#: admin/views/settings.php:56
 msgid ""
 "Setting this to 'Never' will reduce the amount of disk space required for "
 "interactive content."
-msgstr "Door deze instelling op 'Nooit' te zetten, zal de benodigde schijfruimte verminderen "
-"van de interactieve inhoud."
+msgstr ""
+"Door deze instelling op 'Nooit' te zetten, zal de benodigde schijfruimte "
+"verminderen van de interactieve inhoud."
 
-#: admin/views/settings.php:94
+#: admin/views/settings.php:81
 msgid "Setting this to 'Never' will disable already existing embed codes."
-msgstr "Door deze instelling op 'Nooit' te zetten, schakel je bestaande insluitcodes uit."
+msgstr ""
+"Door deze instelling op 'Nooit' te zetten, schakel je de bestaande "
+"insluitcodes uit."
 
-#: admin/views/settings.php:108
+#: admin/views/settings.php:95
 msgid "Display About H5P button"
 msgstr "Toon Over H%P knop"
 
-#: admin/views/settings.php:117
+#: admin/views/settings.php:104
 msgid "User Results"
 msgstr "Gebruikers resultaten"
 
-#: admin/views/settings.php:121
+#: admin/views/settings.php:108
 msgid "Log results for signed in users"
 msgstr "Log de resultaten van de ingelogde gebruikers"
 
-#: admin/views/settings.php:126
-msgid "Save content state"
-msgstr "Sla status inhoud op"
+#: admin/views/settings.php:113
+msgid "Save Content State"
+msgstr "Bewaar de inhoud"
 
-#: admin/views/settings.php:130
+#: admin/views/settings.php:117
 msgid "Allow logged-in users to resume tasks"
 msgstr "Sta ingelogde gebruikers toe om taken te hervatten"
 
-#: admin/views/settings.php:133
+#: admin/views/settings.php:120
 msgid "Auto-save frequency (in seconds)"
-msgstr "Automatisch opslaan frequentie (in seconden)"
+msgstr "Frequentie automatisch opslaan (in seconden)"
 
-#: admin/views/settings.php:139
-msgid "Add content method"
-msgstr "Voeg inhoudsmethode toe"
+#: admin/views/settings.php:127
+msgid "Show toggle switch for others' H5P contents"
+msgstr "Toon de selectieschakelaar voor andermans H5P inhoud"
 
-#: admin/views/settings.php:142
+#: admin/views/settings.php:134
+msgid "Yes, show all contents by default"
+msgstr "Ja, alle inhoud wordt standaard getoond"
+
+#: admin/views/settings.php:137
+msgid "Yes, show only current user's contents by default"
+msgstr "Ja, standaard wordt alleen de inhoud van de huidige gebruiker getoond"
+
+#: admin/views/settings.php:141
+msgid ""
+"Allow to restrict the view of H5P contents to the current user's content. "
+"The setting has no effect if the user is not allowed to see other users' "
+"content."
+msgstr ""
+"Toestaan om de weergave van H5P-inhoud te beperken tot de inhoud van de "
+"huidige gebruiker. De instelling heeft geen effect als de gebruiker de "
+"inhoud van andere gebruikers niet mag zien."
+
+#: admin/views/settings.php:145
+msgid "Add Content Method"
+msgstr "Methode inhoud toevoegen"
+
+#: admin/views/settings.php:148
 msgid ""
 "When adding H5P content to posts and pages using the \"Add H5P\" button:"
 msgstr ""
-"Als je H5P inhoud toevoegt aan berichten en pagina's, gebruik dan de  \"Voeg "
+"Als je H5P inhoud toevoegt aan berichten en pagina's, gebruik dan de \"Voeg "
 "H5P -knop\" toe:"
 
-#: admin/views/settings.php:149
+#: admin/views/settings.php:155
 msgid "Reference content by id"
-msgstr "Referentie inhoud via id"
-
-#: admin/views/settings.php:157
-#, php-format
-msgid "Reference content by <a href=\"%s\" target=\"_blank\">slug</a>"
-msgstr "Referentie inhoud via <a href=\"%s\" target=\"_blank\">slug</a>"
+msgstr "Referentie inhoud door id"
 
 #: admin/views/settings.php:163
+msgid "Reference content by <a href=\"%s\" target=\"_blank\">slug</a>"
+msgstr "Referentie inhoud door <a href=\"%s\" target=\"_blank\">slug</a>"
+
+#: admin/views/settings.php:169
 msgid "Content Types"
 msgstr "Inhoudstypen"
 
-#: admin/views/settings.php:167
+#: admin/views/settings.php:173
 msgid "Enable LRS dependent content types"
 msgstr "Activeer LRS afhankelijke inhoudstypen"
 
-#: admin/views/settings.php:170
+#: admin/views/settings.php:176
 msgid ""
 "Makes it possible to use content types that rely upon a Learning Record "
 "Store to function properly, like the Questionnaire content type."
-msgstr "Hiermee schakel je inhoudstypen in dit gebruik maken van een Learning Record "
-"Sla op voor een goed funcitioneren, zoals het inhoudstype Vragenlijst."
+msgstr ""
+"Maakt het mogelijk inhoudstypen te gebruiken die afhankelijk zijn van een "
+"Learning Record Store om goed te functioneren, zoals het inhoudstype "
+"Vragenlijst."
+
+#: admin/views/settings.php:185
+msgid "Use H5P Hub"
+msgstr "Gebruik de H5P Hub"
+
+#: admin/views/settings.php:188
+msgid ""
+"It's strongly encouraged to keep this option <strong>enabled</strong>. The "
+"H5P Hub provides an easy interface for getting new content types and keeping "
+"existing content types up to date. In the future, it will also make it "
+"easier to share and reuse content. If this option is disabled you'll have to "
+"install and update content types through file upload forms."
+msgstr ""
+"Het wordt sterk aangeraden om deze optie <strong>ingeschakeld</strong> te "
+"houden. De H5P-Hub biedt een eenvoudige interface voor het verkrijgen van "
+"nieuwe inhoud en het up-to-date houden van bestaande inhoud. In de toekomst "
+"zal het ook gemakkelijker worden om inhoud te delen en te hergebruiken. Als "
+"deze optie is uitgeschakeld, moet je inhoudstypes installeren en bijwerken "
+"via formulieren voor het uploaden van bestanden."
+
+#: admin/views/settings.php:203
+msgid "Usage Statistics"
+msgstr "Gebruiksstatistieken"
+
+#: admin/views/settings.php:207
+msgid "Automatically contribute usage statistics"
+msgstr "Draag automatisch bij aan gebruiksstatistieken"
+
+#: admin/views/settings.php:210
+msgid ""
+"Usage statistics numbers will automatically be reported to help the "
+"developers better understand how H5P is used and to determine potential "
+"areas of improvement. Read more about which <a href=\"%s\" target=\"_blank"
+"\">data is collected on h5p.org</a>."
+msgstr ""
+"Gebruiksstatistieken worden automatisch gerapporteerd om de ontwikkelaars te "
+"helpen beter te begrijpen hoe H5P wordt gebruikt en om mogelijke "
+"verbeterpunten te bepalen. Lees meer over welke<a href=\"%s\" target=\"_blank"
+"\">gegevens worden verzameld op hh5p.org</a>."
 
 #: admin/views/show-content.php:30
 msgid "Shortcode"
@@ -865,414 +1048,575 @@ msgstr ""
 msgid "No tags"
 msgstr "Geen labels"
 
-#: h5p-editor-php-library/h5peditor-file.class.php:113
-msgid "Unable to get field type."
-msgstr "Het is niet mogelijk een veld type te verkrijgen"
+#: admin/views/user-consent.php:15
+msgid "Before you start"
+msgstr "Voordat je begint"
 
-#: h5p-editor-php-library/h5peditor-file.class.php:119
-msgid "File type isn't allowed."
-msgstr "Bestandstype is niet toegestaan."
-
-#: h5p-editor-php-library/h5peditor-file.class.php:126
-msgid "Invalid field type."
-msgstr "Ongeldig veld type."
-
-#: h5p-editor-php-library/h5peditor-file.class.php:136
-msgid "Invalid image file format. Use jpg, png or gif."
-msgstr "Ongeldig bestandsformaat afbeelding. Gebruik jpg, png of gif."
-
-#: h5p-editor-php-library/h5peditor-file.class.php:157
-msgid "File is not an image."
-msgstr "Het bestand is geen afbeelding."
-
-#: h5p-editor-php-library/h5peditor-file.class.php:177
-msgid "Invalid audio file format. Use mp3 or wav."
-msgstr "Ongeldig bestandsformaat audio. Gebruik mp3 of wav."
-
-#: h5p-editor-php-library/h5peditor-file.class.php:193
-msgid "Invalid video file format. Use mp4 or webm."
-msgstr "Ongeldig bestandsformaat video. Gebruik mp4 of webm."
-
-#: h5p-php-library/h5p.classes.php:680
-msgid "Your PHP version does not support ZipArchive."
-msgstr "Jouw PHP versie ondersteunt geen Ziparchief."
-
-#: h5p-php-library/h5p.classes.php:693
+#: admin/views/user-consent.php:19
 msgid ""
-"The file you uploaded is not a valid HTML5 Package (It does not have the ."
-"h5p file extension)"
+"To be able to start creating interactive content you must first install at "
+"least one content type."
 msgstr ""
-"Het door jou geüploade bestand geen geldig HTML5 pakket (het bestand heeft "
-"geen .h5p extensie)"
+"Om te kunnen beginnen met het maken van interactieve inhoud moet je eerst "
+"ten minste één inhoudstype installeren."
 
-#: h5p-php-library/h5p.classes.php:703
+#: admin/views/user-consent.php:20
 msgid ""
-"The file you uploaded is not a valid HTML5 Package (We are unable to unzip "
-"it)"
+"The H5P Hub is here to simplify this process by automatically installing the "
+"content types you choose and providing updates for those already installed."
 msgstr ""
-"Het door jou geüploade bestand geen geldig HTML5 pakket (Wij"
-" konden het niet unzippen)"
+"De H5P-Hub is er om dit proces te vereenvoudigen door de door jouw gekozen "
+"inhoudstypen automatisch te installeren en updates te bieden voor de reeds "
+"geïnstalleerde inhoudstypen."
 
-#: h5p-php-library/h5p.classes.php:731
-msgid "Could not parse the main h5p.json file"
-msgstr "Wij konden het h5p.json bestand niet coderen."
-
-#: h5p-php-library/h5p.classes.php:740
-msgid "The main h5p.json file is not valid"
-msgstr "Het hoofdbestand h5p.json is niet ongeldig"
-
-#: h5p-php-library/h5p.classes.php:755
-msgid "Invalid content folder"
-msgstr "Ongeldige inhoudsmap"
-
-#: h5p-php-library/h5p.classes.php:761
-msgid "Could not find or parse the content.json file"
-msgstr "Wij konden het inhoud.json bestand niet vinden noch coderen"
-
-#: h5p-php-library/h5p.classes.php:793
+#: admin/views/user-consent.php:22
 msgid ""
-"Library directory name must match machineName or machineName-majorVersion."
-"minorVersion (from library.json). (Directory: %directoryName , machineName: "
-"%machineName, majorVersion: %majorVersion, minorVersion: %minorVersion)"
+"In order for the H5P Hub to be able to do this, communication with H5P.org "
+"is required.<br/>\n"
+"        As this will provide H5P.org with anonymous data on how H5P is used "
+"we kindly ask for your consent before proceeding.<br/>\n"
+"        You can read more on <a href=\"%s\" target=\"_blank\">the plugin "
+"communication page</a>."
 msgstr ""
-"De naam van het bibliotheekhoofdstuk moet overeenkomen met de machineName of "
-"machineName-majorVersion.minorVersion (van bibliotheek.json) . (Map: "
-"%directoryName , maskinnavn: %machineName, grote versie: %majorVersion, "
-"kleine versie: %minorVersion)"
+"Om de H5P Hub in staat te stellen dit te doen, is communicatie met H5P.org "
+"vereist.<br/>\n"
+"        Aangezien dit H5P.org anonieme gegevens zal opleveren over hoe H5P "
+"wordt gebruikt, vragen wij je vriendelijk om jouw toestemming voordat je "
+"verder gaat.<br/>\n"
+"        Je kunt meer lezen op <a href=\"%s\" target=\"_blank\">the plug-in "
+"communicatiepagina</a>."
 
-#: h5p-php-library/h5p.classes.php:811
-msgid "A valid content folder is missing"
-msgstr "Een geldige inhoudsmap ontbreekt"
+#: admin/views/user-consent.php:26
+msgid "I consent, give me the Hub!"
+msgstr "Ik verleen toestemming, geef mij de Hub!"
 
-#: h5p-php-library/h5p.classes.php:815
-msgid "A valid main h5p.json file is missing"
-msgstr "Een geldig h5p.json hoofdbestand ontbreekt"
+#: admin/views/user-consent.php:27
+msgid "I disapprove"
+msgstr "Ik geef geen toesteming"
 
-#: h5p-php-library/h5p.classes.php:859
-msgid "Missing required library @library"
-msgstr "Benodigde bibliotheek ontbreekt @library"
-
-#: h5p-php-library/h5p.classes.php:862
-msgid ""
-"Note that the libraries may exist in the file you uploaded, but you're not "
-"allowed to upload new libraries. Contact the site administrator about this."
-msgstr ""
-"Bedenkt dat er mogelijk bibliotheken bestaan in het door jou geüploade "
-"bestand, maar het is niet toegestaan nieuwe bibliotheken te uploaden. Neem "
-"hierover contact op met de admnistrator. "
-
-#: h5p-php-library/h5p.classes.php:888
-msgid "Invalid library name: %name"
-msgstr "Ongeldige bibliotheeknaam: %name"
-
-#: h5p-php-library/h5p.classes.php:893
-msgid ""
-"Could not find library.json file with valid json format for library %name"
-msgstr ""
-"Kan geen bibliotheek.json bestand vinden met geldig jason formaat voor "
-"bibliotheek %name"
-
-#: h5p-php-library/h5p.classes.php:902
-msgid "Invalid semantics.json file has been included in the library %name"
-msgstr "Ongeldige semantiek.json bestand is opgenomen in de bibliotheek %name"
-
-#: h5p-php-library/h5p.classes.php:919
-msgid "Invalid language file %file in library %library"
-msgstr "Ongeldig taal bestand %file in bibliotheek %library"
-
-#: h5p-php-library/h5p.classes.php:924
-msgid ""
-"Invalid language file %languageFile has been included in the library %name"
-msgstr ""
-"Ongeldig taalbestand %language. Bestande is opgenomen in de bibliotheek %name"
-
-#: h5p-php-library/h5p.classes.php:1016
-msgid "The file \"%file\" is missing from library: \"%name\""
-msgstr "Het bestand \"%file\" m ontbreekt in bibliotheek: \"%name\""
-
-#: h5p-php-library/h5p.classes.php:1051
-msgid ""
-"The system was unable to install the <em>%component</em> component from the "
-"package, it requires a newer version of the H5P plugin. This site is "
-"currently running version %current, whereas the required version is "
-"%required or higher. You should consider upgrading and then try again."
-msgstr ""
-"Het systeem was niet in staat om de <em>%component</em>-component van het "
-"pakket te installeren, want er is een recentere versie van de H5P-plugin. "
-"Deze site gebruikt op dit moment versie %current, terwijl de vereiste versie "
-"moet zijn %required of hoger. Overweeg om eerst te upgraden en dan opnieuw "
-"te proberen."
-
-#: h5p-php-library/h5p.classes.php:1117
-msgid "Invalid data provided for %property in %library. Boolean expected."
-msgstr "Ongeldige data verschaft voor %property in %library. Boolean verwacht."
-
-#: h5p-php-library/h5p.classes.php:1125 h5p-php-library/h5p.classes.php:1130
-#: h5p-php-library/h5p.classes.php:1148
-msgid "Invalid data provided for %property in %library"
-msgstr "Ongeldige data verschaft voor %property in %library"
-
-#: h5p-php-library/h5p.classes.php:1153
-msgid "Can't read the property %property in %library"
-msgstr "Kan de eigenschap niet lezen van %property in %library"
-
-#: h5p-php-library/h5p.classes.php:1182
-msgid "The required property %property is missing from %library"
-msgstr "De benodigde eigenschap %property ontbreekt in %library"
-
-#: h5p-php-library/h5p.classes.php:1205
-msgid "Illegal option %option in %library"
-msgstr "Ongeldige optie %option in %library"
-
-#: h5p-php-library/h5p.classes.php:1431
-msgid "Added %new new H5P libraries and updated %old old."
-msgstr "Toegevoegd %new nieuwe H5P bibliotheken en bijwerkt %old ouden."
-
-#: h5p-php-library/h5p.classes.php:1434
-msgid "Added %new new H5P libraries."
-msgstr "Toegevoegd %new H5P-bibliotheken."
-
-#: h5p-php-library/h5p.classes.php:1437
-#, php-format
-msgid "Updated %old H5P libraries."
-msgstr "Bijgewerkt %old H5P-bibliotheken"
-
-#: h5p-php-library/h5p.classes.php:2179
-msgid "Missing dependency @dep required by @lib."
-msgstr "Ontbrekende afhankelijkheden @dep benodigd bij @lib."
-
-#: h5p-php-library/h5p.classes.php:2883 h5p-php-library/h5p.classes.php:2938
-msgid ""
-"The mbstring PHP extension is not loaded. H5P need this to function properly"
-msgstr ""
-"De PHP mbstring is niet geladen. H5P heeft deze nodig om goed te functioneren"
-
-#: h5p-php-library/h5p.classes.php:2898
-msgid ""
-"Provided string is not valid according to regexp in semantics. (value: "
-"\"%value\", regexp: \"%regexp\")"
-msgstr "Verschafte string is niet gelding volgens de regexp in de semantiek. (waarde: "
-"\"%value\", regexp: \"%regexp\")"
-
-#: h5p-php-library/h5p.classes.php:2942
-#, php-format
-msgid ""
-"File \"%filename\" not allowed. Only files with the following extensions are "
-"allowed: %files-allowed."
-msgstr ""
-"Bestand \"%filename\" is niet toegestaan. Alleen bestanden met de volgende "
-"extensie zijn toegestaan: %files-allowed."
-
-#: h5p-php-library/h5p.classes.php:3017
-msgid "Invalid selected option in multi-select."
-msgstr "Ongeldig alternatief in de multi-selectie optie."
-
-#: h5p-php-library/h5p.classes.php:3033
-msgid "Invalid selected option in select."
-msgstr "Ongeldig alternatief in de geselecteerde optie."
-
-#: h5p-php-library/h5p.classes.php:3222
-msgid ""
-"H5P internal error: unknown content type \"@type\" in semantics. Removing "
-"content!"
-msgstr ""
-"H5P interne fout: onbekend type inhoud: \"@type\" in de semantiek. Verwijder "
-"inhoud!"
-
-#: h5p-php-library/h5p.classes.php:3273
-msgid ""
-"The version of the H5P library %machineName used in this content is not "
-"valid. Content contains %contentLibrary, but it should be %semanticsLibrary."
-msgstr ""
-"De versie van de gebruikte H5P bibliotheek %machineName in deze inhoud is niet "
-"geldig. De inhoud bevat %contentLibrary, maar het moet zijn %semanticsLibrary."
-
-#: h5p-php-library/h5p.classes.php:3283
-msgid "The H5P library %library used in the content is not valid"
-msgstr "De gebruikte H5P bibliotheek %library in deze inhoud is niet geldig"
-
-#: h5p-php-library/h5p.classes.php:3684
-msgid "Copyright information"
-msgstr "Copyright informatie"
-
-#: h5p-php-library/h5p.classes.php:3703
-msgid "Year(s)"
-msgstr "Jaar"
-
-#: h5p-php-library/h5p.classes.php:3710 public/class-h5p-plugin.php:986
-msgid "Source"
-msgstr "Bron"
-
-#: h5p-php-library/h5p.classes.php:3721 public/class-h5p-plugin.php:987
-msgid "License"
-msgstr "Licentie"
-
-#: h5p-php-library/h5p.classes.php:3726
-msgid "Undisclosed"
-msgstr "Geheim"
-
-#: h5p-php-library/h5p.classes.php:3730
-msgid "Attribution 4.0"
-msgstr "Naamsvermelding 4.0"
-
-#: h5p-php-library/h5p.classes.php:3734
-msgid "Attribution-ShareAlike 4.0"
-msgstr "Naamsvermelding - Gelijk delen 4.0"
-
-#: h5p-php-library/h5p.classes.php:3738
-msgid "Attribution-NoDerivs 4.0"
-msgstr "Naamsvermelding - Geen derivaten 4.0"
-
-#: h5p-php-library/h5p.classes.php:3742
-msgid "Attribution-NonCommercial 4.0"
-msgstr "Naamsvermelding - Niet Commercieel 4.0"
-
-#: h5p-php-library/h5p.classes.php:3746
-msgid "Attribution-NonCommercial-ShareAlike 4.0"
-msgstr "Naamsvermelding - Niet Commercieel - Gelijk delen 4.0"
-
-#: h5p-php-library/h5p.classes.php:3750
-msgid "Attribution-NonCommercial-NoDerivs 4.0"
-msgstr "Naamsvermelding - Niet Commercieel - Geen derivaten 4.0"
-
-#: h5p-php-library/h5p.classes.php:3754
-msgid "General Public License v3"
-msgstr "Algemene publiek licentie v3"
-
-#: h5p-php-library/h5p.classes.php:3758
-msgid "Public Domain"
-msgstr "Publiek domein"
-
-#: h5p-php-library/h5p.classes.php:3762
-msgid "Public Domain Dedication and Licence"
-msgstr "Publiek domein opdracht en licentie"
-
-#: h5p-php-library/h5p.classes.php:3766
-msgid "Public Domain Mark"
-msgstr "Publiek domein markering"
-
-#: h5p-php-library/h5p.classes.php:3770
-msgid "Copyright"
-msgstr "Auteursrecht"
-
-#: public/class-h5p-plugin.php:687
+#: public/class-h5p-plugin.php:867
 msgid "Missing H5P identifier."
-msgstr "Er ontbreekt een H5P identificatie"
+msgstr "Er ontbreekt een H5P identificatie."
 
-#: public/class-h5p-plugin.php:695
-#, php-format
+#: public/class-h5p-plugin.php:875
 msgid "Cannot find H5P content with id: %d."
 msgstr "Kan geen H5P inhoud vinden met id: %d."
 
-#: public/class-h5p-plugin.php:721
-#, php-format
+#: public/class-h5p-plugin.php:901
 msgid "Database error: %s."
 msgstr "Databasefout: %s."
 
-#: public/class-h5p-plugin.php:725
-#, php-format
+#: public/class-h5p-plugin.php:905
 msgid "Cannot find H5P content with slug: %s."
 msgstr "Kan geen H5P inhoud vinden met slug: %s."
 
-#: public/class-h5p-plugin.php:973
-msgid "Disable fullscreen"
-msgstr "Schakel volledig scherm uit"
+#. Plugin Name of the plugin/theme
+msgid "H5P"
+msgstr "H5P"
 
-#: public/class-h5p-plugin.php:974
-msgid "Download"
-msgstr "Download"
+#. Plugin URI of the plugin/theme
+msgid "http://h5p.org/wordpress"
+msgstr "http://h5p.org/wordpress"
 
-#: public/class-h5p-plugin.php:975 public/class-h5p-plugin.php:981
-msgid "Rights of use"
-msgstr "Gebruiksrechten"
-
-#: public/class-h5p-plugin.php:976
-msgid "Embed"
-msgstr "Sluit in"
-
-#: public/class-h5p-plugin.php:977
-msgid "Size"
-msgstr "Grootte"
-
-#: public/class-h5p-plugin.php:978
-msgid "Show advanced"
-msgstr "Toon geavanceerd"
-
-#: public/class-h5p-plugin.php:979
-msgid "Hide advanced"
-msgstr "Verberg geavanceerd"
-
-#: public/class-h5p-plugin.php:980
+#. Description of the plugin/theme
 msgid ""
-"Include this script on your website if you want dynamic sizing of the "
-"embedded content:"
-msgstr ""
-"Voeg dit script in je website als je dynamische grootte van de geïntegreerde "
-"inhoud wilt:"
-
-#: public/class-h5p-plugin.php:982
-msgid "Close"
-msgstr "Sluit"
-
-#: public/class-h5p-plugin.php:985
-msgid "Year"
-msgstr "Jaar"
-
-#: public/class-h5p-plugin.php:988
-msgid "Thumbnail"
-msgstr "Miniatuurformaat"
-
-#: public/class-h5p-plugin.php:989
-msgid "No copyright information available for this content."
-msgstr "De auteursrechten van deze inhoud zijn niet beschikbaar."
-
-#: public/class-h5p-plugin.php:990
-msgid "Download this content as a H5P file."
-msgstr "Download deze inhoud als een H5P bestand."
-
-#: public/class-h5p-plugin.php:991
-msgid "View copyright information for this content."
-msgstr "Bekijk de auteursrechten voor deze inhoud"
-
-#: public/class-h5p-plugin.php:992
-msgid "View the embed code for this content."
-msgstr "Bekijk de geïntegreerde code voor deze inhoud. "
-
-#: public/class-h5p-plugin.php:993
-msgid "Visit H5P.org to check out more cool content."
-msgstr "Bezoek H5P.org voor meer interessante inhoud."
-
-#: public/class-h5p-plugin.php:994
-msgid "This content has changed since you last used it."
-msgstr "Sinds je laatste gebruik is de inhoud veranderd."
-
-#: public/class-h5p-plugin.php:995
-msgid "You'll be starting over."
-msgstr "Je gaat opnieuw beginnen."
-
-#: public/class-h5p-plugin.php:996
-msgid "Confirm action"
-msgstr "Bevestig de handeling"
-
-#: public/class-h5p-plugin.php:997
-msgid "Please confirm that you wish to proceed. This action is not reversible."
-msgstr "Bevestig dat je door wilt gaan. Deze actie is onomkeerbaar."
-
-#: public/class-h5p-plugin.php:998
-msgid "Cancel"
-msgstr "Annuleer"
-
-#: public/class-h5p-plugin.php:999
-msgid "Confirm"
-msgstr "Bevestig"
-
-#: public/class-h5p-wordpress.php:591
-msgid "Invalid json in semantics for %library"
-msgstr "Ongeldige json in semantiek voor %library"
-
-msgid ""
-"Allows you to upload, create, share and use rich interactive content on "
-"your WordPress site."
+"Allows you to upload, create, share and use rich interactive content on your "
+"WordPress site."
 msgstr ""
 "Hiermee kun je op je WordPress website rijke interactive inhoud uploaden, "
 "maken en delen."
+
+#. Author of the plugin/theme
+msgid "Joubel"
+msgstr "H5P Groep AS"
+
+#. Author URI of the plugin/theme
+msgid "http://joubel.com"
+msgstr "https://h5p.group/"
+
+#~ msgid "Insert H5P Content"
+#~ msgstr "Voeg H5P inhoud toe"
+
+#~ msgid "Invalid security token. Please reload the editor."
+#~ msgstr "Ongeldig veiligheidsteken. Laad de editor opnieuw."
+
+#~ msgid "File not found on server. Check file upload settings."
+#~ msgstr ""
+#~ "Bestand niet gevonden op de server. Controleer de uploadinstelling van "
+#~ "het bestand."
+
+#, php-format
+#~ msgid ""
+#~ "Unfortunately, we were unable to update your installed content types. You "
+#~ "must manually download the update from <a href=\"%s\" target=\"_blank"
+#~ "\">H5P.org</a>, and then upload it through the <em>Upload Libraries</em> "
+#~ "section. If you need futher assistance, please file a <a href=\"%s\" "
+#~ "target=\"_blank\">support request</a> or check out our <a href=\"%s\" "
+#~ "target=\"_blank\">forum</a>."
+#~ msgstr ""
+#~ "Helaas, we zijn niet in staat de geïnstalleeerde inhoud bij te werken. Je "
+#~ "moet de update handmatig downloaden van <a href=\"%s\" target=\"_blank"
+#~ "\">H5P.org</a>, and deze dan bijwerken via de <em>Bijwerken biliotheken</"
+#~ "em> sectie.  Als je meer hulp nodig hebt, stuur dan een bestand naar <a "
+#~ "href=\"%s\" target=\"_blank\">support aanvraag</a> of bekijk het <a href="
+#~ "\"%s\" target=\"_blank\">forum</a>."
+
+#~ msgid "Error, could not library semantics!"
+#~ msgstr "Fout, de semantiek is niet te archiveren"
+
+#, php-format
+#~ msgid ""
+#~ "Head over to the <a href=\"%s\">Libraries</a> page and update your "
+#~ "content types to the latest version."
+#~ msgstr ""
+#~ "Ga nu naar <a href=\"%s\">bibliohteken</a> pagina en werk je inhoudtypes "
+#~ "bij naar de meeste recente versie."
+
+#, php-format
+#~ msgid ""
+#~ "By default, H5P is set up to automatically fetch information regarding "
+#~ "Content Type updates from H5P.org. When doing so, H5P will also "
+#~ "contribute anonymous usage data to aid the development of H5P. This "
+#~ "behaviour can be altered through the <a href=\"%s\">Settings</a> page."
+#~ msgstr ""
+#~ "Standaard zal H5P automatisch informatie op het inhoudstype ophalen van "
+#~ "H5P.org. Als dit gebeurt zal H5P ook anonieme dat verzamelen om de "
+#~ "ontwikkeling van H5P te bevorderen. Deze werkwijze kan worden aangepast "
+#~ "via <a href=\"%s\">Innstillinger </a> pagina."
+
+#, php-format
+#~ msgid ""
+#~ "Check out our <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
+#~ "page for inspiration."
+#~ msgstr ""
+#~ "Check onze <a href=\"%s\" target=\"_blank\">Voorbeelden en Downloads</a> "
+#~ "pagina voor inspiratie."
+
+#, php-format
+#~ msgid ""
+#~ "Unfortunately, we were unable to automatically install the default "
+#~ "content types. You must manually download the content types you wish to "
+#~ "use from the <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
+#~ "page, and then upload them through the <a href=\"%s\">Libraries</a> page."
+#~ msgstr ""
+#~ "Helaas, we waren niet instaat de standaard inhoudstypen automatisch te "
+#~ "installeren. Je moet de gewenste inhoudstypen handmatig downloaden via <a "
+#~ "href=\"%s\" target=\"_blank\">Voorbeelden en Downloads</a> pagina en deze "
+#~ "uploaden via de <a href=\"%s\">bibliotekene</a>pagina."
+
+#, php-format
+#~ msgid ""
+#~ "We've automatically installed the default content types for your "
+#~ "convenience. You can now <a href=\"%s\">start creating</a> your own "
+#~ "interactive content!"
+#~ msgstr ""
+#~ "Voor jouw gemak hebben we de standaard inhoudstypen automatisch "
+#~ "geïnstalleerd. Je kunt nu <a href=\"%s\">beginnen met</a> je eigen "
+#~ "interactieve inhoud!"
+
+#~ msgid "Unable to download H5P content types."
+#~ msgstr "Het is niet mogelijk om de H5P inhoudstype te downloaden."
+
+#, php-format
+#~ msgid "%s new update is available!"
+#~ msgid_plural "%s new updates are available!"
+#~ msgstr[0] "%s nieuwe versie is beschikbaar!"
+#~ msgstr[1] "%s Nieuwe versies zijn beschikbaar!"
+
+#~ msgid "Update All Libraries"
+#~ msgstr "Werk alle bibliotheken bij"
+
+#~ msgid "There are updates available for your H5P content types."
+#~ msgstr "Er zijn nieuwe H5P inhoudstypes beschikbaar."
+
+#, php-format
+#~ msgid ""
+#~ "You can read about why it's important to update and the benefits from "
+#~ "doing so on the <a href=\"%s\" target=\"_blank\">Why Update H5P</a> page."
+#~ msgstr ""
+#~ "Je kunt op de <a href=\"%s\" target=\"_blank\">Waarom Update H5P lezen "
+#~ "waarom het belangrijk is om bij te werken en welke voordelen dit heeft  </"
+#~ "a>pagina."
+
+#~ msgid ""
+#~ "The page also list the different changelogs, where you can read about the "
+#~ "new features introduced and the issues that have been fixed."
+#~ msgstr ""
+#~ "Deze pagina laat ook de verschillende wijzigingslogs zien. Hierin kun je "
+#~ "leze welke nieuwe mogelijkheden er zijn er welke problemen zijn opgelost. "
+
+#, php-format
+#~ msgid "The version you're running is from <strong>%s</strong>."
+#~ msgstr "De door jou gebruikte versie is van <strong>%s</strong>."
+
+#, php-format
+#~ msgid "The most recent version was released on <strong>%s</strong>."
+#~ msgstr "De meest recente versie was gelanceerd op <strong>%s</strong>."
+
+#~ msgid ""
+#~ "You can use the button below to automatically download and update all of "
+#~ "your content types."
+#~ msgstr ""
+#~ "Door gebruik te maken van de download knop onderaan, kun je automatisch "
+#~ "alle inhoudstypes bijwerken."
+
+#~ msgid "Download & Update"
+#~ msgstr "Bijwerken"
+
+#~ msgid "Enter title here"
+#~ msgstr "Plaats de titel hier"
+
+#~ msgid "Display Download button"
+#~ msgstr "Toon Download knop"
+
+#~ msgid "External communication"
+#~ msgstr "Externe communicatie"
+
+#~ msgid ""
+#~ "I wish to aid in the development of H5P by contributing anonymous usage "
+#~ "data"
+#~ msgstr ""
+#~ "Ik wil bijdragen aan de ontwikkeling van H5P door anonieme gebruikersdata "
+#~ "te versturen"
+
+#~ msgid ""
+#~ "Disabling this option will prevent your site from fetching the newest H5P "
+#~ "updates."
+#~ msgstr ""
+#~ "Het deactiveren van deze optie voorkomt het verkrijgen van de nieuwste "
+#~ "H5P updates."
+
+#~ msgid ""
+#~ "You will have to manually download the Content Type updates from H5P.org "
+#~ "and then upload them to your site."
+#~ msgstr ""
+#~ "Je dient handmatig de inhoudstypes van H5P.org te downloaden en deze te "
+#~ "uploaden naar je site."
+
+#, php-format
+#~ msgid ""
+#~ "You can read more about <a href=\"%s\" target=\"_blank\">which data is "
+#~ "collected</a> on h5p.org."
+#~ msgstr ""
+#~ "Je kan meer lezen over  <a href=\"%s\" target=\"_blank\">welke data wordt "
+#~ "verzameld</a> op h5p.org."
+
+#~ msgid "Save content state"
+#~ msgstr "Sla status inhoud op"
+
+#~ msgid "Add content method"
+#~ msgstr "Voeg inhoudsmethode toe"
+
+#~ msgid "Unable to get field type."
+#~ msgstr "Het is niet mogelijk een veld type te verkrijgen"
+
+#~ msgid "File type isn't allowed."
+#~ msgstr "Bestandstype is niet toegestaan."
+
+#~ msgid "Invalid field type."
+#~ msgstr "Ongeldig veld type."
+
+#~ msgid "Invalid image file format. Use jpg, png or gif."
+#~ msgstr "Ongeldig bestandsformaat afbeelding. Gebruik jpg, png of gif."
+
+#~ msgid "File is not an image."
+#~ msgstr "Het bestand is geen afbeelding."
+
+#~ msgid "Invalid audio file format. Use mp3 or wav."
+#~ msgstr "Ongeldig bestandsformaat audio. Gebruik mp3 of wav."
+
+#~ msgid "Invalid video file format. Use mp4 or webm."
+#~ msgstr "Ongeldig bestandsformaat video. Gebruik mp4 of webm."
+
+#~ msgid "Your PHP version does not support ZipArchive."
+#~ msgstr "Jouw PHP versie ondersteunt geen Ziparchief."
+
+#~ msgid ""
+#~ "The file you uploaded is not a valid HTML5 Package (It does not have the ."
+#~ "h5p file extension)"
+#~ msgstr ""
+#~ "Het door jou geüploade bestand geen geldig HTML5 pakket (het bestand "
+#~ "heeft geen .h5p extensie)"
+
+#~ msgid ""
+#~ "The file you uploaded is not a valid HTML5 Package (We are unable to "
+#~ "unzip it)"
+#~ msgstr ""
+#~ "Het door jou geüploade bestand geen geldig HTML5 pakket (Wij konden het "
+#~ "niet unzippen)"
+
+#~ msgid "Could not parse the main h5p.json file"
+#~ msgstr "Wij konden het h5p.json bestand niet coderen."
+
+#~ msgid "The main h5p.json file is not valid"
+#~ msgstr "Het hoofdbestand h5p.json is niet ongeldig"
+
+#~ msgid "Invalid content folder"
+#~ msgstr "Ongeldige inhoudsmap"
+
+#~ msgid "Could not find or parse the content.json file"
+#~ msgstr "Wij konden het inhoud.json bestand niet vinden noch coderen"
+
+#~ msgid ""
+#~ "Library directory name must match machineName or machineName-majorVersion."
+#~ "minorVersion (from library.json). (Directory: %directoryName , "
+#~ "machineName: %machineName, majorVersion: %majorVersion, minorVersion: "
+#~ "%minorVersion)"
+#~ msgstr ""
+#~ "De naam van het bibliotheekhoofdstuk moet overeenkomen met de machineName "
+#~ "of machineName-majorVersion.minorVersion (van bibliotheek.json) . (Map: "
+#~ "%directoryName , maskinnavn: %machineName, grote versie: %majorVersion, "
+#~ "kleine versie: %minorVersion)"
+
+#~ msgid "A valid content folder is missing"
+#~ msgstr "Een geldige inhoudsmap ontbreekt"
+
+#~ msgid "A valid main h5p.json file is missing"
+#~ msgstr "Een geldig h5p.json hoofdbestand ontbreekt"
+
+#~ msgid "Missing required library @library"
+#~ msgstr "Benodigde bibliotheek ontbreekt @library"
+
+#~ msgid ""
+#~ "Note that the libraries may exist in the file you uploaded, but you're "
+#~ "not allowed to upload new libraries. Contact the site administrator about "
+#~ "this."
+#~ msgstr ""
+#~ "Bedenkt dat er mogelijk bibliotheken bestaan in het door jou geüploade "
+#~ "bestand, maar het is niet toegestaan nieuwe bibliotheken te uploaden. "
+#~ "Neem hierover contact op met de admnistrator. "
+
+#~ msgid "Invalid library name: %name"
+#~ msgstr "Ongeldige bibliotheeknaam: %name"
+
+#~ msgid ""
+#~ "Could not find library.json file with valid json format for library %name"
+#~ msgstr ""
+#~ "Kan geen bibliotheek.json bestand vinden met geldig jason formaat voor "
+#~ "bibliotheek %name"
+
+#~ msgid "Invalid semantics.json file has been included in the library %name"
+#~ msgstr ""
+#~ "Ongeldige semantiek.json bestand is opgenomen in de bibliotheek %name"
+
+#~ msgid "Invalid language file %file in library %library"
+#~ msgstr "Ongeldig taal bestand %file in bibliotheek %library"
+
+#~ msgid ""
+#~ "Invalid language file %languageFile has been included in the library %name"
+#~ msgstr ""
+#~ "Ongeldig taalbestand %language. Bestande is opgenomen in de bibliotheek "
+#~ "%name"
+
+#~ msgid "The file \"%file\" is missing from library: \"%name\""
+#~ msgstr "Het bestand \"%file\" m ontbreekt in bibliotheek: \"%name\""
+
+#~ msgid ""
+#~ "The system was unable to install the <em>%component</em> component from "
+#~ "the package, it requires a newer version of the H5P plugin. This site is "
+#~ "currently running version %current, whereas the required version is "
+#~ "%required or higher. You should consider upgrading and then try again."
+#~ msgstr ""
+#~ "Het systeem was niet in staat om de <em>%component</em>-component van het "
+#~ "pakket te installeren, want er is een recentere versie van de H5P-plugin. "
+#~ "Deze site gebruikt op dit moment versie %current, terwijl de vereiste "
+#~ "versie moet zijn %required of hoger. Overweeg om eerst te upgraden en dan "
+#~ "opnieuw te proberen."
+
+#~ msgid "Invalid data provided for %property in %library. Boolean expected."
+#~ msgstr ""
+#~ "Ongeldige data verschaft voor %property in %library. Boolean verwacht."
+
+#~ msgid "Invalid data provided for %property in %library"
+#~ msgstr "Ongeldige data verschaft voor %property in %library"
+
+#~ msgid "Can't read the property %property in %library"
+#~ msgstr "Kan de eigenschap niet lezen van %property in %library"
+
+#~ msgid "The required property %property is missing from %library"
+#~ msgstr "De benodigde eigenschap %property ontbreekt in %library"
+
+#~ msgid "Illegal option %option in %library"
+#~ msgstr "Ongeldige optie %option in %library"
+
+#~ msgid "Added %new new H5P libraries and updated %old old."
+#~ msgstr "Toegevoegd %new nieuwe H5P bibliotheken en bijwerkt %old ouden."
+
+#~ msgid "Added %new new H5P libraries."
+#~ msgstr "Toegevoegd %new H5P-bibliotheken."
+
+#, php-format
+#~ msgid "Updated %old H5P libraries."
+#~ msgstr "Bijgewerkt %old H5P-bibliotheken"
+
+#~ msgid "Missing dependency @dep required by @lib."
+#~ msgstr "Ontbrekende afhankelijkheden @dep benodigd bij @lib."
+
+#~ msgid ""
+#~ "The mbstring PHP extension is not loaded. H5P need this to function "
+#~ "properly"
+#~ msgstr ""
+#~ "De PHP mbstring is niet geladen. H5P heeft deze nodig om goed te "
+#~ "functioneren"
+
+#~ msgid ""
+#~ "Provided string is not valid according to regexp in semantics. (value: "
+#~ "\"%value\", regexp: \"%regexp\")"
+#~ msgstr ""
+#~ "Verschafte string is niet gelding volgens de regexp in de semantiek. "
+#~ "(waarde: \"%value\", regexp: \"%regexp\")"
+
+#, php-format
+#~ msgid ""
+#~ "File \"%filename\" not allowed. Only files with the following extensions "
+#~ "are allowed: %files-allowed."
+#~ msgstr ""
+#~ "Bestand \"%filename\" is niet toegestaan. Alleen bestanden met de "
+#~ "volgende extensie zijn toegestaan: %files-allowed."
+
+#~ msgid "Invalid selected option in multi-select."
+#~ msgstr "Ongeldig alternatief in de multi-selectie optie."
+
+#~ msgid "Invalid selected option in select."
+#~ msgstr "Ongeldig alternatief in de geselecteerde optie."
+
+#~ msgid ""
+#~ "H5P internal error: unknown content type \"@type\" in semantics. Removing "
+#~ "content!"
+#~ msgstr ""
+#~ "H5P interne fout: onbekend type inhoud: \"@type\" in de semantiek. "
+#~ "Verwijder inhoud!"
+
+#~ msgid ""
+#~ "The version of the H5P library %machineName used in this content is not "
+#~ "valid. Content contains %contentLibrary, but it should be "
+#~ "%semanticsLibrary."
+#~ msgstr ""
+#~ "De versie van de gebruikte H5P bibliotheek %machineName in deze inhoud is "
+#~ "niet geldig. De inhoud bevat %contentLibrary, maar het moet zijn "
+#~ "%semanticsLibrary."
+
+#~ msgid "The H5P library %library used in the content is not valid"
+#~ msgstr "De gebruikte H5P bibliotheek %library in deze inhoud is niet geldig"
+
+#~ msgid "Copyright information"
+#~ msgstr "Copyright informatie"
+
+#~ msgid "Year(s)"
+#~ msgstr "Jaar"
+
+#~ msgid "Source"
+#~ msgstr "Bron"
+
+#~ msgid "License"
+#~ msgstr "Licentie"
+
+#~ msgid "Undisclosed"
+#~ msgstr "Geheim"
+
+#~ msgid "Attribution 4.0"
+#~ msgstr "Naamsvermelding 4.0"
+
+#~ msgid "Attribution-ShareAlike 4.0"
+#~ msgstr "Naamsvermelding - Gelijk delen 4.0"
+
+#~ msgid "Attribution-NoDerivs 4.0"
+#~ msgstr "Naamsvermelding - Geen derivaten 4.0"
+
+#~ msgid "Attribution-NonCommercial 4.0"
+#~ msgstr "Naamsvermelding - Niet Commercieel 4.0"
+
+#~ msgid "Attribution-NonCommercial-ShareAlike 4.0"
+#~ msgstr "Naamsvermelding - Niet Commercieel - Gelijk delen 4.0"
+
+#~ msgid "Attribution-NonCommercial-NoDerivs 4.0"
+#~ msgstr "Naamsvermelding - Niet Commercieel - Geen derivaten 4.0"
+
+#~ msgid "General Public License v3"
+#~ msgstr "Algemene publiek licentie v3"
+
+#~ msgid "Public Domain"
+#~ msgstr "Publiek domein"
+
+#~ msgid "Public Domain Dedication and Licence"
+#~ msgstr "Publiek domein opdracht en licentie"
+
+#~ msgid "Public Domain Mark"
+#~ msgstr "Publiek domein markering"
+
+#~ msgid "Copyright"
+#~ msgstr "Auteursrecht"
+
+#~ msgid "Disable fullscreen"
+#~ msgstr "Schakel volledig scherm uit"
+
+#~ msgid "Download"
+#~ msgstr "Download"
+
+#~ msgid "Rights of use"
+#~ msgstr "Gebruiksrechten"
+
+#~ msgid "Embed"
+#~ msgstr "Sluit in"
+
+#~ msgid "Size"
+#~ msgstr "Grootte"
+
+#~ msgid "Show advanced"
+#~ msgstr "Toon geavanceerd"
+
+#~ msgid "Hide advanced"
+#~ msgstr "Verberg geavanceerd"
+
+#~ msgid ""
+#~ "Include this script on your website if you want dynamic sizing of the "
+#~ "embedded content:"
+#~ msgstr ""
+#~ "Voeg dit script in je website als je dynamische grootte van de "
+#~ "geïntegreerde inhoud wilt:"
+
+#~ msgid "Close"
+#~ msgstr "Sluit"
+
+#~ msgid "Year"
+#~ msgstr "Jaar"
+
+#~ msgid "Thumbnail"
+#~ msgstr "Miniatuurformaat"
+
+#~ msgid "No copyright information available for this content."
+#~ msgstr "De auteursrechten van deze inhoud zijn niet beschikbaar."
+
+#~ msgid "Download this content as a H5P file."
+#~ msgstr "Download deze inhoud als een H5P bestand."
+
+#~ msgid "View copyright information for this content."
+#~ msgstr "Bekijk de auteursrechten voor deze inhoud"
+
+#~ msgid "View the embed code for this content."
+#~ msgstr "Bekijk de geïntegreerde code voor deze inhoud. "
+
+#~ msgid "Visit H5P.org to check out more cool content."
+#~ msgstr "Bezoek H5P.org voor meer interessante inhoud."
+
+#~ msgid "This content has changed since you last used it."
+#~ msgstr "Sinds je laatste gebruik is de inhoud veranderd."
+
+#~ msgid "You'll be starting over."
+#~ msgstr "Je gaat opnieuw beginnen."
+
+#~ msgid "Confirm action"
+#~ msgstr "Bevestig de handeling"
+
+#~ msgid ""
+#~ "Please confirm that you wish to proceed. This action is not reversible."
+#~ msgstr "Bevestig dat je door wilt gaan. Deze actie is onomkeerbaar."
+
+#~ msgid "Cancel"
+#~ msgstr "Annuleer"
+
+#~ msgid "Confirm"
+#~ msgstr "Bevestig"
+
+#~ msgid "Invalid json in semantics for %library"
+#~ msgstr "Ongeldige json in semantiek voor %library"
