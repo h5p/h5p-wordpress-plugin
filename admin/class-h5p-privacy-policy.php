@@ -445,7 +445,7 @@ class H5PPrivacyPolicy {
         ),
         array(
           'name' => __('Library', $this->plugin_slug),
-          'value' => esc_html($item->library_title) . ' (ID: ' . $item->library_id . ')'
+          'value' => $item->library_title . ' (ID: ' . $item->library_id . ')'
         ),
         array(
           'name' => __('Parameters', $this->plugin_slug),
