@@ -898,11 +898,11 @@ class H5P_Plugin {
       $row=$wpdb->get_row($q,ARRAY_A);
 
       if ($wpdb->last_error) {
-        return sprintf(__('Database error: %s.', $this->plugin_slug), $wpdb->last_error);
+        return sprintf(__('Database error: %s.', $this->plugin_slug), esc_html($wpdb->last_error));
       }
 
       if (!isset($row['id'])) {
-        return sprintf(__('Cannot find H5P content with slug: %s.', $this->plugin_slug), $atts['slug']);
+        return sprintf(__('Cannot find H5P content with slug: %s.', $this->plugin_slug), esc_html($atts['slug']));
       }
 
       $atts['id']=$row['id'];
@@ -975,7 +975,7 @@ class H5P_Plugin {
       'jsonContent' => $safe_parameters,
       'fullScreen' => $content['library']['fullscreen'],
       'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . ($content['slug'] ? $content['slug'] . '-' : '') . $content['id'] . '.h5p' : '',
-      'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen" title="' . $title . '"></iframe>',
+      'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen" title="' . esc_attr($title) . '"></iframe>',
       'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '" charset="UTF-8"></script>',
       'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
       'title' => $content['title'],
@@ -1057,7 +1057,7 @@ class H5P_Plugin {
           ? $content['metadata']['title']
           : ''
         );
-        $h5p_content_wrapper = '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" title="' . $title . '"></iframe></div>';
+        $h5p_content_wrapper = '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" title="' . esc_attr($title) . '"></iframe></div>';
     }
 
     return apply_filters('print_h5p_content', $h5p_content_wrapper, $content);

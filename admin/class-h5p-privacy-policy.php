@@ -254,7 +254,7 @@ class H5PPrivacyPolicy {
       $data = array(
         array(
           'name' => __('Content', $this->plugin_slug),
-          'value' => $item->title . ' (ID: ' . $item->content_id . ')'
+          'value' => esc_html($item->title) . ' (ID: ' . $item->content_id . ')'
         ),
         array(
           'name' => __('User ID', $this->plugin_slug),
@@ -445,7 +445,7 @@ class H5PPrivacyPolicy {
         ),
         array(
           'name' => __('Library', $this->plugin_slug),
-          'value' => $item->library_title . ' (ID: ' . $item->library_id . ')'
+          'value' => esc_html($item->library_title) . ' (ID: ' . $item->library_id . ')'
         ),
         array(
           'name' => __('Parameters', $this->plugin_slug),
