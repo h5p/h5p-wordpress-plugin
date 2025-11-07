@@ -405,7 +405,7 @@ class H5PContentAdmin {
           wp_safe_redirect(admin_url('admin.php?page=h5p&task=show&id=' . $result));
         }
         else {
-          echo esc_html($echo_on_success);
+          echo $echo_on_success;
         }
         exit;
       }
