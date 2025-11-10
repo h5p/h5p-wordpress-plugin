@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 6.6.2
-Stable tag: 1.16.0
+Stable tag: 1.16.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -498,3 +498,6 @@ Updated translations
 Upgraded to CKEditor5 in editor.
 Added new expand-collapse feature to the editor.
 Added support for Echo360 video provider.
+
+= 1.16.1 =
+Fix displaying HTML entities
