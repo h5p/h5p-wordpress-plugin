@@ -19,6 +19,12 @@ class H5PWordPress implements H5PFrameworkInterface {
   private $networkSettings = array( 'content_type_cache_updated_at' );
 
   /**
+   *  Fix for php warning function
+   * 
+   */
+  public $plugin_slug;
+
+  /**
    * Implements setErrorMessage
    */
   public function setErrorMessage($message, $code = NULL) {
