@@ -67,6 +67,8 @@ class H5P_Plugin_Admin {
     $this->content = new H5PContentAdmin($this->plugin_slug);
     $this->library = new H5PLibraryAdmin($this->plugin_slug);
     $this->privacy = new H5PPrivacyPolicy($this->plugin_slug);
+    $this->content_hub_registration =
+      new H5PContentHubRegistration($this->plugin_slug);
 
     // Initialize admin area.
     $this->add_privacy_features();
@@ -123,6 +125,12 @@ class H5P_Plugin_Admin {
     // AJAX for restricting library access
     add_action('wp_ajax_h5p_restrict_library', array($this->library, 'ajax_restrict_access'));
 
+    // OER Hub
+    add_action('wp_ajax_h5p_register_account', array($this->content_hub_registration, 'ajax_register_account'));
+    add_action('wp_ajax_h5p_content-hub-metadata-cache', array($this->content, 'ajax_h5p_content_hub_metadata_cache'));
+    add_action('wp_ajax_h5p_get-content', array($this->content, 'ajax_h5p_get_content'));
+    add_action('wp_ajax_h5p_hub_sharing', array($this, 'handle_ajax_hub_sharing'));
+
     // Display admin notices
     add_action('admin_notices', array($this, 'admin_notices'));
 
@@ -132,6 +140,15 @@ class H5P_Plugin_Admin {
 
     // Remove user data and results
     add_action('deleted_user', array($this, 'deleted_user'));
+  }
+
+  /**
+   * Handle ajax hub sharing.
+   *
+   * @since 1.15.5
+   */
+  public function handle_ajax_hub_sharing() {
+    H5PContentSharing::ajax_hub_sharing();
   }
 
   /**
@@ -432,112 +449,130 @@ class H5P_Plugin_Admin {
    * @since 1.0.0
    */
   public function display_settings_page() {
-    $save = filter_input(INPUT_POST, 'save_these_settings');
-    if ($save !== NULL) {
-      // Get input and store settings
-      check_admin_referer('h5p_settings', 'save_these_settings'); // Verify form
+    switch (filter_input(INPUT_GET, 'task')) {
+      case NULL: {
+        $save = filter_input(INPUT_POST, 'save_these_settings');
+        if ($save !== NULL) {
+          // Get input and store settings
+          check_admin_referer('h5p_settings', 'save_these_settings'); // Verify form
 
-      // Action bar
-      $frame = filter_input(INPUT_POST, 'frame', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_frame', $frame);
+          // Action bar
+          $frame = filter_input(INPUT_POST, 'frame', FILTER_VALIDATE_BOOLEAN);
+          update_option('h5p_frame', $frame);
 
-      $download = filter_input(INPUT_POST, 'download', FILTER_VALIDATE_INT);
-      update_option('h5p_export', $download);
+          $download = filter_input(INPUT_POST, 'download', FILTER_VALIDATE_INT);
+          update_option('h5p_export', $download);
 
-      $embed = filter_input(INPUT_POST, 'embed', FILTER_VALIDATE_INT);
-      update_option('h5p_embed', $embed);
+          $embed = filter_input(INPUT_POST, 'embed', FILTER_VALIDATE_INT);
+          update_option('h5p_embed', $embed);
 
-      $copyright = filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_copyright', $copyright);
+          $copyright = filter_input(INPUT_POST, 'copyright', FILTER_VALIDATE_BOOLEAN);
+          update_option('h5p_copyright', $copyright);
 
-      $about = filter_input(INPUT_POST, 'about', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_icon', $about);
+          $about = filter_input(INPUT_POST, 'about', FILTER_VALIDATE_BOOLEAN);
+          update_option('h5p_icon', $about);
 
-      $track_user = filter_input(INPUT_POST, 'track_user', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_track_user', $track_user);
+          $track_user = filter_input(INPUT_POST, 'track_user', FILTER_VALIDATE_BOOLEAN);
+          update_option('h5p_track_user', $track_user);
 
-      $save_content_state = filter_input(INPUT_POST, 'save_content_state', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_save_content_state', $save_content_state);
+          $save_content_state = filter_input(INPUT_POST, 'save_content_state', FILTER_VALIDATE_BOOLEAN);
+          update_option('h5p_save_content_state', $save_content_state);
 
-      $save_content_frequency = filter_input(INPUT_POST, 'save_content_frequency', FILTER_VALIDATE_INT);
-      update_option('h5p_save_content_frequency', $save_content_frequency);
+          $save_content_frequency = filter_input(INPUT_POST, 'save_content_frequency', FILTER_VALIDATE_INT);
+          update_option('h5p_save_content_frequency', $save_content_frequency);
 
-      $show_toggle_view_others_h5p_contents = filter_input(INPUT_POST, 'show_toggle_view_others_h5p_contents', FILTER_VALIDATE_INT);
-      update_option('h5p_show_toggle_view_others_h5p_contents', $show_toggle_view_others_h5p_contents);
+          $show_toggle_view_others_h5p_contents = filter_input(INPUT_POST, 'show_toggle_view_others_h5p_contents', FILTER_VALIDATE_INT);
+          update_option('h5p_show_toggle_view_others_h5p_contents', $show_toggle_view_others_h5p_contents);
 
-      $insert_method = filter_input(INPUT_POST, 'insert_method', FILTER_SANITIZE_SPECIAL_CHARS);
-      update_option('h5p_insert_method', $insert_method);
+          $insert_method = filter_input(INPUT_POST, 'insert_method', FILTER_SANITIZE_SPECIAL_CHARS);
+          update_option('h5p_insert_method', $insert_method);
 
-      $enable_lrs_content_types = filter_input(INPUT_POST, 'enable_lrs_content_types', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_enable_lrs_content_types', $enable_lrs_content_types);
+          $enable_lrs_content_types = filter_input(INPUT_POST, 'enable_lrs_content_types', FILTER_VALIDATE_BOOLEAN);
+          update_option('h5p_enable_lrs_content_types', $enable_lrs_content_types);
 
-      // TODO: Make it possible to change site key
-//      $site_key = filter_input(INPUT_POST, 'site_key', FILTER_SANITIZE_SPECIAL_CHARS);
-//      if (preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $site_key)) {
-//        // This appears to be a valid UUID, lets use it!
-//        update_option('h5p_site_key', $site_key);
-//      }
-//      else {
-//        // Invalid key, use the old one
-//        $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
-//      }
+          // TODO: Make it possible to change site key
+    //      $site_key = filter_input(INPUT_POST, 'site_key', FILTER_SANITIZE_SPECIAL_CHARS);
+    //      if (preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $site_key)) {
+    //        // This appears to be a valid UUID, lets use it!
+    //        update_option('h5p_site_key', $site_key);
+    //      }
+    //      else {
+    //        // Invalid key, use the old one
+    //        $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
+    //      }
 
-      $enable_hub = filter_input(INPUT_POST, 'enable_hub', FILTER_VALIDATE_BOOLEAN);
-      $is_hub_enabled = get_option('h5p_hub_is_enabled', TRUE) ? TRUE : NULL;
-      if ($enable_hub !== $is_hub_enabled) {
-        // Changed, update core
+          $enable_hub = filter_input(INPUT_POST, 'enable_hub', FILTER_VALIDATE_BOOLEAN);
+          $is_hub_enabled = get_option('h5p_hub_is_enabled', TRUE) ? TRUE : NULL;
+          if ($enable_hub !== $is_hub_enabled) {
+            // Changed, update core
+            $plugin = H5P_Plugin::get_instance();
+            $core   = $plugin->get_h5p_instance('core');
+            $core->fetchLibrariesMetadata($enable_hub === NULL);
+          }
+          update_option('h5p_hub_is_enabled', $enable_hub);
+
+          $send_usage_statistics = filter_input(INPUT_POST, 'send_usage_statistics', FILTER_VALIDATE_BOOLEAN);
+          update_option('h5p_send_usage_statistics', $send_usage_statistics);
+        }
+        else {
+          $frame = get_option('h5p_frame', TRUE);
+          $download = get_option('h5p_export', TRUE);
+          $embed = get_option('h5p_embed', TRUE);
+          $copyright = get_option('h5p_copyright', TRUE);
+          $about = get_option('h5p_icon', TRUE);
+          $track_user = get_option('h5p_track_user', TRUE);
+          $save_content_state = get_option('h5p_save_content_state', FALSE);
+          $save_content_frequency = get_option('h5p_save_content_frequency', 30);
+          $show_toggle_view_others_h5p_contents = get_option('h5p_show_toggle_view_others_h5p_contents', 0);
+          $insert_method = get_option('h5p_insert_method', 'id');
+          $enable_lrs_content_types = get_option('h5p_enable_lrs_content_types', FALSE);
+          $enable_hub = get_option('h5p_hub_is_enabled', TRUE);
+    //      $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
+          $send_usage_statistics = get_option('h5p_send_usage_statistics', TRUE);
+        }
+
         $plugin = H5P_Plugin::get_instance();
-        $core   = $plugin->get_h5p_instance('core');
-        $core->fetchLibrariesMetadata($enable_hub === NULL);
+        $core = $plugin->get_h5p_instance('core');
+
+        try {
+          $accountInfo = $core->hubAccountInfo();
+        }
+        catch (Exception $e) {
+          // Not showing account form before secret has been fixed
+        }
+
+        // Attach disable hub configuration
+
+        // Get error messages
+        $errors = $core->checkSetupErrorMessage()->errors;
+        $disableHubData = array(
+          'errors' => $errors,
+          'header' => $core->h5pF->t('Confirmation action'),
+          'confirmationDialogMsg' => $core->h5pF->t('Do you still want to enable the hub ?'),
+          'cancelLabel' => $core->h5pF->t('Cancel'),
+          'confirmLabel' => $core->h5pF->t('Confirm')
+        );
+        $plugin->print_settings($disableHubData, 'H5PDisableHubData');
+
+        include_once('views/settings.php');
+        H5P_Plugin_Admin::add_script('h5p-jquery', 'h5p-php-library/js/jquery.js');
+        H5P_Plugin_Admin::add_script('h5p-event-dispatcher', 'h5p-php-library/js/h5p-event-dispatcher.js');
+        H5P_Plugin_Admin::add_script('h5p-confirmation-dialog', 'h5p-php-library/js/h5p-confirmation-dialog.js');
+        H5P_Plugin_Admin::add_script('h5p-disable-hub', 'h5p-php-library/js/settings/h5p-disable-hub.js');
+        H5P_Plugin_Admin::add_script('h5p-display-options', 'h5p-php-library/js/h5p-display-options.js');
+        H5P_Plugin_Admin::add_style('h5p-confirmation-dialog-css', 'h5p-php-library/styles/h5p-confirmation-dialog.css');
+        H5P_Plugin_Admin::add_style('h5p-css', 'h5p-php-library/styles/h5p.css');
+        H5P_Plugin_Admin::add_style('h5p-core-button-css', 'h5p-php-library/styles/h5p-core-button.css');
+
+        new H5P_Event('settings');
+        return;
       }
-      update_option('h5p_hub_is_enabled', $enable_hub);
 
-      $send_usage_statistics = filter_input(INPUT_POST, 'send_usage_statistics', FILTER_VALIDATE_BOOLEAN);
-      update_option('h5p_send_usage_statistics', $send_usage_statistics);
+      case 'register': {
+        H5PContentHubRegistration::display_register_accout_form();
+        return;
+      }
     }
-    else {
-      $frame = get_option('h5p_frame', TRUE);
-      $download = get_option('h5p_export', TRUE);
-      $embed = get_option('h5p_embed', TRUE);
-      $copyright = get_option('h5p_copyright', TRUE);
-      $about = get_option('h5p_icon', TRUE);
-      $track_user = get_option('h5p_track_user', TRUE);
-      $save_content_state = get_option('h5p_save_content_state', FALSE);
-      $save_content_frequency = get_option('h5p_save_content_frequency', 30);
-      $show_toggle_view_others_h5p_contents = get_option('h5p_show_toggle_view_others_h5p_contents', 0);
-      $insert_method = get_option('h5p_insert_method', 'id');
-      $enable_lrs_content_types = get_option('h5p_enable_lrs_content_types', FALSE);
-      $enable_hub = get_option('h5p_hub_is_enabled', TRUE);
-//      $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
-      $send_usage_statistics = get_option('h5p_send_usage_statistics', TRUE);
-    }
-
-    // Attach disable hub configuration
-    $plugin = H5P_Plugin::get_instance();
-    $core = $plugin->get_h5p_instance('core');
-
-    // Get error messages
-    $errors = $core->checkSetupErrorMessage()->errors;
-    $disableHubData = array(
-      'errors' => $errors,
-      'header' => $core->h5pF->t('Confirmation action'),
-      'confirmationDialogMsg' => $core->h5pF->t('Do you still want to enable the hub ?'),
-      'cancelLabel' => $core->h5pF->t('Cancel'),
-      'confirmLabel' => $core->h5pF->t('Confirm')
-    );
-    $plugin->print_settings($disableHubData, 'H5PDisableHubData');
-
-    include_once('views/settings.php');
-    H5P_Plugin_Admin::add_script('h5p-jquery', 'h5p-php-library/js/jquery.js');
-    H5P_Plugin_Admin::add_script('h5p-event-dispatcher', 'h5p-php-library/js/h5p-event-dispatcher.js');
-    H5P_Plugin_Admin::add_script('h5p-confirmation-dialog', 'h5p-php-library/js/h5p-confirmation-dialog.js');
-    H5P_Plugin_Admin::add_script('h5p-disable-hub', 'h5p-php-library/js/settings/h5p-disable-hub.js');
-    H5P_Plugin_Admin::add_script('h5p-display-options', 'h5p-php-library/js/h5p-display-options.js');
-    H5P_Plugin_Admin::add_style('h5p-confirmation-dialog-css', 'h5p-php-library/styles/h5p-confirmation-dialog.css');
-    H5P_Plugin_Admin::add_style('h5p-css', 'h5p-php-library/styles/h5p.css');
-    H5P_Plugin_Admin::add_style('h5p-core-button-css', 'h5p-php-library/styles/h5p-core-button.css');
-
-    new H5P_Event('settings');
   }
 
   /**

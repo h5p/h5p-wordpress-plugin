@@ -133,6 +133,47 @@ class H5PContentAdmin {
   }
 
   /**
+   * Check whether current user has permission to share content.
+   *
+   * @since 1.15.5
+   * @param array $content Content data.
+   * @return bool True, if current user is allowed to share content. Else false.
+   */
+  private function current_user_can_share($content) {
+    if (
+      empty(get_option('h5p_hub_is_enabled')) ||
+      empty(get_option('h5p_h5p_site_uuid')) ||
+      empty(get_option('h5p_hub_secret'))
+    ) {
+      return FALSE; // Hub is not ready to be shared with
+    }
+
+    // If you can't share content, neither can you share others contents
+    if (!current_user_can('share_h5p_contents')) {
+      return FALSE;
+    }
+    if (current_user_can('share_others_h5p_contents')) {
+      return TRUE;
+    }
+    $author_id = (int)(is_array($content) ?
+      $content['user_id'] :
+      $content->user_id);
+
+    return get_current_user_id() === $author_id;
+  }
+
+  /**
+   * Determine whether content was shared successfully.
+   *
+   * @since 1.15.5
+   * @return bool True if content was shared.
+   */
+  private function is_content_shared() {
+    return (int)($this->content['shared']) !==
+      H5PContentStatus::STATUS_UNPUBLISHED;
+  }
+
+  /**
    * Permission check. Can the current user view the given content?
    *
    * @since 1.15.0
@@ -168,6 +209,68 @@ class H5PContentAdmin {
     }
 
     return $this->current_user_can_edit($content);
+  }
+
+  /**
+   * Check and update hub status.
+   *
+   * @since 1.15.5
+   * @param array $content Content data.
+   */
+  private function check_update_hub_status($content = []) {
+    if (empty($content)) {
+      return; // No content to check
+    }
+
+    if (!$this->current_user_can_share($content)) {
+      return; // User is not allowed to update status
+    }
+
+    if (
+      empty($content['contentHubId']) ||
+      (int)($content['synced']) === H5PContentHubSyncStatus::NOT_SYNCED
+    ) {
+      return; // Content needs syncing
+    }
+
+    H5PContentSharing::update_hub_status($this->content);
+    H5P_Plugin_Admin::print_messages();
+  }
+
+  /**
+   * Display content.
+   *
+   * @since 1.15.5
+   */
+  public function display_content() {
+    // Access restriction
+    if ($this->current_user_can_view($this->content) == FALSE) {
+      H5P_Plugin_Admin::set_error(
+        __('You are not allowed to view this content.', $this->plugin_slug)
+      );
+      H5P_Plugin_Admin::print_messages();
+      return;
+    }
+
+    // Admin preview of H5P content.
+    if (is_string($this->content)) {
+      H5P_Plugin_Admin::set_error($this->content);
+      H5P_Plugin_Admin::print_messages();
+    }
+    else {
+      $plugin = H5P_Plugin::get_instance();
+      $embed_code = $plugin->add_assets($this->content);
+      include_once('views/show-content.php');
+      H5P_Plugin::get_instance()->add_settings();
+
+      // Log view
+      new H5P_Event('content', NULL,
+          $this->content['id'],
+          $this->content['title'],
+          $this->content['library']['name'],
+          $this->content['library']['majorVersion'] . '.' .
+            $this->content['library']['minorVersion']);
+    }
   }
 
   /**
@@ -233,31 +336,8 @@ class H5PContentAdmin {
         return;
 
       case 'show':
-        // Access restriction
-        if ($this->current_user_can_view($this->content) == FALSE) {
-          H5P_Plugin_Admin::set_error(__('You are not allowed to view this content.', $this->plugin_slug));
-          H5P_Plugin_Admin::print_messages();
-          return;
-        }
-
-        // Admin preview of H5P content.
-        if (is_string($this->content)) {
-          H5P_Plugin_Admin::set_error($this->content);
-          H5P_Plugin_Admin::print_messages();
-        }
-        else {
-          $plugin = H5P_Plugin::get_instance();
-          $embed_code = $plugin->add_assets($this->content);
-          include_once('views/show-content.php');
-          H5P_Plugin::get_instance()->add_settings();
-
-          // Log view
-          new H5P_Event('content', NULL,
-              $this->content['id'],
-              $this->content['title'],
-              $this->content['library']['name'],
-              $this->content['library']['majorVersion'] . '.' . $this->content['library']['minorVersion']);
-        }
+        $this->check_update_hub_status($this->content);
+        $this->display_content();
         return;
 
       case 'results':
@@ -312,6 +392,45 @@ class H5PContentAdmin {
               $this->content['library']['majorVersion'] . '.' . $this->content['library']['minorVersion']);
         }
         return;
+
+        // Share content on the Hub
+        case 'share': {
+          $content_id = (int)filter_input(
+            INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT
+          );
+          H5PContentSharing::display_share_content_form($content_id);
+          return;
+        }
+
+        // Sync content on the Hub
+        case 'sync': {
+          $content_id = (int)filter_input(INPUT_GET, 'id',
+            FILTER_SANITIZE_NUMBER_INT
+          );
+          H5PContentSharing::sync($content_id);
+
+          $plugin = H5P_Plugin::get_instance();
+          $this->content = $plugin->get_content((int)$content_id);
+
+          $this->check_update_hub_status($this->content);
+          $this->display_content();
+          return;
+        }
+
+        // Share content on the Hub
+        case 'unshare': {
+          $content_id = (int)filter_input(
+            INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT
+          );
+          H5PContentSharing::unshare($content_id);
+
+          $plugin = H5P_Plugin::get_instance();
+          $this->content = $plugin->get_content((int)$content_id);
+
+          $this->check_update_hub_status($this->content);
+          $this->display_content();
+          return;
+        }
     }
 
     print '<div class="wrap"><h2>' . esc_html__('Unknown task.', $this->plugin_slug) . '</h2></div>';
@@ -1030,6 +1149,9 @@ class H5PContentAdmin {
 
     // Add JavaScript settings
     $content_validator = $plugin->get_h5p_instance('contentvalidator');
+    $content_search_url = H5PHubEndpoints::createURL(H5PHubEndpoints::CONTENT) .
+      '/search';
+
     $settings['editor'] = array(
       'filesPath' => $plugin->get_h5p_url() . '/editor',
       'fileIcon' => array(
@@ -1044,7 +1166,12 @@ class H5PContentAdmin {
       'assets' => $assets,
       'deleteMessage' => __('Are you sure you wish to delete this content?', $this->plugin_slug),
       'apiVersion' => H5PCore::$coreApi,
-      'language' => $language
+      'language' => $language,
+      'hub' => array(
+        'contentSearchUrl' => $content_search_url,
+      ),
+      'enableContentHub' => !empty(get_option('h5p_h5p_site_uuid')) &&
+        !empty(get_option('h5p_hub_secret'))
     );
 
     if ($id !== NULL) {
@@ -1181,6 +1308,44 @@ class H5PContentAdmin {
 
     $editor = $this->get_h5peditor_instance();
     $editor->ajax->action(H5PEditorEndpoints::FILTER, $token, $libraryParameters);
+    exit;
+  }
+
+  /*
+   * Handle filtering of parameters through AJAX.
+   *
+   * @since 1.15.5
+   */
+  public function ajax_h5p_content_hub_metadata_cache () {
+    $plugin = H5P_Plugin::get_instance();
+    $plugin->get_h5p_instance('core');
+
+    // Check capability to register
+    if (!current_user_can('edit_h5p_contents')) {
+      H5PCore::ajaxError(__('You do not have permission to view the metadata for the content hub.', $plugin->get_plugin_slug()), 'NO_PERMISSION', 403);
+      wp_die();
+    }
+
+    $editor = $this->get_h5peditor_instance();
+    $editor->ajax->action(
+      H5PEditorEndpoints::CONTENT_HUB_METADATA_CACHE, $plugin->get_language()
+    );
+    exit;
+  }
+
+  /**
+   * Get content from the H5P Hub.
+   *
+   * @since 1.15.5
+   */
+  public function ajax_h5p_get_content() {
+    $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING);
+    $hubid = filter_input(INPUT_GET, 'hubId');
+
+    $editor = $this->get_h5peditor_instance();
+    $editor->ajax->action(
+      H5PEditorEndpoints::GET_HUB_CONTENT, $token, $hubid, NULL
+    );
     exit;
   }
 }
