@@ -170,6 +170,8 @@ class H5P_Plugin_Admin {
   public function embed() {
     // Allow other sites to embed
     header_remove('X-Frame-Options');
+    header_remove('Content-Security-Policy');
+    header_remove('Content-Security-Policy-Report-Only');
 
     // Find content
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
