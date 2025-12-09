@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 6.6.2
-Stable tag: 1.16.1
+Stable tag: 1.16.2
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -506,3 +506,6 @@ Updated translations.
 
 = 1.16.1 =
 Fix displaying HTML entities
+
+= 1.16.2 =
+Fix displaying embedded H5Ps in WordPress 6.9
