@@ -1,10 +1,10 @@
 ﻿=== Interactive Content – H5P ===
-Contributors: icc0rz, fnoks, falcon28
+Contributors: icc0rz, fnoks, underhaug, makmentins
 Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
-Tested up to: 6.6.2
-Stable tag: 1.16.0
+Tested up to: 6.9
+Stable tag: 1.16.2
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -29,6 +29,12 @@ View our [setup for WordPress](https://h5p.org/documentation/setup/wordpress "Se
 
 = GDPR Compliance =
 Information useful to help you achieve GDPR compliance while using this plugin can be found at [H5P.org's GDPR Compliance](https://h5p.org/plugin-gdpr-compliance "GDPR Compliance") page.
+
+== Frequently Asked Questions ==
+
+= Where do I report security bugs found in this plugin? =
+
+Please report security bugs found in the source code of the h5p plugin through the [Patchstack Vulnerability Disclosure  Program](https://patchstack.com/database/vdp/0ecc7a32-3a1d-4a35-9b90-72cdda880808). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
 
 == Installation ==
 
@@ -486,9 +492,20 @@ Fix permission check for installing recommended libraries only. Thanks Otacke.
 Improved narrow data views. Thanks Otacke.
 Fix potential memory issue. Thanks Otacke.
 Fix not storing empty content state (resume) for some content types.
-Updated translations
+Updated translations.
+
+= 1.15.8 =
+Improve file upload
+Updated translations.
 
 = 1.16.0 =
 Upgraded to CKEditor5 in editor.
 Added new expand-collapse feature to the editor.
 Added support for Echo360 video provider.
+Updated translations.
+
+= 1.16.1 =
+Fix displaying HTML entities
+
+= 1.16.2 =
+Fix displaying embedded H5Ps in WordPress 6.9
