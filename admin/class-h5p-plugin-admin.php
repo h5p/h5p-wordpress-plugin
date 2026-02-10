@@ -537,6 +537,7 @@ class H5P_Plugin_Admin {
     H5P_Plugin_Admin::add_style('h5p-confirmation-dialog-css', 'h5p-php-library/styles/h5p-confirmation-dialog.css');
     H5P_Plugin_Admin::add_style('h5p-css', 'h5p-php-library/styles/h5p.css');
     H5P_Plugin_Admin::add_style('h5p-core-button-css', 'h5p-php-library/styles/h5p-core-button.css');
+    H5P_Plugin_Admin::add_style('h5p-fonts', 'h5p-php-library/styles/h5p-fonts.css');
 
     new H5P_Event('settings');
   }
