@@ -738,6 +738,7 @@ class H5P_Plugin {
    * @since 1.0.0
    */
   public function enqueue_styles_and_scripts() {
+    wp_enqueue_style($this->plugin_slug . '-plugin-fonts', plugins_url('h5p/h5p-php-library/styles/h5p-fonts.css'), array(), self::VERSION);
     wp_enqueue_style($this->plugin_slug . '-plugin-styles', plugins_url('h5p/h5p-php-library/styles/h5p.css'), array(), self::VERSION);
   }
 
