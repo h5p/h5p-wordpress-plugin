@@ -509,3 +509,7 @@ Fix displaying HTML entities
 
 = 1.16.2 =
 Fix displaying embedded H5Ps in WordPress 6.9
+
+= 1.16.2 =
+Update of content look and feel.
+Updated Content Type Hub endpoint to hub-api.h5p.org
