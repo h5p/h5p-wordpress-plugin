@@ -64,7 +64,7 @@ class H5PContentAdmin {
    * @return string
    */
   public function alter_title($page, $admin_title, $title) {
-    $task = filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING);
+    $task = filter_input(INPUT_GET, 'task', FILTER_UNSAFE_RAW);
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
     // Find content title
@@ -176,7 +176,7 @@ class H5PContentAdmin {
    * @since 1.1.0
    */
   public function display_contents_page() {
-    switch (filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING)) {
+    switch (filter_input(INPUT_GET, 'task', FILTER_UNSAFE_RAW)) {
       case NULL:
         include_once('views/contents.php');
 
@@ -872,7 +872,7 @@ class H5PContentAdmin {
   private function format_tags($tags) {
     // Tags come in CSV format, create Array instead
     $result = array();
-    $csvtags = explode(';', $tags);
+    $csvtags = !empty($tags)?explode(';', $tags):[];
     foreach ($csvtags as $csvtag) {
       if ($csvtag !== '') {
         $tag = explode(',', $csvtag);
@@ -1087,7 +1087,7 @@ class H5PContentAdmin {
     $editor = $this->get_h5peditor_instance();
 
     // Get input
-    $name = filter_input(INPUT_GET, 'machineName', FILTER_SANITIZE_STRING);
+    $name = filter_input(INPUT_GET, 'machineName', FILTER_UNSAFE_RAW);
     $major_version = filter_input(INPUT_GET, 'majorVersion', FILTER_SANITIZE_NUMBER_INT);
     $minor_version = filter_input(INPUT_GET, 'minorVersion', FILTER_SANITIZE_NUMBER_INT);
 
@@ -1117,7 +1117,7 @@ class H5PContentAdmin {
    * Get content type cache
    */
   public function ajax_content_type_cache() {
-    $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING);
+    $token = filter_input(INPUT_GET, 'token', FILTER_UNSAFE_RAW);
 
     $editor = $this->get_h5peditor_instance();
     $editor->ajax->action(H5PEditorEndpoints::CONTENT_TYPE_CACHE, $token);
@@ -1128,7 +1128,7 @@ class H5PContentAdmin {
    * Get translations
    */
   public function ajax_translations() {
-    $language = filter_input(INPUT_GET, 'language', FILTER_SANITIZE_STRING);
+    $language = filter_input(INPUT_GET, 'language', FILTER_UNSAFE_RAW);
 
     $editor = $this->get_h5peditor_instance();
     $editor->ajax->action(H5PEditorEndpoints::TRANSLATIONS, $language);
@@ -1141,7 +1141,7 @@ class H5PContentAdmin {
    * @since 1.1.0
    */
   public function ajax_files() {
-    $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING);
+    $token = filter_input(INPUT_GET, 'token', FILTER_UNSAFE_RAW);
     $contentId = filter_input(INPUT_POST, 'contentId', FILTER_SANITIZE_NUMBER_INT);
 
     $editor = $this->get_h5peditor_instance();
@@ -1176,7 +1176,7 @@ class H5PContentAdmin {
    * @since 1.14.0
    */
   public function ajax_filter() {
-    $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING);
+    $token = filter_input(INPUT_GET, 'token', FILTER_UNSAFE_RAW);
     $libraryParameters = filter_input(INPUT_POST, 'libraryParameters');
 
     $editor = $this->get_h5peditor_instance();
