@@ -1,6 +1,7 @@
 <?php
 
 class H5PWordPress implements H5PFrameworkInterface {
+  protected $plugin_slug;
 
   /**
    * Kesps track of messages for the user.
