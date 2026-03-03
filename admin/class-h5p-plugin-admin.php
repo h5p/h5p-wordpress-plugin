@@ -170,6 +170,7 @@ class H5P_Plugin_Admin {
   public function embed() {
     // Allow other sites to embed
     header_remove('X-Frame-Options');
+    header_remove('Content-Security-Policy');
 
     // Find content
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -356,7 +357,7 @@ class H5P_Plugin_Admin {
       // Print all messages
       ?><div class="updated"><?php
       foreach ($messages as $message) {
-        ?><p><?php print $message; ?></p><?php
+        ?><p><?php print wp_kses_post($message); ?></p><?php
       }
       ?></div><?php
     }
@@ -536,6 +537,7 @@ class H5P_Plugin_Admin {
     H5P_Plugin_Admin::add_style('h5p-confirmation-dialog-css', 'h5p-php-library/styles/h5p-confirmation-dialog.css');
     H5P_Plugin_Admin::add_style('h5p-css', 'h5p-php-library/styles/h5p.css');
     H5P_Plugin_Admin::add_style('h5p-core-button-css', 'h5p-php-library/styles/h5p-core-button.css');
+    H5P_Plugin_Admin::add_style('h5p-fonts', 'h5p-php-library/styles/h5p-fonts.css');
 
     new H5P_Event('settings');
   }
@@ -701,7 +703,8 @@ class H5P_Plugin_Admin {
       if (!empty($messages)) {
         print '<div class="' . ($type === 'info' ? 'updated' : $type) . '"><ul>';
         foreach ($messages as $message) {
-          print '<li>' . ($type === 'error' ? $message->message : $message) . '</li>';
+          $output = $type === 'error' ? $message->message : $message;
+          print '<li>' . wp_kses_post($output) . '</li>';
         }
         print '</ul></div>';
       }

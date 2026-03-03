@@ -518,6 +518,7 @@ class H5PLibraryAdmin {
     }
     H5P_Plugin_Admin::add_style('h5p', 'h5p-php-library/styles/h5p.css');
     H5P_Plugin_Admin::add_style('admin', 'h5p-php-library/styles/h5p-admin.css');
+    H5P_Plugin_Admin::add_style('fonts', 'h5p-php-library/styles/h5p-fonts.css');
   }
 
   /**
