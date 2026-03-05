@@ -508,6 +508,11 @@ class H5P_Plugin {
           "%/h5p/content/%"));
     }
 
+    $between_1170_1172 = ($v->major === 1 && $v->minor === 17 && $v->patch >= 0 && $v->patch <= 2); // Target 1.17.0, 1.17.1, 1.17.2
+    if ($between_1170_1172) {
+      self::upgrade_1173();
+    }
+
     // Keep track of which version of the plugin we have.
     if ($current_version === '0.0.0') {
       add_option('h5p_version', self::VERSION);
@@ -607,6 +612,74 @@ class H5P_Plugin {
       self::map_capability($role, $role_info, 'read', 'view_h5p_contents');
       self::map_capability($role, $role_info, 'read', 'view_others_h5p_contents');
     }
+  }
+
+  /**
+   * Remove duplicate library folders created by a bug in 1.17.0-1.17.2 and clear cached assets.
+   *
+   * @since 1.17.3
+   */
+  public static function upgrade_1173() {
+    self::use_patch_version_as_library();
+    self::clearCachedAssets();
+  }
+
+  /**
+   * Use library version with patched version in dir name as library.
+   */
+  private static function use_patch_version_as_library() {
+    WP_Filesystem();
+    global $wp_filesystem;
+
+    $upload_dir = wp_upload_dir();
+    $libraries_dir = join(DIRECTORY_SEPARATOR, array($upload_dir['basedir'], 'h5p', 'libraries'));
+    $library_paths = glob($libraries_dir . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
+
+    foreach ($library_paths as $library_path) {
+      if (!preg_match('/^(.*)-(\d+\.\d+\.\d+)$/', basename($library_path), $matches)) {
+        continue;
+      }
+
+      $library_name = $matches[1];
+      $library_version = $matches[2];
+      $library_version_parts = self::split_version($library_version);
+
+      $library_version_major_minor = $library_version_parts->major . '.' . $library_version_parts->minor;
+      $old_library_path = $libraries_dir . DIRECTORY_SEPARATOR . $library_name . '-' . $library_version_major_minor;
+
+      // Remove old non themes library folder
+      if ($wp_filesystem->is_dir($old_library_path)) {
+        $wp_filesystem->rmdir($old_library_path, true);
+      }
+
+      // Rename H5P.Foo-x.y.z (with themed version) to H5P.Foo-x.y
+      if ($wp_filesystem->is_dir($library_path)) {
+        $wp_filesystem->move($library_path, $old_library_path, true);
+      }
+    }
+  }
+
+  /**
+   * Clear cached assets, both files and database entries.
+   */
+  private static function clearCachedAssets() {
+    WP_Filesystem();
+    global $wp_filesystem;
+    global $wpdb;
+
+    $upload_dir = wp_upload_dir();
+    $cachedassets_path = join(DIRECTORY_SEPARATOR, array($upload_dir['basedir'], 'h5p', 'cachedassets'));
+
+    if ($wp_filesystem->is_dir($cachedassets_path)) {
+      $file_paths = glob($cachedassets_path . DIRECTORY_SEPARATOR . '*');
+      foreach ($file_paths as $file_path) {
+        if (is_file($file_path)) {
+          $wp_filesystem->delete($file_path);
+        }
+      }
+    }
+
+    $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}h5p_libraries_cachedassets");
   }
 
   /**
