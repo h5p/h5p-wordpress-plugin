@@ -1301,6 +1301,19 @@ class H5P_Plugin {
       // Get assets for this content
       $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
       $files = $core->getDependenciesFiles($preloaded_dependencies);
+
+      // Add cache buster to assets that do not have a version set
+      $files = array(
+        'scripts' => array_map(function($file) {
+          $file->version = (!empty($file->version)) ? $file->version : '?ver=' . self::VERSION;
+          return $file;
+        }, $files['scripts']),
+        'styles' => array_map(function($file) {
+          $file->version = (!empty($file->version)) ? $file->version : '?ver=' . self::VERSION;
+          return $file;
+        }, $files['styles'])
+      );
+
       $this->alter_assets($files, $preloaded_dependencies, $embed);
 
       if ($embed === 'div') {
