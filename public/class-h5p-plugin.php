@@ -622,8 +622,8 @@ class H5P_Plugin {
    */
   public static function upgrade_1173() {
     self::use_patch_version_as_library();
-    self::clearCachedAssets();
     self::rebuildJSCSSAssetsAndDependencies();
+    self::clearCachedAssets();
   }
 
   /**
