@@ -771,8 +771,8 @@ class H5P_Plugin {
     global $wpdb;
 
     // Flatten preloaded assets to comma-separated strings for database storage
-    $preloadedJsValue = implode(',', self::extractJSCSSPaths($library_data->preloadedJs ?? array()));
-    $preloadedCssValue = implode(',', self::extractJSCSSPaths($library_data->preloadedCss ?? array()));
+    $preloadedJsValue = implode(', ', self::extractJSCSSPaths($library_data->preloadedJs ?? array()));
+    $preloadedCssValue = implode(', ', self::extractJSCSSPaths($library_data->preloadedCss ?? array()));
 
     $wpdb->update(
       $wpdb->prefix . 'h5p_libraries',
