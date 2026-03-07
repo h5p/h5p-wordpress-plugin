@@ -396,6 +396,7 @@ class H5P_Plugin {
     add_option('h5p_hub_is_enabled', FALSE);
     add_option('h5p_send_usage_statistics', FALSE);
     add_option('h5p_has_request_user_consent', FALSE);
+    add_option('h5p_use_system_temp_dir', FALSE);
   }
 
   /**
