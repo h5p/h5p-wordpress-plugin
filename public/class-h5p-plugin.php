@@ -27,6 +27,15 @@ class H5P_Plugin {
   const VERSION = '1.17.2';
 
   /**
+   * Versions for which cached assets should be busted on next load, due to issues with cached assets after update.
+   * Hopefully a single-time workaround. TODO: Assess if this can be removed already.
+   *
+   * @since 1.17.3
+   * @var array
+   */
+  const VERSIONS_TO_BUST_CACHEDASSETS_FOR = ['1.17.3'];
+
+  /**
    * The Unique identifier for this plugin.
    *
    * @since 1.0.0
@@ -1302,17 +1311,22 @@ class H5P_Plugin {
       $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
       $files = $core->getDependenciesFiles($preloaded_dependencies);
 
-      // Add cache buster to assets that do not have a version set
-      $files = array(
-        'scripts' => array_map(function($file) {
-          $file->version = (!empty($file->version)) ? $file->version : '?ver=' . self::VERSION;
-          return $file;
-        }, $files['scripts']),
-        'styles' => array_map(function($file) {
-          $file->version = (!empty($file->version)) ? $file->version : '?ver=' . self::VERSION;
-          return $file;
-        }, $files['styles'])
-      );
+      /*
+       * Add cache buster to assets that do not have a version set.
+       * Hopefully a single-time workaround where an update broke cached assets and they should be busted on next load
+       */
+      if (in_array(self::VERSION, self::VERSIONS_TO_BUST_CACHEDASSETS_FOR)) {
+        $files = array(
+          'scripts' => array_map(function($file) {
+            $file->version = (!empty($file->version)) ? $file->version : '?ver=' . self::VERSION;
+            return $file;
+          }, $files['scripts']),
+          'styles' => array_map(function($file) {
+            $file->version = (!empty($file->version)) ? $file->version : '?ver=' . self::VERSION;
+            return $file;
+          }, $files['styles'])
+        );
+      }
 
       $this->alter_assets($files, $preloaded_dependencies, $embed);
 
