@@ -1310,4 +1310,5 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function getContentHubMetadataCache($lang = 'en') { die('Called'); return json_encode([]); }
   public function getContentHubMetadataChecked($lang = 'en') {return []; }
   public function setContentHubMetadataChecked($time, $lang = 'en') { return []; }
+  public function resetHubOrganizationData() {}
 }
