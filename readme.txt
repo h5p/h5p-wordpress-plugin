@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 6.9
-Stable tag: 1.17.2
+Stable tag: 1.17.3
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -520,3 +520,6 @@ Add missing files for NEUD.
 = 1.17.2 =
 Fix folder naming bug when storing new libraries(content types).
 Fix annoying deprecation notices. Thanks to everyone who contributed to this.
+
+= 1.17.3 =
+Accept response sent by the new content type hub (hub-api.h5p.org/v1/sites) affecting new installations.
