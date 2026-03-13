@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 6.9
-Stable tag: 1.17.3
+Stable tag: 1.17.4
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -523,3 +523,7 @@ Fix annoying deprecation notices. Thanks to everyone who contributed to this.
 
 = 1.17.3 =
 Accept response sent by the new content type hub (hub-api.h5p.org/v1/sites) affecting new installations.
+
+= 1.17.4 =
+Fix duplicate libraries folders after bug in 1.17.0-3.
+Fix clearFilteredParameters not working after 1.14.0.
