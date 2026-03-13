@@ -859,10 +859,9 @@ class H5PWordPress implements H5PFrameworkInterface {
 
     $wpdb->query($wpdb->prepare(
       "UPDATE {$wpdb->prefix}h5p_contents
-          SET filtered = NULL
-        WHERE library_id IN (%s)",
-      implode(',', $library_ids))
-    );
+          SET filtered = ''
+        WHERE library_id IN (" . implode(',', array_map('intval', $library_ids)) . ")"
+    ));
   }
 
   /**
