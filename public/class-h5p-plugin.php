@@ -27,15 +27,6 @@ class H5P_Plugin {
   const VERSION = '1.17.3';
 
   /**
-   * Versions for which cached assets should be busted on next load, due to issues with cached assets after update.
-   * Hopefully a single-time workaround. TODO: Assess if this can be removed already.
-   *
-   * @since 1.17.3
-   * @var array
-   */
-  const VERSIONS_TO_BUST_CACHEDASSETS_FOR = ['1.17.3'];
-
-  /**
    * The Unique identifier for this plugin.
    *
    * @since 1.0.0
@@ -517,9 +508,16 @@ class H5P_Plugin {
           "%/h5p/content/%"));
     }
 
-    $between_1170_1172 = ($v->major === 1 && $v->minor === 17 && $v->patch >= 0 && $v->patch <= 2); // Target 1.17.0, 1.17.1, 1.17.2
-    if ($between_1170_1172) {
-      self::upgrade_1173();
+    $between_1170_1173 = ($v->major === 1 && $v->minor === 17 && $v->patch >= 0 && $v->patch <= 3); // Target 1.17.0, 1.17.1, 1.17.2, 1.17.3
+    if ($between_1170_1173) {
+      self::upgrade_1174();
+    }
+
+    $pre_1174 = ($v->major < 1 || ($v->major === 1 && $v->minor < 17) ||
+                 ($v->major === 1 && $v->minor === 17 && $v->patch < 4)); // < 1.17.4
+    if ($pre_1174) {
+      // Clear filteredParameters
+      $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}h5p_contents SET filtered = ''"));
     }
 
     // Keep track of which version of the plugin we have.
@@ -624,14 +622,12 @@ class H5P_Plugin {
   }
 
   /**
-   * Remove duplicate library folders created by a bug in 1.17.0-1.17.2, clear cached assets, and
-   * rebuild library assets and dependencies based on library.json files.
+   * Remove duplicate library folders created by a bug in 1.17.0-1.17.3.
    *
-   * @since 1.17.3
+   * @since 1.17.4
    */
-  public static function upgrade_1173() {
+  public static function upgrade_1174() {
     self::use_patch_version_as_library();
-    self::rebuildJSCSSAssetsAndDependencies();
     self::clearCachedAssets();
   }
 
@@ -691,195 +687,6 @@ class H5P_Plugin {
     }
 
     $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}h5p_libraries_cachedassets");
-  }
-
-  /**
-   * Rebuild library assets and dependencies based on library.json files.
-   */
-  public static function rebuildJSCSSAssetsAndDependencies() {
-    $lookup_index = self::build_library_lookup_index();
-
-    $upload_dir = wp_upload_dir();
-    $libraries_dir = join(DIRECTORY_SEPARATOR, array($upload_dir['basedir'], 'h5p', 'libraries'));
-    $library_paths = glob($libraries_dir . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
-
-    foreach ($library_paths as $library_path) {
-      self::rebuildJSCSSAssetsAndDependenciesFor($library_path, $lookup_index);
-    }
-  }
-
-  /**
-   * Build lookup table for machine name to library id.
-   *
-   * @return array Lookup table for machine name to library id, used for dependencies.
-   */
-  private static function build_library_lookup_index() {
-    global $wpdb;
-
-    $lookup_index = [];
-    $lookup_object = $wpdb->get_results("SELECT id, name, major_version, minor_version, patch_version FROM {$wpdb->prefix}h5p_libraries");
-
-    foreach ($lookup_object as $item) {
-      $key = self::buildDirectoryNameFromObject($item);
-      if ($key !== '') {
-        $lookup_index[$key] = $item->id;
-      }
-    }
-
-    return $lookup_index;
-  }
-
-  /**
-   * Build directory name from library data retrieved from database, used for lookup index.
-   *
-   * @param object $data Library data retrieved from database.
-   * @return string Directory name in format machineName-majorVersion.minorVersion.
-   */
-  private static function buildDirectoryNameFromObject($data) {
-    $machineName = isset($data->machineName) ? $data->machineName : $data->name;
-    $majorVersion = isset($data->majorVersion) ? $data->majorVersion : $data->major_version;
-    $minorVersion = isset($data->minorVersion) ? $data->minorVersion : $data->minor_version;
-
-    if (!isset($machineName) || !isset($majorVersion) || !isset($minorVersion)) {
-      return ''; // Missing required data, cannot build directory name for this library
-    }
-
-    return $machineName . '-' . $majorVersion . '.' . $minorVersion;
-  }
-
-  /**
-   * Rebuild assets and dependencies for a single library based on its library.json file.
-   *
-   * @param string $library_path Path to the library folder.
-   * @param array $lookup_index Lookup table for machine name to library id, used for dependencies.
-   */
-  private static function rebuildJSCSSAssetsAndDependenciesFor($library_path, $lookup_index) {
-    WP_Filesystem();
-    global $wp_filesystem;
-
-    $library_json_path = $library_path . DIRECTORY_SEPARATOR . 'library.json';
-    if (!$wp_filesystem->exists($library_json_path)) {
-      return; // No library.json, cannot rebuild assets or dependencies for this library
-    }
-
-    $library_json = $wp_filesystem->get_contents($library_json_path);
-    $library_data = json_decode($library_json);
-    if (!$library_data || !isset($library_data->machineName) || !isset($library_data->majorVersion) || !isset($library_data->minorVersion) || !isset($library_data->patchVersion)) {
-      return; // Invalid library.json, cannot rebuild assets or dependencies for this library
-    }
-
-    self::rebuildAssetsFor($library_data);
-    self::rebuildDependenciesFor($library_data, $lookup_index);
-  }
-
-  /**
-   * Rebuild preloaded assets for a library based on its library.json file.
-   * @param object $library_data Library data decoded from library.json file.
-   */
-  private static function rebuildAssetsFor($library_data) {
-    global $wpdb;
-
-    // Flatten preloaded assets to comma-separated strings for database storage
-    $preloadedJsValue = implode(', ', self::extractJSCSSPaths($library_data->preloadedJs ?? array()));
-    $preloadedCssValue = implode(', ', self::extractJSCSSPaths($library_data->preloadedCss ?? array()));
-
-    $wpdb->update(
-      $wpdb->prefix . 'h5p_libraries',
-      array(
-        'preloaded_js' => $preloadedJsValue,
-        'preloaded_css' => $preloadedCssValue
-      ),
-      array(
-        'name' => $library_data->machineName,
-        'major_version' => $library_data->majorVersion,
-        'minor_version' => $library_data->minorVersion,
-        'patch_version' => $library_data->patchVersion
-      )
-    );
-  }
-
-  /**
-   * Extract and filter paths from library preloaded items.
-   *
-   * @param array $items Array of preloaded items (either preloadedJs or preloadedCss) from library.json.
-   * @return array Filtered paths.
-   */
-  private static function extractJSCSSPaths($items) {
-    $paths = array_map(
-      function($item) {
-        return isset($item->path) ? $item->path : null;
-      },
-      $items
-    );
-
-    return array_values(array_filter($paths, function($path) {
-      return $path !== null && $path !== '';
-    }));
-  }
-
-  /**
-   * Remove old dependencies for single library and fill up based on library.json.
-   *
-   * @param object $library_data Library data decoded from library.json file.
-   * @param array $lookup_index Lookup table for machine name to library id, used for dependencies.
-   */
-  private static function rebuildDependenciesFor($library_data, $lookup_index) {
-    global $wpdb;
-
-    $library_id = $lookup_index[self::buildDirectoryNameFromObject($library_data)] ?? null;
-    if (!$library_id) {
-      return; // Library not found in database, cannot rebuild dependencies for this library
-    }
-
-    $wpdb->delete(
-      $wpdb->prefix . 'h5p_libraries_libraries',
-      array('library_id' => $library_id),
-      array('%d')
-    );
-
-    $dependency_map = array(
-      'preloadedDependencies' => 'preloaded',
-      'editorDependencies' => 'editor'
-    );
-
-    foreach ($dependency_map as $property => $dependency_type) {
-      if (empty($library_data->{$property}) || !is_array($library_data->{$property})) {
-        continue; // Library.json has no preloadedDependencies and no editorDependencies
-      }
-
-      self::insertLibraryDependencies($library_id, $library_data->{$property}, $dependency_type, $lookup_index);
-    }
-  }
-
-  /**
-   * Insert library dependencies into h5p_libraries_libraries.
-   *
-   * @param int $library_id ID of the library for which dependencies should be inserted.
-   * @param array $dependencies Array of dependencies from library.json file.
-   * @param string $dependency_type Type of the dependencies, either "preloaded" or "editor".
-   * @param array $lookup_index Lookup table for machine name to library id, used for dependencies.
-   */
-  private static function insertLibraryDependencies($library_id, $dependencies, $dependency_type, $lookup_index) {
-    global $wpdb;
-
-    foreach ($dependencies as $dependency) {
-      if (!isset($dependency->machineName, $dependency->majorVersion, $dependency->minorVersion)) {
-        continue; // Invalid dependency format, cannot insert dependency for this library
-      }
-
-      $required_library_key = self::buildDirectoryNameFromObject($dependency);
-      $required_library_id = isset($lookup_index[$required_library_key]) ? $lookup_index[$required_library_key] : null;
-      if (!$required_library_id) {
-        continue; // Required library not found in database, cannot insert dependency for this library
-      }
-
-      $wpdb->query($wpdb->prepare(
-        "INSERT IGNORE INTO {$wpdb->prefix}h5p_libraries_libraries (library_id, required_library_id, dependency_type) VALUES (%d, %d, %s)",
-        $library_id,
-        $required_library_id,
-        $dependency_type
-      ));
-    }
   }
 
   /**
@@ -1310,24 +1117,6 @@ class H5P_Plugin {
       // Get assets for this content
       $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
       $files = $core->getDependenciesFiles($preloaded_dependencies);
-
-      /*
-       * Add cache buster to assets that do not have a version set.
-       * Hopefully a single-time workaround where an update broke cached assets and they should be busted on next load
-       */
-      if (in_array(self::VERSION, self::VERSIONS_TO_BUST_CACHEDASSETS_FOR)) {
-        $files = array(
-          'scripts' => array_map(function($file) {
-            $file->version = (!empty($file->version)) ? $file->version : '?ver=' . self::VERSION;
-            return $file;
-          }, $files['scripts']),
-          'styles' => array_map(function($file) {
-            $file->version = (!empty($file->version)) ? $file->version : '?ver=' . self::VERSION;
-            return $file;
-          }, $files['styles'])
-        );
-      }
-
       $this->alter_assets($files, $preloaded_dependencies, $embed);
 
       if ($embed === 'div') {
