@@ -1119,6 +1119,24 @@ class H5P_Plugin {
       $files = $core->getDependenciesFiles($preloaded_dependencies);
       $this->alter_assets($files, $preloaded_dependencies, $embed);
 
+      /*
+       * Cached assets were broken by faulty folder structure in 1.17.0 - 1.17.3
+       * To remedy this we have to serve fresh cached assets for 1.17.4 by leveraging a cache buster
+       * TODO: (TEMPORARY) Remove for next version!
+       */
+      if (self::VERSION === '1.17.4') {
+        $files = array(
+          'scripts' => array_map(function ($file) {
+            $file->version = (!empty($file->version)) ? $file->version : '?ver=' . self::VERSION;
+            return $file;
+          }, $files['scripts']),
+          'styles' => array_map(function ($file) {
+            $file->version = (!empty($file->version)) ? $file->version : '?ver=' . self::VERSION;
+            return $file;
+          }, $files['styles'])
+        );
+      }
+
       if ($embed === 'div') {
         $this->enqueue_assets($files);
       }
