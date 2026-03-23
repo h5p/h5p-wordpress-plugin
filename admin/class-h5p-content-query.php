@@ -27,6 +27,10 @@ class H5PContentQuery {
     'IN' => " IN (%s)"
   );
 
+  private $user_fields = [
+    'user_name' => 'display_name',
+  ];
+
   // Valid fields and their true database names
   private $valid_fields = array(
     'id' => array('hc', 'id'),
@@ -36,12 +40,11 @@ class H5PContentQuery {
     'slug' => array('hc', 'slug', TRUE),
     'created_at' => array('hc', 'created_at'),
     'updated_at' => array('hc', 'updated_at'),
-    'user_id' => array('u', 'ID'),
-    'user_name' => array('u', 'display_name', TRUE),
+    'user_id' => array('hc', 'user_id'),
     'tags' =>  array('t', 'GROUP_CONCAT(DISTINCT CONCAT(t.id,\',\',t.name) ORDER BY t.id SEPARATOR \';\')')
   );
 
-  private $fields, $join, $where, $where_args, $order_by, $limit, $limit_args;
+  private $fields, $fields_raw, $join, $where, $where_args, $order_by, $limit, $limit_args;
 
   /**
    * Constructor
@@ -62,7 +65,6 @@ class H5PContentQuery {
     $this->base_table = "{$wpdb->prefix}h5p_contents hc";
     $this->valid_joins = array(
       'hl' => " LEFT JOIN {$wpdb->prefix}h5p_libraries hl ON hl.id = hc.library_id",
-      'u' => " LEFT JOIN {$wpdb->users} u ON hc.user_id = u.ID",
       't' => " LEFT JOIN {$wpdb->prefix}h5p_contents_tags ct ON ct.content_id = hc.id
                LEFT JOIN {$wpdb->prefix}h5p_tags t ON ct.tag_id = t.id
                LEFT JOIN {$wpdb->prefix}h5p_contents_tags ct2 ON ct2.content_id = hc.id"
@@ -71,8 +73,14 @@ class H5PContentQuery {
     $this->join = array();
 
     // Start adding fields
+    $this->fields_raw = $fields;
     $this->fields = '';
     foreach ($fields as $field) {
+      // User fields are handled separately.
+      if ( isset( $this->user_fields[ $field ] ) ) {
+        continue;
+      }
+
       $valid_field = $this->get_valid_field($field);
       $table = $valid_field[0];
 
@@ -123,16 +131,26 @@ class H5PContentQuery {
     // Sort by
     $this->order_by = '';
     if ($order_by !== NULL) {
-      $field = $this->get_valid_field($order_by);
 
-      // Add join
-      $this->add_join($field[0]);
-
-      $dir = ($reverse_order ? TRUE : FALSE);
-      if (isset($field[2])) {
-        $dir = !$dir; // Reverse ordering of text fields
+      // This is merely a workaround for WP user data now being queried
+      // separately instead of in a join. Whatever function using order_by will
+      // need to handle this. This should probably be refactored completely.
+      if ( isset( $this->user_fields[ $order_by ] ) ) {
+        $this->order_by_user_field = $order_by;
+        $this->reverse_order = $reverse_order;
       }
-      $this->order_by .= " ORDER BY {$field[0]}.{$field[1]} " . ($dir ? 'ASC' : 'DESC');
+      else {
+        $field = $this->get_valid_field($order_by);
+
+        // Add join
+        $this->add_join($field[0]);
+
+        $dir = ($reverse_order ? TRUE : FALSE);
+        if (isset($field[2])) {
+          $dir = !$dir; // Reverse ordering of text fields
+        }
+        $this->order_by .= " ORDER BY {$field[0]}.{$field[1]} " . ($dir ? 'ASC' : 'DESC');
+      }
     }
 
     // Add joins
@@ -141,16 +159,30 @@ class H5PContentQuery {
     // Limit
     $this->limit = '';
     $this->limit_args = array();
+
     if ($limit !== NULL) {
-      $this->limit .= ' LIMIT';
+      // This is merely a workaround for WP user data now being queried
+      // separately instead of in a join. Whatever function using limit will
+      // need to handle this. This should probably be refactored completely.
+      if ( isset( $this->user_fields[ $order_by ] ) ) {
+        $this->limit_user_field_args = array();
 
-      if ($offset !== NULL) {
-        $this->limit .= ' %d,';
-        $this->limit_args[] = $offset;
+        if ($offset !== NULL) {
+          $this->limit_user_field_args[] = $offset;
+          $this->limit_user_field_args[] = $limit;
+        }
       }
+      else {
+        $this->limit .= ' LIMIT';
 
-      $this->limit .= ' %d';
-      $this->limit_args[] = $limit;
+        if ($offset !== NULL) {
+          $this->limit .= ' %d,';
+          $this->limit_args[] = $offset;
+        }
+
+        $this->limit .= ' %d';
+        $this->limit_args[] = $limit;
+      }
     }
   }
 
@@ -216,7 +248,28 @@ class H5PContentQuery {
       $query = $wpdb->prepare($query, $args);
     }
 
-    return $wpdb->get_results($query);
+    $results = $wpdb->get_results( $query );
+    $results = $this->append_user_data( $results );
+
+    // Manually order results if we're ordering by a user field.
+    if ( isset( $this->order_by_user_field ) ) {
+      $results = $this->order_results_by(
+        $results,
+        $this->order_by_user_field,
+        $this->reverse_order
+      );
+    }
+
+    // Manually limit results if we're ordering by a user field.
+    if ( isset( $this->limit_user_field_args ) ) {
+      $results = $this->limit_results(
+        $results,
+        $this->limit_user_field_args[0],
+        $this->limit_user_field_args[1]
+      );
+    }
+
+    return $results;
   }
 
   /**
@@ -238,5 +291,113 @@ class H5PContentQuery {
       $query = $wpdb->prepare($query, $this->where_args);
     }
     return (int) $wpdb->get_var($query);
+  }
+
+  /**
+   * Appends user data to query results by fetching from user table.
+   *
+   * @since xxx
+   * @return array
+   */
+  protected function append_user_data( $results ) {
+    // If no user fields were requested, we can bail.
+    if ( ! array_intersect( $this->fields_raw, array_keys( $this->user_fields ) ) ) {
+      return $results;
+    }
+
+    // Collect all user IDs to process in a single query.
+    $user_ids = [];
+    foreach ( $results as $result ) {
+      if ( ! isset( $result->user_id ) ) {
+        continue;
+      }
+
+      $user_ids[] = $result->user_id;
+    }
+
+    // Fail early, as prompting get_users with empty array will fetch all users
+    if ( empty( $user_ids ) ) {
+      return $results;
+    }
+
+    /*
+     * Only used to determine whether there is any WP user for any $user_ids,
+     * so only requesting ID to prevent memory issues
+     */
+    $wp_users = get_users(
+      array(
+        'include' => array_unique( $user_ids ),
+        'fields' => array('ID'),
+      )
+    );
+
+    // If no users are found, there's nothing to do.
+  	if ( ! $wp_users ) {
+      return $results;
+    }
+
+    // We can fetch items from the now primed cache.
+    foreach ( $results as &$result ) {
+      if ( ! isset( $result->user_id ) ) {
+        continue;
+      }
+
+      $userdata = get_userdata( $result->user_id );
+
+      if ( in_array( 'user_name', $this->fields_raw, true ) ) {
+        $result->user_name = $userdata->display_name;
+      }
+    }
+
+    return $results;
+  }
+
+  /**
+   * Order results by a given property.
+   *
+   * @param array $results  Array of objects to sort.
+   * @param string $order_by  Property to sort by.
+   * @param bool $reverse_order Whether to reverse the order.
+   * @since xxx
+   * @return array
+   */
+  protected function order_results_by(
+    $results, $order_by, $reverse_order = FALSE
+  ) {
+    if (!isset($order_by)) {
+      return $results;
+    }
+
+    usort($results, function($a, $b) use ($order_by, $reverse_order) {
+      if (!isset($a->$order_by) || !isset($b->$order_by)) {
+        return 0; // No sorting possible, because property is missing.
+      }
+
+      $a = $a->$order_by;
+      $b = $b->$order_by;
+
+      if ($a == $b) {
+        return 0;
+      }
+
+      if ($reverse_order) {
+        return ($a < $b) ? 1 : -1;
+      }
+
+      return ($a < $b) ? -1 : 1;
+    });
+
+    return $results;
+  }
+
+  /**
+   * Limit results to a given range.
+   *
+   * @param array $results  Array of objects to limit.
+   * @param int $offset  Offset to start at.
+   * @param int $limit  Number of items to return.
+   */
+  protected function limit_results( $results = array(), $offset = 0, $limit ) {
+    return array_slice( $results, $offset, $limit );
   }
 }

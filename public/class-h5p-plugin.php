@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.16.0';
+  const VERSION = '1.17.4';
 
   /**
    * The Unique identifier for this plugin.
@@ -408,7 +408,7 @@ class H5P_Plugin {
     add_option('h5p_save_content_frequency', 30);
     add_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
     add_option('h5p_show_toggle_view_others_h5p_contents', 0);
-    add_option('h5p_content_type_cache_updated_at', 0);
+    add_site_option('h5p_content_type_cache_updated_at', 0);
     add_option('h5p_check_h5p_requirements', FALSE);
     add_option('h5p_hub_is_enabled', FALSE);
     add_option('h5p_send_usage_statistics', FALSE);
@@ -525,6 +525,18 @@ class H5P_Plugin {
           "%/h5p/content/%"));
     }
 
+    $between_1170_1173 = ($v->major === 1 && $v->minor === 17 && $v->patch >= 0 && $v->patch <= 3); // Target 1.17.0, 1.17.1, 1.17.2, 1.17.3
+    if ($between_1170_1173) {
+      self::upgrade_1174();
+    }
+
+    $pre_1174 = ($v->major < 1 || ($v->major === 1 && $v->minor < 17) ||
+                 ($v->major === 1 && $v->minor === 17 && $v->patch < 4)); // < 1.17.4
+    if ($pre_1174) {
+      // Clear filteredParameters
+      $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}h5p_contents SET filtered = ''"));
+    }
+
     // Keep track of which version of the plugin we have.
     if ($current_version === '0.0.0') {
       add_option('h5p_version', self::VERSION);
@@ -624,6 +636,74 @@ class H5P_Plugin {
       self::map_capability($role, $role_info, 'read', 'view_h5p_contents');
       self::map_capability($role, $role_info, 'read', 'view_others_h5p_contents');
     }
+  }
+
+  /**
+   * Remove duplicate library folders created by a bug in 1.17.0-1.17.3.
+   *
+   * @since 1.17.4
+   */
+  public static function upgrade_1174() {
+    self::use_patch_version_as_library();
+    self::clearCachedAssets();
+  }
+
+  /**
+   * Use library version with patched version in dir name as library.
+   */
+  private static function use_patch_version_as_library() {
+    WP_Filesystem();
+    global $wp_filesystem;
+
+    $upload_dir = wp_upload_dir();
+    $libraries_dir = join(DIRECTORY_SEPARATOR, array($upload_dir['basedir'], 'h5p', 'libraries'));
+    $library_paths = glob($libraries_dir . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
+
+    foreach ($library_paths as $library_path) {
+      if (!preg_match('/^(.*)-(\d+\.\d+\.\d+)$/', basename($library_path), $matches)) {
+        continue;
+      }
+
+      $library_name = $matches[1];
+      $library_version = $matches[2];
+      $library_version_parts = self::split_version($library_version);
+
+      $library_version_major_minor = $library_version_parts->major . '.' . $library_version_parts->minor;
+      $old_library_path = $libraries_dir . DIRECTORY_SEPARATOR . $library_name . '-' . $library_version_major_minor;
+
+      // Remove old non themes library folder
+      if ($wp_filesystem->is_dir($old_library_path)) {
+        $wp_filesystem->rmdir($old_library_path, true);
+      }
+
+      // Rename H5P.Foo-x.y.z (with themed version) to H5P.Foo-x.y
+      if ($wp_filesystem->is_dir($library_path)) {
+        $wp_filesystem->move($library_path, $old_library_path, true);
+      }
+    }
+  }
+
+  /**
+   * Clear cached assets, both files and database entries.
+   */
+  private static function clearCachedAssets() {
+    WP_Filesystem();
+    global $wp_filesystem;
+    global $wpdb;
+
+    $upload_dir = wp_upload_dir();
+    $cachedassets_path = join(DIRECTORY_SEPARATOR, array($upload_dir['basedir'], 'h5p', 'cachedassets'));
+
+    if ($wp_filesystem->is_dir($cachedassets_path)) {
+      $file_paths = glob($cachedassets_path . DIRECTORY_SEPARATOR . '*');
+      foreach ($file_paths as $file_path) {
+        if (is_file($file_path)) {
+          $wp_filesystem->delete($file_path);
+        }
+      }
+    }
+
+    $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}h5p_libraries_cachedassets");
   }
 
   /**
@@ -755,6 +835,7 @@ class H5P_Plugin {
    * @since 1.0.0
    */
   public function enqueue_styles_and_scripts() {
+    wp_enqueue_style($this->plugin_slug . '-plugin-fonts', plugins_url('h5p/h5p-php-library/styles/h5p-fonts.css'), array(), self::VERSION);
     wp_enqueue_style($this->plugin_slug . '-plugin-styles', plugins_url('h5p/h5p-php-library/styles/h5p.css'), array(), self::VERSION);
   }
 
@@ -915,11 +996,11 @@ class H5P_Plugin {
       $row=$wpdb->get_row($q,ARRAY_A);
 
       if ($wpdb->last_error) {
-        return sprintf(__('Database error: %s.', $this->plugin_slug), $wpdb->last_error);
+        return sprintf(__('Database error: %s.', $this->plugin_slug), esc_html($wpdb->last_error));
       }
 
       if (!isset($row['id'])) {
-        return sprintf(__('Cannot find H5P content with slug: %s.', $this->plugin_slug), $atts['slug']);
+        return sprintf(__('Cannot find H5P content with slug: %s.', $this->plugin_slug), esc_html($atts['slug']));
       }
 
       $atts['id']=$row['id'];
@@ -1013,7 +1094,7 @@ class H5P_Plugin {
       'jsonContent' => $safe_parameters,
       'fullScreen' => $content['library']['fullscreen'],
       'exportUrl' => get_option('h5p_export', TRUE) ? $this->get_h5p_url() . '/exports/' . ($content['slug'] ? $content['slug'] . '-' : '') . $content['id'] . '.h5p' : '',
-      'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen" title="' . $title . '"' . ' ' . $h5p_http_feature_policy . '></iframe>',
+      'embedCode' => '<iframe src="' . admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']) . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen" title="' . esc_attr($title) . '"' . ' ' . esc_attr($h5p_http_feature_policy) . '></iframe>',
       'resizeCode' => '<script src="' . plugins_url('h5p/h5p-php-library/js/h5p-resizer.js') . '" charset="UTF-8"></script>',
       'url' => admin_url('admin-ajax.php?action=h5p_embed&id=' . $content['id']),
       'title' => $content['title'],
@@ -1076,6 +1157,24 @@ class H5P_Plugin {
       $files = $core->getDependenciesFiles($preloaded_dependencies);
       $this->alter_assets($files, $preloaded_dependencies, $embed);
 
+      /*
+       * Cached assets were broken by faulty folder structure in 1.17.0 - 1.17.3
+       * To remedy this we have to serve fresh cached assets for 1.17.4 by leveraging a cache buster
+       * TODO: (TEMPORARY) Remove for next version!
+       */
+      if (self::VERSION === '1.17.4') {
+        $files = array(
+          'scripts' => array_map(function ($file) {
+            $file->version = (!empty($file->version)) ? $file->version : '?ver=' . self::VERSION;
+            return $file;
+          }, $files['scripts']),
+          'styles' => array_map(function ($file) {
+            $file->version = (!empty($file->version)) ? $file->version : '?ver=' . self::VERSION;
+            return $file;
+          }, $files['styles'])
+        );
+      }
+
       if ($embed === 'div') {
         $this->enqueue_assets($files);
       }
@@ -1098,7 +1197,7 @@ class H5P_Plugin {
           : ''
         );
 
-      $h5p_content_wrapper = '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" title="' . $title . '"' . ' ' . $h5p_http_feature_policy . '></iframe></div>';
+        $h5p_content_wrapper = '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no" title="' . esc_attr($title) . '"' . ' ' . esc_attr($h5p_http_feature_policy) . '></iframe></div>';
     }
 
     return apply_filters('print_h5p_content', $h5p_content_wrapper, $content);
@@ -1672,7 +1771,7 @@ class H5P_Plugin {
     delete_option('h5p_site_type');
     delete_option('h5p_enable_lrs_content_types');
     delete_option('h5p_site_key');
-    delete_option('h5p_content_type_cache_updated_at');
+    delete_site_option('h5p_content_type_cache_updated_at');
     delete_option('h5p_check_h5p_requirements');
     delete_option('h5p_hub_is_enabled');
     delete_option('h5p_send_usage_statistics');

@@ -237,6 +237,10 @@
 }
 
 @media screen and (max-width: 782px) {
+  #wpbody-content .wrap {
+    overflow-x: auto;
+  }
+
   #wpwrap {
     overflow-x: auto;
   }

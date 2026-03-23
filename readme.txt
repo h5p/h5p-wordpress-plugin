@@ -1,10 +1,10 @@
 ﻿=== Interactive Content – H5P ===
-Contributors: icc0rz, fnoks, falcon28
+Contributors: icc0rz, fnoks, underhaug, makmentins
 Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
-Tested up to: 5.5
-Stable tag: 1.15.0
+Tested up to: 6.9
+Stable tag: 1.17.4
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -29,6 +29,12 @@ View our [setup for WordPress](https://h5p.org/documentation/setup/wordpress "Se
 
 = GDPR Compliance =
 Information useful to help you achieve GDPR compliance while using this plugin can be found at [H5P.org's GDPR Compliance](https://h5p.org/plugin-gdpr-compliance "GDPR Compliance") page.
+
+== Frequently Asked Questions ==
+
+= Where do I report security bugs found in this plugin? =
+
+Please report security bugs found in the source code of the h5p plugin through the [Patchstack Vulnerability Disclosure  Program](https://patchstack.com/database/vdp/0ecc7a32-3a1d-4a35-9b90-72cdda880808). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
 
 == Installation ==
 
@@ -453,3 +459,71 @@ Improved list layout for narrow screens. Thanks Otacke.
 Change how focus effect is applied when only using mouse cursor.
 Minor accessibility improvements to editor.
 Updated language files. Big thanks to all the contributors.
+
+= 1.15.1 =
+Fixed PHP version 8 compatibility
+Allow for separate accessibility title for content
+Updated translations
+Improved attribute filtering performance
+
+= 1.15.2 =
+Fixed inconsistent variable naming
+
+= 1.15.3 =
+Update CKEditor to the latest 4.x version.
+
+= 1.15.4 =
+Update CKEditor to 4.17.1
+
+= 1.15.5 =
+Improve data loading by fetching user data in a separate query rather than joining wp_users. This will allow for storing data across multiple databases.
+Updated regexp to handle edge cases
+Updated translations
+
+= 1.15.6 =
+Fix bug when loading user result lists.
+Improve cleanup of exported files on delete.
+
+= 1.15.7 =
+Change h5p_content_type_cache_updated_at into a network setting. Thanks n-goncalves.
+Fix sorting contents by author. Thanks Otacke.
+Fix query issue in username search in user activity results. Thanks ir4klis.
+Fix permission check for installing recommended libraries only. Thanks Otacke.
+Improved narrow data views. Thanks Otacke.
+Fix potential memory issue. Thanks Otacke.
+Fix not storing empty content state (resume) for some content types.
+Updated translations.
+
+= 1.15.8 =
+Improve file upload
+Updated translations.
+
+= 1.16.0 =
+Upgraded to CKEditor5 in editor.
+Added new expand-collapse feature to the editor.
+Added support for Echo360 video provider.
+Updated translations.
+
+= 1.16.1 =
+Fix displaying HTML entities
+
+= 1.16.2 =
+Fix displaying embedded H5Ps in WordPress 6.9
+
+= 1.17.0 =
+Update of content look and feel.
+Updated Content Type Hub endpoint to hub-api.h5p.org
+
+= 1.17.1 =
+Add missing files for NEUD.
+
+= 1.17.2 =
+Fix folder naming bug when storing new libraries(content types).
+Fix annoying deprecation notices. Thanks to everyone who contributed to this.
+
+= 1.17.3 =
+Accept response sent by the new content type hub (hub-api.h5p.org/v1/sites) affecting new installations.
+
+= 1.17.4 =
+Fix duplicate libraries folders after bug in 1.17.0-3.
+Fix clearFilteredParameters not working after 1.14.0.

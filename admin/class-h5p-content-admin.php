@@ -17,6 +17,7 @@
  */
 class H5PContentAdmin {
 
+  use H5PUtils;
   /**
    * @since 1.1.0
    */
@@ -64,7 +65,7 @@ class H5PContentAdmin {
    * @return string
    */
   public function alter_title($page, $admin_title, $title) {
-    $task = filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING);
+    $task = $this->sanitize_input('task');
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
     // Find content title
@@ -176,7 +177,7 @@ class H5PContentAdmin {
    * @since 1.1.0
    */
   public function display_contents_page() {
-    switch (filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING)) {
+    switch ($this->sanitize_input('task')) {
       case NULL:
         include_once('views/contents.php');
 
@@ -368,6 +369,7 @@ class H5PContentAdmin {
               $this->content['library']['name'],
               $this->content['library']['majorVersion'] . '.' . $this->content['library']['minorVersion']);
 
+          $this->content = NULL;
           wp_safe_redirect(admin_url('admin.php?page=h5p'));
           return;
         }
@@ -924,7 +926,7 @@ class H5PContentAdmin {
       ),
       array(
         'id' => $result->user_id,
-        'title' => esc_html($result->user_name)
+        'title' => empty( $result->user_name ) ? '' : esc_html($result->user_name)
       ),
       $this->format_tags($result->tags),
       $this->format_time($result->updated_at),
@@ -1086,7 +1088,7 @@ class H5PContentAdmin {
     $editor = $this->get_h5peditor_instance();
 
     // Get input
-    $name = filter_input(INPUT_GET, 'machineName', FILTER_SANITIZE_STRING);
+    $name = $this->sanitize_input('machineName');
     $major_version = filter_input(INPUT_GET, 'majorVersion', FILTER_SANITIZE_NUMBER_INT);
     $minor_version = filter_input(INPUT_GET, 'minorVersion', FILTER_SANITIZE_NUMBER_INT);
 
@@ -1116,7 +1118,7 @@ class H5PContentAdmin {
    * Get content type cache
    */
   public function ajax_content_type_cache() {
-    $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING);
+    $token = $this->sanitize_input('token');
 
     $editor = $this->get_h5peditor_instance();
     $editor->ajax->action(H5PEditorEndpoints::CONTENT_TYPE_CACHE, $token);
@@ -1127,7 +1129,7 @@ class H5PContentAdmin {
    * Get translations
    */
   public function ajax_translations() {
-    $language = filter_input(INPUT_GET, 'language', FILTER_SANITIZE_STRING);
+    $language = $this->sanitize_input('language');
 
     $editor = $this->get_h5peditor_instance();
     $editor->ajax->action(H5PEditorEndpoints::TRANSLATIONS, $language);
@@ -1140,7 +1142,7 @@ class H5PContentAdmin {
    * @since 1.1.0
    */
   public function ajax_files() {
-    $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING);
+    $token = $this->sanitize_input('token');
     $contentId = filter_input(INPUT_POST, 'contentId', FILTER_SANITIZE_NUMBER_INT);
 
     $editor = $this->get_h5peditor_instance();
@@ -1175,7 +1177,7 @@ class H5PContentAdmin {
    * @since 1.14.0
    */
   public function ajax_filter() {
-    $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING);
+    $token = $this->sanitize_input('token');
     $libraryParameters = filter_input(INPUT_POST, 'libraryParameters');
 
     $editor = $this->get_h5peditor_instance();

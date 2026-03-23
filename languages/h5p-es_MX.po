@@ -1,25 +1,21 @@
+# Copyright (C) 2022 H5P
+# This file is distributed under the same license as the H5P package.
 msgid ""
 msgstr ""
-"Project-Id-Version: H5P\n"
+"Project-Id-Version: H5P 1.15.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/h5p-wordpress-"
 "plugin-master\n"
 "POT-Creation-Date: 2022-03-02 16:26:07+00:00\n"
-"PO-Revision-Date: 2023-02-12 13:44+0000\n"
+"PO-Revision-Date: 2023-02-12 16:03+0000\n"
 "Last-Translator: German Valero <gvalero@unam.mx>\n"
-"Language-Team: Spanish <https://translate-h5p.tk/weblate/projects/h5p/"
-"wordpress-plugin/es/>\n"
-"Language: es_ES\n"
+"Language-Team: Spanish (Mexico) <https://translate-h5p.tk/weblate/projects/"
+"h5p/wordpress-plugin/es_MX/>\n"
+"Language: es_MX\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.14.1\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noo"
-"p:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;es"
-"c_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;t\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: admin/class-h5p-content-admin.php:185 admin/class-h5p-content-admin.php:697
 #: admin/class-h5p-library-admin.php:215 admin/class-h5p-privacy-policy.php:431
@@ -52,12 +48,11 @@ msgstr "ID"
 #: admin/class-h5p-content-admin.php:227 admin/class-h5p-content-admin.php:724
 #: admin/views/select-content.php:31
 msgid "No H5P content available. You must upload or create new content."
-msgstr ""
-"No existe contenido H5P disponible. Debes subir o crear nuevo contenido."
+msgstr "No existe contenido H5P disponible. Debe subir o crear nuevo contenido."
 
 #: admin/class-h5p-content-admin.php:238
 msgid "You are not allowed to view this content."
-msgstr "Tu no tienes permitido ver este contenido."
+msgstr "Tu no tiene permitido ver este contenido."
 
 #: admin/class-h5p-content-admin.php:278
 msgid "User"
@@ -98,7 +93,7 @@ msgstr "Tarea desconocida."
 
 #: admin/class-h5p-content-admin.php:352
 msgid "You are not allowed to edit this content."
-msgstr "No estás autorizado para editar este contenido."
+msgstr "No está autorizado para editar este contenido."
 
 #: admin/class-h5p-content-admin.php:374
 msgid "Invalid confirmation code, not deleting."
@@ -156,7 +151,7 @@ msgstr "Editar"
 
 #: admin/class-h5p-content-admin.php:1044
 msgid "Are you sure you wish to delete this content?"
-msgstr "¿Estás seguro de que quieres borrar este contenido?"
+msgstr "¿Está seguro de querer borrar este contenido?"
 
 #: admin/class-h5p-library-admin.php:62 admin/views/new-content.php:57
 msgid "Delete"
@@ -207,9 +202,7 @@ msgid "Actions"
 msgstr "Acciones"
 
 #: admin/class-h5p-library-admin.php:308
-msgid ""
-"This Library is used by content or other libraries and can therefore not be "
-"deleted."
+msgid "This Library is used by content or other libraries and can therefore not be deleted."
 msgstr ""
 "Esta biblioteca está utilizada por contenidos u otras bibliotecas, por lo "
 "que no puede ser borrada."
@@ -305,11 +298,10 @@ msgstr "Los parámetros están rotos."
 
 #: admin/class-h5p-library-admin.php:444
 msgid "Missing required library %lib."
-msgstr "Falta librería requerida %lib."
+msgstr "Falta biblioteca requerida %lib."
 
 #: admin/class-h5p-library-admin.php:445
-msgid ""
-"Parameters contain %used while only %supported or earlier are supported."
+msgid "Parameters contain %used while only %supported or earlier are supported."
 msgstr ""
 "Parámetros contiene %used mientras que solamente %supported o más antiguos "
 "están soportados."
@@ -331,9 +323,7 @@ msgid "Upgrade"
 msgstr "Actualizar"
 
 #: admin/class-h5p-library-admin.php:532
-msgid ""
-"Not all content has gotten their cache rebuilt. This is required to be able "
-"to delete libraries, and to display how many contents that uses the library."
+msgid "Not all content has gotten their cache rebuilt. This is required to be able to delete libraries, and to display how many contents that uses the library."
 msgstr ""
 "No se ha reconstruido el caché para todo el contenido. Esto es requerido "
 "para poder borrar bibliotecas, y para mostrar qué contenidos usan la "
@@ -342,8 +332,8 @@ msgstr ""
 #: admin/class-h5p-library-admin.php:533
 msgid "1 content need to get its cache rebuilt."
 msgid_plural "%d contents needs to get their cache rebuilt."
-msgstr[0] "1 contenido necesita reconstruir el cache."
-msgstr[1] "%d contenidos necesitan reconstruir el cache."
+msgstr[0] "1 contenido necesita reconstruir el caché."
+msgstr[1] "%d contenidos necesitan reconstruir el caché."
 
 #: admin/class-h5p-library-admin.php:534
 msgid "Rebuild cache"
@@ -370,56 +360,41 @@ msgid "Thank you for choosing H5P."
 msgstr "Gracias por elegir H5P."
 
 #: admin/class-h5p-plugin-admin.php:307
-msgid ""
-"You are ready to <a href=\"%s\">start creating</a> interactive content. "
-"Check out our <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
-"page for inspiration."
+msgid "You are ready to <a href=\"%s\">start creating</a> interactive content. Check out our <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> page for inspiration."
 msgstr ""
-"Estás a punto de <a href=\"%s\">comenzar a crear</a> contenido interactivo. "
+"Está a punto de <a href=\"%s\">comenzar a crear</a> contenido interactivo. "
 "Vea nuestra página de <a href=\"%s\" target=\"_blank\">Ejemplos y descargas</"
 "a> para inspiración."
 
 #: admin/class-h5p-plugin-admin.php:311
 msgid "Thank you for staying up to date with H5P."
-msgstr "Gracias por mantenerte actualizado con H5P."
+msgstr "Gracias por mantenerse actualizado con H5P."
 
 #: admin/class-h5p-plugin-admin.php:319
-msgid ""
-"You should <strong>upgrade your H5P content types!</strong> The old content "
-"types still work, but the authoring tool's look and feel is greatly improved "
-"with the new content types. Here's some more info about <a href=\"%s\" "
-"target=\"_blank\">upgrading the content types</a>."
+msgid "You should <strong>upgrade your H5P content types!</strong> The old content types still work, but the authoring tool's look and feel is greatly improved with the new content types. Here's some more info about <a href=\"%s\" target=\"_blank\">upgrading the content types</a>."
 msgstr ""
-"¡Deberías de <strong>actualizar tus tipos de contenido H5P!</strong> Los "
+"¡Debería de <strong>actualizar tus tipos de contenido H5P!</strong> Los "
 "tipos antiguos de contenido aun funcionan, pero el aspecto y uso de las "
 "herramientas de autoría está grandemente mejorado con los nuevos tipos de "
 "contenido. Aquí hay más información acerca de <a href=\"%s\" target=\"_blank"
 "\">actualizar los tipos de contenido</a>."
 
 #: admin/class-h5p-plugin-admin.php:325
-msgid ""
-"H5P now fetches content types directly from the H5P Hub. In order to do "
-"this, the H5P plugin will communicate with H5P.org once per day to fetch "
-"information about new and updated content types. It will send in anonymous "
-"data to the hub about H5P usage. You may disable the data contribution and/"
-"or the H5P Hub in the H5P settings."
+msgid "H5P now fetches content types directly from the H5P Hub. In order to do this, the H5P plugin will communicate with H5P.org once per day to fetch information about new and updated content types. It will send in anonymous data to the hub about H5P usage. You may disable the data contribution and/or the H5P Hub in the H5P settings."
 msgstr ""
 "H5P ahora busca tipos de contenido directamente desde el Hub de H5P. Para "
 "poder hacer esto, el plugin H5P se comunicará con H5P.org una vez al día "
 "para buscar información acerca de tipos de contenido nuevos y actualizados. "
-"enviará datos anónimos al hub acerca del uso de H5P. Tu puedes deshabilitar "
-"la contribución de datos o el hub H5P en las configuraciones de H5P."
+"enviará datos anónimos al hub acerca del uso de H5P. Usted puede "
+"deshabilitar la contribución de datos o el hub H5P en las configuraciones de "
+"H5P."
 
 #: admin/class-h5p-plugin-admin.php:338 admin/views/new-content.php:42
-msgid ""
-"If you need any help you can always file a <a href=\"%s\" target=\"_blank"
-"\">Support Request</a>, check out our <a href=\"%s\" target=\"_blank"
-"\">Forum</a> or join the conversation in the <a href=\"%s\" target=\"_blank"
-"\">H5P Community Chat</a>."
+msgid "If you need any help you can always file a <a href=\"%s\" target=\"_blank\">Support Request</a>, check out our <a href=\"%s\" target=\"_blank\">Forum</a> or join the conversation in the <a href=\"%s\" target=\"_blank\">H5P Community Chat</a>."
 msgstr ""
-"Si necesitas ayuda siempre puedes enviar una <a href=\"%s\" target=\"_blank\""
+"Si necesita ayuda siempre puede enviar una <a href=\"%s\" target=\"_blank\""
 ">Solicitud de Soporte</a>, revisar nuestro <a href=\"%s\" target=\"_blank\""
-">Foro</a> o unirte a la conversación en el <a href=\"%s\" target=\"_blank\""
+">Foro</a> o unirse a la conversación en el <a href=\"%s\" target=\"_blank\""
 ">Chat Comunitario de H5P</a>."
 
 #: admin/class-h5p-plugin-admin.php:396 public/class-h5p-plugin.php:753
@@ -447,10 +422,7 @@ msgid "My Results"
 msgstr "Mis Resultados"
 
 #: admin/class-h5p-plugin-admin.php:592
-msgid ""
-"You're trying to upload content of an older version of H5P. Please upgrade "
-"the content on the server it originated from and try to upload again or turn "
-"on the H5P Hub to have this server upgrade it for your automaticall."
+msgid "You're trying to upload content of an older version of H5P. Please upgrade the content on the server it originated from and try to upload again or turn on the H5P Hub to have this server upgrade it for your automaticall."
 msgstr ""
 "Usted está intentando subir contenido de una versión más antigua de H5P. Por "
 "favor actualice el contenido en el servidor donde se originó y trate de "
@@ -475,7 +447,7 @@ msgstr "Fallo al cargar datos."
 
 #: admin/class-h5p-plugin-admin.php:984
 msgid "There's no data available that matches your criteria."
-msgstr "No hay datos disponibles que coincidan con tus criterios."
+msgstr "No hay datos disponibles que coincidan con sus criterios."
 
 #: admin/class-h5p-plugin-admin.php:985
 msgid "Page $current of $total"
@@ -509,7 +481,7 @@ msgstr "Contenido"
 
 #: admin/class-h5p-plugin-admin.php:1060
 msgid "There are no logged results for your user."
-msgstr "No existen resultados para tu usuario."
+msgstr "No existen resultados para su usuario."
 
 #: admin/class-h5p-privacy-policy.php:55
 msgid "xAPI"
@@ -538,12 +510,7 @@ msgstr ""
 "\"!):"
 
 #: admin/class-h5p-privacy-policy.php:74
-msgid ""
-"We may process and store personal data about your interactions using %s. We "
-"use the data to learn about how well the interactions are designed and how "
-"it could be adapted to improve the usability and your learning outcomes. The "
-"data is processed and stored [on our platform|on an external platform] until "
-"further notice."
+msgid "We may process and store personal data about your interactions using %s. We use the data to learn about how well the interactions are designed and how it could be adapted to improve the usability and your learning outcomes. The data is processed and stored [on our platform|on an external platform] until further notice."
 msgstr ""
 "Nosotros podríamos procesar y almacenar datos personales sobre tus "
 "interacciones usando %s. Nosotros usamos los datos para aprender acerca de "
@@ -553,12 +520,7 @@ msgstr ""
 "hasta nuevo aviso."
 
 #: admin/class-h5p-privacy-policy.php:75
-msgid ""
-"We may store the results of your interactions on our platform until further "
-"notice. The results may contain your score, the maximum score possible, when "
-"you started, when you finished, and how much time you used. We use the "
-"results to learn about how well you performed and to help us give you "
-"feedback."
+msgid "We may store the results of your interactions on our platform until further notice. The results may contain your score, the maximum score possible, when you started, when you finished, and how much time you used. We use the results to learn about how well you performed and to help us give you feedback."
 msgstr ""
 "Nosotros podríamos almacenar los resultados de tus interacciones en nuestra "
 "plataforma hasta nuevo aviso. Los resultados podrían contener tus puntajes, "
@@ -567,10 +529,7 @@ msgstr ""
 "desempeñaste y para ayudarnos a darte retroalimentación."
 
 #: admin/class-h5p-privacy-policy.php:76
-msgid ""
-"We may store interactive content that you create on our platform. We also "
-"may send anonymized reports about content creation without any personal data "
-"to the plugin creators. Please consult the %s page for details."
+msgid "We may store interactive content that you create on our platform. We also may send anonymized reports about content creation without any personal data to the plugin creators. Please consult the %s page for details."
 msgstr ""
 "Nosotros podríamos almacenar contenido interactivo que tú creaste en nuestra "
 "plataforma. Nosotros también podríamos enviar reportes anonimizados acerca "
@@ -578,17 +537,10 @@ msgstr ""
 "Por favor consulta la página %s para los detalles."
 
 #: admin/class-h5p-privacy-policy.php:77
-msgid ""
-"If you use interactive content that contains a video that is hosted on "
-"YouTube, YouTube will set cookies on your computer. YouTube uses these "
-"cookies to help them and their partners to analyze the traffic to their "
-"websites. Please consult %s for details. It is our legitimate interest to "
-"use YouTube, because we we need their services for our interactive content "
-"and would not be able to provide you with their video content features "
-"otherwise."
+msgid "If you use interactive content that contains a video that is hosted on YouTube, YouTube will set cookies on your computer. YouTube uses these cookies to help them and their partners to analyze the traffic to their websites. Please consult %s for details. It is our legitimate interest to use YouTube, because we we need their services for our interactive content and would not be able to provide you with their video content features otherwise."
 msgstr ""
-"Si usas contenido interactivo que contiene un vídeo que está alojado en "
-"YouTube, YouTube configurará cookies en tu computadora. YouTube usa estas "
+"Si usa contenido interactivo que contiene un vídeo que está alojado en "
+"YouTube, YouTube configurará cookies en su computadora. YouTube usa estas "
 "cookies para ayudarles y ayudar a sus socios a analizar el tráfico a sus "
 "sitios web. Por favor consulta %s para los detalles. En nuestro interés "
 "legítimo el usar YouTube, porque nosotros necesitamos de sus servicios para "
@@ -596,34 +548,23 @@ msgstr ""
 "características de contenido de vídeo de otra manera."
 
 #: admin/class-h5p-privacy-policy.php:78
-msgid ""
-"If you use interactive content that contains a Twitter feed, Twitter will "
-"set a cookie on your computer. Twitter uses these cookies to help them and "
-"their partners to make their advertizing more relevant to you. Please "
-"consult %s for details. It is our legitimate interest to use Twitter, "
-"because we need their services for our interactive content and would not be "
-"able to provide you with it otherwise."
+msgid "If you use interactive content that contains a Twitter feed, Twitter will set a cookie on your computer. Twitter uses these cookies to help them and their partners to make their advertizing more relevant to you. Please consult %s for details. It is our legitimate interest to use Twitter, because we need their services for our interactive content and would not be able to provide you with it otherwise."
 msgstr ""
-"Si usas contendido interactivo que contiene un canal de Twitter, Twitter "
-"configurará una cookie en tu computadora. Twitter usa estas cookies para "
-"ayudarles y ayudar a sus socios a hacer sus anuncios más relevantes para tí. "
-"Por favor consulta %s para los detalles. Es nuestro legítimo interés usar "
+"Si usa contendido interactivo que contiene un canal de Twitter, Twitter "
+"configurará una cookie en su computadora. Twitter usa estas cookies para "
+"ayudarle y ayudar a sus socios a hacer sus anuncios más relevantes para tí. "
+"Por favor consulte %s para los detalles. Es nuestro legítimo interés usar "
 "Twitter, porque necesitamos sus servicios para nuestro contenido interactivo "
 "y no podríamos proporcionártelo de otra manera."
 
 #: admin/class-h5p-privacy-policy.php:79
-msgid ""
-"If you use interactive content that contains speech recognition, Google "
-"Cloud will process your voice for converting it to text. Please consult %s "
-"for details. It is our legitimate interest to use Google Cloud, because we "
-"we need their services for our interactive content and would not be able to "
-"provide you with speech recognition features otherwise."
+msgid "If you use interactive content that contains speech recognition, Google Cloud will process your voice for converting it to text. Please consult %s for details. It is our legitimate interest to use Google Cloud, because we we need their services for our interactive content and would not be able to provide you with speech recognition features otherwise."
 msgstr ""
-"Si usas contenido interactivo que contiene reconocimiento del habla, Google "
-"Cloud procesará tu voz para convertirla en texto. Por favor consulta %s para "
+"Si usa contenido interactivo que contiene reconocimiento del habla, Google "
+"Cloud procesará su voz para convertirla en texto. Por favor consulte %s para "
 "los detalles. Es nuestro legítimo interés usar Google Cloud, porque "
 "necesitamos sus servicios para nuestro contenido interactivo y no podríamos "
-"proporcionarte las características de reconocimiento del habla de otra "
+"proporcionarle las características de reconocimiento del habla de otra "
 "manera."
 
 #: admin/class-h5p-privacy-policy.php:260
@@ -726,13 +667,10 @@ msgid "Content Type Cache"
 msgstr "Caché de Tipo de Contenido"
 
 #: admin/views/libraries.php:20
-msgid ""
-"Making sure the content type cache is up to date will ensure that you can "
-"view, download and use the latest libraries. This is different from updating "
-"the libraries themselves."
+msgid "Making sure the content type cache is up to date will ensure that you can view, download and use the latest libraries. This is different from updating the libraries themselves."
 msgstr ""
 "El asegurarse de que la caché del tipo de contenido esté actualizada "
-"asegurará que tú puedas ver, descargar y usar las bibliotecas más recientes. "
+"asegurará que tú pueda ver, descargar y usar las bibliotecas más recientes. "
 "Esto es diferente de actualizar las bibliotecas misma."
 
 #: admin/views/libraries.php:24
@@ -748,13 +686,11 @@ msgid "Upload Libraries"
 msgstr "Subir Bibliotecas"
 
 #: admin/views/libraries.php:55
-msgid ""
-"Here you can upload new libraries or upload updates to existing libraries. "
-"Files uploaded here must be in the .h5p file format."
+msgid "Here you can upload new libraries or upload updates to existing libraries. Files uploaded here must be in the .h5p file format."
 msgstr ""
-"Aquí puedes subir nuevas bibliotecas o subir actualizaciones para las "
-"bibliotecas existentes. Los ficheros subidos aquí deben tener el formato de "
-"fichero .h5p."
+"Aquí puede subir nuevas bibliotecas o subir actualizaciones para las "
+"bibliotecas existentes. Los archivos subidos aquí deben tener el formato de "
+"archivo .h5p."
 
 #: admin/views/libraries.php:58
 msgid "Only update existing libraries"
@@ -762,19 +698,15 @@ msgstr "Solo actualizar bibliotecas existentes"
 
 #: admin/views/libraries.php:61 admin/views/new-content.php:33
 msgid "Disable file extension check"
-msgstr "Desactivar comprobación de extensión de fichero"
+msgstr "Desactivar comprobación de extensión de archivo"
 
 #: admin/views/libraries.php:62 admin/views/new-content.php:34
-msgid ""
-"Warning! This may have security implications as it allows for uploading php "
-"files. That in turn could make it possible for attackers to execute "
-"malicious code on your site. Please make sure you know exactly what you're "
-"uploading."
+msgid "Warning! This may have security implications as it allows for uploading php files. That in turn could make it possible for attackers to execute malicious code on your site. Please make sure you know exactly what you're uploading."
 msgstr ""
 "¡Advertencia! Esto puede tener implicaciones de seguridad porque permite "
-"subir ficheros php. Esto a su vez podría hacer posible para los atacantes "
-"ejecutar código malicioso en su sitio. Por favor, asegúrate de que sabes "
-"exactamente lo que estás subiendo."
+"subir archivos php. Esto a su vez podría hacer posible para los atacantes "
+"ejecutar código malicioso en su sitio. Por favor, asegúrese de que sabe "
+"exactamente lo que está subiendo."
 
 #: admin/views/libraries.php:68 admin/views/new-content.php:49
 msgid "Upload"
@@ -790,11 +722,11 @@ msgstr "Actualizar contenido %s %d.%d.%d"
 
 #: admin/views/library-content-upgrade.php:19
 msgid "Please enable JavaScript."
-msgstr "Por favor, activa JavaScript."
+msgstr "Por favor, active JavaScript."
 
 #: admin/views/library-delete.php:16
 msgid "Are you sure you wish to delete this H5P library?"
-msgstr "¿Estás seguro que quieres eliminar esta biblioteca H5P?"
+msgstr "¿Está seguro que quiere eliminar esta biblioteca H5P?"
 
 #: admin/views/library-delete.php:18
 msgid "Do it!"
@@ -805,14 +737,10 @@ msgid "Waiting for javascript..."
 msgstr "Esperando a JavaScript..."
 
 #: admin/views/new-content.php:41
-msgid ""
-"It looks like there are no content types installed. You can get the ones you "
-"want by using the small 'Download' button in the lower left corner on any "
-"example from the <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> "
-"page and then you upload the file here."
+msgid "It looks like there are no content types installed. You can get the ones you want by using the small 'Download' button in the lower left corner on any example from the <a href=\"%s\" target=\"_blank\">Examples and Downloads</a> page and then you upload the file here."
 msgstr ""
-"Al parecer no hay tipos de contenido instalados. Puedes obtener los que "
-"quieras al usar el pequeño botón para 'Descargar' en la esquina inferior "
+"Al parecer no hay tipos de contenido instalados. Puede obtener los que "
+"quiera al usar el pequeño botón para 'Descargar' en la esquina inferior "
 "izquierda de cualquier ejemplo de la página de <a href=\"%s\" target=\"_blank"
 "\">Ejemplos y Descargas</a> y entonces subir aquí el archivo."
 
@@ -833,9 +761,7 @@ msgid "Display toolbar below content"
 msgstr "Mostrar barra de herramientas debajo del contenido"
 
 #: admin/views/new-content.php:74
-msgid ""
-"If checked a reuse button will always be displayed for this content and "
-"allow users to download the content as an .h5p file"
+msgid "If checked a reuse button will always be displayed for this content and allow users to download the content as an .h5p file"
 msgstr ""
 "Si se activa, un botón para re-utilizar siempre será mostrado para este "
 "contenido y le permite a los usuarios el descargar el contenido como un "
@@ -871,9 +797,7 @@ msgid "Controlled by author - on by default"
 msgstr "Controlado por autor - activado por defecto"
 
 #: admin/views/settings.php:31
-msgid ""
-"By default, a toolbar with 4 buttons is displayed below each interactive "
-"content."
+msgid "By default, a toolbar with 4 buttons is displayed below each interactive content."
 msgstr ""
 "De forma predeterminada, una barra de herramientas con 4 botones es mostrada "
 "debajo de cada contenido interactivo."
@@ -900,9 +824,7 @@ msgid "Controlled by author - off by default"
 msgstr "Controlado por autor - desactivado por defecto"
 
 #: admin/views/settings.php:56
-msgid ""
-"Setting this to 'Never' will reduce the amount of disk space required for "
-"interactive content."
+msgid "Setting this to 'Never' will reduce the amount of disk space required for interactive content."
 msgstr ""
 "Configurar esto a 'Nunca' reducirá la cantidad de espacio de disco requerido "
 "para contenido interactivo."
@@ -922,7 +844,7 @@ msgstr "Resultados del Usuario"
 
 #: admin/views/settings.php:108
 msgid "Log results for signed in users"
-msgstr "Guardar resultados para usuarios identificados"
+msgstr "Guardar resultados para usuarios ingresados al sitio"
 
 #: admin/views/settings.php:113
 msgid "Save Content State"
@@ -930,7 +852,7 @@ msgstr "Guardar Estado del Contenido"
 
 #: admin/views/settings.php:117
 msgid "Allow logged-in users to resume tasks"
-msgstr "Permitir a usuarios identificados continuar tareas"
+msgstr "Permitir a usuarios ingresados al sitio continuar tareas"
 
 #: admin/views/settings.php:120
 msgid "Auto-save frequency (in seconds)"
@@ -950,10 +872,7 @@ msgstr ""
 "Si, mostrar solamente los contenidos del usuario de forma predeterminada"
 
 #: admin/views/settings.php:141
-msgid ""
-"Allow to restrict the view of H5P contents to the current user's content. "
-"The setting has no effect if the user is not allowed to see other users' "
-"content."
+msgid "Allow to restrict the view of H5P contents to the current user's content. The setting has no effect if the user is not allowed to see other users' content."
 msgstr ""
 "Permitir restringir la vista de contenidos H5P al contenido del usuario "
 "actual. Esta configuración no tiene efecto si el usuario no tiene permitido "
@@ -964,8 +883,7 @@ msgid "Add Content Method"
 msgstr "Método para Añadir Contenido"
 
 #: admin/views/settings.php:148
-msgid ""
-"When adding H5P content to posts and pages using the \"Add H5P\" button:"
+msgid "When adding H5P content to posts and pages using the \"Add H5P\" button:"
 msgstr ""
 "Cuando se añada contenido H5P a publicaciones y páginas usando el botón "
 "\"Añadir H5P\":"
@@ -987,9 +905,7 @@ msgid "Enable LRS dependent content types"
 msgstr "Habilitar tipos de contenido dependiente de LRS"
 
 #: admin/views/settings.php:176
-msgid ""
-"Makes it possible to use content types that rely upon a Learning Record "
-"Store to function properly, like the Questionnaire content type."
+msgid "Makes it possible to use content types that rely upon a Learning Record Store to function properly, like the Questionnaire content type."
 msgstr ""
 "Hace posible usar tipos de contenido que dependen de una 'Learning Record "
 "Store' (Almacén de Registro de Aprendizaje) para funcionar apropiadamente, "
@@ -1000,15 +916,10 @@ msgid "Use H5P Hub"
 msgstr "Usar Hub H5P"
 
 #: admin/views/settings.php:188
-msgid ""
-"It's strongly encouraged to keep this option <strong>enabled</strong>. The "
-"H5P Hub provides an easy interface for getting new content types and keeping "
-"existing content types up to date. In the future, it will also make it "
-"easier to share and reuse content. If this option is disabled you'll have to "
-"install and update content types through file upload forms."
+msgid "It's strongly encouraged to keep this option <strong>enabled</strong>. The H5P Hub provides an easy interface for getting new content types and keeping existing content types up to date. In the future, it will also make it easier to share and reuse content. If this option is disabled you'll have to install and update content types through file upload forms."
 msgstr ""
 "Se recomienda encarecidamente mantener esta opción <strong>habilitada</"
-"strong>. El Hub H5Pproporciona una interfaz fácil para obtener nuevos tipos "
+"strong>. El Hub H5P proporciona una interfaz fácil para obtener nuevos tipos "
 "de contenido y mantener actualizados los tipos de contenido existentes. "
 "También hará más fácil el compartir y reutilizar contenido. Si esta opción "
 "está deshabilitada, tendrás que instalar y actualizar tipos de contenido "
@@ -1023,15 +934,11 @@ msgid "Automatically contribute usage statistics"
 msgstr "Contribuir automáticamente estadísticas de uso"
 
 #: admin/views/settings.php:210
-msgid ""
-"Usage statistics numbers will automatically be reported to help the "
-"developers better understand how H5P is used and to determine potential "
-"areas of improvement. Read more about which <a href=\"%s\" target=\"_blank"
-"\">data is collected on h5p.org</a>."
+msgid "Usage statistics numbers will automatically be reported to help the developers better understand how H5P is used and to determine potential areas of improvement. Read more about which <a href=\"%s\" target=\"_blank\">data is collected on h5p.org</a>."
 msgstr ""
 "Las estadísticas de uso serán informadas automáticamente para ayudar a los "
 "desarrolladores a comprender mejor cómo es usado H5P y para determinar áreas "
-"potenciales de mejora. Lee más acerca de cuales <a href=\"%s\" target="
+"potenciales de mejora. Lea más acerca de cuales <a href=\"%s\" target="
 "\"_blank\">datos son colectados en h5p.org</a>."
 
 #: admin/views/show-content.php:30
@@ -1043,9 +950,7 @@ msgid "What's next?"
 msgstr "¿Qué sigue?"
 
 #: admin/views/show-content.php:33
-msgid ""
-"You can use the following shortcode to insert this interactive content into "
-"posts, pages, widgets, templates etc."
+msgid "You can use the following shortcode to insert this interactive content into posts, pages, widgets, templates etc."
 msgstr ""
 "Puedes usar el código corto siguiente para insertar este contenido "
 "interactivo en publicaciones, páginas, widgets, plantillas, etc."
@@ -1059,17 +964,13 @@ msgid "Before you start"
 msgstr "Antes de que comience"
 
 #: admin/views/user-consent.php:19
-msgid ""
-"To be able to start creating interactive content you must first install at "
-"least one content type."
+msgid "To be able to start creating interactive content you must first install at least one content type."
 msgstr ""
 "Para poder comenzar a crear contenido interactivo necesitas primeramente "
 "instalar al menos un tipo de contenido."
 
 #: admin/views/user-consent.php:20
-msgid ""
-"The H5P Hub is here to simplify this process by automatically installing the "
-"content types you choose and providing updates for those already installed."
+msgid "The H5P Hub is here to simplify this process by automatically installing the content types you choose and providing updates for those already installed."
 msgstr ""
 "El Hub H5P está aquí para simplificar este proceso al instalar "
 "automáticamente los tipos de contenido que elijas y proporcionar "
@@ -1077,19 +978,16 @@ msgstr ""
 
 #: admin/views/user-consent.php:22
 msgid ""
-"In order for the H5P Hub to be able to do this, communication with H5P.org "
-"is required.<br/>\n"
-"        As this will provide H5P.org with anonymous data on how H5P is used "
-"we kindly ask for your consent before proceeding.<br/>\n"
-"        You can read more on <a href=\"%s\" target=\"_blank\">the plugin "
-"communication page</a>."
+"In order for the H5P Hub to be able to do this, communication with H5P.org is required.<br/>\n"
+"        As this will provide H5P.org with anonymous data on how H5P is used we kindly ask for your consent before proceeding.<br/>\n"
+"        You can read more on <a href=\"%s\" target=\"_blank\">the plugin communication page</a>."
 msgstr ""
 "Para que el Hub H5P pueda hacer esto, se necesita comunicación con H5P.org.<"
 "br/>\n"
 "        Como esto le proporcionará a H5P.org datos anónimos acerca de cómo "
-"es usado H5P nosotros amablemente te pedimos que des tu consentimiento antes "
+"es usado H5P nosotros amablemente le pedimos que de su consentimiento antes "
 "de proceder.<br/>\n"
-"        Puedes leer más al respecto en <a href=\"%s\" target=\"_blank\">la "
+"        Puede leer más al respecto en <a href=\"%s\" target=\"_blank\">la "
 "página de comunicación del plugin</a>."
 
 #: admin/views/user-consent.php:26
@@ -1125,12 +1023,10 @@ msgid "http://h5p.org/wordpress"
 msgstr "http://h5p.org/wordpress"
 
 #. Description of the plugin/theme
-msgid ""
-"Allows you to upload, create, share and use rich interactive content on your "
-"WordPress site."
+msgid "Allows you to upload, create, share and use rich interactive content on your WordPress site."
 msgstr ""
-"Te permite subir, crear, compartir y usar contenido interactivo enriquecido "
-"en tu sitio de WordPress."
+"Le permite subir, crear, compartir y usar contenido interactivo enriquecido "
+"en su sitio de WordPress."
 
 #. Author of the plugin/theme
 msgid "Joubel"
@@ -1139,390 +1035,3 @@ msgstr "Joubel"
 #. Author URI of the plugin/theme
 msgid "http://joubel.com"
 msgstr "http://joubel.com"
-
-#~ msgid "Unable to create directory."
-#~ msgstr "No se puede crear el directorio."
-
-#~ msgid "Unable to get field type."
-#~ msgstr "No se puede obtener el tipo de campo."
-
-#~ msgid "File type isn't allowed."
-#~ msgstr "Tipo de fichero no permitido."
-
-#~ msgid "Invalid field type."
-#~ msgstr "Tipo de campo no válido."
-
-#~ msgid "Invalid image file format. Use jpg, png or gif."
-#~ msgstr "Tipo de formato no permitido. Utiliza jpg, png o gif."
-
-#~ msgid "File is not an image."
-#~ msgstr "El fichero no es una imagen."
-
-#~ msgid "Invalid audio file format. Use mp3 or wav."
-#~ msgstr "Tipo de formato no permitido. Utiliza mp3 o wav."
-
-#~ msgid "Invalid video file format. Use mp4 or webm."
-#~ msgstr "Tipo de formato no permitido. Utiliza mp4 o webm."
-
-#~ msgid "Could not copy file."
-#~ msgstr "No se puede copiar la imagen."
-
-#~ msgid "Content type upgrades are here!"
-#~ msgstr "Las actualizaciones de tipo de contenido están aquí!"
-
-#, php-format
-#~ msgid ""
-#~ "If you've just upgraded you plugin, you should install the <a href=\"%s\" "
-#~ "target=\"_blank\">lastest version</a> of your content types."
-#~ msgstr ""
-#~ "Si has actualizado tu plugin, debes instalar <a href=\"%s\" target="
-#~ "\"_blank\">la última versiónn</a> de tu tipo de contenido."
-
-#~ msgid ""
-#~ "In order to take advantage of this plugin you must first select and "
-#~ "download the H5P content types you wish to use."
-#~ msgstr ""
-#~ "Para poder utilizar este plugin primero debes descargar el tipo de "
-#~ "contenido H5P que quieras usar."
-
-#~ msgid "Here is a short guide to get you started:"
-#~ msgstr "Aquí tienes una pequeña guía para empezar:"
-
-#, php-format
-#~ msgid ""
-#~ "Select and download the desired content types from <a href=\"%s\" target="
-#~ "\"_blank\">H5P.org</a>."
-#~ msgstr ""
-#~ "Selecciona y descarga los tipos de contenido que desees desde <a href=\"%s"
-#~ "\" target=\"_blank\">H5P.org</a>."
-
-#, php-format
-#~ msgid ""
-#~ "Upload the content types through the <a href=\"%s\" target=\"_blank\">Add "
-#~ "new</a> page on your WordPress installation."
-#~ msgstr ""
-#~ "Sube los tipos de contenido desde <a href=\"%s\" target=\"_blank\">Añadir "
-#~ "nuevo</a> en la página de tu instalación de WordPress."
-
-#, php-format
-#~ msgid ""
-#~ "Start creating your own interactive content through the <a href=\"%s\" "
-#~ "target=\"_blank\">Add new</a> page."
-#~ msgstr ""
-#~ "Empieza creando tu contenido interactivo desde la página <a href=\"%s\" "
-#~ "target=\"_blank\">Añadir nuevo</a>."
-
-#, php-format
-#~ msgid ""
-#~ "If you need help getting started you can file a <a href=\"%s\" target="
-#~ "\"_blank\">support request</a>, check out our <a href=\"%s\" target="
-#~ "\"_blank\">forum</a> or join our IRC channel #H5P on Freenode."
-#~ msgstr ""
-#~ "Si necesitas ayuda para empezar puedes pedir una <a href=\"%s\" target="
-#~ "\"_blank\">petición de soporte</a> visitando nuestro <a href=\"%s\" "
-#~ "target=\"_blank\">forum</a>o en nuestro canal IRC #H5P desde Freenode."
-
-#~ msgid "The following libraries are outdated and should be upgraded:"
-#~ msgstr "Las siguientes librerías deberían actualizarse a la última versión:"
-
-#~ msgid "To upgrade all the installed libraries, do the following:"
-#~ msgstr "Para actualizar todas las librerías instaladas, haz lo siguiente:"
-
-#, php-format
-#~ msgid "Download %s."
-#~ msgstr "Descarga %s."
-
-#, php-format
-#~ msgid "Select the downloaded <em> %s</em> file in the form below."
-#~ msgstr ""
-#~ "Selecciona el fichero <em> %s</em> descargado en el formulario de abajo."
-
-#~ msgid ""
-#~ "Check off \"Only update existing libraries\" and click the <em>Upload</"
-#~ "em> button."
-#~ msgstr ""
-#~ "Desmarca \"Solo actualizar librerías existentes\" y clica en el botón de "
-#~ "<em>Subir</em>."
-
-#~ msgid "Error, could not library semantics!"
-#~ msgstr "Error, impossibile leer semantics de la librería!"
-
-#~ msgid "Created"
-#~ msgstr "Creado"
-
-#~ msgid "Unable to create content directory."
-#~ msgstr "No se puede crear el directorio del contenido."
-
-#~ msgid "Insert H5P Content"
-#~ msgstr "Insertar contenido H5P"
-
-#~ msgid "Enter title here"
-#~ msgstr "Introduce el título"
-
-#~ msgid "Display buttons (download, embed and copyright)"
-#~ msgstr "Mostrar barra de acción y marco"
-
-#~ msgid "Download button"
-#~ msgstr "Botón de descarga"
-
-#~ msgid "Embed button"
-#~ msgstr "Botón de incrustado"
-
-#~ msgid "Copyright button"
-#~ msgstr "Botón de copyright"
-
-#~ msgid "Action bar"
-#~ msgstr "Barra de acción"
-
-#~ msgid "About H5P button"
-#~ msgstr "Botón acerca de H5P"
-
-#~ msgid "User Tracking"
-#~ msgstr "Seguimiento del usuario"
-
-#~ msgid "Library updates"
-#~ msgstr "Actualizaciones de librerías"
-
-#~ msgid "Fetch information about updates for your H5P content types"
-#~ msgstr ""
-#~ "Obtener información sobre actualizaciones de tus tipos de contenido H5P."
-
-#~ msgid "Save content state"
-#~ msgstr "Grabar estado del contenido"
-
-#~ msgid "Installed"
-#~ msgstr "Instalado"
-
-#~ msgid "Unable to write to the content directory."
-#~ msgstr "No se puede escribir en el directorio del contenido."
-
-#~ msgid "Unable to write to the libraries directory."
-#~ msgstr "No se puede escribir en el directorio de las librerías."
-
-#~ msgid "Your PHP version does not support ZipArchive."
-#~ msgstr "Tu versión de PHP no soporta ZipArchive."
-
-#~ msgid "Unable to write to the temporary directory."
-#~ msgstr "No se puede escribir en el directorio temporal."
-
-#~ msgid ""
-#~ "The file you uploaded is not a valid HTML5 Package (It does not have the ."
-#~ "h5p file extension)"
-#~ msgstr ""
-#~ "El fichero que has subido no es un paquete HTML5 válido (No tiene la "
-#~ "extensión .h5p)"
-
-#~ msgid ""
-#~ "The file you uploaded is not a valid HTML5 Package (We are unable to "
-#~ "unzip it)"
-#~ msgstr ""
-#~ "El fichero que has subido no es un paquete HTML5 válido (No se puede "
-#~ "descomprimir)"
-
-#~ msgid "Could not parse the main h5p.json file"
-#~ msgstr "No se puede parsear el fichero principal h5p.json"
-
-#~ msgid "The main h5p.json file is not valid"
-#~ msgstr "El fichero principal h5p.json no es válido"
-
-#~ msgid "Invalid content folder"
-#~ msgstr "Directorio de contenido no válido"
-
-#~ msgid "Could not find or parse the content.json file"
-#~ msgstr "No se encuentra el fichero content.json"
-
-#~ msgid ""
-#~ "Library directory name must match machineName or machineName-majorVersion."
-#~ "minorVersion (from library.json). (Directory: %directoryName , "
-#~ "machineName: %machineName, majorVersion: %majorVersion, minorVersion: "
-#~ "%minorVersion)"
-#~ msgstr ""
-#~ "El nombre del directorio debe ser de la forma machineNameo machineName-"
-#~ "majorVersion.minorVersion (de library.json). (Directorio: "
-#~ "%directoryName , machineName: %machineName, majorVersion: %majorVersion, "
-#~ "minorVersion: %minorVersion)"
-
-#~ msgid "A valid content folder is missing"
-#~ msgstr "Falta un directorio de contenido válido"
-
-#~ msgid "A valid main h5p.json file is missing"
-#~ msgstr "Falta un fichero principal h5p.json válido"
-
-#~ msgid "Missing required library @library"
-#~ msgstr "Librería @library requerida no encontrada"
-
-#~ msgid ""
-#~ "Note that the libraries may exist in the file you uploaded, but you're "
-#~ "not allowed to upload new libraries. Contact the site administrator about "
-#~ "this."
-#~ msgstr ""
-#~ "Ten en cuenta que las librerías pueden existir en el fichero que has "
-#~ "subido, pero no estás autorizado a subir nuevas librerías. Contacta al "
-#~ "administrador del sitio para esto."
-
-#~ msgid "Invalid library name: %name"
-#~ msgstr "Nombre de librería no válido: %name"
-
-#~ msgid ""
-#~ "Could not find library.json file with valid json format for library %name"
-#~ msgstr ""
-#~ "No se puede encontrar un fichero library.son válido para la librería %name"
-
-#~ msgid "Invalid semantics.json file has been included in the library %name"
-#~ msgstr ""
-#~ "Un fichero semantics.json no válido ha sido incluido en la librería %name"
-
-#~ msgid "Invalid language file %file in library %library"
-#~ msgstr "Fichero de idioma %file no válido en la librería %library"
-
-#~ msgid ""
-#~ "Invalid language file %languageFile has been included in the library %name"
-#~ msgstr ""
-#~ "El fichero de idioma %languageFile ha sido incluido en la librería %name"
-
-#~ msgid "The file \"%file\" is missing from library: \"%name\""
-#~ msgstr "El fichero \"%file\" falta en la librería: \"%name\""
-
-#~ msgid ""
-#~ "The library \"%libraryName\" requires H5P %requiredVersion, but only H5P "
-#~ "%coreApi is installed."
-#~ msgstr ""
-#~ "La librería  \"%libraryName\" requiere la versión %requiredVersion de "
-#~ "H5P, pero solamente está instalada la API %coreApi de H5P."
-
-#~ msgid "Invalid data provided for %property in %library. Boolean expected."
-#~ msgstr ""
-#~ "Valor no válido par ala propiedad %property en %library. Se esperaba un "
-#~ "booleano."
-
-#~ msgid "Invalid data provided for %property in %library"
-#~ msgstr "Valor no válido par ala propiedad %property en %library."
-
-#~ msgid "Can't read the property %property in %library"
-#~ msgstr "No se puede leer la propiedad %property en %library"
-
-#~ msgid "The required property %property is missing from %library"
-#~ msgstr "La propiedad requerida  %property no existe en %library"
-
-#~ msgid "Illegal option %option in %library"
-#~ msgstr "Opción %option no válida en %library"
-
-#~ msgid "Added %new new H5P libraries and updated %old old."
-#~ msgstr "Añadido %new nuevas librerías y actualizadas %old."
-
-#~ msgid "Added %new new H5P libraries."
-#~ msgstr "Añadidas %new nuevas librerías."
-
-#, php-format
-#~ msgid "Updated %old H5P libraries."
-#~ msgstr "Actualizadas %old librerías H5P."
-
-#~ msgid "Unable to write to the exports directory."
-#~ msgstr "No se puede escribir en el directorio de exportaciones."
-
-#~ msgid "Missing dependency @dep required by @lib."
-#~ msgstr "No se encuentra la dependencia @dep requerida por @lib."
-
-#~ msgid "Unable to copy file tree."
-#~ msgstr "No se puede copiar el árbol de ficheros."
-
-#~ msgid ""
-#~ "Provided string is not valid according to regexp in semantics. (value: "
-#~ "\"%value\", regexp: \"%regexp\")"
-#~ msgstr ""
-#~ "La cadena suministrada no es válida de acuerdo con la regexp en "
-#~ "semantics. (valor: \"%value\", regexp: \"%regexp\")"
-
-#, php-format
-#~ msgid ""
-#~ "File \"%filename\" not allowed. Only files with the following extensions "
-#~ "are allowed: %files-allowed."
-#~ msgstr ""
-#~ "El fichero \"%filename\" no está permitido. Solo se permiten ficheros con "
-#~ "las extensiones siguientes: %files-allowed."
-
-#~ msgid "Invalid selected option in multiselect."
-#~ msgstr "La opción seleccionada en el multiselect no es válida."
-
-#~ msgid "Invalid selected option in select."
-#~ msgstr "La opción seleccionada en el select no es válida."
-
-#~ msgid ""
-#~ "H5P internal error: unknown content type \"@type\" in semantics. Removing "
-#~ "content!"
-#~ msgstr ""
-#~ "Error interno de H5P: tipo de contenido \"@type\"  en semantics no "
-#~ "válido. ¡Eliminando contenido!"
-
-#~ msgid ""
-#~ "Library used in content is not a valid library according to semantics"
-#~ msgstr ""
-#~ "La librería utilizada en el contenido no es una librería válida según "
-#~ "semantics."
-
-#~ msgid "Disable fullscreen"
-#~ msgstr "Deshabilitar pantalla completa."
-
-#~ msgid "Download"
-#~ msgstr "Descargar"
-
-#~ msgid "Rights of use"
-#~ msgstr "Condiciones de uso"
-
-#~ msgid "Embed"
-#~ msgstr "Incrustar"
-
-#~ msgid "Size"
-#~ msgstr "Medida"
-
-#~ msgid "Show advanced"
-#~ msgstr "Mostrar avanzado"
-
-#~ msgid "Hide advanced"
-#~ msgstr "Ocultar avanzado"
-
-#~ msgid ""
-#~ "Include this script on your website if you want dynamic sizing of the "
-#~ "embedded content:"
-#~ msgstr ""
-#~ "Incluye este script en tu sitio web si quieres que la medida sea dinámica "
-#~ "para tu contenido incrustado:"
-
-#~ msgid "Close"
-#~ msgstr "Cerrar"
-
-#~ msgid "Year"
-#~ msgstr "Año"
-
-#~ msgid "Source"
-#~ msgstr "Origen"
-
-#~ msgid "License"
-#~ msgstr "Licencia"
-
-#~ msgid "Thumbnail"
-#~ msgstr "Miniatura"
-
-#~ msgid "No copyright information available for this content."
-#~ msgstr "No existe información de copyright para este contenido."
-
-#~ msgid "Download this content as a H5P file."
-#~ msgstr "Descargar este contenido como un fichero H5P."
-
-#~ msgid "View copyright information for this content."
-#~ msgstr "Ver información de copyright para este contenido."
-
-#~ msgid "View the embed code for this content."
-#~ msgstr "Ver el código de incrustado para este contenido."
-
-#~ msgid "Visit H5P.org to check out more cool content."
-#~ msgstr "Visita H5P.org para obtener más información."
-
-#~ msgid "This content has changed since you last used it."
-#~ msgstr "Este contenido ha cambiado desde la última vez que lo utilizaste."
-
-#~ msgid "You'll be starting over."
-#~ msgstr "Vas a empezar de nuevo."
-
-#~ msgid "Invalid json in semantics for %library"
-#~ msgstr "Fichero semantics.JSON no válido en %library"

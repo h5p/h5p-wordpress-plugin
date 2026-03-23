@@ -17,6 +17,7 @@
  */
 class H5PLibraryAdmin {
 
+  use H5PUtils;
   /**
    * @since 1.1.0
    */
@@ -49,7 +50,7 @@ class H5PLibraryAdmin {
    * @return string
    */
   public function alter_title($page, $admin_title, $title) {
-    $task = filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING);
+    $task = $this->sanitize_input('task');
 
     // Find library title
     $show = ($task === 'show');
@@ -111,7 +112,7 @@ class H5PLibraryAdmin {
    * @since 1.1.0
    */
   public function display_libraries_page() {
-    switch (filter_input(INPUT_GET, 'task', FILTER_SANITIZE_STRING)) {
+    switch ($this->sanitize_input('task')) {
       case NULL:
         $this->display_libraries();
         return;
@@ -239,7 +240,7 @@ class H5PLibraryAdmin {
     H5P_Plugin_Admin::add_script('library-list', 'h5p-php-library/js/h5p-library-list.js');
 
     // Load content type cache time
-    $last_update = get_option('h5p_content_type_cache_updated_at', '');
+    $last_update = get_site_option('h5p_content_type_cache_updated_at', '');
     $hubOn = get_option('h5p_hub_is_enabled', TRUE);
 
     include_once('views/libraries.php');
@@ -518,6 +519,7 @@ class H5PLibraryAdmin {
     }
     H5P_Plugin_Admin::add_style('h5p', 'h5p-php-library/styles/h5p.css');
     H5P_Plugin_Admin::add_style('admin', 'h5p-php-library/styles/h5p-admin.css');
+    H5P_Plugin_Admin::add_style('fonts', 'h5p-php-library/styles/h5p-fonts.css');
   }
 
   /**

@@ -47,6 +47,12 @@ class H5P_Plugin_Admin {
    */
   private $library = NULL;
 
+    /**
+     * Keep track of the current privacy policy.
+     * @since 1.1.0
+     */
+  private $privacy = NULL;
+
   /**
    * Initialize the plugin by loading admin scripts & styles and adding a
    * settings page and menu.
@@ -164,6 +170,7 @@ class H5P_Plugin_Admin {
   public function embed() {
     // Allow other sites to embed
     header_remove('X-Frame-Options');
+    header_remove('Content-Security-Policy');
 
     // Find content
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -350,7 +357,7 @@ class H5P_Plugin_Admin {
       // Print all messages
       ?><div class="updated"><?php
       foreach ($messages as $message) {
-        ?><p><?php print $message; ?></p><?php
+        ?><p><?php print wp_kses_post($message); ?></p><?php
       }
       ?></div><?php
     }
@@ -530,6 +537,7 @@ class H5P_Plugin_Admin {
     H5P_Plugin_Admin::add_style('h5p-confirmation-dialog-css', 'h5p-php-library/styles/h5p-confirmation-dialog.css');
     H5P_Plugin_Admin::add_style('h5p-css', 'h5p-php-library/styles/h5p.css');
     H5P_Plugin_Admin::add_style('h5p-core-button-css', 'h5p-php-library/styles/h5p-core-button.css');
+    H5P_Plugin_Admin::add_style('h5p-fonts', 'h5p-php-library/styles/h5p-fonts.css');
 
     new H5P_Event('settings');
   }
@@ -544,7 +552,8 @@ class H5P_Plugin_Admin {
    * @return string
    */
   public function alter_title($admin_title, $title) {
-    $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
+    $page = filter_input(INPUT_GET, 'page');
+    $page = htmlspecialchars($page ?? '', ENT_QUOTES, 'UTF-8');
 
     switch ($page) {
       case 'h5p':
@@ -695,7 +704,8 @@ class H5P_Plugin_Admin {
       if (!empty($messages)) {
         print '<div class="' . ($type === 'info' ? 'updated' : $type) . '"><ul>';
         foreach ($messages as $message) {
-          print '<li>' . ($type === 'error' ? $message->message : $message) . '</li>';
+          $output = $type === 'error' ? $message->message : $message;
+          print '<li>' . wp_kses_post($output) . '</li>';
         }
         print '</ul></div>';
       }
@@ -886,14 +896,16 @@ class H5P_Plugin_Admin {
     $joins = '';
     $query_args = array();
 
+    $append_user_name = false;
+
     // Add extra fields and joins for the different result lists
     if ($content_id === NULL) {
       $extra_fields .= " hr.content_id, hc.title AS content_title,";
       $joins .= " LEFT JOIN {$wpdb->prefix}h5p_contents hc ON hr.content_id = hc.id";
     }
     if ($user_id === NULL) {
-      $extra_fields .= " hr.user_id, u.display_name AS user_name,";
-      $joins .= " LEFT JOIN {$wpdb->users} u ON hr.user_id = u.ID";
+      $extra_fields .= " hr.user_id,";
+      $append_user_name = true;
     }
 
     // Add filters
@@ -914,7 +926,7 @@ class H5P_Plugin_Admin {
     $query_args[] = $offset;
     $query_args[] = $limit;
 
-    return $wpdb->get_results($wpdb->prepare(
+    $results = $wpdb->get_results($wpdb->prepare(
       "SELECT hr.id,
               {$extra_fields}
               hr.score,
@@ -929,6 +941,63 @@ class H5P_Plugin_Admin {
         LIMIT %d, %d",
       $query_args
     ));
+
+    if ( $append_user_name ) {
+      $results = $this->append_user_name( $results );
+    }
+
+	return $results;
+  }
+
+  /**
+   * Appends user name to query results by fetching from user table.
+   *
+   * @since xxx
+   * @return array
+   */
+  protected function append_user_name( $results ) {
+    // Collect all user IDs to process in a single query.
+    $user_ids = [];
+    foreach ( $results as $result ) {
+      if ( ! isset( $result->user_id ) ) {
+        continue;
+      }
+
+      $user_ids[] = $result->user_id;
+    }
+
+    // Fail early, as prompting get_users with empty array will fetch all users
+    if ( empty( $user_ids ) ) {
+      return $results;
+    }
+
+    /*
+     * Only used to determine whether there is any WP user for any $user_ids,
+     * so only requesting ID to prevent memory issues
+     */
+    $wp_users = get_users(
+      array(
+        'include' => array_unique( $user_ids ),
+        'fields' => array('ID'),
+      )
+    );
+
+    // If no users are found, there's nothing to do.
+    if ( ! $wp_users ) {
+      return $results;
+    }
+
+    // We can fetch items from the now primed cache.
+    foreach ( $results as &$result ) {
+      if ( ! isset( $result->user_id ) ) {
+        continue;
+      }
+
+      $userdata = get_userdata( $result->user_id );
+      $result->user_name = $userdata->display_name;
+    }
+
+    return $results;
   }
 
   /**
