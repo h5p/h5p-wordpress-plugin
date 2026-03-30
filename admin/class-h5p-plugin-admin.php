@@ -564,7 +564,8 @@ class H5P_Plugin_Admin {
         H5P_Plugin_Admin::add_style('h5p-confirmation-dialog-css', 'h5p-php-library/styles/h5p-confirmation-dialog.css');
         H5P_Plugin_Admin::add_style('h5p-css', 'h5p-php-library/styles/h5p.css');
         H5P_Plugin_Admin::add_style('h5p-core-button-css', 'h5p-php-library/styles/h5p-core-button.css');
-
+        H5P_Plugin_Admin::add_style('h5p-fonts', 'h5p-php-library/styles/h5p-fonts.css');
+        
         new H5P_Event('settings');
         return;
       }
@@ -586,7 +587,8 @@ class H5P_Plugin_Admin {
    * @return string
    */
   public function alter_title($admin_title, $title) {
-    $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
+    $page = filter_input(INPUT_GET, 'page');
+    $page = htmlspecialchars($page ?? '', ENT_QUOTES, 'UTF-8');
 
     switch ($page) {
       case 'h5p':

@@ -1,6 +1,7 @@
 <?php
 
 class H5PWordPress implements H5PFrameworkInterface {
+  protected $plugin_slug;
 
   /**
    * Kesps track of messages for the user.
@@ -865,10 +866,9 @@ class H5PWordPress implements H5PFrameworkInterface {
 
     $wpdb->query($wpdb->prepare(
       "UPDATE {$wpdb->prefix}h5p_contents
-          SET filtered = NULL
-        WHERE library_id IN (%s)",
-      implode(',', $library_ids))
-    );
+          SET filtered = ''
+        WHERE library_id IN (" . implode(',', array_map('intval', $library_ids)) . ")"
+    ));
   }
 
   /**
@@ -1071,7 +1071,7 @@ class H5PWordPress implements H5PFrameworkInterface {
       $this->setErrorMessage($response->get_error_message(), 'failed-fetching-external-data');
       return FALSE;
     }
-    elseif ($response['response']['code'] === 200) {
+    elseif ($response['response']['code'] >= 200 && $response['response']['code'] < 300) {
       return empty($response['body']) ? TRUE : $response['body'];
     }
 
