@@ -606,6 +606,10 @@ class H5PWordPress implements H5PFrameworkInterface {
         ARRAY_A
       );
 
+    if (!$library) {
+      return null;
+    }
+
     $dependencies = $wpdb->get_results($wpdb->prepare(
         "SELECT hl.name as machineName, hl.major_version as majorVersion, hl.minor_version as minorVersion, hll.dependency_type as dependencyType
         FROM {$wpdb->prefix}h5p_libraries_libraries hll
@@ -857,11 +861,15 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function clearFilteredParameters($library_ids) {
     global $wpdb;
 
-    $wpdb->query($wpdb->prepare(
+    $wpdb->query(
       "UPDATE {$wpdb->prefix}h5p_contents
           SET filtered = ''
-        WHERE library_id IN (" . implode(',', array_map('intval', $library_ids)) . ")"
-    ));
+        WHERE id IN (
+              SELECT DISTINCT content_id 
+              FROM wp_h5p_contents_libraries 
+              WHERE library_id IN (" . implode(',', array_map('intval', $library_ids)) . ")
+        )"
+    );
   }
 
   /**
