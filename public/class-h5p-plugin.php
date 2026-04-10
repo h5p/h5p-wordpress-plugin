@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.17.5';
+  const VERSION = '1.17.6';
 
   /**
    * The Unique identifier for this plugin.
@@ -513,9 +513,9 @@ class H5P_Plugin {
       self::upgrade_1174();
     }
 
-    $pre_1174 = ($v->major < 1 || ($v->major === 1 && $v->minor < 17) ||
-                 ($v->major === 1 && $v->minor === 17 && $v->patch < 4)); // < 1.17.4
-    if ($pre_1174) {
+    $pre_1176 = ($v->major < 1 || ($v->major === 1 && $v->minor < 17) ||
+                 ($v->major === 1 && $v->minor === 17 && $v->patch < 6)); // < 1.17.5
+    if ($pre_1176) {
       // Clear filteredParameters
       $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}h5p_contents SET filtered = ''"));
     }
