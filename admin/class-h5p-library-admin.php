@@ -445,7 +445,7 @@ class H5PLibraryAdmin {
         'errorLibrary' => __('Missing required library %lib.', $this->plugin_slug),
         'errorTooHighVersion' => __('Parameters contain %used while only %supported or earlier are supported.', $this->plugin_slug),
         'errorNotSupported' => __('Parameters contain %used which is not supported.', $this->plugin_slug),
-        'done' => sprintf(__('You have successfully upgraded %s.', $this->plugin_slug), $contents_plural) . ($return ? '<br/><a href="' . $return . '">' . __('Return', $this->plugin_slug) . '</a>' : ''),
+        'done' => sprintf(__('You have successfully upgraded %s.', $this->plugin_slug), $contents_plural) . ($return ? '<br/><a href="' . rawurlencode($return) . '">' . __('Return', $this->plugin_slug) . '</a>' : ''),
         'library' => array(
           'name' => $library->name,
           'version' => $library->major_version . '.' . $library->minor_version,
