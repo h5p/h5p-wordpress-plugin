@@ -1181,7 +1181,7 @@ class H5P_Plugin {
    * @param string $embed type
    * @param object &$custom_script_parameters Custom parameters that should be available to JavaScript
    */
-  public function alter_assets(&$files, &$dependencies, $embed, &$custom_script_parameters) {
+  public function alter_assets(&$files, &$dependencies, $embed, &$custom_script_parameters = null) {
     if (!has_action('h5p_alter_library_scripts') && !has_action('h5p_alter_library_styles')) {
       return;
     }
