@@ -1,6 +1,7 @@
 <?php
 
 class H5PWordPress implements H5PFrameworkInterface {
+  protected $plugin_slug;
 
   /**
    * Kesps track of messages for the user.
@@ -613,6 +614,10 @@ class H5PWordPress implements H5PFrameworkInterface {
         ARRAY_A
       );
 
+    if (!$library) {
+      return null;
+    }
+
     $dependencies = $wpdb->get_results($wpdb->prepare(
         "SELECT hl.name as machineName, hl.major_version as majorVersion, hl.minor_version as minorVersion, hll.dependency_type as dependencyType
         FROM {$wpdb->prefix}h5p_libraries_libraries hll
@@ -864,11 +869,14 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function clearFilteredParameters($library_ids) {
     global $wpdb;
 
-    $wpdb->query($wpdb->prepare(
+    $wpdb->query(
       "UPDATE {$wpdb->prefix}h5p_contents
-          SET filtered = NULL
-        WHERE library_id IN (%s)",
-      implode(',', $library_ids))
+          SET filtered = ''
+        WHERE id IN (
+              SELECT DISTINCT content_id 
+              FROM {$wpdb->prefix}h5p_contents_libraries 
+              WHERE library_id IN (" . implode(',', array_map('intval', $library_ids)) . ")
+        )"
     );
   }
 
@@ -975,7 +983,7 @@ class H5PWordPress implements H5PFrameworkInterface {
       $this->setErrorMessage($response->get_error_message(), 'failed-fetching-external-data');
       return FALSE;
     }
-    elseif ($response['response']['code'] === 200) {
+    elseif ($response['response']['code'] >= 200 && $response['response']['code'] < 300) {
       return empty($response['body']) ? TRUE : $response['body'];
     }
 
