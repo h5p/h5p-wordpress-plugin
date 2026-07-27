@@ -95,6 +95,18 @@ class H5PWordPress implements H5PFrameworkInterface {
   }
 
   /**
+   * Get path to the folder H5P stages uploads in inside the system temp
+   * directory. Derived from the WordPress installation path, so installations
+   * sharing a server do not share a staging folder. Note that all sites in a
+   * network do share it.
+   *
+   * @return string
+   */
+  public static function getSystemTmpParentPath() {
+    return rtrim(sys_get_temp_dir(), '/\\') . '/h5p-' . substr(md5(ABSPATH), 0, 8);
+  }
+
+  /**
    * Get path to a new unique tmp folder inside the system temp directory.
    *
    * Staging happens in a dedicated, non-listable subfolder rather than
@@ -106,7 +118,7 @@ class H5PWordPress implements H5PFrameworkInterface {
    *  can not be used (missing, not writable or outside open_basedir).
    */
   private function getSystemTmpPath() {
-    $parent = rtrim(sys_get_temp_dir(), '/\\') . '/h5p-' . substr(md5(ABSPATH), 0, 8);
+    $parent = self::getSystemTmpParentPath();
 
     // Suppress warnings, an unusable temp dir is handled by the return value.
     if (!@wp_mkdir_p($parent) || !@is_writable($parent)) {
@@ -114,7 +126,9 @@ class H5PWordPress implements H5PFrameworkInterface {
     }
     @chmod($parent, 0700);
 
-    return $parent . '/' . uniqid('h5p-');
+    // Using wp_generate_password() to generate string to use as part of the
+    // parent directory name
+    return $parent . '/h5p-' . wp_generate_password(16, FALSE);
   }
 
   /**

@@ -1757,6 +1757,14 @@ class H5P_Plugin {
     if (is_dir($path) && count(scandir($path)) === 2) {
       rmdir($path);
     }
+
+    // Remove the staging dir in the system temp dir, but only if it's empty.
+    // It is shared by all sites in a network and may hold uploads in progress,
+    // and it is recreated on demand, so it must never be removed recursively.
+    $system_tmp = H5PWordPress::getSystemTmpParentPath();
+    if (is_dir($system_tmp) && count(scandir($system_tmp)) === 2) {
+      rmdir($system_tmp);
+    }
   }
 
   /**
