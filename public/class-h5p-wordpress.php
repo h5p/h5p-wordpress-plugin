@@ -95,6 +95,38 @@ class H5PWordPress implements H5PFrameworkInterface {
   }
 
   /**
+   * Get path to a new unique tmp folder inside the system temp directory.
+   *
+   * Staging happens in a dedicated, non-listable subfolder rather than
+   * directly in the system temp directory, so other local users can not
+   * predict and pre-create the paths we are about to write to.
+   *
+   * @return string|bool
+   *  Unique path without extension, or FALSE if the system temp directory
+   *  can not be used (missing, not writable or outside open_basedir).
+   */
+  private function getSystemTmpPath() {
+    $parent = rtrim(sys_get_temp_dir(), '/\\') . '/h5p-' . substr(md5(ABSPATH), 0, 8);
+
+    // Suppress warnings, an unusable temp dir is handled by the return value.
+    if (!@wp_mkdir_p($parent) || !@is_writable($parent)) {
+      return FALSE;
+    }
+    @chmod($parent, 0700);
+
+    return $parent . '/' . uniqid('h5p-');
+  }
+
+  /**
+   * Helper, get path to the H5P tmp folder in the plugin directory.
+   */
+  private function getPluginTmpPath() {
+    $plugin = H5P_Plugin::get_instance();
+    $core = $plugin->get_h5p_instance('core');
+    return $core->fs->getTmpPath();
+  }
+
+  /**
    * Implements getUploadedH5PFolderPath
    */
   public function getUploadedH5pFolderPath() {
@@ -102,11 +134,12 @@ class H5PWordPress implements H5PFrameworkInterface {
 
     if (is_null($dir)) {
       if (get_option('h5p_use_system_temp_dir', FALSE)) {
-        $dir = sys_get_temp_dir();
-      } else {
-        $plugin = H5P_Plugin::get_instance();
-        $core = $plugin->get_h5p_instance('core');
-        $dir = $core->fs->getTmpPath();
+        $dir = $this->getSystemTmpPath();
+      }
+
+      if (empty($dir)) {
+        // Not using or unable to use the system temp dir, fall back.
+        $dir = $this->getPluginTmpPath();
       }
     }
 
@@ -121,12 +154,15 @@ class H5PWordPress implements H5PFrameworkInterface {
 
     if (is_null($path)) {
       if (get_option('h5p_use_system_temp_dir', FALSE)) {
-        $path = sys_get_temp_dir() . '.h5p';
-      } else {
-        $plugin = H5P_Plugin::get_instance();
-        $core = $plugin->get_h5p_instance('core');
-        $path = $core->fs->getTmpPath() . '.h5p';
+        $path = $this->getSystemTmpPath();
       }
+
+      if (empty($path)) {
+        // Not using or unable to use the system temp dir, fall back.
+        $path = $this->getPluginTmpPath();
+      }
+
+      $path .= '.h5p';
     }
 
     return $path;
