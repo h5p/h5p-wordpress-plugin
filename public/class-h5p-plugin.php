@@ -1547,7 +1547,7 @@ class H5P_Plugin {
 
         $attr = shortcode_parse_atts($matches[3][$key]);
         if (intval($attr['id']) == $attr['id']) {
-          $ids[] = $attr['id'];
+          $ids[] = intval($attr['id']);
         }
       }
     }
