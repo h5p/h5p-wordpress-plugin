@@ -488,6 +488,13 @@ class H5PWordPress implements H5PFrameworkInterface {
         $content['library']['machineName'],
         $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']);
 
+    do_action('h5p_save_content', $content['id'], $content);
+
+    $events = explode(' ', $event_type);
+    foreach ($events as $event) {
+      do_action("h5p_{$event}_content", $content['id'], $content);
+    }
+
     return $content['id'];
   }
 
@@ -530,6 +537,8 @@ class H5PWordPress implements H5PFrameworkInterface {
    */
   public function deleteContentData($id) {
     global $wpdb;
+
+    do_action('h5p_deleted_content', $id);
 
     // Remove content data and library usage
     $wpdb->delete($wpdb->prefix . 'h5p_contents', array('id' => $id), array('%d'));
