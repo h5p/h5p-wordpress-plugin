@@ -95,15 +95,66 @@ class H5PWordPress implements H5PFrameworkInterface {
   }
 
   /**
+   * Get path to the folder H5P stages uploads in inside the system temp
+   * directory. Derived from the WordPress installation path, so installations
+   * sharing a server do not share a staging folder. Note that all sites in a
+   * network do share it.
+   *
+   * @return string
+   */
+  public static function getSystemTmpParentPath() {
+    return rtrim(sys_get_temp_dir(), '/\\') . '/h5p-' . substr(md5(ABSPATH), 0, 8);
+  }
+
+  /**
+   * Get path to a new unique tmp folder inside the system temp directory.
+   *
+   * Staging happens in a dedicated, non-listable subfolder rather than
+   * directly in the system temp directory, so other local users can not
+   * predict and pre-create the paths we are about to write to.
+   *
+   * @return string|bool
+   *  Unique path without extension, or FALSE if the system temp directory
+   *  can not be used (missing, not writable or outside open_basedir).
+   */
+  private function getSystemTmpPath() {
+    $parent = self::getSystemTmpParentPath();
+
+    // Suppress warnings, an unusable temp dir is handled by the return value.
+    if (!@wp_mkdir_p($parent) || !@is_writable($parent)) {
+      return FALSE;
+    }
+    @chmod($parent, 0700);
+
+    // Using wp_generate_password() to generate string to use as part of the
+    // parent directory name
+    return $parent . '/h5p-' . wp_generate_password(16, FALSE);
+  }
+
+  /**
+   * Helper, get path to the H5P tmp folder in the plugin directory.
+   */
+  private function getPluginTmpPath() {
+    $plugin = H5P_Plugin::get_instance();
+    $core = $plugin->get_h5p_instance('core');
+    return $core->fs->getTmpPath();
+  }
+
+  /**
    * Implements getUploadedH5PFolderPath
    */
   public function getUploadedH5pFolderPath() {
     static $dir;
 
     if (is_null($dir)) {
-      $plugin = H5P_Plugin::get_instance();
-      $core = $plugin->get_h5p_instance('core');
-      $dir = $core->fs->getTmpPath();
+      if (get_option('h5p_use_system_temp_dir', FALSE)) {
+        $dir = $this->getSystemTmpPath();
+      }
+
+      if (empty($dir)) {
+        // Not using or unable to use the system temp dir, fall back.
+        $dir = $this->getPluginTmpPath();
+      }
     }
 
     return $dir;
@@ -116,9 +167,16 @@ class H5PWordPress implements H5PFrameworkInterface {
     static $path;
 
     if (is_null($path)) {
-      $plugin = H5P_Plugin::get_instance();
-      $core = $plugin->get_h5p_instance('core');
-      $path = $core->fs->getTmpPath() . '.h5p';
+      if (get_option('h5p_use_system_temp_dir', FALSE)) {
+        $path = $this->getSystemTmpPath();
+      }
+
+      if (empty($path)) {
+        // Not using or unable to use the system temp dir, fall back.
+        $path = $this->getPluginTmpPath();
+      }
+
+      $path .= '.h5p';
     }
 
     return $path;
