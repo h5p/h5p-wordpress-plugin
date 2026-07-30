@@ -1117,7 +1117,16 @@ class H5P_Plugin {
       // Get assets for this content
       $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
       $files = $core->getDependenciesFiles($preloaded_dependencies);
-      $this->alter_assets($files, $preloaded_dependencies, $embed);
+
+      // Optional script parameters that custom user scripts should be able to access
+      $custom_script_parameters = (object) array();
+
+      $this->alter_assets($files, $preloaded_dependencies, $embed, $custom_script_parameters);
+
+      if ((is_object($custom_script_parameters)) && !empty((array)$custom_script_parameters)) {
+        // Allow to access custom user script paramters via H5PIntegration
+        self::$settings['customScriptParameters'] = $custom_script_parameters;
+      }
 
       /*
        * Cached assets were broken by faulty folder structure in 1.17.0 - 1.17.3
@@ -1170,8 +1179,9 @@ class H5P_Plugin {
    * @param array $dependencies
    * @param array $files scripts & styles
    * @param string $embed type
+   * @param object &$custom_script_parameters Custom parameters that should be available to JavaScript
    */
-  public function alter_assets(&$files, &$dependencies, $embed) {
+  public function alter_assets(&$files, &$dependencies, $embed, &$custom_script_parameters = null) {
     if (!has_action('h5p_alter_library_scripts') && !has_action('h5p_alter_library_styles')) {
       return;
     }
@@ -1194,8 +1204,9 @@ class H5P_Plugin {
      * @param array &$scripts List of JavaScripts to be included.
      * @param array $libraries The list of libraries that has the scripts.
      * @param string $embed_type Possible values are: div, iframe, external, editor.
+     * @param object &$custom_script_parameters Custom parameters that should be available to JavaScript
      */
-    do_action_ref_array('h5p_alter_library_scripts', array(&$files['scripts'], $libraries, $embed));
+    do_action_ref_array('h5p_alter_library_scripts', array(&$files['scripts'], $libraries, $embed, &$custom_script_parameters));
 
     /**
      * Allows you to alter which stylesheets are loaded for H5P. This is
