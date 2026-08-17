@@ -4,7 +4,7 @@ Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
 Tested up to: 7.0
-Stable tag: 1.17.8
+Stable tag: 1.17.9
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -539,3 +539,6 @@ Fix url sanitization.
 
 = 1.17.8 =
 Fix improved file ignore patterns when storing content.
+
+= 1.17.9 =
+Fix export IDs and invalid file upload fields
