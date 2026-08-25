@@ -8,6 +8,16 @@
  * @link      http://joubel.com
  * @copyright 2014 Joubel
  */
+
+/**
+ * Check plain text.
+ *
+ * @param string $text Text.
+ * @return string Plain text.
+ */
+function check_plain($text) {
+  return htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8');
+}
 ?>
 <div class="wrap h5p-settings-container">
   <?php \H5P_Plugin_Admin::print_messages(); ?>
@@ -207,10 +217,102 @@
               <?php _e("Automatically contribute usage statistics", $this->plugin_slug); ?>
             </label>
             <p class="h5p-setting-desc">
-              <?php printf(wp_kses(__("Usage statistics numbers will automatically be reported to help the developers better understand how H5P is used and to determine potential areas of improvement. Read more about which <a href=\"%s\" target=\"_blank\">data is collected on h5p.org</a>.", $this->plugin_slug), array('a' => array('href' => array(), 'target' => array()))), 'https://h5p.org/tracking-the-usage-of-h5p'); ?>
+              <?php printf(wp_kses(__("Usage statistics numbers will automatically be reported to help the developers better understand how H5P is used and to determine potential areas of improvement. Read more about which <a href=\"%s\" target=\"_blank\">data is collected on h5p.org</a>.", $this->plugin_slug),array('a' => array('href' => array(), 'target' => array()))),'https://h5p.org/tracking-the-usage-of-h5p'); ?>
             </p>
           </td>
         </tr>
+        <?php if ($enable_hub): ?>
+          <tr valign="top">
+            <th scope="row"><?php _e("H5P Hub Account Settings", $this->plugin_slug); ?></th>
+            <td>
+
+              <?php if (!current_user_can('manage_h5p_content_hub_registration')): ?>
+                <p>
+                  <?php printf(__("You do not have permission to manage the registration with the content hub.", $this->plugin_slug)); ?>
+                </p>
+              <?php else: ?>
+                <?php if (empty($accountInfo)): ?>
+                  <p>
+                    <?php printf(wp_kses(__("<a href=\"%s\">Register an account</a> on the H5P Hub", $this->plugin_slug), array('a' => array('href' => array()))), admin_url('options-general.php?page=h5p_settings&task=register&_wpnonce=' . wp_create_nonce( 'h5p_content_hub_registration_form' ))); ?>
+                  </p>
+                <?php else: ?>
+                  <div class="h5p-settings-hub-registration-wrapper">
+                    <?php if (!empty($accountInfo->logo)): ?>
+                      <div class="h5p-settings-hub-registration-logo-wrapper">
+                        <img src="<?php printf($accountInfo->logo) ?>" />
+                      </div>
+                    <?php endif; ?>
+                    <table class="h5p-settings-hub-registration-data-wrapper">
+                      <tbody>
+
+                      <?php if (!empty($accountInfo->name)): ?>
+                        <tr>
+                          <th class="h5p-settings-hub-registration-label"><?php printf(__('Name', $this->plugin_slug)) ?></th>
+                          <td><?php printf(check_plain($accountInfo->name))?></td>
+                        </tr>
+                      <?php endif; ?>
+
+                      <?php if (!empty($accountInfo->contactPerson)): ?>
+                        <tr>
+                          <th class="h5p-settings-hub-registration-label"><?php printf(__('Contact person', $this->plugin_slug)) ?></th>
+                          <td><?php printf(check_plain($accountInfo->contactPerson))?></td>
+                        </tr>
+                      <?php endif; ?>
+
+                      <?php if (!empty($accountInfo->email)): ?>
+                        <tr>
+                          <th class="h5p-settings-hub-registration-label"><?php printf(__('Email', $this->plugin_slug)) ?></th>
+                          <td><?php printf(check_plain($accountInfo->email))?></td>
+                        </tr>
+                      <?php endif; ?>
+
+                      <?php if (!empty($accountInfo->address)): ?>
+                        <tr>
+                          <th class="h5p-settings-hub-registration-label"><?php printf(__('Adress', $this->plugin_slug)) ?></th>
+                          <td><?php printf(check_plain($accountInfo->address))?></td>
+                        </tr>
+                      <?php endif; ?>
+
+                      <?php if (!empty($accountInfo->zip)): ?>
+                        <tr>
+                          <th class="h5p-settings-hub-registration-label"><?php printf(__('Zip', $this->plugin_slug)) ?></th>
+                          <td><?php printf(check_plain($accountInfo->zip))?></td>
+                        </tr>
+                      <?php endif; ?>
+
+                      <?php if (!empty($accountInfo->city)): ?>
+                        <tr>
+                          <th class="h5p-settings-hub-registration-label"><?php printf(__('City', $this->plugin_slug)) ?></th>
+                          <td><?php printf(check_plain($accountInfo->city))?></td>
+                        </tr>
+                      <?php endif; ?>
+
+                      <?php if (!empty($accountInfo->country)): ?>
+                        <tr>
+                          <th class="h5p-settings-hub-registration-label"><?php printf(__('Country', $this->plugin_slug)) ?></th>
+                          <td><?php printf(check_plain($accountInfo->country))?></td>
+                        </tr>
+                      <?php endif; ?>
+
+                      <?php if (!empty($accountInfo->phone)): ?>
+                        <tr>
+                          <th class="h5p-settings-hub-registration-label"><?php printf(__('Phone', $this->plugin_slug)) ?></th>
+                          <td><?php printf(check_plain($accountInfo->phone))?></td>
+                        </tr>
+                      <?php endif; ?>
+
+                      </tbody>
+                    </table>
+                  </div>
+                  <p class="h5p-settings-hub-registration-change-data">
+                    <?php printf(wp_kses(__("<a href=\"%s\">Change account settings</a>", $this->plugin_slug), array('a' => array('href' => array()))), admin_url('options-general.php?page=h5p_settings&task=register&_wpnonce=' . wp_create_nonce( 'h5p_content_hub_registration_form' ))); ?>
+                  </p>
+                <?php endif; // (empty($accountInfo)) ?>
+
+              <?php endif; ?>
+            </td>
+          </tr>
+        <?php endif; // ($enable_hub) ?>
       </tbody>
     </table>
     <?php wp_nonce_field('h5p_settings', 'save_these_settings'); ?>
