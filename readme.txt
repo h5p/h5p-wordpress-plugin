@@ -3,8 +3,8 @@ Contributors: icc0rz, fnoks, underhaug, makmentins
 Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
-Tested up to: 6.9
-Stable tag: 1.17.4
+Tested up to: 7.0
+Stable tag: 1.17.9
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -527,3 +527,18 @@ Accept response sent by the new content type hub (hub-api.h5p.org/v1/sites) affe
 = 1.17.4 =
 Fix duplicate libraries folders after bug in 1.17.0-3.
 Fix clearFilteredParameters not working after 1.14.0.
+
+= 1.17.5 =
+Fix warnings printed when using undefined property.
+
+= 1.17.6 =
+Fix clearFilteredParameters() not working properly for dependencies.
+
+= 1.17.7 =
+Fix url sanitization.
+
+= 1.17.8 =
+Fix improved file ignore patterns when storing content.
+
+= 1.17.9 =
+Fix export IDs and invalid file upload fields

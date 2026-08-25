@@ -606,27 +606,28 @@ class H5PWordPress implements H5PFrameworkInterface {
         ARRAY_A
       );
 
-    // TODO: Fix independent of OER-Hub
-    if (!empty($library)) {
-      $dependencies = $wpdb->get_results($wpdb->prepare(
-          "SELECT hl.name as machineName, hl.major_version as majorVersion, hl.minor_version as minorVersion, hll.dependency_type as dependencyType
-          FROM {$wpdb->prefix}h5p_libraries_libraries hll
-          JOIN {$wpdb->prefix}h5p_libraries hl ON hll.required_library_id = hl.id
-          WHERE hll.library_id = %d",
-          $library['libraryId'])
-        );
-      foreach ($dependencies as $dependency) {
-        $library[$dependency->dependencyType . 'Dependencies'][] = array(
-          'machineName' => $dependency->machineName,
-          'majorVersion' => $dependency->majorVersion,
-          'minorVersion' => $dependency->minorVersion,
-        );
-      }
-      if ($this->isInDevMode()) {
-        $semantics = $this->getSemanticsFromFile($library['machineName'], $library['majorVersion'], $library['minorVersion']);
-        if ($semantics) {
-          $library['semantics'] = $semantics;
-        }
+    if (!$library) {
+      return null;
+    }
+
+    $dependencies = $wpdb->get_results($wpdb->prepare(
+        "SELECT hl.name as machineName, hl.major_version as majorVersion, hl.minor_version as minorVersion, hll.dependency_type as dependencyType
+        FROM {$wpdb->prefix}h5p_libraries_libraries hll
+        JOIN {$wpdb->prefix}h5p_libraries hl ON hll.required_library_id = hl.id
+        WHERE hll.library_id = %d",
+        $library['libraryId'])
+      );
+    foreach ($dependencies as $dependency) {
+      $library[$dependency->dependencyType . 'Dependencies'][] = array(
+        'machineName' => $dependency->machineName,
+        'majorVersion' => $dependency->majorVersion,
+        'minorVersion' => $dependency->minorVersion,
+      );
+    }
+    if ($this->isInDevMode()) {
+      $semantics = $this->getSemanticsFromFile($library['machineName'], $library['majorVersion'], $library['minorVersion']);
+      if ($semantics) {
+        $library['semantics'] = $semantics;
       }
     }
 
@@ -864,11 +865,15 @@ class H5PWordPress implements H5PFrameworkInterface {
   public function clearFilteredParameters($library_ids) {
     global $wpdb;
 
-    $wpdb->query($wpdb->prepare(
+    $wpdb->query(
       "UPDATE {$wpdb->prefix}h5p_contents
           SET filtered = ''
-        WHERE library_id IN (" . implode(',', array_map('intval', $library_ids)) . ")"
-    ));
+        WHERE id IN (
+              SELECT DISTINCT content_id 
+              FROM {$wpdb->prefix}h5p_contents_libraries 
+              WHERE library_id IN (" . implode(',', array_map('intval', $library_ids)) . ")
+        )"
+    );
   }
 
   /**
