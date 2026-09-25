@@ -222,7 +222,7 @@ class H5PContentAdmin {
         $plugin_admin = H5P_Plugin_Admin::get_instance();
         $plugin_admin->print_data_view_settings(
           'h5p-contents',
-          admin_url('admin-ajax.php?action=h5p_contents'),
+          admin_url('admin-ajax.php?action=h5p_contents&token=' . wp_create_nonce('h5p_contents')),
           $headers,
           array(true),
           __("No H5P content available. You must upload or create new content.", $this->plugin_slug),
@@ -425,10 +425,10 @@ class H5PContentAdmin {
     $tag_ids = array();
 
     // Create array and trim input
-    $tags = explode(',', $tags);
+    $tags = explode(',', (string) $tags);
     foreach ($tags as $tag) {
       $tag = trim($tag);
-      if ($tag === '') {
+      if ($tag === '' || strpos($tag, ';') !== FALSE || strpos($tag, ',') !== FALSE) {
         continue;
       }
 
@@ -693,7 +693,7 @@ class H5PContentAdmin {
     $plugin_admin = H5P_Plugin_Admin::get_instance();
     $plugin_admin->print_data_view_settings(
       'h5p-insert-content',
-      admin_url('admin-ajax.php?action=h5p_insert_content'),
+      admin_url('admin-ajax.php?action=h5p_insert_content&token=' . wp_create_nonce('h5p_contents')),
       array(
         (object) array(
           'text' => __('Title', $this->plugin_slug),
@@ -776,6 +776,16 @@ class H5PContentAdmin {
    */
   public function ajax_contents($insert = FALSE) {
     global $wpdb;
+
+    if (!check_ajax_referer('h5p_contents', 'token', FALSE)) {
+      H5PCore::ajaxError(__('Invalid security token.', $this->plugin_slug));
+      exit;
+    }
+
+    if (!current_user_can('view_h5p_contents')) {
+      H5PCore::ajaxError(__('You are not allowed to view H5P content.', $this->plugin_slug));
+      exit;
+    }
 
     // Load input vars.
     $admin = H5P_Plugin_Admin::get_instance();
@@ -876,9 +886,12 @@ class H5PContentAdmin {
     $csvtags = explode(';', $tags);
     foreach ($csvtags as $csvtag) {
       if ($csvtag !== '') {
-        $tag = explode(',', $csvtag);
+        $tag = explode(',', $csvtag, 2);
+        if (!isset($tag[0], $tag[1]) || !is_numeric($tag[0])) {
+          continue;
+        }
         $result[] = array(
-          'id' => $tag[0],
+          'id' => (int)$tag[0],
           'title' => esc_html($tag[1])
         );
       }

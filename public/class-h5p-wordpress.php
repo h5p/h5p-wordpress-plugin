@@ -1313,6 +1313,7 @@ class H5PWordPress implements H5PFrameworkInterface {
   }
 
   // Content hub not implemented in Wordpress, ignore abstract functions
+  public function resetHubOrganizationData() { return []; }
   public function replaceContentHubMetadataCache($metadata, $lang) { return []; }
   public function getContentHubMetadataCache($lang = 'en') { die('Called'); return json_encode([]); }
   public function getContentHubMetadataChecked($lang = 'en') {return []; }
