@@ -3,7 +3,7 @@ Contributors: icc0rz, fnoks, underhaug, makmentins
 Donate link: http://h5p.org
 Tags: editor, video, quiz, slider, education
 Requires at least: 3.8.1
-Tested up to: 7.0
+Tested up to: 7.1
 Stable tag: 1.17.9
 License: MIT
 License URI: http://opensource.org/licenses/MIT
