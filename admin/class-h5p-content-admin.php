@@ -778,12 +778,12 @@ class H5PContentAdmin {
     global $wpdb;
 
     if (!check_ajax_referer('h5p_contents', 'token', FALSE)) {
-      H5PCore::ajaxError(__('Invalid security token.', $this->plugin_slug));
+      H5PCore::ajaxError(__('Invalid security token.', $this->plugin_slug), NULL, 403);
       exit;
     }
 
     if (!current_user_can('view_h5p_contents')) {
-      H5PCore::ajaxError(__('You are not allowed to view H5P content.', $this->plugin_slug));
+      H5PCore::ajaxError(__('You are not allowed to view H5P content.', $this->plugin_slug), NULL, 403);
       exit;
     }
 
