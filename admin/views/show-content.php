@@ -19,6 +19,15 @@
     <?php if ($this->current_user_can_edit($this->content)): ?>
       <a href="<?php print admin_url('admin.php?page=h5p_new&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('Edit', $this->plugin_slug); ?></a>
     <?php endif; ?>
+    <?php if ($this->current_user_can_share($this->content)): ?>
+      <?php if ($this->is_content_shared()): ?>
+        <a href="<?php print admin_url('admin.php?page=h5p&task=share&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('Edit sharing info', $this->plugin_slug); ?></a>
+        <a href="<?php print admin_url('admin.php?page=h5p&task=sync&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('Sync changes', $this->plugin_slug); ?></a>
+        <a href="<?php print admin_url('admin.php?page=h5p&task=unshare&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('Unshare', $this->plugin_slug); ?></a>
+      <?php else: ?>
+        <a href="<?php print admin_url('admin.php?page=h5p&task=share&id=' . $this->content['id']); ?>" class="add-new-h2"><?php _e('Share', $this->plugin_slug); ?></a>
+      <?php endif; ?>
+    <?php endif; ?>
   </h2>
   <?php print H5P_Plugin_Admin::print_messages(); ?>
   <div class="h5p-wp-admin-wrapper">

@@ -42,6 +42,8 @@ function h5p_autoloader($class) {
       'H5PEditorWordPressStorage' => 'admin/class-h5p-editor-wordpress-storage.php',
       'H5PEditorWordPressAjax' => 'admin/class-h5p-editor-wordpress-ajax.php',
       'H5PPrivacyPolicy' => 'admin/class-h5p-privacy-policy.php',
+      'H5PContentHubRegistration' => 'admin/class-h5p-content-hub-registration.php',
+      'H5PContentSharing' => 'admin/class-h5p-content-sharing.php',
       'H5PUtils' => 'admin/class-h5p-utils.php',
     );
   }
