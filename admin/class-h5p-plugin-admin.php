@@ -228,7 +228,11 @@ class H5P_Plugin_Admin {
           // Get content assets
           $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
           $files = $core->getDependenciesFiles($preloaded_dependencies);
-          $plugin->alter_assets($files, $preloaded_dependencies, 'external');
+          $custom_script_parameters = (object) array();
+          $plugin->alter_assets($files, $preloaded_dependencies, 'external', $custom_script_parameters);
+          if (is_object($custom_script_parameters) && !empty((array) $custom_script_parameters)) {
+            $integration['customScriptParameters'] = $custom_script_parameters;
+          }
 
           $scripts = array_merge($scripts, $core->getAssetsUrls($files['scripts']));
           $styles = array_merge($styles, $core->getAssetsUrls($files['styles']));
