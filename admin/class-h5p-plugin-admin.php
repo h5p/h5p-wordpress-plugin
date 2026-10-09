@@ -168,12 +168,39 @@ class H5P_Plugin_Admin {
    * @since 1.3.0
    */
   public function embed() {
+    global $wpdb;
     // Allow other sites to embed
     header_remove('X-Frame-Options');
     header_remove('Content-Security-Policy');
 
     // Find content
-    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    $slug = filter_input(INPUT_GET, 'slug', FILTER_VALIDATE_REGEXP, [
+      'options' => ['regexp' => '/^[a-z0-9_-]+$/i']
+    ]);
+
+    $id = NULL;
+
+    if (!empty($slug)) {
+      $row = $wpdb->get_row($wpdb->prepare(
+        "SELECT id ".
+        "FROM {$wpdb->prefix}h5p_contents ".
+        "WHERE slug = %s",
+        $slug
+      ));
+
+      if ($wpdb->last_error) {
+        return sprintf(__('Database error: %s.', $this->plugin_slug), $wpdb->last_error);
+      }
+
+      if (isset($row['id'])) {
+        $id = (int) $row['id'];
+      }
+    }
+
+    if ($id === NULL) {
+      $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    }
+
     if ($id !== NULL) {
       $plugin = H5P_Plugin::get_instance();
       $content = $plugin->get_content($id);
