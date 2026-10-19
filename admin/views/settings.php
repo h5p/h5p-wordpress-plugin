@@ -113,13 +113,28 @@
           <th scope="row"><?php _e("Save Content State", $this->plugin_slug); ?></th>
           <td>
             <label>
-              <input name="save_content_state" type="checkbox" value="true"<?php if ($save_content_state): ?> checked="checked"<?php endif; ?>/>
-              <?php _e("Allow logged-in users to resume tasks", $this->plugin_slug); ?>
+              <input class="h5p-visibility-toggler" data-h5p-visibility-subject-selector=".h5p-save-content-options" name="save_content_state" type="checkbox" value="true"<?php if ($save_content_state): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Allow users to resume tasks", $this->plugin_slug); ?>
             </label>
-            <p class="h5p-auto-save-freq">
-              <label for="h5p-freq"><?php _e("Auto-save frequency (in seconds)", $this->plugin_slug); ?></label>
-              <input id="h5p-freq" name="save_content_frequency" type="text" value="<?php print $save_content_frequency ?>"/>
-            </p>
+          </td>
+        </tr>
+        <tr valign="top" class="h5p-save-content-options">
+          <th scope="row"><?php _e("Auto-save frequency (in seconds)", $this->plugin_slug); ?></th>
+          <td>
+            <input id="h5p-freq" name="save_content_frequency" type="text" value="<?php print $save_content_frequency ?>"/>
+          </td>
+        </tr>
+        <tr valign="top" class="h5p-save-content-options">
+          <th scope="row"><?php _e("Users who may resume tasks", $this->plugin_slug); ?></th>
+          <td>
+            <select id="h5p_save_content_storages" name="save_content_storages">
+              <option value="<?php echo H5PSaveContentStorages::DATABASE; ?>" <?php if ($save_content_storages == H5PSaveContentStorages::DATABASE): ?>selected="selected"<?php endif; ?>>
+                <?php _e("Only users who are logged-in", $this->plugin_slug); ?>
+              </option>
+              <option value="<?php echo H5PSaveContentStorages::DATABASE_LOCALSTORAGE; ?>" <?php if ($save_content_storages == H5PSaveContentStorages::DATABASE_LOCALSTORAGE): ?>selected="selected"<?php endif; ?>>
+                <?php _e("All users", $this->plugin_slug); ?>
+              </option>
+            </select>
           </td>
         </tr>
         </tr>
