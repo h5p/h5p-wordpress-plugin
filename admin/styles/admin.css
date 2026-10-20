@@ -235,7 +235,54 @@
 .content-upgrade-log {
   color: red;
 }
+#h5p-hub-registration .h5p-hub-registration-wrapper {
+  background-color: #fff;
+}
+.h5p-settings-container .h5p-settings-hub-registration-wrapper {
+  border-bottom: 1px solid #e2e5ee;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.h5p-settings-container .h5p-settings-hub-registration-logo-wrapper {
+  margin-right: 2rem;
+  min-width: 6rem;
+  width: 30%;
+  max-width: 10rem;
+}
+.h5p-settings-container .h5p-settings-hub-registration-logo-wrapper > img {
+  padding: .5rem 0 0 0;
+  width: 100%;
+}
+.h5p-settings-container .h5p-settings-hub-registration-data-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.h5p-settings-container .h5p-settings-hub-registration-data-wrapper tbody > tr:nth-child(1) > th,
+.h5p-settings-container .h5p-settings-hub-registration-data-wrapper tbody > tr:nth-child(1) > td {
+  border-top: 0;
+}
+.h5p-settings-container .h5p-settings-hub-registration-data-wrapper th {
+  border-top: 1px solid #e2e5ee;
+  color: #3c4859;
+  cursor: default;
+  font-weight: bold;
+  padding: .5rem 0;
+  min-width: 10rem;
+  width: 15rem;
+}
+.h5p-settings-container .h5p-settings-hub-registration-data-wrapper td {
+  border-top: 1px solid #e2e5ee;
+  padding: .5rem 0;
+}
+.h5p-settings-container .h5p-settings-hub-registration-change-data {
 
+}
+
+#h5p-hub-publish-modal-wrapper {
+  background-color: #fff;
+}
 @media screen and (max-width: 782px) {
   #wpbody-content .wrap {
     overflow-x: auto;
