@@ -24,7 +24,7 @@ class H5P_Plugin {
    * @since 1.0.0
    * @var string
    */
-  const VERSION = '1.17.8';
+  const VERSION = '1.17.10';
 
   /**
    * The Unique identifier for this plugin.
@@ -1548,7 +1548,7 @@ class H5P_Plugin {
 
         $attr = shortcode_parse_atts($matches[3][$key]);
         if (intval($attr['id']) == $attr['id']) {
-          $ids[] = $attr['id'];
+          $ids[] = intval($attr['id']);
         }
       }
     }
