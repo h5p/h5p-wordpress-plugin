@@ -211,6 +211,18 @@
             </p>
           </td>
         </tr>
+        <tr valign="top">
+          <th scope="row"><?php _e("Temporary Storage Location", $this->plugin_slug); ?></th>
+          <td>
+            <label>
+              <input name="use_system_temp_dir" type="checkbox" value="true"<?php if ($use_system_temp_dir): ?> checked="checked"<?php endif; ?>/>
+              <?php _e("Use system temporary folder", $this->plugin_slug); ?>
+            </label>
+            <p class="h5p-setting-desc">
+              <?php _e("When enabled, H5P will store temporary files (such as uploads during editing) in your server's system temporary folder instead of the plugin directory. This can improve performance on servers with limited resources.", $this->plugin_slug); ?>
+            </p>
+          </td>
+        </tr>
       </tbody>
     </table>
     <?php wp_nonce_field('h5p_settings', 'save_these_settings'); ?>

@@ -495,6 +495,10 @@ class H5P_Plugin_Admin {
 
       $send_usage_statistics = filter_input(INPUT_POST, 'send_usage_statistics', FILTER_VALIDATE_BOOLEAN);
       update_option('h5p_send_usage_statistics', $send_usage_statistics);
+
+      $use_system_temp_dir = filter_input(INPUT_POST, 'use_system_temp_dir', FILTER_VALIDATE_BOOLEAN);
+      update_option('h5p_use_system_temp_dir', $use_system_temp_dir);
+
     }
     else {
       $frame = get_option('h5p_frame', TRUE);
@@ -511,6 +515,7 @@ class H5P_Plugin_Admin {
       $enable_hub = get_option('h5p_hub_is_enabled', TRUE);
 //      $site_key = get_option('h5p_site_key', get_option('h5p_h5p_site_uuid', FALSE));
       $send_usage_statistics = get_option('h5p_send_usage_statistics', TRUE);
+      $use_system_temp_dir = get_option('h5p_use_system_temp_dir', FALSE);
     }
 
     // Attach disable hub configuration

@@ -396,6 +396,7 @@ class H5P_Plugin {
     add_option('h5p_hub_is_enabled', FALSE);
     add_option('h5p_send_usage_statistics', FALSE);
     add_option('h5p_has_request_user_consent', FALSE);
+    add_option('h5p_use_system_temp_dir', FALSE);
   }
 
   /**
@@ -1734,6 +1735,7 @@ class H5P_Plugin {
     delete_option('h5p_check_h5p_requirements');
     delete_option('h5p_hub_is_enabled');
     delete_option('h5p_send_usage_statistics');
+    delete_option('h5p_use_system_temp_dir');
     delete_option('h5p_has_request_user_consent');
 
     // Clean out file dirs.
@@ -1754,6 +1756,14 @@ class H5P_Plugin {
     // Remove parent if empty.
     if (is_dir($path) && count(scandir($path)) === 2) {
       rmdir($path);
+    }
+
+    // Remove the staging dir in the system temp dir, but only if it's empty.
+    // It is shared by all sites in a network and may hold uploads in progress,
+    // and it is recreated on demand, so it must never be removed recursively.
+    $system_tmp = H5PWordPress::getSystemTmpParentPath();
+    if (is_dir($system_tmp) && count(scandir($system_tmp)) === 2) {
+      rmdir($system_tmp);
     }
   }
 
